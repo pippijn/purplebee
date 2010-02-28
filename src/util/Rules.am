@@ -1,0 +1,4 @@
+lib_LTLIBRARIES += libutil.la
+
+libutil_la_SOURCES =		\
+	src/util/xassert.cpp

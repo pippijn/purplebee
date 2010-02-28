@@ -9,11 +9,29 @@
 #include "uiops/core.h"
 #include "uiops/eventloop.h"
 #include "util/array_size.h"
-#include "util/initialisation_error.h"
+#include "util/init_error.h"
+#include "util/xassert.h"
 
 #include "perlxsi.c"
 
-PurpleBee* server;
+static PurpleBee* server_instance;
+
+void
+init_server (int argc, char* argv[], char* env[])
+{
+  xassert (!server_instance);
+  server_instance = new PurpleBee (argc, argv, env);
+  xassert (server_instance);
+  server_instance->init ();
+}
+
+PurpleBee*
+get_server_instance ()
+{
+  xassert (server_instance);
+  return server_instance;
+}
+
 
 PurpleBee::PurpleBee (int argc, char* argv[], char* env[])
   : perl_interpreter (argc, argv, env)
@@ -24,6 +42,37 @@ PurpleBee::PurpleBee (int argc, char* argv[], char* env[])
   , conversation_uiops (uiops::conversation::create ())
   , eventloop_uiops (uiops::eventloop::create ())
 {
+}
+
+PurpleBee::~PurpleBee ()
+{
+}
+
+char const*
+PurpleBee::package () const
+{
+  return "PurpleBee";
+}
+
+void
+PurpleBee::init ()
+{
+  char const *embedding[] = {
+    args.argv[0],
+    "-e", "bootstrap PurpleBee;",
+    "-e", "unshift @INC, '"DATADIR"';",
+    "-e", "require PurpleBee;",
+    0
+  };
+
+  // initialise perl
+  if (perl_parse (my_perl, xs_init, array_size (embedding) - 1, const_cast<char**> (embedding), args.env)
+      || perl_run (my_perl))
+    throw init_error ("unable to initialise perl interpreter");
+
+  if (SvTRUE (ERRSV))
+    throw init_error (SvPV_nolen (ERRSV));
+
   /* Set a custom user directory (optional) */
   purple_util_set_user_dir (dirs.user);
 
@@ -45,8 +94,8 @@ PurpleBee::PurpleBee (int argc, char* argv[], char* env[])
   /* Now that all the essential stuff has been set, let's try to init the core. It's
    * necessary to provide a non-NULL name for the current ui to the core. This name
    * is used by stuff that depends on this ui, for example the ui-specific plugins. */
-  if (!purple_core_init ("PurpleBee"))
-    throw initialisation_error ("libpurple initialisation failed");
+  if (!purple_core_init (package ()))
+    throw init_error ("libpurple initialisation failed");
 
   for (auto iter = purple_plugins_get_protocols (); iter; iter = iter->next)
     {
@@ -66,27 +115,9 @@ PurpleBee::PurpleBee (int argc, char* argv[], char* env[])
   purple_prefs_load ();
 }
 
-PurpleBee::~PurpleBee ()
-{
-}
-
 void
 PurpleBee::run ()
 {
-  char const *embedding[] = {
-    args.argv[0],
-    "-e", "bootstrap PurpleBee;",
-    "-e", "unshift @INC, '"DATADIR"';",
-    "-e", "require PurpleBee;",
-    0
-  };
-
-  if (perl_parse (my_perl, xs_init, array_size (embedding) - 1, const_cast<char**> (embedding), args.env)
-      || perl_run (my_perl))
-    throw initialisation_error ("unable to initialise perl interpreter");
-
-  if (SvTRUE (ERRSV))
-    throw initialisation_error (SvPV_nolen (ERRSV));
 }
 
 

@@ -7,6 +7,8 @@
 
 #include "perl/interpreter.h"
 
+void init_server (int argc, char* argv[], char* env[]);
+
 struct PurpleBee
   : private perl_interpreter
 {
@@ -25,7 +27,13 @@ struct PurpleBee
   PurpleBee (int argc, char* argv[], char* env[]);
   ~PurpleBee ();
 
+  char const* package () const;
+
+  void init ();
   void run ();
+
+  using perl_interpreter::call;
 };
 
-extern PurpleBee* server;
+#define server get_server_instance ()
+PurpleBee* get_server_instance ();

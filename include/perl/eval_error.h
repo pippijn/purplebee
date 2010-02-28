@@ -2,10 +2,10 @@
 
 #include <stdexcept>
 
-struct initialisation_error
+struct eval_error
   : std::runtime_error
 {
-  initialisation_error (char const* msg)
+  eval_error (char const* msg)
     : std::runtime_error (msg)
   {
   }
