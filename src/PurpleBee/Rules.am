@@ -1,6 +1,9 @@
 lib_LTLIBRARIES += libPurpleBee.la
 
-libPurpleBee_la_SOURCES =		\
+libPurpleBee_la_SOURCES =			\
+	src/PurpleBee/uiops/conversation.cpp	\
+	src/PurpleBee/uiops/core.cpp		\
+	src/PurpleBee/uiops/eventloop.cpp	\
 	src/PurpleBee/PurpleBee.xs
 
 libPurpleBee_la_LIBADD = libperlsup.la $(PERLLIB)
