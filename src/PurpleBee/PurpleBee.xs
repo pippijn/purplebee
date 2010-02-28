@@ -118,6 +118,8 @@ PurpleBee::init ()
 void
 PurpleBee::run ()
 {
+  purple_blist_uninit ();
+  purple_prefs_uninit ();
 }
 
 
