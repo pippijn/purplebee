@@ -1,18 +1,31 @@
 package PurpleBee::Ops::EventLoop;
 
 use common::sense;
+use AnyEvent;
+
+my @timeouts;
+# TODO add a second array which contains removed indexes
+# to optimise searching for free slots in @timeouts
 
 sub timeout_add {
    my ($interval, $function, $data) = @_;
    print "PurpleBee::Ops::EventLoop::timeout_add\n";
-
-   0 # guint
+   for ($handle = 0; $handle < @timeouts; $handle++) # find the next free @timeouts-index
+      if (!$timeouts[$handle]) {
+          $timeouts[$handle] = AnyEvent->timer (after => $interval, interval => $interval, cb => sub { $function->call ($data); });
+          return $handle; # guint
+      }
 }
 
 sub timeout_remove {
    my ($handle) = @_;
    print "PurpleBee::Ops::EventLoop::timeout_remove\n";
-
+   if ($timeouts[$handle]) {
+      undef $timeout[$handle];
+      return 1;
+   } else {
+      return 0;
+   }
    0 # gboolean
 }
 
