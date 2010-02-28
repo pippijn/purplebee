@@ -61,7 +61,18 @@ sub timeout_add_seconds {
    my ($interval, $function, $data) = @_;
    print "PurpleBee::Ops::EventLoop::timeout_add_seconds\n";
 
-   0 # guint
+   for my $handle (0 .. @timeouts - 1) { # find the next free @timeouts-index
+      if (!$timeouts[$handle]) {
+         $timeouts[$handle] = AnyEvent->timer (
+            after => $interval,
+            interval => $interval,
+            cb => sub {
+               timeout_remove $handle if ($function->call ($data) == 0)
+            }
+         );
+         return $handle # guint
+      }
+   }
 }
 
 
