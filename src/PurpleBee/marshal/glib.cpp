@@ -22,7 +22,7 @@ perl_interpreter::to_sv (GSList* list)
 
 template<>
 SV*
-perl_interpreter::to_sv (GSourceFunc list)
+perl_interpreter::to_sv (GSourceFunc func)
 {
   return newSViv (0);
 }
@@ -38,3 +38,5 @@ perl_interpreter::sv_to (SV* v)
 {
   return NULL;
 }
+
+// vim:ft=xs

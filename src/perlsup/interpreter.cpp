@@ -24,6 +24,18 @@ perl_interpreter::~perl_interpreter ()
   perl_free (my_perl);
 }
 
+
+SV*
+perl_interpreter::newSVptr (void* ptr, HV* stash, HV* hv)
+{
+  if (!ptr)
+    return newSV (0);
+
+  sv_magicext ((SV *)hv, 0, PERL_MAGIC_ext, 0, (char *)ptr, 0);
+  return sv_bless (newRV_noinc ((SV *)hv), stash);
+}
+
+
 void
 perl_interpreter::check_error ()
 {

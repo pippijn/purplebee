@@ -16,11 +16,12 @@ SUFFIXES = .xs
 .xs.cpp: src/PurpleBee/typemap
 	$(MKDIR_P) `dirname $@`
 	$(PERL) -MExtUtils::Embed -e xsinit -- -std PurpleBee
-	PERL="$(PERL)" srcdir="$(srcdir)"					\
+	PERL="$(PERL)" srcdir="$(srcdir)/src/PurpleBee"				\
 		$(PERL) $(PERLPRIVLIBEXP)/ExtUtils/xsubpp -C++ -csuffix .cpp	\
 			-typemap $(PERLPRIVLIBEXP)/ExtUtils/typemap		\
 			-typemap typemap					\
-			-prototypes $< > $@
+			-prototypes $< > $@					\
+		|| ($(RM) $@ && false)
 
 
 data_DATA +=				\

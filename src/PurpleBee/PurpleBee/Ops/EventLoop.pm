@@ -1,6 +1,7 @@
 package PurpleBee::Ops::EventLoop;
 
 use common::sense;
+
 use AnyEvent;
 
 my @timeouts;
@@ -9,19 +10,25 @@ my @timeouts;
 
 sub timeout_add {
    my ($interval, $function, $data) = @_;
-   print "PurpleBee::Ops::EventLoop::timeout_add\n";
-   for ($handle = 0; $handle < @timeouts; $handle++) # find the next free @timeouts-index
+   print "PurpleBee::Ops::EventLoop::timeout_add (@_)" . @_ . "\n";
+
+   for my $handle (0 .. @timeouts - 1) { # find the next free @timeouts-index
       if (!$timeouts[$handle]) {
-          $timeouts[$handle] = AnyEvent->timer (after => $interval, interval => $interval, cb => sub { $function->call ($data); });
-          return $handle; # guint
+         $timeouts[$handle] = AnyEvent->timer (
+            after => $interval,
+            interval => $interval,
+            cb => sub { $function->call ($data) }
+         );
+         return $handle
       }
+   }
 }
 
 sub timeout_remove {
    my ($handle) = @_;
    print "PurpleBee::Ops::EventLoop::timeout_remove\n";
    if ($timeouts[$handle]) {
-      undef $timeout[$handle];
+      undef $timeouts[$handle];
       return 1;
    } else {
       return 0;

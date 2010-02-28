@@ -7,6 +7,11 @@
 
 #include "perl/interpreter.h"
 
+namespace stash
+{
+  extern HV* Callback;
+}
+
 void init_server (int argc, char* argv[], char* env[]);
 
 struct PurpleBee

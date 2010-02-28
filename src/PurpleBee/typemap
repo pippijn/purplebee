@@ -1,0 +1,10 @@
+INPUT
+
+T_OBJ
+	$var = perl_interpreter::sv_to<$type> ($arg)
+
+
+OUTPUT
+
+T_OBJ
+	$arg = perl_interpreter::to_sv<$type> ($var)

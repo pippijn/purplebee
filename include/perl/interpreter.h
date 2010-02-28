@@ -10,6 +10,15 @@
 
 struct perl_interpreter
 {
+  enum type_translation
+  {
+    VOID,
+    CHAR,
+    SHORT,
+    INT,
+    PTR,
+  };
+
   struct arguments
   {
     int argc;
@@ -18,6 +27,13 @@ struct perl_interpreter
   };
 
   arguments args;
+
+  SV* newSVptr (void *ptr, HV *stash, HV *hv = newHV ());
+
+  template<typename T> SV* to_sv (T v);
+  template<typename T> T   sv_to (SV* sv);
+
+protected:
   virtual char const* package () const = 0;
 
   static PerlInterpreter *my_perl;
@@ -25,12 +41,8 @@ struct perl_interpreter
   perl_interpreter (int argc, char* argv[], char* env[]);
   ~perl_interpreter ();
 
+private:
   void check_error ();
-
-  template<typename T>
-  static SV* to_sv (T v);
-  template<typename T>
-  static T sv_to (SV* sv);
 
   void push_arguments (SV** sp)
   {
@@ -45,9 +57,11 @@ struct perl_interpreter
 
   int method_call (char const* method, int flags);
 
+public:
   template<typename R, typename... Args>
   R call (char const* method, Args const&... args)
   {
+    printf ("calling %s with %d arguments\n", method, sizeof... args);
     CALL_BEGIN (sizeof... args);
     push_arguments (SP, args...);
     CALL_CALL (method, G_SCALAR);

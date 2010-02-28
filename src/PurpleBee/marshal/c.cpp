@@ -78,3 +78,5 @@ void
 perl_interpreter::sv_to (SV* v)
 {
 }
+
+// vim:ft=xs

@@ -16,6 +16,11 @@
 
 static PurpleBee* server_instance;
 
+namespace stash
+{
+  HV* Callback;
+}
+
 void
 init_server (int argc, char* argv[], char* env[])
 {
@@ -46,6 +51,9 @@ PurpleBee::PurpleBee (int argc, char* argv[], char* env[])
 
 PurpleBee::~PurpleBee ()
 {
+  purple_blist_uninit ();
+  purple_prefs_uninit ();
+  purple_core_quit ();
 }
 
 char const*
@@ -118,8 +126,7 @@ PurpleBee::init ()
 void
 PurpleBee::run ()
 {
-  purple_blist_uninit ();
-  purple_prefs_uninit ();
+  call<void> ("main");
 }
 
 
@@ -127,4 +134,7 @@ MODULE = PurpleBee      PACKAGE = PurpleBee
 
 BOOT:
 {
+    stash::Callback = gv_stashpv ("PurpleBee::Callback" , 1);
 }
+
+INCLUDE: PurpleBee/Callback.xs
