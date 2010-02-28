@@ -1,9 +1,11 @@
-AC_PREREQ(2.61)
-AC_INIT([PurpleBee], [0.1], [purplebee@xinutec.org])
+AC_PREREQ(2.65)
+AC_INIT([PurpleBee],[0.1],[purplebee@xinutec.org])
 AC_CONFIG_AUX_DIR(autoconf)
 AC_CONFIG_SRCDIR(autoconf.h.in)
 AC_CONFIG_MACRO_DIR(m4)
 AC_CONFIG_HEADERS(autoconf.h)
+
+AC_LANG(C++)
 
 # automake
 LT_INIT
@@ -15,6 +17,62 @@ AM_DEFAULT_VERBOSITY=0
 AC_PROG_CC
 AC_PROG_CXX
 AM_PROG_CC_C_O
+
+AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
+
+AC_MSG_CHECKING(purple >= 0.22)
+if $PKG_CONFIG purple --atleast-version 0.22; then
+   CXXFLAGS="$CXXFLAGS `$PKG_CONFIG purple --cflags`"
+   LIBS="$LIBS `$PKG_CONFIG purple --libs`"
+   AC_MSG_RESULT(ok)
+else
+   AC_MSG_ERROR(no)
+fi
+
+AC_PATH_PROG(PERL, perl5.10.1)
+if test -z "$PERL"; then
+   AC_PATH_PROG(PERL, perl5.10.0)
+   if test -z "$PERL"; then
+      AC_PATH_PROG(PERL, perl)
+      if test -z "$PERL"; then
+         AC_MSG_ERROR([perl 5.10 or higher must be in your PATH, check the README])
+      fi
+   fi
+fi
+
+AC_MSG_CHECKING(for $PERL suitability)
+if $PERL -MExtUtils::Embed -e "use 5.10.0" >/dev/null 2>&1; then
+  save_CXXFLAGS="$CXXFLAGS"
+  save_LIBS="$LIBS"
+  xPERLFLAGS="`$PERL -MExtUtils::Embed -e ccopts`"
+  CXXFLAGS="$CXXFLAGS $xPERLFLAGS"
+  LIBS="$LIBS `$PERL -MExtUtils::Embed -e ldopts`"
+  AC_LINK_IFELSE([AC_LANG_PROGRAM([[
+#include <EXTERN.h>
+#include <perl.h>
+#include <XSUB.h>
+]], [[
+  PerlInterpreter *perl = perl_alloc ();
+]])],[perl_link=yes],[perl_link=no])
+  CXXFLAGS="$save_CXXFLAGS"
+  LIBS="$save_LIBS"
+
+  if test x$perl_link = xyes; then
+     AC_MSG_RESULT(ok)
+     PERLFLAGS="$xPERLFLAGS"
+     PERLLIB="`$PERL -MExtUtils::Embed -e ldopts`"
+     PERLPRIVLIBEXP="`$PERL -MConfig -e 'print $Config{privlibexp}'`"
+     CPPFLAGS="$CPPFLAGS $PERLFLAGS"
+  else
+     AC_MSG_ERROR([no, unable to link test program])
+  fi
+else
+  AC_MSG_ERROR([no working perl found, or perl not version >= 5.10])
+fi
+AC_SUBST(PERLLIB)
+AC_SUBST(PERLFLAGS)
+AC_SUBST(PERLPRIVLIBEXP)
+AC_SUBST(PERL)
 
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT

@@ -3,6 +3,7 @@ ACLOCAL_AMFLAGS		= -I m4
 
 lib_LTLIBRARIES		= # empty
 bin_PROGRAMS		= # empty
+data_DATA		= # empty
 
 BUILT_SOURCES		= # empty
 
@@ -25,6 +26,8 @@ WARNINGS		= # empty
 
 AM_CFLAGS		= $(OPTFLAGS) $(WARNINGS)
 AM_CXXFLAGS		= $(OPTFLAGS) $(WARNINGS)
+AM_CPPFLAGS		= -I$(srcdir)/include -I$(builddir)/include -DDATADIR='"$(datadir)"'
+AM_LDFLAGS		= -Wl,-z,defs,-z,noexecstack,-z,now
 
 include src/Rules.am
 
