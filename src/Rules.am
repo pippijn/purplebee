@@ -1,2 +1,3 @@
+include src/PurpleBee/Rules.am
 include src/perlsup/Rules.am
 include src/server/Rules.am

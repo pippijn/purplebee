@@ -1,11 +1,12 @@
-#include "perl/interpreter.h"
+#include "PurpleBee.h"
 
 extern char** environ;
 
 int
 main (int argc, char* argv[])
 {
-  perl_interpreter perl (argc, argv, environ);
+  PurpleBee bee (argc, argv, environ);
+  bee.run ();
 
   return 0;
 }

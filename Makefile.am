@@ -25,9 +25,29 @@ WARNINGS		= # empty
 #WARNINGS		+= -Werror
 
 AM_CFLAGS		= $(OPTFLAGS) $(WARNINGS)
-AM_CXXFLAGS		= $(OPTFLAGS) $(WARNINGS)
-AM_CPPFLAGS		= -I$(srcdir)/include -I$(builddir)/include -DDATADIR='"$(datadir)"'
+AM_CXXFLAGS		= $(OPTFLAGS) $(WARNINGS) -std=c++0x
+AM_CPPFLAGS		= -I$(srcdir)/include -I$(builddir)/include -include autoconf.h
 AM_LDFLAGS		= -Wl,-z,defs,-z,noexecstack,-z,now
+
+AM_CPPFLAGS		+= -DBINDIR='"$(bindir)"'
+AM_CPPFLAGS		+= -DSBINDIR='"$(sbindir)"'
+AM_CPPFLAGS		+= -DLIBEXECDIR='"$(libexecdir)"'
+AM_CPPFLAGS		+= -DDATAROOTDIR='"$(datarootdir)"'
+AM_CPPFLAGS		+= -DDATADIR='"$(datadir)"'
+AM_CPPFLAGS		+= -DSYSCONFDIR='"$(sysconfdir)"'
+AM_CPPFLAGS		+= -DSHAREDSTATEDIR='"$(sharedstatedir)"'
+AM_CPPFLAGS		+= -DLOCALSTATEDIR='"$(localstatedir)"'
+AM_CPPFLAGS		+= -DINCLUDEDIR='"$(includedir)"'
+AM_CPPFLAGS		+= -DOLDINCLUDEDIR='"$(oldincludedir)"'
+AM_CPPFLAGS		+= -DDOCDIR='"$(docdir)"'
+AM_CPPFLAGS		+= -DINFODIR='"$(infodir)"'
+AM_CPPFLAGS		+= -DHTMLDIR='"$(htmldir)"'
+AM_CPPFLAGS		+= -DDVIDIR='"$(dvidir)"'
+AM_CPPFLAGS		+= -DPDFDIR='"$(pdfdir)"'
+AM_CPPFLAGS		+= -DPSDIR='"$(psdir)"'
+AM_CPPFLAGS		+= -DLIBDIR='"$(libdir)"'
+AM_CPPFLAGS		+= -DLOCALEDIR='"$(localedir)"'
+AM_CPPFLAGS		+= -DMANDIR='"$(mandir)"'
 
 include src/Rules.am
 

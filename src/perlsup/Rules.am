@@ -1,22 +1,6 @@
 lib_LTLIBRARIES += libperlsup.la
 
 libperlsup_la_SOURCES =			\
-	src/perlsup/PurpleBee.xs	\
 	src/perlsup/interpreter.cpp
 
 libperlsup_la_LIBADD = $(PERLLIB)
-
-SUFFIXES = .xs
-
-.xs.cpp: src/perlsup/typemap
-	$(MKDIR_P) `dirname $@`
-	$(PERL) -MExtUtils::Embed -e xsinit -- -std PurpleBee
-	PERL="$(PERL)" srcdir="$(srcdir)"					\
-		$(PERL) $(PERLPRIVLIBEXP)/ExtUtils/xsubpp -C++ -csuffix .cpp	\
-			-typemap $(PERLPRIVLIBEXP)/ExtUtils/typemap		\
-			-typemap typemap					\
-			-prototypes $< > $@
-
-
-data_DATA +=				\
-	src/perlsup/PurpleBee.pm

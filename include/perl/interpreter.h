@@ -5,6 +5,15 @@
 
 struct perl_interpreter
 {
+  struct arguments
+  {
+    int argc;
+    char** argv;
+    char** env;
+  };
+
+  arguments args;
+
   PerlInterpreter *my_perl;
 
   perl_interpreter (int argc, char* argv[], char* env[]);
