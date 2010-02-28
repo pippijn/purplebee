@@ -26,5 +26,7 @@ WARNINGS		= # empty
 AM_CFLAGS		= $(OPTFLAGS) $(WARNINGS)
 AM_CXXFLAGS		= $(OPTFLAGS) $(WARNINGS)
 
+include src/Rules.am
+
 -include prepare
 prepare:	
