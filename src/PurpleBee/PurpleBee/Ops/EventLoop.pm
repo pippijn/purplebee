@@ -9,15 +9,14 @@ my @timeouts;
 # to optimise searching for free slots in @timeouts
 
 sub timeout_add {
-   my ($interval, $function, $data) = @_;
-   print "PurpleBee::Ops::EventLoop::timeout_add (@_)" . @_ . "\n";
+   my ($interval, $callback) = @_;
 
    for my $handle (0 .. @timeouts - 1) { # find the next free @timeouts-index
       if (!$timeouts[$handle]) {
          $timeouts[$handle] = AnyEvent->timer (
             after => $interval,
             interval => $interval,
-            cb => sub { $function->call ($data) }
+            cb => sub { $callback->call () }
          );
          return $handle
       }
@@ -26,13 +25,11 @@ sub timeout_add {
 
 sub timeout_remove {
    my ($handle) = @_;
-   print "PurpleBee::Ops::EventLoop::timeout_remove\n";
    if ($timeouts[$handle]) {
       undef $timeouts[$handle];
-      return 1;
-   } else {
-      return 0;
+      return 1
    }
+
    0 # gboolean
 }
 
@@ -67,7 +64,8 @@ sub timeout_add_seconds {
             after => $interval,
             interval => $interval,
             cb => sub {
-               timeout_remove $handle if ($function->call ($data) == 0)
+               timeout_remove $handle
+                  if ($function->call () == 0)
             }
          );
          return $handle # guint

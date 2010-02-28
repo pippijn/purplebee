@@ -28,7 +28,9 @@ struct perl_interpreter
 
   arguments args;
 
-  SV* newSVptr (void *ptr, HV *stash, HV *hv = newHV ());
+  SV* newSVptr (void *ptr, SV *sv = newSV (0), HV *stash = 0);
+  SV* newSVptr (void *ptr, HV *hv,             HV *stash = 0);
+  SV* newSVptr (void *ptr, AV *av,             HV *stash = 0);
 
   template<typename T> SV* to_sv (T v);
   template<typename T> T   sv_to (SV* sv);
@@ -49,7 +51,7 @@ private:
   }
 
   template<typename T, typename... Args>
-  void push_arguments (SV** sp, T const& v, Args const&... args)
+  void push_arguments (SV**& sp, T const& v, Args const&... args)
   {
     CALL_ARG (v);
     push_arguments (sp, args...);
@@ -61,7 +63,6 @@ public:
   template<typename R, typename... Args>
   R call (char const* method, Args const&... args)
   {
-    printf ("calling %s with %d arguments\n", method, sizeof... args);
     CALL_BEGIN (sizeof... args);
     push_arguments (SP, args...);
     CALL_CALL (method, G_SCALAR);

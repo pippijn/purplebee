@@ -26,13 +26,43 @@ perl_interpreter::~perl_interpreter ()
 
 
 SV*
-perl_interpreter::newSVptr (void* ptr, HV* stash, HV* hv)
+perl_interpreter::newSVptr (void* ptr, SV* sv, HV* stash)
 {
   if (!ptr)
     return newSV (0);
 
-  sv_magicext ((SV *)hv, 0, PERL_MAGIC_ext, 0, (char *)ptr, 0);
-  return sv_bless (newRV_noinc ((SV *)hv), stash);
+  sv_magicext (sv, 0, PERL_MAGIC_ext, 0, (char*)ptr, 0);
+  if (stash)
+    sv = sv_bless (sv, stash);
+  return sv;
+}
+
+SV*
+perl_interpreter::newSVptr (void* ptr, HV* hv, HV* stash)
+{
+  SV* sv = (SV*)hv;
+  if (!ptr)
+    return newSV (0);
+
+  sv_magicext (sv, 0, PERL_MAGIC_ext, 0, (char*)ptr, 0);
+  sv = newRV_noinc (sv);
+  if (stash)
+    sv = sv_bless (sv, stash);
+  return sv;
+}
+
+SV*
+perl_interpreter::newSVptr (void* ptr, AV* av, HV* stash)
+{
+  SV* sv = (SV*)av;
+  if (!ptr)
+    return newSV (0);
+
+  sv_magicext (sv, 0, PERL_MAGIC_ext, 0, (char*)ptr, 0);
+  sv = newRV_noinc (sv);
+  if (stash)
+    sv = sv_bless (sv, stash);
+  return sv;
 }
 
 

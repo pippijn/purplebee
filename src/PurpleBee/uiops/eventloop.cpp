@@ -1,3 +1,5 @@
+#include <tuple>
+
 #include "uiops/eventloop.h"
 #include "PurpleBee.h"
 
@@ -8,7 +10,8 @@ namespace uiops
   guint
   eventloop::timeout_add (guint interval, GSourceFunc function, gpointer data)
   {
-    return server->call<guint> (OPS "timeout_add", interval, function, data);
+    //printf ("eventloop::timeout_add (%d, %p, %p)\n", interval, function, data);
+    return server->call<guint> (OPS "timeout_add", interval, std::make_tuple (function, data));
   }
 
   gboolean
@@ -20,7 +23,7 @@ namespace uiops
   guint
   eventloop::input_add (int fd, PurpleInputCondition cond, PurpleInputFunction func, gpointer user_data)
   {
-    return server->call<guint> (OPS "input_add", fd, cond, func, user_data);
+    return server->call<guint> (OPS "input_add", fd, cond, std::make_tuple (func, user_data, fd, cond));
   }
 
   gboolean
@@ -38,7 +41,7 @@ namespace uiops
   guint
   eventloop::timeout_add_seconds (guint interval, GSourceFunc function, gpointer data)
   {
-    return server->call<guint> (OPS "timeout_add_seconds", interval, function, data);
+    return server->call<guint> (OPS "timeout_add_seconds", interval, std::make_tuple (function, data));
   }
 
   PurpleEventLoopUiOps

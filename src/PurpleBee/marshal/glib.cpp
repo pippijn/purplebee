@@ -1,6 +1,6 @@
-#include <glib.h>
+#include <tuple>
 
-#include "perl/interpreter.h"
+#include "PurpleBee.h"
 
 /*
  * T -> SV*
@@ -22,9 +22,18 @@ perl_interpreter::to_sv (GSList* list)
 
 template<>
 SV*
-perl_interpreter::to_sv (GSourceFunc func)
+perl_interpreter::to_sv (std::tuple<GSourceFunc, gpointer> closure)
 {
-  return newSViv (0);
+  HV* hv = newHV ();
+
+  // return value
+  hv_store (hv, "R", 1, newSViv (INT), 0);
+  // argument types
+  hv_store (hv, "T1", 2, newSViv (PTR), 0);
+  // arguments
+  hv_store (hv, "A1", 2, newSVptr (std::get<1> (closure)), 0);
+
+  return newSVptr (reinterpret_cast<void*> (std::get<0> (closure)), hv, stash::Callback);
 }
 
 
