@@ -2,6 +2,7 @@ lib_LTLIBRARIES += libPurpleBee.la
 
 libPurpleBee_la_SOURCES =			\
 	src/PurpleBee/marshal/c.cpp		\
+	src/PurpleBee/marshal/numeric.cpp	\
 	src/PurpleBee/marshal/glib.cpp		\
 	src/PurpleBee/marshal/purple.cpp	\
 	src/PurpleBee/uiops/account.cpp		\
