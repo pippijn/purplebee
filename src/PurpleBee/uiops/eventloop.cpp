@@ -1,7 +1,7 @@
 #include <tuple>
 
-#include "uiops/eventloop.h"
 #include "PurpleBee.h"
+#include "uiops/eventloop.h"
 
 #define OPS "Ops::EventLoop::"
 

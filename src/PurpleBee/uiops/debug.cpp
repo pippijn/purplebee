@@ -1,19 +1,22 @@
-#include "uiops/debug.h"
 #include "PurpleBee.h"
+#include "uiops/debug.h"
 
 #define OPS "Ops::Debug::"
 
-namespace debug
+namespace uiops
 {
-  PurpleCoreUiOps
+  void
+  debug::print (PurpleDebugLevel level, const char* category, const char* arg_s)
+  {
+  }
+
+  gboolean
+  debug::is_enabled (PurpleDebugLevel level, const char* category)
+  {
+  }
+
+  PurpleDebugUiOps
   debug::create ()
   {
-    return {
-      ui_prefs_init,
-      debug_ui_init,
-      ui_init,
-      quit,
-      get_ui_info,
-    };
   }
 }

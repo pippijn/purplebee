@@ -1,5 +1,5 @@
-#include "uiops/core.h"
 #include "PurpleBee.h"
+#include "uiops/core.h"
 
 #define OPS "Ops::Core::"
 
