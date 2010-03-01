@@ -19,21 +19,21 @@ my @timeouts;
 #
 # @param interval      The time between calls of the function, in
 #                      milliseconds.
-# @param function      The function to call.
-# @param data          data to pass to @a function.
+# @param callback      The function closure to call.
 # @return A handle to the timer which can be passed to
 #         purple_timeout_remove() to remove the timer.
 #
 
 sub timeout_add {
    my ($interval, $callback) = @_;
+   print "PurpleBee::Ops::EventLoop::timeout_add\n";
 
    for my $handle (0 .. @timeouts - 1) { # find the next free @timeouts-index
       if (!$timeouts[$handle]) {
          $timeouts[$handle] = AnyEvent->timer (
-            after => $interval,
-            interval => $interval,
-            cb => sub { $callback->call () }
+            after 	=> $interval / 1000,
+            interval 	=> $interval / 1000,
+            cb 		=> sub { $callback->call },
          );
          return $handle
       }
@@ -49,6 +49,8 @@ sub timeout_add {
 
 sub timeout_remove {
    my ($handle) = @_;
+   print "PurpleBee::Ops::EventLoop::timeout_remove\n";
+
    if ($timeouts[$handle]) {
       undef $timeouts[$handle];
       return 1
@@ -117,9 +119,8 @@ sub input_get_error {
 # this reason, @a interval may be rounded by up to a second.
 #
 # @param interval	The time between calls of the function, in
-#                      seconds.
-# @param function	The function to call.
-# @param data		data to pass to @a function.
+#                       seconds.
+# @param callback       The function closure to call.
 # @return A handle to the timer which can be passed to
 #         purple_timeout_remove() to remove the timer.
 #
@@ -132,12 +133,12 @@ sub timeout_add_seconds {
    for my $handle (0 .. @timeouts - 1) { # find the next free @timeouts-index
       if (!$timeouts[$handle]) {
          $timeouts[$handle] = AnyEvent->timer (
-            after => $interval,
-            interval => $interval,
+            after 	=> $interval,
+            interval 	=> $interval,
             cb => sub {
                timeout_remove $handle
-                  if ($function->call () == 0)
-            }
+                  if ($function->call == 0)
+            },
          );
          return $handle # guint
       }

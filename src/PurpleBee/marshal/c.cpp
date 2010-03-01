@@ -8,7 +8,7 @@ template<>
 SV*
 perl_interpreter::to_sv (void* v)
 {
-  return newSViv (0);
+  return newSVptr (v);
 }
 
 template<>

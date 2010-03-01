@@ -129,6 +129,7 @@ PurpleBee::run ()
   call<void> ("main");
 }
 
+#include "PurpleBee/Callback.h"
 
 MODULE = PurpleBee      PACKAGE = PurpleBee
 

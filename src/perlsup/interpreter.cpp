@@ -32,6 +32,8 @@ perl_interpreter::newSVptr (void* ptr, SV* sv, HV* stash)
     return newSV (0);
 
   sv_magicext (sv, 0, PERL_MAGIC_ext, 0, (char*)ptr, 0);
+  if (!SvROK (sv))
+    sv = newRV_noinc (sv);
   if (stash)
     sv = sv_bless (sv, stash);
   return sv;
@@ -63,6 +65,22 @@ perl_interpreter::newSVptr (void* ptr, AV* av, HV* stash)
   if (stash)
     sv = sv_bless (sv, stash);
   return sv;
+}
+
+
+void*
+perl_interpreter::SvPTR (SV* sv)
+{
+  sv = SvRV (sv);
+
+  // very important shortcut
+  if (SvMAGIC (sv) && SvMAGIC (sv)->mg_type == PERL_MAGIC_ext)
+    return SvMAGIC (sv)->mg_ptr;
+
+  if (MAGIC* mg = mg_find (sv, PERL_MAGIC_ext))
+    return mg->mg_ptr;
+
+  croak ("perl code used object, but C object is already destroyed, caught");
 }
 
 
