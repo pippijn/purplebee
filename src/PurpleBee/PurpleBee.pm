@@ -24,6 +24,7 @@ our $runcb = AnyEvent->condvar;
 
 sub main {
    my $timer = AnyEvent->timer (after => 10, cb => sub { $runcb->broadcast });
+   printf "Running libpurple %s (single instance = %d)\n", purple_core_get_version, purple_core_ensure_single_instance;
    $runcb->wait;
 }
 
