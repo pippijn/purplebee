@@ -1,7 +1,7 @@
 #pragma once
 
 #include "perl/interpreter.h"
-#include "util/callback.h"
+#include "util/closure.h"
 
 template<typename R, typename... Args>
 struct perl_operation
