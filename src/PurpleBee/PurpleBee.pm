@@ -7,10 +7,10 @@ use PurpleBee::Ops::Conversation;
 use PurpleBee::Ops::Core;
 use PurpleBee::Ops::EventLoop;
 
-our $runcb;
+our $runcb = AnyEvent->condvar;
 
 sub main {
-   #$runcb
+   $runcb->wait
 }
 
 1

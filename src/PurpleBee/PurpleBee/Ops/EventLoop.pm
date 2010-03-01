@@ -26,14 +26,14 @@ my @timeouts;
 
 sub timeout_add {
    my ($interval, $callback) = @_;
-   print "PurpleBee::Ops::EventLoop::timeout_add\n";
+   print "PurpleBee::Ops::EventLoop::timeout_add (@_)\n";
 
    for my $handle (0 .. @timeouts - 1) { # find the next free @timeouts-index
       if (!$timeouts[$handle]) {
          $timeouts[$handle] = AnyEvent->timer (
             after       => $interval / 1000,
             interval    => $interval / 1000,
-            cb          => sub { $callback->call },
+            cb          => sub { print "calling $callback\n"; $callback->call },
          );
          return $handle
       }
@@ -152,7 +152,7 @@ sub input_get_error {
 # @since 2.1.0
 
 sub timeout_add_seconds {
-   my ($interval, $function, $data) = @_;
+   my ($interval, $callback) = @_;
    print "PurpleBee::Ops::EventLoop::timeout_add_seconds\n";
 
    for my $handle (0 .. @timeouts - 1) { # find the next free @timeouts-index
@@ -161,8 +161,9 @@ sub timeout_add_seconds {
             after       => $interval,
             interval    => $interval,
             cb          => sub {
+               print "calling $callback\n";
                timeout_remove $handle
-                  if ($function->call == 0)
+                  if ($callback->call == 0)
             },
          );
          return $handle # guint
