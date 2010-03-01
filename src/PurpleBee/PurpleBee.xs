@@ -5,9 +5,26 @@
 #include <purple.h>
 
 #include "PurpleBee.h"
+#include "PurpleBee/stash.h"
+#include "uiops/core.h"
+#include "uiops/conversation.h"
+#include "uiops/eventloop.h"
+#include "uiops/account.h"
+#include "uiops/blist.h"
+#include "uiops/connection.h"
 #include "uiops/conversation.h"
 #include "uiops/core.h"
+#include "uiops/debug.h"
+#include "uiops/dnsquery.h"
 #include "uiops/eventloop.h"
+#include "uiops/idle.h"
+#include "uiops/notify.h"
+#include "uiops/privacy.h"
+#include "uiops/request.h"
+#include "uiops/roomlist.h"
+#include "uiops/sound.h"
+#include "uiops/whiteboard.h"
+#include "uiops/xfer.h"
 #include "util/array_size.h"
 #include "util/init_error.h"
 #include "util/xassert.h"
@@ -16,13 +33,6 @@
 
 static PurpleBee* server_instance;
 static char const* UI_ID;
-
-namespace stash
-{
-  HV* Callback;
-  HV* PurpleBee;
-  HV* PurpleBee_Account;
-}
 
 void
 init_server (int argc, char* argv[], char* env[])
@@ -54,9 +64,22 @@ PurpleBee::PurpleBee (int argc, char* argv[], char* env[])
   , dirs {
       LOCALSTATEDIR "/pippijn"
     }
-  , core_uiops (uiops::core::create ())
-  , conversation_uiops (uiops::conversation::create ())
-  , eventloop_uiops (uiops::eventloop::create ())
+  , account_ops (uiops::account::create ())
+  , blist_ops (uiops::blist::create ())
+  , connection_ops (uiops::connection::create ())
+  , conversation_ops (uiops::conversation::create ())
+  , core_ops (uiops::core::create ())
+  , debug_ops (uiops::debug::create ())
+  , dnsquery_ops (uiops::dnsquery::create ())
+  , eventloop_ops (uiops::eventloop::create ())
+  , idle_ops (uiops::idle::create ())
+  , notify_ops (uiops::notify::create ())
+  , privacy_ops (uiops::privacy::create ())
+  , request_ops (uiops::request::create ())
+  , roomlist_ops (uiops::roomlist::create ())
+  , sound_ops (uiops::sound::create ())
+  , whiteboard_ops (uiops::whiteboard::create ())
+  , xfer_ops (uiops::xfer::create ())
 {
 }
 
@@ -101,17 +124,22 @@ PurpleBee::init ()
   purple_debug_set_enabled (true);
   purple_debug_set_enabled (false);
 
-  /* Set the core-uiops, which is used to
-   *      - initialise the ui specific preferences.
-   *      - initialise the debug ui.
-   *      - initialise the ui components for all the modules.
-   *      - uninitialise the ui components for all the modules when the core terminates.
-   */
-  purple_core_set_ui_ops (&core_uiops);
-
-  /* Set the uiops for the eventloop. If your client is glib-based, you can safely
-   * copy this verbatim. */
-  purple_eventloop_set_ui_ops (&eventloop_uiops);
+  purple_accounts_set_ui_ops (&account_ops);
+  purple_blist_set_ui_ops (&blist_ops);
+  purple_connections_set_ui_ops (&connection_ops);
+  purple_conversations_set_ui_ops (&conversation_ops);
+  purple_core_set_ui_ops (&core_ops);
+  purple_debug_set_ui_ops (&debug_ops);
+  purple_dnsquery_set_ui_ops (&dnsquery_ops);
+  purple_eventloop_set_ui_ops (&eventloop_ops);
+  purple_idle_set_ui_ops (&idle_ops);
+  purple_notify_set_ui_ops (&notify_ops);
+  purple_privacy_set_ui_ops (&privacy_ops);
+  purple_request_set_ui_ops (&request_ops);
+  purple_roomlist_set_ui_ops (&roomlist_ops);
+  purple_sound_set_ui_ops (&sound_ops);
+  purple_whiteboard_set_ui_ops (&whiteboard_ops);
+  purple_xfers_set_ui_ops (&xfer_ops);
 
   /* Now that all the essential stuff has been set, let's try to init the core. It's
    * necessary to provide a non-NULL name for the current ui to the core. This name

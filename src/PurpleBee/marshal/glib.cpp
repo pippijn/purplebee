@@ -1,6 +1,7 @@
 #include <tuple>
 
 #include "PurpleBee.h"
+#include "PurpleBee/stash.h"
 #include "perl/callback.h"
 
 /*

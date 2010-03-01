@@ -41,6 +41,14 @@ perl_interpreter::to_sv (long v)
 
 template<>
 SV*
+perl_interpreter::to_sv (char* v)
+{
+  STRLEN len = 0;
+  return newSVpv (v, len);
+}
+
+template<>
+SV*
 perl_interpreter::to_sv (char const* v)
 {
   STRLEN len = 0;
@@ -52,6 +60,27 @@ SV*
 perl_interpreter::to_sv (unsigned char const* v)
 {
   return to_sv (reinterpret_cast<char const*> (v));
+}
+
+template<>
+SV*
+perl_interpreter::to_sv (char const** v)
+{
+  return newSViv (0);
+}
+
+template<>
+SV*
+perl_interpreter::to_sv (unsigned char** v)
+{
+  return newSViv (0);
+}
+
+template<>
+SV*
+perl_interpreter::to_sv (double v)
+{
+  return newSVnv (v);
 }
 
 
@@ -71,6 +100,20 @@ unsigned int
 perl_interpreter::sv_to (SV* v)
 {
   return SvUV (v);
+}
+
+template<>
+long
+perl_interpreter::sv_to (SV* v)
+{
+  return SvIV (v);
+}
+
+template<>
+void*
+perl_interpreter::sv_to (SV* v)
+{
+  return NULL;
 }
 
 template<>

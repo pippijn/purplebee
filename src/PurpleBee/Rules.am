@@ -20,7 +20,8 @@ libPurpleBee_la_SOURCES =			\
 	src/PurpleBee/uiops/sound.cpp		\
 	src/PurpleBee/uiops/whiteboard.cpp	\
 	src/PurpleBee/uiops/xfer.cpp		\
-	src/PurpleBee/PurpleBee.xs
+	src/PurpleBee/PurpleBee.xs		\
+	src/PurpleBee/stash.cpp
 
 libPurpleBee_la_LIBADD = libutil.la libperlsup.la $(PERLLIB)
 

@@ -8,10 +8,14 @@ namespace uiops
   time_t
   idle::get_time_idle (void)
   {
+    return server->call<time_t> (OPS "get_time_idle");
   }
 
   PurpleIdleUiOps
   idle::create ()
   {
+    return {
+      get_time_idle,
+    };
   }
 }

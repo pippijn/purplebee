@@ -7,13 +7,6 @@
 
 #include "perl/interpreter.h"
 
-namespace stash
-{
-  extern HV* Callback;
-  extern HV* PurpleBee;
-  extern HV* PurpleBee_Account;
-}
-
 struct PurpleBee
   : private perl_interpreter
 {
@@ -25,10 +18,22 @@ struct PurpleBee
   directories dirs;
   std::vector<std::string> protocols;
 
-  PurpleBlistUiOps blist_uiops;
-  PurpleCoreUiOps core_uiops;
-  PurpleConversationUiOps conversation_uiops;
-  PurpleEventLoopUiOps eventloop_uiops;
+  PurpleAccountUiOps account_ops;
+  PurpleBlistUiOps blist_ops;
+  PurpleConnectionUiOps connection_ops;
+  PurpleConversationUiOps conversation_ops;
+  PurpleCoreUiOps core_ops;
+  PurpleDebugUiOps debug_ops;
+  PurpleDnsQueryUiOps dnsquery_ops;
+  PurpleEventLoopUiOps eventloop_ops;
+  PurpleIdleUiOps idle_ops;
+  PurpleNotifyUiOps notify_ops;
+  PurplePrivacyUiOps privacy_ops;
+  PurpleRequestUiOps request_ops;
+  PurpleRoomlistUiOps roomlist_ops;
+  PurpleSoundUiOps sound_ops;
+  PurpleWhiteboardUiOps whiteboard_ops;
+  PurpleXferUiOps xfer_ops;
 
   PurpleBee (int argc, char* argv[], char* env[]);
   ~PurpleBee ();

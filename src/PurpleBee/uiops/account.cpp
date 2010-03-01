@@ -1,3 +1,5 @@
+#include <tuple>
+
 #include "PurpleBee.h"
 #include "uiops/account.h"
 
@@ -20,13 +22,13 @@ namespace uiops
   void
   account::request_add (PurpleAccount* account, const char* remote_user, const char* id, const char* alias, const char* message)
   {
-    return server->call<void> (OPS "request_add", account, status);
+    return server->call<void> (OPS "request_add", account, remote_user, id, alias, message);
   }
 
   void*
   account::request_authorize (PurpleAccount* account, const char* remote_user, const char* id, const char* alias, const char* message, gboolean on_list, PurpleAccountRequestAuthorizationCb authorize_cb, PurpleAccountRequestAuthorizationCb deny_cb, void* user_data)
   {
-    return server->call<void> (OPS "request_authorize", account, remote_user, id, alias, message, on_list, authorize_cb, deny_cb, user_data);
+    return server->call<void*> (OPS "request_authorize", account, remote_user, id, alias, message, on_list, std::make_tuple (authorize_cb, user_data), std::make_tuple (deny_cb, user_data), user_data);
   }
 
   void
@@ -38,5 +40,12 @@ namespace uiops
   PurpleAccountUiOps
   account::create ()
   {
+    return {
+      notify_added,
+      status_changed,
+      request_add,
+      request_authorize,
+      close_account_request,
+    };
   }
 }
