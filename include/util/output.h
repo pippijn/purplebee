@@ -21,9 +21,8 @@ output (T const* object, std::ostream& os = std::cout)
     os << "NULL";
 }
 
-template<>
-inline void
-output (char const* object, std::ostream& os)
+static inline void
+output (char const* object, std::ostream& os = std::cout)
 {
   if (object)
     os << '"' << object << '"';
@@ -80,6 +79,17 @@ namespace detail
 
   template<size_t Max>
   struct tuple_formatter<0, Max>
+  {
+    template<typename... Args>
+    static void output (std::tuple<Args...> const& tuple, std::ostream& os)
+    {
+      os << std::get<0> (tuple);
+      tuple_formatter<1, Max>::output (tuple, os);
+    }
+  };
+
+  template<>
+  struct tuple_formatter<0, 1>
   {
     template<typename... Args>
     static void output (std::tuple<Args...> const& tuple, std::ostream& os)
