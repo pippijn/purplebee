@@ -54,7 +54,7 @@ call_function (std::tuple<F, A...> closure)
 }
 
 template<template<typename, typename...> class O, typename R, typename... Args>
-struct typed_callback;
+struct typed_closure;
 
 template<typename T, template<typename, typename...> class O>
 struct closure
@@ -65,12 +65,12 @@ struct closure
   static closure* create (typename O<R, Args...>::user_data_type& user_data,
                           std::tuple<R, Args...> const& closure)
   {
-    return new typed_callback<O, R, Args...> (user_data, closure);
+    return new typed_closure<O, R, Args...> (user_data, closure);
   }
 };
 
 template<template<typename, typename...> class O, typename R, typename... Args>
-struct typed_callback_base
+struct typed_closure_base
   : closure<typename O<R, Args...>::return_type, O>
 {
   typedef std::tuple<R, Args...>                        closure_type;
@@ -81,7 +81,7 @@ struct typed_callback_base
   user_data_type& user_data;
   closure_type closure;
 
-  typed_callback_base (user_data_type& data, closure_type const& clos)
+  typed_closure_base (user_data_type& data, closure_type const& clos)
     : user_data (data)
     , closure (clos)
   {
@@ -89,16 +89,16 @@ struct typed_callback_base
 };
 
 template<template<typename, typename...> class O, typename R, typename... Args>
-struct typed_callback
-  : typed_callback_base<O, R, Args...>
+struct typed_closure
+  : typed_closure_base<O, R, Args...>
 {
-  typedef typed_callback_base<O, R, Args...>            base_type;
+  typedef typed_closure_base<O, R, Args...>             base_type;
   typedef typename base_type::closure_type              closure_type;
   typedef typename base_type::user_data_type            user_data_type;
   typedef typename base_type::return_type               return_type;
   typedef typename base_type::operation_type            operation_type;
 
-  typed_callback (user_data_type& data, closure_type const& clos)
+  typed_closure (user_data_type& data, closure_type const& clos)
     : base_type (data, clos)
   {
   }
