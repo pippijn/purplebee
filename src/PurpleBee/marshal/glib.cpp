@@ -3,6 +3,7 @@
 #include "PurpleBee.h"
 #include "PurpleBee/stash.h"
 #include "perl/callback.h"
+#include "util/unimplemented.h"
 #include "util/wrapper.h"
 
 /*
@@ -11,16 +12,30 @@
 
 template<>
 SV*
+perl_interpreter::to_sv (GHashTable* list)
+{
+  UNIMPLEMENTED;
+}
+
+template<>
+SV*
+perl_interpreter::to_sv (GByteArray* list)
+{
+  UNIMPLEMENTED;
+}
+
+template<>
+SV*
 perl_interpreter::to_sv (GList* list)
 {
-  return newSViv (0);
+  UNIMPLEMENTED;
 }
 
 template<>
 SV*
 perl_interpreter::to_sv (GSList* list)
 {
-  return newSViv (0);
+  UNIMPLEMENTED;
 }
 
 template<>
@@ -36,17 +51,45 @@ perl_interpreter::to_sv (std::tuple<GSourceFunc, gpointer> closure)
  */
 
 template<>
+GData**
+perl_interpreter::sv_to (SV* v)
+{
+  UNIMPLEMENTED;
+}
+
+template<>
+GString*
+perl_interpreter::sv_to (SV* v)
+{
+  UNIMPLEMENTED;
+}
+
+template<>
+GHashTable*
+perl_interpreter::sv_to (SV* v)
+{
+  UNIMPLEMENTED;
+}
+
+template<>
 GList*
 perl_interpreter::sv_to (SV* v)
 {
-  return NULL;
+  UNIMPLEMENTED;
 }
 
 template<>
 GSList*
 perl_interpreter::sv_to (SV* v)
 {
-  return NULL;
+  UNIMPLEMENTED;
+}
+
+template<>
+GSourceFunc
+perl_interpreter::sv_to (SV* sv)
+{
+  UNIMPLEMENTED;
 }
 
 template<>

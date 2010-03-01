@@ -1,4 +1,5 @@
 #include "perl/interpreter.h"
+#include "util/unimplemented.h"
 
 /*
  * T -> SV*
@@ -8,21 +9,35 @@ template<>
 SV*
 perl_interpreter::to_sv (void* v)
 {
-  return newSVptr (v);
+  UNIMPLEMENTED;
+}
+
+template<>
+SV*
+perl_interpreter::to_sv (unsigned char* v)
+{
+  UNIMPLEMENTED;
 }
 
 template<>
 SV*
 perl_interpreter::to_sv (void const* v)
 {
-  return newSVptr (v);
+  UNIMPLEMENTED;
+}
+
+template<>
+SV*
+perl_interpreter::to_sv (long* v)
+{
+  UNIMPLEMENTED;
 }
 
 template<>
 SV*
 perl_interpreter::to_sv (int* v)
 {
-  return newSViv (0);
+  UNIMPLEMENTED;
 }
 
 template<>
@@ -30,6 +45,27 @@ SV*
 perl_interpreter::to_sv (int v)
 {
   return newSViv (v);
+}
+
+template<>
+SV*
+perl_interpreter::to_sv (unsigned long long v)
+{
+  UNIMPLEMENTED;
+}
+
+template<>
+SV*
+perl_interpreter::to_sv (long long v)
+{
+  UNIMPLEMENTED;
+}
+
+template<>
+SV*
+perl_interpreter::to_sv (unsigned long v)
+{
+  return newSVuv (v);
 }
 
 template<>
@@ -48,7 +84,7 @@ perl_interpreter::to_sv (long v)
 
 template<>
 SV*
-perl_interpreter::to_sv (char* v)
+perl_interpreter::to_sv (char const* v)
 {
   STRLEN len = 0;
   return newSVpv (v, len);
@@ -56,10 +92,9 @@ perl_interpreter::to_sv (char* v)
 
 template<>
 SV*
-perl_interpreter::to_sv (char const* v)
+perl_interpreter::to_sv (char* v)
 {
-  STRLEN len = 0;
-  return newSVpv (v, len);
+  return to_sv<char const*> (v);
 }
 
 template<>
@@ -73,21 +108,21 @@ template<>
 SV*
 perl_interpreter::to_sv (char const** v)
 {
-  return newSViv (0);
+  UNIMPLEMENTED;
 }
 
 template<>
 SV*
 perl_interpreter::to_sv (unsigned char** v)
 {
-  return newSViv (0);
+  UNIMPLEMENTED;
 }
 
 template<>
 SV*
 perl_interpreter::to_sv (double v)
 {
-  return newSVnv (v);
+  UNIMPLEMENTED;
 }
 
 
@@ -99,109 +134,139 @@ template<>
 int
 perl_interpreter::sv_to (SV* v)
 {
-  int retval = SvIV (v);
-#if 0
-  printf ("sv_to<int> (%p) = %d", v, retval);
-#endif
-  return retval;
+  return SvIV (v);
 }
 
 template<>
 unsigned int
 perl_interpreter::sv_to (SV* v)
 {
-  unsigned int retval = SvUV (v);
-#if 0
-  printf ("sv_to<unsigned int> (%p) = %u", v, retval);
-#endif
-  return retval;
+  return SvUV (v);
+}
+
+template<>
+unsigned long
+perl_interpreter::sv_to (SV* v)
+{
+  return SvUV (v);
+}
+
+template<>
+long long
+perl_interpreter::sv_to (SV* v)
+{
+  UNIMPLEMENTED;
+}
+
+template<>
+unsigned long long
+perl_interpreter::sv_to (SV* v)
+{
+  UNIMPLEMENTED;
 }
 
 template<>
 long
 perl_interpreter::sv_to (SV* v)
 {
-  long retval = SvIV (v);
-#if 0
-  printf ("sv_to<unsigned int> (%p) = %ld", v, retval);
-#endif
-  return retval;
+  return SvIV (v);
 }
 
 template<>
 char const*
 perl_interpreter::sv_to (SV* v)
 {
-#if 0
-  printf ("sv_to<void*>");
-#endif
-  return NULL;
+  UNIMPLEMENTED;
 }
 
 template<>
 unsigned char const*
 perl_interpreter::sv_to (SV* v)
 {
-#if 0
-  printf ("sv_to<void*>");
-#endif
-  return NULL;
+  UNIMPLEMENTED;
 }
 
 template<>
 unsigned char*
 perl_interpreter::sv_to (SV* v)
 {
-#if 0
-  printf ("sv_to<void*>");
-#endif
-  return NULL;
+  UNIMPLEMENTED;
 }
 
 template<>
 int*
 perl_interpreter::sv_to (SV* v)
 {
-#if 0
-  printf ("sv_to<void*>");
-#endif
-  return NULL;
+  UNIMPLEMENTED;
 }
 
 template<>
 unsigned int*
 perl_interpreter::sv_to (SV* v)
 {
-#if 0
-  printf ("sv_to<void*>");
-#endif
-  return NULL;
+  UNIMPLEMENTED;
 }
 
 template<>
 void*
 perl_interpreter::sv_to (SV* v)
 {
-#if 0
-  printf ("sv_to<void*>");
-#endif
-  return NULL;
+  UNIMPLEMENTED;
 }
 
 template<>
 void const*
 perl_interpreter::sv_to (SV* v)
 {
-  return NULL;
+  UNIMPLEMENTED;
+}
+
+template<>
+unsigned char**
+perl_interpreter::sv_to (SV* v)
+{
+  UNIMPLEMENTED;
+}
+
+template<>
+char*
+perl_interpreter::sv_to (SV* v)
+{
+  UNIMPLEMENTED;
+}
+
+template<>
+char const**
+perl_interpreter::sv_to (SV* v)
+{
+  UNIMPLEMENTED;
+}
+
+template<>
+char**
+perl_interpreter::sv_to (SV* v)
+{
+  UNIMPLEMENTED;
+}
+
+template<>
+long*
+perl_interpreter::sv_to (SV* v)
+{
+  UNIMPLEMENTED;
+}
+
+template<>
+struct tm*
+perl_interpreter::sv_to (SV* v)
+{
+  UNIMPLEMENTED;
 }
 
 template<>
 void
 perl_interpreter::sv_to (SV* v)
 {
-#if 0
-  printf ("sv_to<void>");
-#endif
 }
 
 // vim:ft=xs

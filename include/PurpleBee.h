@@ -53,3 +53,11 @@ PurpleBee* get_server_instance ();
 
 void init_server (int argc, char* argv[], char* env[]);
 void uninit_server ();
+
+typedef gssize (*PurpleXferReadFunction)(guchar**, PurpleXfer*);
+typedef gssize (*PurpleXferWriteFunction)(const guchar*, size_t, PurpleXfer*);
+typedef void (*PurpleXferAckFunction)(PurpleXfer*, const guchar*, size_t);
+typedef void (*PurpleXferFunction)(PurpleXfer*);
+typedef PurpleXferFunction PurpleXferRequestDeniedFunction;
+typedef void (*PurplePounceFunction)(PurplePounce* pounce);
+typedef void (*PurpleConversationFunction)(PurpleConversation* conv);
