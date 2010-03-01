@@ -10,15 +10,6 @@
 
 struct perl_interpreter
 {
-  enum type_translation
-  {
-    VOID,
-    CHAR,
-    SHORT,
-    INT,
-    PTR,
-  };
-
   struct arguments
   {
     int argc;
@@ -31,6 +22,8 @@ struct perl_interpreter
   SV* newSVptr (void *ptr, SV *sv = newSV (0), HV *stash = 0);
   SV* newSVptr (void *ptr, HV *hv,             HV *stash = 0);
   SV* newSVptr (void *ptr, AV *av,             HV *stash = 0);
+
+  void* SvPTR (SV* sv);
 
   template<typename T> SV* to_sv (T v);
   template<typename T> T   sv_to (SV* sv);
@@ -72,4 +65,6 @@ public:
 
     return sv_to<R> (retval);
   }
+
+  PerlInterpreter* get_perl () { return my_perl; }
 };
