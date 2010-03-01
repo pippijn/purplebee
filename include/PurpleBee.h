@@ -12,8 +12,6 @@ namespace stash
   extern HV* Callback;
 }
 
-void init_server (int argc, char* argv[], char* env[]);
-
 struct PurpleBee
   : private perl_interpreter
 {
@@ -44,3 +42,6 @@ struct PurpleBee
 
 #define server get_server_instance ()
 PurpleBee* get_server_instance ();
+
+void init_server (int argc, char* argv[], char* env[]);
+void uninit_server ();

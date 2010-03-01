@@ -30,6 +30,14 @@ init_server (int argc, char* argv[], char* env[])
   server_instance->init ();
 }
 
+void
+uninit_server ()
+{
+  xassert (server_instance);
+  delete server_instance;
+  server_instance = NULL;
+}
+
 PurpleBee*
 get_server_instance ()
 {
