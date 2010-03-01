@@ -31,9 +31,9 @@ sub timeout_add {
    for my $handle (0 .. @timeouts - 1) { # find the next free @timeouts-index
       if (!$timeouts[$handle]) {
          $timeouts[$handle] = AnyEvent->timer (
-            after 	=> $interval / 1000,
-            interval 	=> $interval / 1000,
-            cb 		=> sub { $callback->call },
+            after       => $interval / 1000,
+            interval    => $interval / 1000,
+            cb          => sub { $callback->call },
          );
          return $handle
       }
@@ -59,11 +59,12 @@ sub timeout_remove {
 }
 
 #### INPUT HANDLERS
-my @inputhandlers_read, @inputhandlers_write;
+my (@inputhandlers_read, @inputhandlers_write);
+
 use constant {
-   IO_READ  = 1 << 0,
-   IO_WRITE = 1 << 1
-}
+   IO_READ  => 1 << 0,
+   IO_WRITE => 1 << 1,
+};
 
 # Adds an input handler.
 #
@@ -75,23 +76,22 @@ use constant {
 # @return The resulting handle (will be greater than 0).
 # @see g_io_add_watch_full
 
-
 sub input_add {
-   my ($fd, $cond, $callback, $user_data) = @_;
+   my ($fd, $cond, $callback) = @_;
    print "PurpleBee::Ops::EventLoop::input_add\n";
 
    for my $handle (0 .. @inputhandlers_read) { # find the next free @inputhandlers_read-index
-      next if $inputhandler_write[$handle]; # maybe there's already a write handler and just no read handler, next one
-      if (! ($inputhandlers_read[$handle] or $inputhandlers_write[$handle]) {
+      next if $inputhandlers_write[$handle]; # maybe there's already a write handler and just no read handler, next one
+      if (!$inputhandlers_read[$handle] and !$inputhandlers_write[$handle]) {
          $inputhandlers_read[$handle] = AnyEvent->timer (
             fd   => $fd,
             poll => 'r',
-            cb   => sub { $callback->call ($user_data, $fd, IO_READ) }
+            cb   => sub { $callback->call }
          ) if $cond & IO_READ;
          $inputhandlers_read[$handle] = AnyEvent->timer (
             fd   => $fd,
             poll => 'w',
-            cb   => sub { $callback->call ($user_data, $fd, IO_WRITE) }
+            cb   => sub { $callback->call }
          ) if $cond & IO_WRITE;
          return $handle # guint
       }
@@ -102,7 +102,6 @@ sub input_add {
 #
 # @param handle The handle of the input handler. Note that this is the return
 #               value from purple_input_add(), <i>not</i> the file descriptor.
-
 
 sub input_remove {
    my ($handle) = @_;
@@ -144,7 +143,7 @@ sub input_get_error {
 # This function allows UIs to group timers for better power efficiency.  For
 # this reason, @a interval may be rounded by up to a second.
 #
-# @param interval	The time between calls of the function, in
+# @param interval       The time between calls of the function, in
 #                       seconds.
 # @param callback       The function closure to call.
 # @return A handle to the timer which can be passed to
@@ -159,9 +158,9 @@ sub timeout_add_seconds {
    for my $handle (0 .. @timeouts - 1) { # find the next free @timeouts-index
       if (!$timeouts[$handle]) {
          $timeouts[$handle] = AnyEvent->timer (
-            after 	=> $interval,
-            interval 	=> $interval,
-            cb => sub {
+            after       => $interval,
+            interval    => $interval,
+            cb          => sub {
                timeout_remove $handle
                   if ($function->call == 0)
             },

@@ -94,6 +94,7 @@ PurpleBee::init ()
 
   /* Enable debugging */
   purple_debug_set_enabled (true);
+  purple_debug_set_enabled (false);
 
   /* Set the core-uiops, which is used to
    *      - initialise the ui specific preferences.
