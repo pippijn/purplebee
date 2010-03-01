@@ -59,11 +59,50 @@ output (std::vector<T> const &vector, std::ostream& os = std::cout)
   os << '}';
 }
 
+namespace detail
+{
+  template<typename R, typename... Args>
+  static inline std::ostream&
+  operator << (std::ostream& os, R (*func)(Args...))
+  {
+    return os << "<func>";
+  }
+
+  template<size_t N, size_t Max>
+  struct tuple_formatter
+  {
+    template<typename... Args>
+    static void output (std::tuple<Args...> const& tuple, std::ostream& os)
+    {
+      os << ", " << std::get<N> (tuple);
+    }
+  };
+
+  template<size_t Max>
+  struct tuple_formatter<0, Max>
+  {
+    template<typename... Args>
+    static void output (std::tuple<Args...> const& tuple, std::ostream& os)
+    {
+      os << std::get<0> (tuple);
+    }
+  };
+
+  template<size_t N>
+  struct tuple_formatter<N, N>
+  {
+    template<typename... Args>
+    static void output (std::tuple<Args...> const& tuple, std::ostream& os)
+    {
+    }
+  };
+}
+
 template<typename... Args>
 static inline void
 output (std::tuple<Args...> const& tuple, std::ostream& os = std::cout)
 {
   os << "tuple (";
-  os << "<unimplemented>";
+  detail::tuple_formatter<0, sizeof... (Args)>::output (tuple, os);
   os << ")";
 }

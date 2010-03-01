@@ -13,6 +13,13 @@ perl_interpreter::to_sv (void* v)
 
 template<>
 SV*
+perl_interpreter::to_sv (void const* v)
+{
+  return newSVptr (v);
+}
+
+template<>
+SV*
 perl_interpreter::to_sv (int* v)
 {
   return newSViv (0);
@@ -122,12 +129,69 @@ perl_interpreter::sv_to (SV* v)
 }
 
 template<>
+char const*
+perl_interpreter::sv_to (SV* v)
+{
+#if 0
+  printf ("sv_to<void*>");
+#endif
+  return NULL;
+}
+
+template<>
+unsigned char const*
+perl_interpreter::sv_to (SV* v)
+{
+#if 0
+  printf ("sv_to<void*>");
+#endif
+  return NULL;
+}
+
+template<>
+unsigned char*
+perl_interpreter::sv_to (SV* v)
+{
+#if 0
+  printf ("sv_to<void*>");
+#endif
+  return NULL;
+}
+
+template<>
+int*
+perl_interpreter::sv_to (SV* v)
+{
+#if 0
+  printf ("sv_to<void*>");
+#endif
+  return NULL;
+}
+
+template<>
+unsigned int*
+perl_interpreter::sv_to (SV* v)
+{
+#if 0
+  printf ("sv_to<void*>");
+#endif
+  return NULL;
+}
+
+template<>
 void*
 perl_interpreter::sv_to (SV* v)
 {
 #if 0
   printf ("sv_to<void*>");
 #endif
+  return NULL;
+}
+
+template<>
+void const*
+perl_interpreter::sv_to (SV* v)
+{
   return NULL;
 }
 

@@ -1,5 +1,6 @@
 MODULE = PurpleBee      PACKAGE = PurpleBee::Callback
 
+
 void
 DESTROY ()
     CODE:
@@ -13,6 +14,7 @@ call (perl_callback* self)
 {
     printf ("calling callback %p\n", self);
     RETVAL = (*self) ();
+    printf ("callback returned %p\n", RETVAL);
 }
     OUTPUT:
     RETVAL

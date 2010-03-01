@@ -27,7 +27,7 @@ perl_interpreter::~perl_interpreter ()
 
 
 SV*
-perl_interpreter::newSVptr (void* ptr, SV* sv, HV* stash)
+perl_interpreter::newSVptr (void const* ptr, SV* sv, HV* stash)
 {
   if (!ptr)
     return newSV (0);
@@ -41,7 +41,7 @@ perl_interpreter::newSVptr (void* ptr, SV* sv, HV* stash)
 }
 
 SV*
-perl_interpreter::newSVptr (void* ptr, HV* hv, HV* stash)
+perl_interpreter::newSVptr (void const* ptr, HV* hv, HV* stash)
 {
   SV* sv = (SV*)hv;
   if (!ptr)
@@ -55,7 +55,7 @@ perl_interpreter::newSVptr (void* ptr, HV* hv, HV* stash)
 }
 
 SV*
-perl_interpreter::newSVptr (void* ptr, AV* av, HV* stash)
+perl_interpreter::newSVptr (void const* ptr, AV* av, HV* stash)
 {
   SV* sv = (SV*)av;
   if (!ptr)

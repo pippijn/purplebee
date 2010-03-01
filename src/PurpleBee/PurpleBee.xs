@@ -85,8 +85,6 @@ PurpleBee::PurpleBee (int argc, char* argv[], char* env[])
 
 PurpleBee::~PurpleBee ()
 {
-  purple_blist_uninit ();
-  purple_prefs_uninit ();
   purple_core_quit ();
 }
 
@@ -102,7 +100,7 @@ PurpleBee::init ()
   char const *embedding[] = {
     args.argv[0],
     "-e", "bootstrap PurpleBee;",
-    "-e", "unshift @INC, '"DATADIR"';",
+    "-e", "unshift @INC, PurpleBee->DATADIR;",
     "-e", "require PurpleBee;",
     0
   };
@@ -170,6 +168,13 @@ PurpleBee::run ()
   call<void> ("main");
 }
 
+template<typename T>
+static void
+const_val (HV* stash, char const* name, T v)
+{
+  newCONSTSUB (stash, (char*)name, server->to_sv (v));
+}
+
 #include "PurpleBee/Callback.h"
 
 MODULE = PurpleBee      PACKAGE = PurpleBee
@@ -179,7 +184,41 @@ BOOT:
     stash::PurpleBee            = gv_stashpv ("PurpleBee", 1);
     stash::Callback             = gv_stashpv ("PurpleBee::Callback", 1);
     stash::PurpleBee_Account    = gv_stashpv ("PurpleBee::Account", 1);
+#define const_val(value) const_val (stash::PurpleBee, #value, value)
+    const_val (PACKAGE);
+    const_val (PACKAGE_BUGREPORT);
+    const_val (PACKAGE_NAME);
+    const_val (PACKAGE_STRING);
+    const_val (PACKAGE_TARNAME);
+    const_val (PACKAGE_URL);
+    const_val (PACKAGE_VERSION);
+
+    const_val (BINDIR);
+    const_val (SBINDIR);
+    const_val (LIBEXECDIR);
+    const_val (DATAROOTDIR);
+    const_val (DATADIR);
+    const_val (SYSCONFDIR);
+    const_val (SHAREDSTATEDIR);
+    const_val (LOCALSTATEDIR);
+    const_val (INCLUDEDIR);
+    const_val (OLDINCLUDEDIR);
+    const_val (DOCDIR);
+    const_val (INFODIR);
+    const_val (HTMLDIR);
+    const_val (DVIDIR);
+    const_val (PDFDIR);
+    const_val (PSDIR);
+    const_val (LIBDIR);
+    const_val (LOCALEDIR);
+    const_val (MANDIR);
+#undef const_val
 }
 
 INCLUDE: PurpleBee/Account.xs
+INCLUDE: PurpleBee/AccountOption.xs
+INCLUDE: PurpleBee/Buddy.xs
+INCLUDE: PurpleBee/BuddyIcon.xs
+INCLUDE: PurpleBee/BuddyIcons.xs
+INCLUDE: PurpleBee/BuddyList.xs
 INCLUDE: PurpleBee/Callback.xs

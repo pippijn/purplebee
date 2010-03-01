@@ -11,7 +11,7 @@ sub is_enabled {
    my ($self, $level, $category) = @_;
    print "PurpleBee::Ops::Debug::is_enabled ($level, $category)\n";
 
-   1 # gboolean
+   0 # gboolean
 }
 
 

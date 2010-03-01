@@ -1,7 +1,35 @@
 gboolean		T_OBJ
+gpointer		T_OBJ
+gconstpointer		T_OBJ
+guchar*			T_OBJ
+const gchar*		T_OBJ
+
+GList*			T_OBJ
+GSList*			T_OBJ
 
 perl_callback*		T_OBJ
+
 PurpleAccount*		T_OBJ
+PurpleAccountOption*	T_OBJ
+PurpleAccountUserSplit*	T_OBJ
+PurpleBlistNode*	T_OBJ
+PurpleBuddy*		T_OBJ
+PurpleBuddyIcon*	T_OBJ
+PurpleBuddyIconSpec*	T_OBJ
+PurpleBuddyList*	T_OBJ
+PurpleChat*		T_OBJ
+PurpleContact*		T_OBJ
+PurpleGroup*		T_OBJ
+PurplePresence*		T_OBJ
+PurpleStatus*		T_OBJ
+PurpleStoredImage*	T_OBJ
+
+PurpleBlistNodeFlags	T_OBJ
+PurpleBlistNodeType	T_OBJ
+PurplePrefType		T_OBJ
+
+int*			T_OBJ
+size_t*			T_OBJ
 
 INPUT
 

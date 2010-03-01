@@ -1,5 +1,6 @@
 #include "PurpleBee.h"
 #include "uiops/core.h"
+#include "util/wrapper.h"
 
 #define OPS "Ops::Core::"
 
@@ -32,7 +33,7 @@ namespace uiops
   GHashTable*
   core::get_ui_info (void)
   {
-    return server->call<GHashTable*> (OPS "get_ui_info");
+    return server->call<wrapper<GHashTable*, char const*, char const*>> (OPS "get_ui_info");
   }
 
   PurpleCoreUiOps

@@ -124,23 +124,24 @@ use constant {
 
 sub input_add {
    my ($self, $fd, $cond, $callback) = @_;
-   print "PurpleBee::Ops::EventLoop::input_add ($fd, $cond, $callback)\n";
+   print "\e[31;1mPurpleBee::Ops::EventLoop::input_add ($fd, $cond, $callback)\n";
 
    for my $handle (0 .. @inputhandlers) { # find the next free @inputhandlers-index
       if (!$inputhandlers[$handle]) {
          $inputhandlers[$handle]{read} = AnyEvent->io (
             fd   => $fd,
             poll => 'r',
-            cb   => sub { print "input[r] $handle = $callback\n"; $callback->call }
+            cb   => sub { print "input[r] $handle (fd=$fd) = $callback\n"; $callback->call }
          ) if $cond & IO_READ;
 
          $inputhandlers[$handle]{write} = AnyEvent->io (
             fd   => $fd,
             poll => 'w',
-            cb   => sub { print "input[w] $handle = $callback\n"; $callback->call }
+            cb   => sub { print "input[w] $handle (fd=$fd) = $callback\n"; $callback->call }
          ) if $cond & IO_WRITE;
 
-         print "input_add = $handle\n";
+         print "input_add = $handle\e[0m\n";
+
          return $handle # guint
       }
    }
