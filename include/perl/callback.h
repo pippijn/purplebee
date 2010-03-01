@@ -71,42 +71,53 @@ struct perl_callback
 };
 
 template<typename R, typename... Args>
-struct typed_callback
+struct typed_callback_base
   : perl_callback
 {
+  typedef std::tuple<R, Args...> closure_type;
+
   perl_interpreter& perl;
   std::tuple<R, Args...> closure;
 
-  typed_callback (perl_interpreter& perl, std::tuple<R, Args...> clos)
+  typed_callback_base (perl_interpreter& perl, std::tuple<R, Args...> clos)
     : perl (perl)
     , closure (clos)
+  {
+  }
+};
+
+template<typename R, typename... Args>
+struct typed_callback
+  : typed_callback_base<R, Args...>
+{
+  typedef typed_callback_base<R, Args...> base;
+
+  typed_callback (perl_interpreter& perl, typename base::closure_type const& clos)
+    : base (perl, clos)
   {
   }
 
   SV* operator () ()
   {
-    return perl.to_sv (call_function (closure));
+    return this->perl.to_sv (call_function (this->closure));
   }
 };
 
 template<typename... Args>
 struct typed_callback<void (*)(Args...), Args...>
-  : perl_callback
+  : typed_callback_base<void (*)(Args...), Args...>
 {
-  typedef std::tuple<void (*)(Args...), Args...> closure_type;
+  typedef typed_callback_base<void (*)(Args...), Args...> base;
 
-  perl_interpreter& perl;
-  closure_type closure;
-
-  typed_callback (perl_interpreter& perl, closure_type clos)
-    : perl (perl)
-    , closure (clos)
+  typed_callback (perl_interpreter& perl, typename base::closure_type const& clos)
+    : base (perl, clos)
   {
   }
 
   SV* operator () ()
   {
-    PerlInterpreter* my_perl = perl.get_perl ();
+    call_function (this->closure);
+    PerlInterpreter* my_perl = this->perl.get_perl ();
     return &PL_sv_undef;
   }
 };

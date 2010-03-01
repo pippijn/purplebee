@@ -1,64 +1,69 @@
 #pragma once
 
-#include <ostream>
+#include <iostream>
 #include <vector>
+#include <tuple>
 
-namespace detail
+template<typename T>
+static inline void
+output (T const& object, std::ostream& os = std::cout)
 {
-  template<typename T>
-  static inline void
-  output (std::ostream& os, T const& object)
-  {
+  os << object;
+}
+
+template<typename T>
+static inline void
+output (T const* object, std::ostream& os = std::cout)
+{
+  if (object)
     os << object;
-  }
+  else
+    os << "NULL";
+}
 
-  template<typename T>
-  static inline void
-  output (std::ostream& os, T const* object)
-  {
-    if (object)
-      os << object;
-    else
-      os << +"NULL";
-  }
-
-  template<>
-  inline void
-  output (std::ostream& os, char const* object)
-  {
-    if (object)
-      os << '"' << object << '"';
-    else
-      os << +"NULL";
-  }
+template<>
+inline void
+output (char const* object, std::ostream& os)
+{
+  if (object)
+    os << '"' << object << '"';
+  else
+    os << "NULL";
 }
 
 template<typename T, size_t N>
-static inline std::ostream&
-operator << (std::ostream& os, T const (&array)[N])
+static inline void
+output (T const (&array)[N], std::ostream& os = std::cout)
 {
   os << '{';
   for (size_t i = 0; i < N; ++i)
     {
-      detail::output (os, array[i]);
+      output (os, array[i]);
       if (i < N - 1)
-        os << +", ";
+        os << ", ";
     }
   os << '}';
-  return os;
 }
 
 template<typename T>
-static inline std::ostream&
-operator << (std::ostream& os, std::vector<T> const &vector)
+static inline void
+output (std::vector<T> const &vector, std::ostream& os = std::cout)
 {
   os << '{';
   for (size_t i = 0; i < vector.size (); ++i)
     {
-      detail::output (os, vector[i]);
+      output (os, vector[i]);
       if (i < vector.size () - 1)
-        os << +", ";
+        os << ", ";
     }
   os << '}';
-  return os;
+}
+
+template<typename... Args>
+static inline void
+output (std::tuple<Args...> const& tuple, std::ostream& os = std::cout)
+{
+  os << "tuple (";
+  os << "<unimplemented>";
+  os << ")";
 }

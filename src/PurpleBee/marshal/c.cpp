@@ -92,27 +92,42 @@ template<>
 int
 perl_interpreter::sv_to (SV* v)
 {
-  return SvIV (v);
+  int retval = SvIV (v);
+#if 0
+  printf ("sv_to<int> (%p) = %d", v, retval);
+#endif
+  return retval;
 }
 
 template<>
 unsigned int
 perl_interpreter::sv_to (SV* v)
 {
-  return SvUV (v);
+  unsigned int retval = SvUV (v);
+#if 0
+  printf ("sv_to<unsigned int> (%p) = %u", v, retval);
+#endif
+  return retval;
 }
 
 template<>
 long
 perl_interpreter::sv_to (SV* v)
 {
-  return SvIV (v);
+  long retval = SvIV (v);
+#if 0
+  printf ("sv_to<unsigned int> (%p) = %ld", v, retval);
+#endif
+  return retval;
 }
 
 template<>
 void*
 perl_interpreter::sv_to (SV* v)
 {
+#if 0
+  printf ("sv_to<void*>");
+#endif
   return NULL;
 }
 
@@ -120,6 +135,9 @@ template<>
 void
 perl_interpreter::sv_to (SV* v)
 {
+#if 0
+  printf ("sv_to<void>");
+#endif
 }
 
 // vim:ft=xs
