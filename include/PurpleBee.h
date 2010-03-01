@@ -36,8 +36,8 @@ struct PurpleBee
   void run ();
 
   using perl_interpreter::call;
-  using perl_interpreter::newSVptr;
-  using perl_interpreter::SvPTR;
+  using perl_interpreter::sv_to;
+  using perl_interpreter::to_sv;
 };
 
 #define server get_server_instance ()

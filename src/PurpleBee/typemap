@@ -1,10 +1,12 @@
+perl_callback*		T_OBJ
+
 INPUT
 
 T_OBJ
-	$var = perl_interpreter::sv_to<$type> ($arg)
+	$var = server->sv_to<$type> ($arg)
 
 
 OUTPUT
 
 T_OBJ
-	$arg = perl_interpreter::to_sv<$type> ($var)
+	$arg = server->to_sv<$type> ($var)

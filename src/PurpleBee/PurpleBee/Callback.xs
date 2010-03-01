@@ -8,10 +8,11 @@ DESTROY ()
 }
 
 SV*
-call (SV* self)
+call (perl_callback* self)
     CODE:
 {
-    perl_callback* cb = static_cast<perl_callback*> (server->SvPTR (self));
-    printf ("calling callback %p\n", cb);
-    RETVAL = (*cb) ();
+    printf ("calling callback %p\n", self);
+    RETVAL = (*self) ();
 }
+    OUTPUT:
+    RETVAL

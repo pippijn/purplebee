@@ -31,8 +31,8 @@ sub timeout_add {
    for my $handle (0 .. @timeouts) { # find the next free @timeouts-index
       if (!$timeouts[$handle]) {
          $timeouts[$handle] = AnyEvent->timer (
-            after       => $interval / 1000 * 2 + 10,
-            interval    => $interval / 1000 * 2 + 10,
+            after       => $interval,
+            interval    => $interval,
             cb          => sub { print "timeout $callback\n"; $callback->call },
          );
 
@@ -42,6 +42,25 @@ sub timeout_add {
    }
 
    die "didn't find free spot"
+}
+
+# Removes a timeout handler.
+#
+# @param handle The handle, as returned by purple_timeout_add().
+#
+# @return @c TRUE if the handler was successfully removed.
+#
+
+sub timeout_remove {
+   my ($handle) = @_;
+   print "PurpleBee::Ops::EventLoop::timeout_remove ($handle)\n";
+
+   if ($timeouts[$handle]) {
+      undef $timeouts[$handle];
+      return 1
+   }
+
+   0 # gboolean
 }
 
 # Creates a callback timer.
@@ -64,26 +83,24 @@ sub timeout_add_seconds {
    my ($interval, $callback) = @_;
    print "PurpleBee::Ops::EventLoop::timeout_add_seconds ($interval, $callback)\n";
 
-   timeout_add $interval * 1000, $callback
-}
+   for my $handle (0 .. @timeouts) { # find the next free @timeouts-index
+      if (!$timeouts[$handle]) {
+         $timeouts[$handle] = AnyEvent->timer (
+            after       => $interval,
+            interval    => $interval,
+            cb          => sub {
+               print "timeout_seconds $callback\n";
+               timeout_remove $handle
+                  unless $callback->call
+            },
+         );
 
-# Removes a timeout handler.
-#
-# @param handle The handle, as returned by purple_timeout_add().
-#
-# @return @c TRUE if the handler was successfully removed.
-#
-
-sub timeout_remove {
-   my ($handle) = @_;
-   print "PurpleBee::Ops::EventLoop::timeout_remove ($handle)\n";
-
-   if ($timeouts[$handle]) {
-      undef $timeouts[$handle];
-      return 1
+         print "timeout_add = $handle\n";
+         return $handle
+      }
    }
 
-   0 # gboolean
+   die "didn't find free spot"
 }
 
 

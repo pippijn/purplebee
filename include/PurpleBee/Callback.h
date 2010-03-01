@@ -9,4 +9,11 @@ hv_fetch_nonnull (HV* hv, char const (&key)[N])
   return *ptr;
 }
 
+template<>
+perl_callback*
+perl_interpreter::sv_to (SV* sv)
+{
+  return static_cast<perl_callback*> (SvPTR (sv));
+}
+
 // vim:ft=xs
