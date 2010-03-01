@@ -4,9 +4,22 @@ libPurpleBee_la_SOURCES =			\
 	src/PurpleBee/marshal/c.cpp		\
 	src/PurpleBee/marshal/glib.cpp		\
 	src/PurpleBee/marshal/purple.cpp	\
+	src/PurpleBee/uiops/account.cpp		\
+	src/PurpleBee/uiops/blist.cpp		\
+	src/PurpleBee/uiops/connection.cpp	\
 	src/PurpleBee/uiops/conversation.cpp	\
 	src/PurpleBee/uiops/core.cpp		\
+	src/PurpleBee/uiops/debug.cpp		\
+	src/PurpleBee/uiops/dnsquery.cpp	\
 	src/PurpleBee/uiops/eventloop.cpp	\
+	src/PurpleBee/uiops/idle.cpp		\
+	src/PurpleBee/uiops/notify.cpp		\
+	src/PurpleBee/uiops/privacy.cpp		\
+	src/PurpleBee/uiops/request.cpp		\
+	src/PurpleBee/uiops/roomlist.cpp	\
+	src/PurpleBee/uiops/sound.cpp		\
+	src/PurpleBee/uiops/whiteboard.cpp	\
+	src/PurpleBee/uiops/xfer.cpp		\
 	src/PurpleBee/PurpleBee.xs
 
 libPurpleBee_la_LIBADD = libutil.la libperlsup.la $(PERLLIB)
