@@ -49,12 +49,19 @@ sub timeout_add {
 
 sub timeout_remove {
    my ($handle) = @_;
+
    if ($timeouts[$handle]) {
       undef $timeouts[$handle];
       return 1
    }
-
    0 # gboolean
+}
+
+#### INPUT HANDLERS
+my @inputhandlers_read, @inputhandlers_write;
+use constant {
+   IO_READ  = 1 << 0,
+   IO_WRITE = 1 << 1
 }
 
 # Adds an input handler.
@@ -69,10 +76,25 @@ sub timeout_remove {
 
 
 sub input_add {
-   my ($fd, $cond, $func, $user_data) = @_;
+   my ($fd, $cond, $callback, $user_data) = @_;
    print "PurpleBee::Ops::EventLoop::input_add\n";
 
-   0 # guint
+   for my $handle (0 .. @inputhandlers_read) { # find the next free @inputhandlers_read-index
+      next if $inputhandler_write[$handle]; # maybe there's already a write handler and just no read handler, next one
+      if (! ($inputhandlers_read[$handle] or $inputhandlers_write[$handle]) {
+         $inputhandlers_read[$handle] = AnyEvent->timer (
+            fd   => $fd,
+            poll => 'r',
+            cb   => sub { $callback->call ($user_data, $fd, IO_READ) }
+         ) if $cond & IO_READ;
+         $inputhandlers_read[$handle] = AnyEvent->timer (
+            fd   => $fd,
+            poll => 'w',
+            cb   => sub { $callback->call ($user_data, $fd, IO_WRITE) }
+         ) if $cond & IO_WRITE;
+         return $handle # guint
+      }
+   }
 }
 
 # Removes an input handler.
@@ -85,6 +107,11 @@ sub input_remove {
    my ($handle) = @_;
    print "PurpleBee::Ops::EventLoop::input_remove\n";
 
+   if ($inputhandlers_read[$handle] or $inputhandlers_write[$handle]) {
+      undef $inputhandlers_read[$handle];
+      undef $inputhandlers_write[$handle];
+      return 1
+   }
    0 # gboolean
 }
 
