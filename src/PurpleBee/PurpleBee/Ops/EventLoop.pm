@@ -26,18 +26,45 @@ my @timeouts;
 
 sub timeout_add {
    my ($interval, $callback) = @_;
-   print "PurpleBee::Ops::EventLoop::timeout_add (@_)\n";
+   print "PurpleBee::Ops::EventLoop::timeout_add ($interval, $callback)\n";
 
    for my $handle (0 .. @timeouts) { # find the next free @timeouts-index
       if (!$timeouts[$handle]) {
          $timeouts[$handle] = AnyEvent->timer (
-            after       => $interval / 1000,
-            interval    => $interval / 1000,
-            cb          => sub { print "calling $callback\n"; $callback->call },
+            after       => $interval / 1000 * 2 + 10,
+            interval    => $interval / 1000 * 2 + 10,
+            cb          => sub { print "timeout $callback\n"; $callback->call },
          );
+
+         print "timeout_add = $handle\n";
          return $handle
       }
    }
+
+   die "didn't find free spot"
+}
+
+# Creates a callback timer.
+#
+# The timer will repeat until the function returns @c FALSE. The
+# first call will be at the end of the first interval.
+#
+# This function allows UIs to group timers for better power efficiency.  For
+# this reason, @a interval may be rounded by up to a second.
+#
+# @param interval       The time between calls of the function, in
+#                       seconds.
+# @param callback       The function closure to call.
+# @return A handle to the timer which can be passed to
+#         purple_timeout_remove() to remove the timer.
+#
+# @since 2.1.0
+
+sub timeout_add_seconds {
+   my ($interval, $callback) = @_;
+   print "PurpleBee::Ops::EventLoop::timeout_add_seconds ($interval, $callback)\n";
+
+   timeout_add $interval * 1000, $callback
 }
 
 # Removes a timeout handler.
@@ -49,14 +76,16 @@ sub timeout_add {
 
 sub timeout_remove {
    my ($handle) = @_;
-   print "PurpleBee::Ops::EventLoop::timeout_remove\n";
+   print "PurpleBee::Ops::EventLoop::timeout_remove ($handle)\n";
 
    if ($timeouts[$handle]) {
       undef $timeouts[$handle];
       return 1
    }
+
    0 # gboolean
 }
+
 
 #### INPUT HANDLERS
 my @inputhandlers;
@@ -78,25 +107,28 @@ use constant {
 
 sub input_add {
    my ($fd, $cond, $callback) = @_;
-   print "PurpleBee::Ops::EventLoop::input_add\n";
+   print "PurpleBee::Ops::EventLoop::input_add ($fd, $cond, $callback)\n";
 
    for my $handle (0 .. @inputhandlers) { # find the next free @inputhandlers-index
       if (!$inputhandlers[$handle]) {
          $inputhandlers[$handle]{read} = AnyEvent->io (
             fd   => $fd,
             poll => 'r',
-            cb   => sub { $callback->call }
+            cb   => sub { print "input $callback\n"; $callback->call }
          ) if $cond & IO_READ;
 
          $inputhandlers[$handle]{write} = AnyEvent->io (
             fd   => $fd,
             poll => 'w',
-            cb   => sub { $callback->call }
+            cb   => sub { print "input $callback\n"; $callback->call }
          ) if $cond & IO_WRITE;
 
+         print "input_add = $handle\n";
          return $handle # guint
       }
    }
+
+   die "didn't find free spot"
 }
 
 # Removes an input handler.
@@ -106,7 +138,7 @@ sub input_add {
 
 sub input_remove {
    my ($handle) = @_;
-   print "PurpleBee::Ops::EventLoop::input_remove\n";
+   print "PurpleBee::Ops::EventLoop::input_remove ($handle)\n";
 
    if ($inputhandlers[$handle]) {
       undef $inputhandlers[$handle];
@@ -131,45 +163,9 @@ sub input_remove {
 
 sub input_get_error {
    my ($fd, $error) = @_;
-   print "PurpleBee::Ops::EventLoop::input_get_error\n";
+   print "PurpleBee::Ops::EventLoop::input_get_error ($fd, $error)\n";
 
    0 # int
-}
-
-# Creates a callback timer.
-#
-# The timer will repeat until the function returns @c FALSE. The
-# first call will be at the end of the first interval.
-#
-# This function allows UIs to group timers for better power efficiency.  For
-# this reason, @a interval may be rounded by up to a second.
-#
-# @param interval       The time between calls of the function, in
-#                       seconds.
-# @param callback       The function closure to call.
-# @return A handle to the timer which can be passed to
-#         purple_timeout_remove() to remove the timer.
-#
-# @since 2.1.0
-
-sub timeout_add_seconds {
-   my ($interval, $callback) = @_;
-   print "PurpleBee::Ops::EventLoop::timeout_add_seconds\n";
-
-   for my $handle (0 .. @timeouts - 1) { # find the next free @timeouts-index
-      if (!$timeouts[$handle]) {
-         $timeouts[$handle] = AnyEvent->timer (
-            after       => $interval,
-            interval    => $interval,
-            cb          => sub {
-               print "calling $callback\n";
-               timeout_remove $handle
-                  if ($callback->call == 0)
-            },
-         );
-         return $handle # guint
-      }
-   }
 }
 
 1
