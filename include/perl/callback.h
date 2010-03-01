@@ -6,10 +6,11 @@
 template<typename R, typename... Args>
 struct perl_operation
 {
-  typedef std::tuple<R, Args...> closure_type;
-  typedef perl_interpreter user_data_type;
+  typedef std::tuple<R, Args...>                        closure_type;
+  typedef perl_interpreter                              user_data_type;
+  typedef SV*                                           return_type;
 
-  SV* operator () (user_data_type& perl, closure_type const& closure)
+  return_type operator () (user_data_type& perl, closure_type const& closure)
   {
     return perl.to_sv (call_function (closure));
   }
@@ -18,10 +19,11 @@ struct perl_operation
 template<typename... Args>
 struct perl_operation<void (*)(Args...), Args...>
 {
-  typedef std::tuple<void (*)(Args...), Args...> closure_type;
-  typedef perl_interpreter user_data_type;
+  typedef std::tuple<void (*)(Args...), Args...>        closure_type;
+  typedef perl_interpreter                              user_data_type;
+  typedef SV*                                           return_type;
 
-  SV* operator () (user_data_type& perl, closure_type const& closure)
+  return_type operator () (user_data_type& perl, closure_type const& closure)
   {
     call_function (closure);
     PerlInterpreter* my_perl = perl.get_perl ();

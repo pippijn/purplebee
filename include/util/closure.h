@@ -53,7 +53,7 @@ call_function (std::tuple<F, A...> closure)
   return call_function (std::get<0> (closure), closure, make_int_pack<sizeof ... (A)> ());
 }
 
-template<typename T, template<typename, typename...> class O, typename R, typename... Args>
+template<template<typename, typename...> class O, typename R, typename... Args>
 struct typed_callback;
 
 template<typename T, template<typename, typename...> class O>
@@ -65,17 +65,18 @@ struct closure
   static closure* create (typename O<R, Args...>::user_data_type& user_data,
                           std::tuple<R, Args...> const& closure)
   {
-    return new typed_callback<T, O, R, Args...> (user_data, closure);
+    return new typed_callback<O, R, Args...> (user_data, closure);
   }
 };
 
-template<typename T, template<typename, typename...> class O, typename R, typename... Args>
+template<template<typename, typename...> class O, typename R, typename... Args>
 struct typed_callback_base
-  : closure<T, O>
+  : closure<typename O<R, Args...>::return_type, O>
 {
   typedef std::tuple<R, Args...>                        closure_type;
   typedef O<R, Args...>                                 operation_type;
   typedef typename operation_type::user_data_type       user_data_type;
+  typedef typename operation_type::return_type          return_type;
 
   user_data_type& user_data;
   closure_type closure;
@@ -87,13 +88,14 @@ struct typed_callback_base
   }
 };
 
-template<typename T, template<typename, typename...> class O, typename R, typename... Args>
+template<template<typename, typename...> class O, typename R, typename... Args>
 struct typed_callback
-  : typed_callback_base<T, O, R, Args...>
+  : typed_callback_base<O, R, Args...>
 {
-  typedef typed_callback_base<T, O, R, Args...>         base_type;
+  typedef typed_callback_base<O, R, Args...>            base_type;
   typedef typename base_type::closure_type              closure_type;
   typedef typename base_type::user_data_type            user_data_type;
+  typedef typename base_type::return_type               return_type;
   typedef typename base_type::operation_type            operation_type;
 
   typed_callback (user_data_type& data, closure_type const& clos)
@@ -101,7 +103,7 @@ struct typed_callback
   {
   }
 
-  T operator () ()
+  return_type operator () ()
   {
     return operation_type () (this->user_data, this->closure);
   }
