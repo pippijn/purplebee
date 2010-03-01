@@ -1,7 +1,6 @@
-#include <tuple>
-
 #include "PurpleBee.h"
 #include "uiops/account.h"
+#include "util/make_closure.h"
 
 #define OPS "Ops::Account::"
 
@@ -28,7 +27,7 @@ namespace uiops
   void*
   account::request_authorize (PurpleAccount* account, const char* remote_user, const char* id, const char* alias, const char* message, gboolean on_list, PurpleAccountRequestAuthorizationCb authorize_cb, PurpleAccountRequestAuthorizationCb deny_cb, void* user_data)
   {
-    return server->call<void*> (OPS "request_authorize", account, remote_user, id, alias, message, on_list, std::make_tuple (authorize_cb, user_data), std::make_tuple (deny_cb, user_data), user_data);
+    return server->call<void*> (OPS "request_authorize", account, remote_user, id, alias, message, on_list, make_closure (authorize_cb, user_data), make_closure (deny_cb, user_data), user_data);
   }
 
   void
