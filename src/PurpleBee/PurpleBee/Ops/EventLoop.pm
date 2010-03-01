@@ -28,7 +28,7 @@ sub timeout_add {
    my ($interval, $callback) = @_;
    print "PurpleBee::Ops::EventLoop::timeout_add\n";
 
-   for my $handle (0 .. @timeouts - 1) { # find the next free @timeouts-index
+   for my $handle (0 .. @timeouts) { # find the next free @timeouts-index
       if (!$timeouts[$handle]) {
          $timeouts[$handle] = AnyEvent->timer (
             after       => $interval / 1000,
