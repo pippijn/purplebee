@@ -1,7 +1,6 @@
 #pragma once
 
-#include <EXTERN.h>
-#include <perl.h>
+#include "perl/object.h"
 
 #define CALL_BEGIN(args)        dSP; ENTER; SAVETMPS; PUSHMARK (SP); EXTEND (SP, args)
 #define CALL_ARG(expr)          PUSHs (sv_2mortal (to_sv (expr)))
@@ -9,6 +8,7 @@
 #define CALL_END                PUTBACK; check_error (); FREETMPS; LEAVE
 
 struct perl_interpreter
+  : perl_object
 {
   struct arguments
   {
@@ -29,8 +29,6 @@ struct perl_interpreter
   template<typename T> T   sv_to (SV* sv);
 
 protected:
-  virtual char const* package () const = 0;
-
   static PerlInterpreter *my_perl;
 
   perl_interpreter (int argc, char* argv[], char* env[]);
@@ -56,7 +54,8 @@ public:
   template<typename R, typename... Args>
   R call (char const* method, Args const&... args)
   {
-    CALL_BEGIN (sizeof... args);
+    CALL_BEGIN (sizeof... args + 1);
+    push_arguments (SP, this);
     push_arguments (SP, args...);
     CALL_CALL (method, G_SCALAR);
     SV* retval = &PL_sv_undef;

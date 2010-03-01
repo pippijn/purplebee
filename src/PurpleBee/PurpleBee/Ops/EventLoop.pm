@@ -25,7 +25,7 @@ my @timeouts;
 #
 
 sub timeout_add {
-   my ($interval, $callback) = @_;
+   my ($self, $interval, $callback) = @_;
    print "PurpleBee::Ops::EventLoop::timeout_add ($interval, $callback)\n";
 
    for my $handle (0 .. @timeouts) { # find the next free @timeouts-index
@@ -52,7 +52,7 @@ sub timeout_add {
 #
 
 sub timeout_remove {
-   my ($handle) = @_;
+   my ($self, $handle) = @_;
    print "PurpleBee::Ops::EventLoop::timeout_remove ($handle)\n";
 
    if ($timeouts[$handle]) {
@@ -80,7 +80,7 @@ sub timeout_remove {
 # @since 2.1.0
 
 sub timeout_add_seconds {
-   my ($interval, $callback) = @_;
+   my ($self, $interval, $callback) = @_;
    print "PurpleBee::Ops::EventLoop::timeout_add_seconds ($interval, $callback)\n";
 
    for my $handle (0 .. @timeouts) { # find the next free @timeouts-index
@@ -123,7 +123,7 @@ use constant {
 # @see g_io_add_watch_full
 
 sub input_add {
-   my ($fd, $cond, $callback) = @_;
+   my ($self, $fd, $cond, $callback) = @_;
    print "PurpleBee::Ops::EventLoop::input_add ($fd, $cond, $callback)\n";
 
    for my $handle (0 .. @inputhandlers) { # find the next free @inputhandlers-index
@@ -154,7 +154,7 @@ sub input_add {
 #               value from purple_input_add(), <i>not</i> the file descriptor.
 
 sub input_remove {
-   my ($handle) = @_;
+   my ($self, $handle) = @_;
    print "PurpleBee::Ops::EventLoop::input_remove ($handle)\n";
 
    if ($inputhandlers[$handle]) {
@@ -179,7 +179,7 @@ sub input_remove {
 #         @a errno will be set.
 
 sub input_get_error {
-   my ($fd, $error) = @_;
+   my ($self, $fd, $error) = @_;
    print "PurpleBee::Ops::EventLoop::input_get_error ($fd, $error)\n";
 
    0 # int

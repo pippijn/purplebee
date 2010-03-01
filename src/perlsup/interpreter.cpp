@@ -7,10 +7,11 @@
 PerlInterpreter* perl_interpreter::my_perl;
 
 perl_interpreter::perl_interpreter (int argc, char* argv[], char* env[])
-  : args { argc, argv, env }
+  : perl_object (perl_alloc ())
+  , args { argc, argv, env }
 {
   xassert (!my_perl);
-  my_perl = perl_alloc ();
+  my_perl = perl_object::my_perl;
   xassert (my_perl);
 
   PERL_SYS_INIT3 (&args.argc, &args.argv, &args.env);
@@ -81,6 +82,44 @@ perl_interpreter::SvPTR (SV* sv)
     return mg->mg_ptr;
 
   croak ("perl code used object, but C object is already destroyed, caught");
+}
+
+
+template<>
+SV*
+perl_interpreter::to_sv (perl_object* obj)
+{
+  if (!obj)
+    return newSV (0);
+
+  if (!obj->self)
+    obj->self = newHV ();
+
+  HV* stash = this->stash ();
+  if (!SvOBJECT (obj->self))
+    {
+      sv_magicext ((SV *)obj->self, 0, PERL_MAGIC_ext, &perl_object::vtbl, (char *)obj, 0);
+
+      // now bless the object _once_
+      //TODO: create a class registry with c++ type<=>perl name<=>stash and use it here and elsewhere
+      return sv_bless (newRV_inc ((SV *)obj->self), stash);
+    }
+  else
+    {
+      SV *sv = newRV_inc ((SV *)obj->self);
+
+      if (Gv_AMG (stash)) // handle overload correctly, as the perl core does not
+        SvAMAGIC_on (sv);
+
+      return sv;
+    }
+}
+
+template<>
+SV*
+perl_interpreter::to_sv (perl_interpreter* obj)
+{
+  return to_sv<perl_object*> (obj);
 }
 
 

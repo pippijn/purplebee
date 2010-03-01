@@ -19,6 +19,7 @@ static PurpleBee* server_instance;
 namespace stash
 {
   HV* Callback;
+  HV* PurpleBee;
 }
 
 void
@@ -89,6 +90,8 @@ PurpleBee::init ()
   if (SvTRUE (ERRSV))
     throw init_error (SvPV_nolen (ERRSV));
 
+  init_self ();
+
   /* Set a custom user directory (optional) */
   purple_util_set_user_dir (dirs.user);
 
@@ -144,7 +147,8 @@ MODULE = PurpleBee      PACKAGE = PurpleBee
 
 BOOT:
 {
-    stash::Callback = gv_stashpv ("PurpleBee::Callback" , 1);
+    stash::PurpleBee = gv_stashpv ("PurpleBee", 1);
+    stash::Callback  = gv_stashpv ("PurpleBee::Callback", 1);
 }
 
 INCLUDE: PurpleBee/Callback.xs

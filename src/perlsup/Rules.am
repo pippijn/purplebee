@@ -1,6 +1,7 @@
 lib_LTLIBRARIES += libperlsup.la
 
 libperlsup_la_SOURCES =			\
-	src/perlsup/interpreter.cpp
+	src/perlsup/interpreter.cpp	\
+	src/perlsup/object.cpp
 
 libperlsup_la_LIBADD = libutil.la $(PERLLIB)
