@@ -215,10 +215,10 @@ BOOT:
 #undef const_val
 }
 
-INCLUDE: PurpleBee/Account.xs
-INCLUDE: PurpleBee/AccountOption.xs
-INCLUDE: PurpleBee/Buddy.xs
-INCLUDE: PurpleBee/BuddyIcon.xs
-INCLUDE: PurpleBee/BuddyIcons.xs
-INCLUDE: PurpleBee/BuddyList.xs
-INCLUDE: PurpleBee/Callback.xs
+#INCLUDE: PurpleBee/Account.xs
+#INCLUDE: PurpleBee/AccountOption.xs
+#INCLUDE: PurpleBee/Buddy.xs
+#INCLUDE: PurpleBee/BuddyIcon.xs
+#INCLUDE: PurpleBee/BuddyIcons.xs
+#INCLUDE: PurpleBee/BuddyList.xs
+#INCLUDE: PurpleBee/Callback.xs
