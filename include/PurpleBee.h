@@ -10,6 +10,8 @@
 namespace stash
 {
   extern HV* Callback;
+  extern HV* PurpleBee;
+  extern HV* PurpleBee_Account;
 }
 
 struct PurpleBee
@@ -23,6 +25,7 @@ struct PurpleBee
   directories dirs;
   std::vector<std::string> protocols;
 
+  PurpleBlistUiOps blist_uiops;
   PurpleCoreUiOps core_uiops;
   PurpleConversationUiOps conversation_uiops;
   PurpleEventLoopUiOps eventloop_uiops;

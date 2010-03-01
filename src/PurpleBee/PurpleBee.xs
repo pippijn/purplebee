@@ -15,11 +15,13 @@
 #include "perlxsi.c"
 
 static PurpleBee* server_instance;
+static char const* UI_ID;
 
 namespace stash
 {
   HV* Callback;
   HV* PurpleBee;
+  HV* PurpleBee_Account;
 }
 
 void
@@ -114,7 +116,8 @@ PurpleBee::init ()
   /* Now that all the essential stuff has been set, let's try to init the core. It's
    * necessary to provide a non-NULL name for the current ui to the core. This name
    * is used by stuff that depends on this ui, for example the ui-specific plugins. */
-  if (!purple_core_init (package ()))
+  UI_ID = package ();
+  if (!purple_core_init (UI_ID))
     throw init_error ("libpurple initialisation failed");
 
   for (auto iter = purple_plugins_get_protocols (); iter; iter = iter->next)
@@ -122,9 +125,7 @@ PurpleBee::init ()
       auto plugin = (PurplePlugin*)iter->data;
       PurplePluginInfo* info = plugin->info;
       if (info && info->name)
-        {
-          printf ("\t%s\n", info->name);
-        }
+        protocols.push_back (info->name);
     }
 
   /* Create and load the buddylist. */
@@ -147,8 +148,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee
 
 BOOT:
 {
-    stash::PurpleBee = gv_stashpv ("PurpleBee", 1);
-    stash::Callback  = gv_stashpv ("PurpleBee::Callback", 1);
+    stash::PurpleBee            = gv_stashpv ("PurpleBee", 1);
+    stash::Callback             = gv_stashpv ("PurpleBee::Callback", 1);
+    stash::PurpleBee_Account    = gv_stashpv ("PurpleBee::Account", 1);
 }
 
+INCLUDE: PurpleBee/Account.xs
 INCLUDE: PurpleBee/Callback.xs

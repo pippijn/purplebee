@@ -1,12 +1,15 @@
+gboolean		T_OBJ
+
 perl_callback*		T_OBJ
+PurpleAccount*		T_OBJ
 
 INPUT
 
 T_OBJ
-	$var = server->sv_to<$type> ($arg)
+	$var = server->sv_to<$type> ($arg);
 
 
 OUTPUT
 
 T_OBJ
-	$arg = server->to_sv<$type> ($var)
+	$arg = server->to_sv<$type> ($var);

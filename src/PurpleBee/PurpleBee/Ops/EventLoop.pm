@@ -33,7 +33,7 @@ sub timeout_add {
          $timeouts[$handle] = AnyEvent->timer (
             after       => $interval,
             interval    => $interval,
-            cb          => sub { print "timeout $callback\n"; $callback->call },
+            cb          => sub { print "timeout $handle = $callback\n"; $callback->call },
          );
 
          print "timeout_add = $handle\n";
@@ -89,7 +89,7 @@ sub timeout_add_seconds {
             after       => $interval,
             interval    => $interval,
             cb          => sub {
-               print "timeout_seconds $callback\n";
+               print "timeout_seconds $handle = $callback\n";
                timeout_remove $handle
                   unless $callback->call
             },
@@ -131,13 +131,13 @@ sub input_add {
          $inputhandlers[$handle]{read} = AnyEvent->io (
             fd   => $fd,
             poll => 'r',
-            cb   => sub { print "input $callback\n"; $callback->call }
+            cb   => sub { print "input[r] $handle = $callback\n"; $callback->call }
          ) if $cond & IO_READ;
 
          $inputhandlers[$handle]{write} = AnyEvent->io (
             fd   => $fd,
             poll => 'w',
-            cb   => sub { print "input $callback\n"; $callback->call }
+            cb   => sub { print "input[w] $handle = $callback\n"; $callback->call }
          ) if $cond & IO_WRITE;
 
          print "input_add = $handle\n";

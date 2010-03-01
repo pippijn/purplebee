@@ -10,7 +10,7 @@ use PurpleBee::Ops::EventLoop;
 our $runcb = AnyEvent->condvar;
 
 sub main {
-   my $timer = AnyEvent->timer (after => 10, cb => sub { $runcb->broadcast });
+   #my $timer = AnyEvent->timer (after => 10, cb => sub { $runcb->broadcast });
    $runcb->wait
 }
 
