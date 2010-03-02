@@ -182,12 +182,11 @@ PurpleBee::run ()
   char const* password = getpass ("Password: ");
   char const* protocol = "prpl-msn";
 
-  printf ("Running libpurple %s (single instance = %d)\n", purple_core_get_version (), purple_core_ensure_single_instance ());
-  auto account = purple_account_new (username, protocol);
-  purple_account_set_password (account, password);
-  purple_account_set_enabled (account, package (), true);
-  auto status = purple_savedstatus_new (NULL, PURPLE_STATUS_AVAILABLE);
-  purple_savedstatus_activate (status);
+  //auto account = purple_account_new (username, protocol);
+  //purple_account_set_password (account, password);
+  //purple_account_set_enabled (account, package (), true);
+  //auto status = purple_savedstatus_new (NULL, PURPLE_STATUS_AVAILABLE);
+  //purple_savedstatus_activate (status);
 
-  call<void> ("main", account, password);
+  call<void> ("main", this, username, password, protocol);
 }

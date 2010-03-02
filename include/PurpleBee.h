@@ -10,6 +10,8 @@
 struct PurpleBee
   : private perl_interpreter
 {
+  friend struct perl_interpreter;
+
   struct directories
   {
     char const* const user;
