@@ -4,6 +4,6 @@ namespace stash
 {
   HV* Callback;
   HV* PurpleBee;
-#define PTYPE(T) HV* PASTE(PurpleBee_, T);
+#define PTYPE(T, P) HV* PASTE(PurpleBee_, T);
 #include "PurpleBee/types.h"
 }

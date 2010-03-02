@@ -25,14 +25,17 @@ our $runcv = AnyEvent->condvar;
 sub main {
    my ($self, $username, $password, $protocol) = @_;
    my $timer = AnyEvent->timer (after => 60, cb => sub { $runcv->broadcast });
-   printf "Running libpurple %s (single instance = %d)\n", purple_core_get_version, purple_core_ensure_single_instance;
-   my $account = purple_account_new $username, $protocol
+   printf "Running libpurple %s (single instance = %d)\n"
+   	, PurpleBee::Core::get_version
+        , PurpleBee::Core::ensure_single_instance
+        ;
+   my $account = PurpleBee::Account::new $username, $protocol
       or die;
-   purple_account_set_password $account, $password;
-   purple_account_set_enabled $account, $self->package, 1;
-   my $status = purple_savedstatus_new undef, 2
+   $account->set_password ($password);
+   $account->set_enabled ($self->package, 1);
+   my $status = PurpleBee::SavedStatus::new undef, 2
       or die;
-   purple_savedstatus_activate $status;
+   $status->activate;
    $runcv->wait;
 }
 

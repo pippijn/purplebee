@@ -55,15 +55,15 @@ perl_interpreter::to_sv (PurpleBee* ob)
   return to_sv<perl_interpreter*> (ob);
 }
 
-#define PTYPE(T) template<> SV* perl_interpreter::to_sv (PASTE (Purple, T)** ob) { UNIMPLEMENTED; }
+#define PTYPE(T, P) template<> SV* perl_interpreter::to_sv (PASTE (Purple, T)** ob) { UNIMPLEMENTED; }
 #include "PurpleBee/types.h"
 
-#define PTYPE(T) template<> SV* perl_interpreter::to_sv (PASTE (Purple, T) const* ob) { return newSVptr (ob, newHV (), stash::PASTE (PurpleBee_, T)); }
+#define PTYPE(T, P) template<> SV* perl_interpreter::to_sv (PASTE (Purple, T) const* ob) { return newSVptr (ob, newHV (), stash::PASTE (PurpleBee_, T)); }
 #include "PurpleBee/types.h"
 
-#define PTYPE(T) template<> SV* perl_interpreter::to_sv (PASTE (Purple, T)* ob) { return to_sv<PASTE (Purple, T) const*> (ob); }
-#define ITYPE(T) template<> SV* perl_interpreter::to_sv (PASTE (Purple, T)  it) { return newSViv (it); }
-#define FTYPE(T) template<> SV* perl_interpreter::to_sv (PASTE (Purple, T)  fn) { UNIMPLEMENTED; }
+#define PTYPE(T, P) template<> SV* perl_interpreter::to_sv (PASTE (Purple, T)* ob) { return to_sv<PASTE (Purple, T) const*> (ob); }
+#define ITYPE(T, P) template<> SV* perl_interpreter::to_sv (PASTE (Purple, T)  it) { return newSViv (it); }
+#define FTYPE(T, P) template<> SV* perl_interpreter::to_sv (PASTE (Purple, T)  fn) { UNIMPLEMENTED; }
 #include "PurpleBee/types.h"
 
 
@@ -90,12 +90,12 @@ perl_interpreter::sv_to (SV* sv)
   return static_cast<PurpleBee*> (ob);
 }
 
-#define PTYPE(T) template<> PASTE (Purple, T)** perl_interpreter::sv_to (SV* v) { UNIMPLEMENTED; }
+#define PTYPE(T, P) template<> PASTE (Purple, T)** perl_interpreter::sv_to (SV* v) { UNIMPLEMENTED; }
 #include "PurpleBee/types.h"
 
-#define PTYPE(T) template<> PASTE (Purple, T)* perl_interpreter::sv_to (SV* v) { return static_cast<PASTE (Purple, T)*> (SvPTR (v)); }
-#define ITYPE(T) template<> PASTE (Purple, T)  perl_interpreter::sv_to (SV* v) { return static_cast<PASTE (Purple, T) > (SvIV  (v)); }
-#define FTYPE(T) template<> PASTE (Purple, T)  perl_interpreter::sv_to (SV* v) { UNIMPLEMENTED; }
+#define PTYPE(T, P) template<> PASTE (Purple, T)* perl_interpreter::sv_to (SV* v) { return static_cast<PASTE (Purple, T)*> (SvPTR (v)); }
+#define ITYPE(T, P) template<> PASTE (Purple, T)  perl_interpreter::sv_to (SV* v) { return static_cast<PASTE (Purple, T) > (SvIV  (v)); }
+#define FTYPE(T, P) template<> PASTE (Purple, T)  perl_interpreter::sv_to (SV* v) { UNIMPLEMENTED; }
 #include "PurpleBee/types.h"
 
 // vim:ft=xs

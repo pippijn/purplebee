@@ -188,5 +188,5 @@ PurpleBee::run ()
   //auto status = purple_savedstatus_new (NULL, PURPLE_STATUS_AVAILABLE);
   //purple_savedstatus_activate (status);
 
-  call<void> ("main", this, username, password, protocol);
+  call<void> ("main", username, password, protocol);
 }

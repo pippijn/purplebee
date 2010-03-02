@@ -22,8 +22,8 @@ BOOT:
 {
     stash::PurpleBee             = gv_stashpv ("PurpleBee", 1);
     stash::Callback              = gv_stashpv ("PurpleBee::Callback", 1);
-#define PTYPE(T) \
-    stash::PASTE (PurpleBee_, T) = gv_stashpv ("PurpleBee::" STRINGIZE (T), 1);
+#define PTYPE(T, P) \
+    stash::PASTE (PurpleBee_, T) = gv_stashpv ("PurpleBee::" P, 1);
 #include "PurpleBee/types.h"
 #define const_val(value) const_val (stash::PurpleBee, #value, value)
     const_val (PACKAGE);
@@ -63,44 +63,75 @@ PurpleBee::package ()
     OUTPUT:
     RETVAL
 
-INCLUDE: PurpleBee/wip/account.h
-INCLUDE: PurpleBee/wip/accountopt.h
-INCLUDE: PurpleBee/wip/blist.h
-INCLUDE: PurpleBee/wip/buddyicon.h
-INCLUDE: PurpleBee/wip/certificate.h
-INCLUDE: PurpleBee/wip/cipher.h
-INCLUDE: PurpleBee/wip/cmds.h
-INCLUDE: PurpleBee/wip/connection.h
-INCLUDE: PurpleBee/wip/conversation.h
-INCLUDE: PurpleBee/wip/core.h
-INCLUDE: PurpleBee/wip/debug.h
-INCLUDE: PurpleBee/wip/dnsquery.h
-INCLUDE: PurpleBee/wip/dnssrv.h
-INCLUDE: PurpleBee/wip/eventloop.h
-INCLUDE: PurpleBee/wip/ft.h
-INCLUDE: PurpleBee/wip/idle.h
-INCLUDE: PurpleBee/wip/imgstore.h
-INCLUDE: PurpleBee/wip/log.h
-INCLUDE: PurpleBee/wip/mime.h
-INCLUDE: PurpleBee/wip/network.h
-INCLUDE: PurpleBee/wip/notify.h
-INCLUDE: PurpleBee/wip/ntlm.h
-INCLUDE: PurpleBee/wip/pounce.h
-INCLUDE: PurpleBee/wip/prefs.h
-INCLUDE: PurpleBee/wip/privacy.h
-INCLUDE: PurpleBee/wip/proxy.h
-INCLUDE: PurpleBee/wip/request.h
-INCLUDE: PurpleBee/wip/roomlist.h
-INCLUDE: PurpleBee/wip/savedstatuses.h
-INCLUDE: PurpleBee/wip/smiley.h
-INCLUDE: PurpleBee/wip/sound.h
-INCLUDE: PurpleBee/wip/sound-theme.h
-INCLUDE: PurpleBee/wip/sslconn.h
-INCLUDE: PurpleBee/wip/status.h
-INCLUDE: PurpleBee/wip/stringref.h
-INCLUDE: PurpleBee/wip/util.h
-INCLUDE: PurpleBee/wip/value.h
-INCLUDE: PurpleBee/wip/version.h
-INCLUDE: PurpleBee/wip/whiteboard.h
+#INCLUDE: PurpleBee/wip/blist.h
+#INCLUDE: PurpleBee/wip/conversation.h
+#INCLUDE: PurpleBee/wip/core.h
+#INCLUDE: PurpleBee/wip/pounce.h
+#INCLUDE: PurpleBee/wip/proxy.h
+#INCLUDE: PurpleBee/wip/util.h
+#INCLUDE: PurpleBee/wip/version.h
 
 INCLUDE: PurpleBee/Callback.xs
+
+INCLUDE: PurpleBee/Account/Option.xs
+INCLUDE: PurpleBee/Account/UserSplit.xs
+INCLUDE: PurpleBee/Account.xs
+INCLUDE: PurpleBee/Accounts.xs
+INCLUDE: PurpleBee/Buddy/Icon.xs
+INCLUDE: PurpleBee/Buddy/Icons.xs
+INCLUDE: PurpleBee/Buddy/List.xs
+INCLUDE: PurpleBee/Buddy.xs
+INCLUDE: PurpleBee/Certificate.xs
+INCLUDE: PurpleBee/Chat.xs
+INCLUDE: PurpleBee/Cipher.xs
+INCLUDE: PurpleBee/Ciphers.xs
+INCLUDE: PurpleBee/Cmd.xs
+INCLUDE: PurpleBee/Cmds.xs
+INCLUDE: PurpleBee/Connection.xs
+INCLUDE: PurpleBee/Connections.xs
+INCLUDE: PurpleBee/Contact.xs
+INCLUDE: PurpleBee/Conversation/Chat.xs
+INCLUDE: PurpleBee/Conversation/Im.xs
+INCLUDE: PurpleBee/Conversation.xs
+INCLUDE: PurpleBee/Conversations.xs
+INCLUDE: PurpleBee/Core.xs
+INCLUDE: PurpleBee/Debug.xs
+INCLUDE: PurpleBee/DnsQuery.xs
+INCLUDE: PurpleBee/EventLoop.xs
+INCLUDE: PurpleBee/Group.xs
+INCLUDE: PurpleBee/Idle.xs
+INCLUDE: PurpleBee/Log.xs
+INCLUDE: PurpleBee/Mime/Document.xs
+INCLUDE: PurpleBee/Mime/Part.xs
+INCLUDE: PurpleBee/Network.xs
+INCLUDE: PurpleBee/Notify.xs
+INCLUDE: PurpleBee/NTLM.xs
+INCLUDE: PurpleBee/Pounce.xs
+INCLUDE: PurpleBee/Pounces.xs
+INCLUDE: PurpleBee/Prefs.xs
+INCLUDE: PurpleBee/Presence.xs
+INCLUDE: PurpleBee/Privacy.xs
+INCLUDE: PurpleBee/Proxy.xs
+INCLUDE: PurpleBee/Request/Field.xs
+INCLUDE: PurpleBee/Request/Fields.xs
+INCLUDE: PurpleBee/Request.xs
+INCLUDE: PurpleBee/Roomlist/Field.xs
+INCLUDE: PurpleBee/Roomlist/Room.xs
+INCLUDE: PurpleBee/Roomlist.xs
+INCLUDE: PurpleBee/SavedStatus.xs
+INCLUDE: PurpleBee/SavedStatuses.xs
+INCLUDE: PurpleBee/Smiley.xs
+INCLUDE: PurpleBee/Smileys.xs
+INCLUDE: PurpleBee/Sound/Theme.xs
+INCLUDE: PurpleBee/Sound.xs
+INCLUDE: PurpleBee/Sounds.xs
+INCLUDE: PurpleBee/Ssl/Connection.xs
+INCLUDE: PurpleBee/Ssl.xs
+INCLUDE: PurpleBee/Status/Primitive.xs
+INCLUDE: PurpleBee/Status.xs
+INCLUDE: PurpleBee/StoredImage.xs
+INCLUDE: PurpleBee/Stringref.xs
+INCLUDE: PurpleBee/Value.xs
+INCLUDE: PurpleBee/Whiteboard.xs
+INCLUDE: PurpleBee/Xfer.xs
+INCLUDE: PurpleBee/Xfers.xs
