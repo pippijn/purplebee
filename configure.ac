@@ -7,19 +7,19 @@ AC_CONFIG_HEADERS(autoconf.h)
 
 AC_LANG(C++)
 
+# libtool
+LT_INIT([disable-static])
+LT_LANG([C++])
+
 # automake
-LT_INIT
 AM_INIT_AUTOMAKE([silent-rules gnits])
 AM_SILENT_RULES
 AM_DEFAULT_VERBOSITY=0
 
-# build tools
-AC_PROG_CC
-AC_PROG_CXX
-AM_PROG_CC_C_O
-
+# pkg-config
 AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
 
+# libpurple
 AC_MSG_CHECKING(purple >= 0.22)
 if $PKG_CONFIG purple --atleast-version 0.22; then
    CXXFLAGS="$CXXFLAGS `$PKG_CONFIG purple --cflags`"
@@ -29,6 +29,7 @@ else
    AC_MSG_ERROR(no)
 fi
 
+# perl
 AC_PATH_PROG(PERL, perl5.10.1)
 if test -z "$PERL"; then
    AC_PATH_PROG(PERL, perl5.10.0)
@@ -40,6 +41,26 @@ if test -z "$PERL"; then
    fi
 fi
 
+for module_vers in      \
+   "AnyEvent 5.2"       \
+; do
+   set -- $module_vers
+   module=$1
+   minvers=$2
+   AC_MSG_CHECKING(for $module perl module version $minvers or higher)
+   if $PERL -M$module -e0 >/dev/null 2>&1; then
+      version=`$PERL -M$module -e "print \\$$module::VERSION"`
+      if $PERL -M$module -e "\$$module::VERSION >= $minvers or die" >/dev/null 2>&1; then
+         AC_MSG_RESULT([ok, version $version])
+      else
+         AC_MSG_ERROR([no, installed version is $version])
+      fi
+   else
+      AC_MSG_ERROR([no, cannot load module $module])
+   fi
+done
+
+# libperl
 AC_MSG_CHECKING(for $PERL suitability)
 if $PERL -MExtUtils::Embed -e "use 5.10.0" >/dev/null 2>&1; then
   save_CXXFLAGS="$CXXFLAGS"

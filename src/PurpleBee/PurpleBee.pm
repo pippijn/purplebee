@@ -1,6 +1,7 @@
 package PurpleBee;
 
 use common::sense;
+
 use AnyEvent;
 
 use PurpleBee::Ops::Account;
