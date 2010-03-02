@@ -172,5 +172,18 @@ PurpleBee::init ()
 void
 PurpleBee::run ()
 {
-  call<void> ("main", getenv ("USERNAME"), getenv ("PASSWORD"), getenv ("PROTOCOL"));
+  auto USERNAME = getenv ("USERNAME");
+  auto PASSWORD = getenv ("PASSWORD");
+  auto PROTOCOL = getenv ("PROTOCOL");
+
+  printf ("Running libpurple %s (single instance = %d)\n", purple_core_get_version (), purple_core_ensure_single_instance ());
+  auto account = purple_account_new (USERNAME, PROTOCOL);
+  purple_account_set_password (account, PASSWORD);
+  purple_account_set_enabled (account, package (), 1);
+  auto status = purple_savedstatus_new (NULL, PURPLE_STATUS_AVAILABLE);
+  purple_savedstatus_activate (status);
+
+  g_main_loop_run (g_main_loop_new (NULL, FALSE));
+
+  call<void> ("main", USERNAME, PASSWORD, PROTOCOL);
 }

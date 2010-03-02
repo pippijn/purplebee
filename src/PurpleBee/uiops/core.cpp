@@ -21,7 +21,8 @@ namespace uiops
   void
   core::ui_init (void)
   {
-    return server->call<void> (OPS "ui_init");
+    purple_conversations_set_ui_ops (&server->conversation_ops);
+    //return server->call<void> (OPS "ui_init");
   }
 
   void
@@ -40,11 +41,11 @@ namespace uiops
   core::create ()
   {
     return {
-      ui_prefs_init,
-      debug_ui_init,
+      NULL,//ui_prefs_init,
+      NULL,//debug_ui_init,
       ui_init,
-      quit,
-      get_ui_info,
+      NULL,//quit,
+      NULL,//get_ui_info,
     };
   }
 }
