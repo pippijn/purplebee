@@ -26,7 +26,7 @@ void
 purple_value_set_char (PurpleValue* value, char data);
 
 void
-purple_value_set_uchar (PurpleValue* value, unsigned char data);
+purple_value_set_uchar (PurpleValue* value, char unsigned data);
 
 void
 purple_value_set_boolean (PurpleValue* value, gboolean data);
@@ -73,7 +73,7 @@ purple_value_set_boxed (PurpleValue* value, void* data);
 char
 purple_value_get_char (PurpleValue* value);
 
-unsigned char
+char unsigned
 purple_value_get_uchar (PurpleValue* value);
 
 gboolean

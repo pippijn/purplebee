@@ -30,7 +30,7 @@ SV*
 perl_interpreter::newSVptr (void const* ptr, SV* sv, HV* stash)
 {
   if (!ptr)
-    return newSV (0);
+    return &PL_sv_undef;
 
   sv_magicext (sv, 0, PERL_MAGIC_ext, 0, (char*)ptr, 0);
   if (!SvROK (sv))
@@ -43,10 +43,10 @@ perl_interpreter::newSVptr (void const* ptr, SV* sv, HV* stash)
 SV*
 perl_interpreter::newSVptr (void const* ptr, HV* hv, HV* stash)
 {
-  SV* sv = (SV*)hv;
   if (!ptr)
-    return newSV (0);
+    return &PL_sv_undef;
 
+  SV* sv = (SV*)hv;
   sv_magicext (sv, 0, PERL_MAGIC_ext, 0, (char*)ptr, 0);
   sv = newRV_noinc (sv);
   if (stash)
@@ -57,10 +57,10 @@ perl_interpreter::newSVptr (void const* ptr, HV* hv, HV* stash)
 SV*
 perl_interpreter::newSVptr (void const* ptr, AV* av, HV* stash)
 {
-  SV* sv = (SV*)av;
   if (!ptr)
-    return newSV (0);
+    return &PL_sv_undef;
 
+  SV* sv = (SV*)av;
   sv_magicext (sv, 0, PERL_MAGIC_ext, 0, (char*)ptr, 0);
   sv = newRV_noinc (sv);
   if (stash)
@@ -72,6 +72,9 @@ perl_interpreter::newSVptr (void const* ptr, AV* av, HV* stash)
 void*
 perl_interpreter::SvPTR (SV* sv)
 {
+  if (sv == &PL_sv_undef)
+    return NULL;
+
   if (!SvROK (sv))
     return NULL;
 
@@ -90,10 +93,10 @@ perl_interpreter::SvPTR (SV* sv)
 
 template<>
 SV*
-perl_interpreter::to_sv (perl_object* obj)
+perl_interpreter::to_sv (perl_interpreter* obj)
 {
   if (!obj)
-    return newSV (0);
+    return &PL_sv_undef;
 
   if (!obj->self)
     obj->self = newHV ();
@@ -119,10 +122,10 @@ perl_interpreter::to_sv (perl_object* obj)
 }
 
 template<>
-SV*
-perl_interpreter::to_sv (perl_interpreter* obj)
+perl_interpreter*
+perl_interpreter::sv_to (SV* sv)
 {
-  return to_sv<perl_object*> (obj);
+  return static_cast<perl_interpreter*> (SvPTR (sv));
 }
 
 

@@ -46,6 +46,14 @@ perl_interpreter::to_sv (std::tuple<PurpleAccountRequestAuthorizationCb, gpointe
   return newSVptr (perl_callback::create (*this, closure), newSV (0), stash::Callback);
 }
 
+template<>
+SV*
+perl_interpreter::to_sv (PurpleBee* ob)
+{
+  xassert (ob == dynamic_cast<PurpleBee*> (this));
+  return to_sv<perl_interpreter*> (this);
+}
+
 #define PTYPE(T) template<> SV* perl_interpreter::to_sv (PASTE (Purple, T)** ob) { UNIMPLEMENTED; }
 #include "PurpleBee/types.h"
 
@@ -67,6 +75,15 @@ GCallback
 perl_interpreter::sv_to (SV* sv)
 {
   UNIMPLEMENTED;
+}
+
+template<>
+PurpleBee*
+perl_interpreter::sv_to (SV* sv)
+{
+  auto ob = sv_to<perl_interpreter*> (sv);
+  xassert (ob == this);
+  return dynamic_cast<PurpleBee*> (ob);
 }
 
 #define PTYPE(T) template<> PASTE (Purple, T)** perl_interpreter::sv_to (SV* v) { UNIMPLEMENTED; }

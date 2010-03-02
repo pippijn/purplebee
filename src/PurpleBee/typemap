@@ -1,31 +1,32 @@
+char const**		T_OBJ
+char const*		T_OBJ
+char**			T_OBJ
+char unsigned const*	T_OBJ
+char unsigned		T_OBJ
 gboolean		T_OBJ
+gchar const*		T_OBJ
+gchar**			T_OBJ
+gchar*			T_OBJ
+gconstpointer		T_OBJ
+gint64			T_OBJ
+gint			T_OBJ
+gpointer		T_OBJ
+gsize*			T_OBJ
+gsize			T_OBJ
+gssize			T_OBJ
+guchar const*		T_OBJ
+guchar**		T_OBJ
+guchar*			T_OBJ
+guint32*		T_OBJ
+guint64			T_OBJ
+guint8 const*		T_OBJ
+guint8*			T_OBJ
+guint			T_OBJ
+long*			T_OBJ
+struct tm*		T_OBJ
+time_t*			T_OBJ
 va_list			T_OBJ
 void const*		T_OBJ
-gint			T_OBJ
-guint			T_OBJ
-gssize			T_OBJ
-gsize			T_OBJ
-guint32*		T_OBJ
-guint8*		T_OBJ
-gint64			T_OBJ
-guint64			T_OBJ
-gpointer		T_OBJ
-gconstpointer		T_OBJ
-char**			T_OBJ
-gchar*			T_OBJ
-gchar**			T_OBJ
-guchar*			T_OBJ
-guchar**		T_OBJ
-gchar const*		T_OBJ
-guchar const*		T_OBJ
-guint8 const*		T_OBJ
-char const**		T_OBJ
-long*			T_OBJ
-time_t*		T_OBJ
-gsize*			T_OBJ
-struct tm*		T_OBJ
-unsigned char const*	T_OBJ
-char const*		T_OBJ
 
 GData**			T_OBJ
 GByteArray*		T_OBJ
@@ -38,6 +39,8 @@ GSourceFunc		T_OBJ
 GString*		T_OBJ
 
 perl_callback*		T_OBJ
+
+PurpleBee*	T_OBJ
 
 PurpleAccountOption*	T_OBJ
 PurpleAccount*		T_OBJ

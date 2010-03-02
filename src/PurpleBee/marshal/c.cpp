@@ -84,6 +84,8 @@ template<>
 char const*
 perl_interpreter::sv_to (SV* v)
 {
+  if (v == &PL_sv_undef)
+    return NULL;
   return SvPV_nolen (v);
 }
 

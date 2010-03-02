@@ -1,4 +1,4 @@
-unsigned char const*
+char unsigned const*
 purple_network_ip_atoi (char const* ip);
 
 void

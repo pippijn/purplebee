@@ -191,7 +191,7 @@ char*
 purple_str_seconds_to_string (guint sec);
 
 char*
-purple_str_binary_to_ascii (unsigned char const* binary, guint len);
+purple_str_binary_to_ascii (char unsigned const* binary, guint len);
 
 void
 purple_got_protocol_handler_uri (char const* uri);

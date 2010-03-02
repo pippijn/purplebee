@@ -56,6 +56,11 @@ BOOT:
 #undef const_val
 }
 
+char const*
+PurpleBee::ui_id ()
+    CODE:       RETVAL = THIS->package ();
+    OUTPUT:     RETVAL
+
 INCLUDE: PurpleBee/wip/account.h
 INCLUDE: PurpleBee/wip/accountopt.h
 INCLUDE: PurpleBee/wip/blist.h

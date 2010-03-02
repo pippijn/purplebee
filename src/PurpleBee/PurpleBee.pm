@@ -23,13 +23,16 @@ use PurpleBee::Ops::Xfer;
 our $runcb = AnyEvent->condvar;
 
 sub main {
-   my ($USERNAME, $PASSWORD, $PROTOCOL) = @_;
+   my ($self, $USERNAME, $PASSWORD, $PROTOCOL) = @_;
    my $timer = AnyEvent->timer (after => 60, cb => sub { $runcb->broadcast });
    printf "Running libpurple %s (single instance = %d)\n", purple_core_get_version, purple_core_ensure_single_instance;
-   my $account = purple_account_new $USERNAME, $PROTOCOL;
+   my $account = purple_account_new $USERNAME, $PROTOCOL
+      or die;
    purple_account_set_password $account, $PASSWORD;
-   purple_account_set_enabled $account, 'PurpleBee', 1;
-   my $status = purple_savedstatus_new undef, 2;
+   purple_account_set_enabled $account, $self->ui_id, 1;
+   print "oi\n";
+   my $status = purple_savedstatus_new undef, 2
+      or die;
    purple_savedstatus_activate $status;
    $runcb->wait;
 }
