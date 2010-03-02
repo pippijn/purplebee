@@ -172,6 +172,5 @@ PurpleBee::init ()
 void
 PurpleBee::run ()
 {
-  call<void> ("main");
+  call<void> ("main", getenv ("USERNAME"), getenv ("PASSWORD"), getenv ("PROTOCOL"));
 }
-

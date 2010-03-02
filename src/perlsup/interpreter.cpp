@@ -72,6 +72,9 @@ perl_interpreter::newSVptr (void const* ptr, AV* av, HV* stash)
 void*
 perl_interpreter::SvPTR (SV* sv)
 {
+  if (!SvROK (sv))
+    return NULL;
+
   sv = SvRV (sv);
 
   // very important shortcut

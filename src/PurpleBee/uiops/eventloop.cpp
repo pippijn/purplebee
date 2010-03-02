@@ -51,7 +51,7 @@ namespace uiops
       timeout_remove,
       input_add,
       input_remove,
-      input_get_error,
+      NULL,//input_get_error,
       timeout_add_seconds,
     };
   }

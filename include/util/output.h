@@ -5,33 +5,35 @@
 #include <tuple>
 
 template<typename T>
-static inline void
+static inline std::ostream&
 output (T const& object, std::ostream& os = std::cout)
 {
-  os << object;
+  return os << object;
 }
 
 template<typename T>
-static inline void
+static inline std::ostream&
 output (T const* object, std::ostream& os = std::cout)
 {
   if (object)
     os << object;
   else
     os << "NULL";
+  return os;
 }
 
-static inline void
+static inline std::ostream&
 output (char const* object, std::ostream& os = std::cout)
 {
   if (object)
     os << '"' << object << '"';
   else
     os << "NULL";
+  return os;
 }
 
 template<typename T, size_t N>
-static inline void
+static inline std::ostream&
 output (T const (&array)[N], std::ostream& os = std::cout)
 {
   os << '{';
@@ -42,20 +44,22 @@ output (T const (&array)[N], std::ostream& os = std::cout)
         os << ", ";
     }
   os << '}';
+  return os;
 }
 
 template<typename T>
-static inline void
+static inline std::ostream&
 output (std::vector<T> const &vector, std::ostream& os = std::cout)
 {
   os << '{';
   for (size_t i = 0; i < vector.size (); ++i)
     {
-      output (os, vector[i]);
+      output (vector[i], os);
       if (i < vector.size () - 1)
         os << ", ";
     }
   os << '}';
+  return os;
 }
 
 namespace detail
@@ -109,10 +113,11 @@ namespace detail
 }
 
 template<typename... Args>
-static inline void
+static inline std::ostream&
 output (std::tuple<Args...> const& tuple, std::ostream& os = std::cout)
 {
   os << "tuple (";
   detail::tuple_formatter<0, sizeof... (Args)>::output (tuple, os);
   os << ")";
+  return os;
 }

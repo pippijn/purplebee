@@ -129,13 +129,13 @@ sub input_add {
    for my $handle (0 .. @inputhandlers) { # find the next free @inputhandlers-index
       if (!$inputhandlers[$handle]) {
          $inputhandlers[$handle]{read} = AnyEvent->io (
-            fd   => $fd,
+            fh   => $fd,
             poll => 'r',
             cb   => sub { print "input[r] $handle (fd=$fd) = $callback\n"; $callback->call }
          ) if $cond & IO_READ;
 
          $inputhandlers[$handle]{write} = AnyEvent->io (
-            fd   => $fd,
+            fh   => $fd,
             poll => 'w',
             cb   => sub { print "input[w] $handle (fd=$fd) = $callback\n"; $callback->call }
          ) if $cond & IO_WRITE;

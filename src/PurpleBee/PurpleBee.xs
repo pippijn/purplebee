@@ -20,9 +20,11 @@ MODULE = PurpleBee      PACKAGE = PurpleBee
 
 BOOT:
 {
-    stash::PurpleBee            = gv_stashpv ("PurpleBee", 1);
-    stash::Callback             = gv_stashpv ("PurpleBee::Callback", 1);
-    stash::PurpleBee_Account    = gv_stashpv ("PurpleBee::Account", 1);
+    stash::PurpleBee             = gv_stashpv ("PurpleBee", 1);
+    stash::Callback              = gv_stashpv ("PurpleBee::Callback", 1);
+#define PTYPE(T) \
+    stash::PASTE (PurpleBee_, T) = gv_stashpv ("PurpleBee::" STRINGIZE (T), 1);
+#include "PurpleBee/types.h"
 #define const_val(value) const_val (stash::PurpleBee, #value, value)
     const_val (PACKAGE);
     const_val (PACKAGE_BUGREPORT);

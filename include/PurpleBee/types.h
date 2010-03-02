@@ -1,4 +1,5 @@
-#define PASTE(a, b) a##b
+#define PASTE(a, b)     a##b
+#define STRINGIZE(a)    #a
 
 #if !defined (PTYPE) && !defined (ITYPE) && !defined (FTYPE)
 # error Need to define at least one of PTYPE, ITYPE, FTYPE
