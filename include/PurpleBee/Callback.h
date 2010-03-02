@@ -1,4 +1,5 @@
 #include "perl/callback.h"
+#include "util/xassert.h"
 
 template<size_t N>
 static SV*

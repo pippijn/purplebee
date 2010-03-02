@@ -84,7 +84,7 @@ template<>
 char const*
 perl_interpreter::sv_to (SV* v)
 {
-  UNIMPLEMENTED;
+  return SvPV_nolen (v);
 }
 
 template<>

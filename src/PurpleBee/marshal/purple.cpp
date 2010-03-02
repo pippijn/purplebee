@@ -3,6 +3,7 @@
 #include "PurpleBee.h"
 #include "PurpleBee/stash.h"
 #include "perl/callback.h"
+#include "util/make_closure.h"
 #include "util/unimplemented.h"
 #include "util/xassert.h"
 
@@ -14,7 +15,7 @@ template<>
 SV*
 perl_interpreter::to_sv (GCallback closure)
 {
-  return newSVptr (perl_callback::create (*this, std::make_tuple (closure)), newSV (0), stash::Callback);
+  return newSVptr (perl_callback::create (*this, make_closure (closure)), newSV (0), stash::Callback);
 }
 
 template<>

@@ -1,8 +1,8 @@
 lib_LTLIBRARIES += libPurpleBee.la
 
 libPurpleBee_la_SOURCES =			\
+	src/PurpleBee/marshal/c/numeric.cpp	\
 	src/PurpleBee/marshal/c.cpp		\
-	src/PurpleBee/marshal/numeric.cpp	\
 	src/PurpleBee/marshal/glib.cpp		\
 	src/PurpleBee/marshal/purple.cpp	\
 	src/PurpleBee/uiops/account.cpp		\
@@ -22,6 +22,7 @@ libPurpleBee_la_SOURCES =			\
 	src/PurpleBee/uiops/whiteboard.cpp	\
 	src/PurpleBee/uiops/xfer.cpp		\
 	src/PurpleBee/PurpleBee.xs		\
+	src/PurpleBee/glue.cpp			\
 	src/PurpleBee/stash.cpp
 
 libPurpleBee_la_LIBADD = libutil.la libperlsup.la $(PERLLIB)
