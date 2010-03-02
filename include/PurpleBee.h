@@ -13,7 +13,8 @@ struct PurpleBee
   struct directories
   {
     char const* const user;
-    char const* const plugin_save;
+    char const* const plugins_saved;
+    char const* const plugins_path;
   };
 
   directories dirs;

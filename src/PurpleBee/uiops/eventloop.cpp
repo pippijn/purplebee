@@ -65,7 +65,6 @@ namespace uiops
   guint
   eventloop::timeout_add (guint interval, GSourceFunc function, gpointer data)
   {
-    //printf ("eventloop::timeout_add (%d, %p, %p)\n", interval, function, data);
     return server->call<guint> (OPS "timeout_add", interval, make_closure (function, data));
   }
 
@@ -103,20 +102,20 @@ namespace uiops
   eventloop::create ()
   {
     return {
-      g_timeout_add,
-       g_source_remove,
-       glib_input_add,
-       g_source_remove,
-       NULL,
-       g_timeout_add_seconds,
-    };
-    return {
       timeout_add,
       timeout_remove,
       input_add,
       input_remove,
       NULL,//input_get_error,
       timeout_add_seconds,
+    };
+    return {
+      g_timeout_add,
+      g_source_remove,
+      glib_input_add,
+      g_source_remove,
+      NULL,
+      g_timeout_add_seconds,
     };
   }
 }

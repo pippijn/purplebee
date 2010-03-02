@@ -57,6 +57,7 @@ PurpleBee::PurpleBee (int argc, char* argv[], char* env[])
   , dirs {
       LOCALSTATEDIR "/pippijn",
       "/plugins/saved",
+      "",
     }
   , account_ops (uiops::account::create ())
   , blist_ops (uiops::blist::create ())
@@ -139,6 +140,11 @@ PurpleBee::init ()
   purple_xfers_set_ui_ops (&xfer_ops);
 #endif
 
+  /* Set path to search for plugins. The core (libpurple) takes care of loading the
+   * core-plugins, which includes the protocol-plugins. So it is not essential to add
+   * any path here, but it might be desired, especially for ui-specific plugins. */
+  purple_plugins_add_search_path (dirs.plugins_path);
+
   /* Now that all the essential stuff has been set, let's try to init the core. It's
    * necessary to provide a non-NULL name for the current ui to the core. This name
    * is used by stuff that depends on this ui, for example the ui-specific plugins. */
@@ -155,7 +161,7 @@ PurpleBee::init ()
 
   /* Load the desired plugins. The client should save the list of loaded plugins in
    * the preferences using purple_plugins_save_loaded(dirs.plugin_save) */
-  purple_plugins_load_saved (dirs.plugin_save);
+  purple_plugins_load_saved (dirs.plugins_saved);
 
   /* Load the pounces. */
   purple_pounces_load();
@@ -172,18 +178,16 @@ PurpleBee::init ()
 void
 PurpleBee::run ()
 {
-  auto USERNAME = getenv ("USERNAME");
-  auto PASSWORD = getenv ("PASSWORD");
-  auto PROTOCOL = getenv ("PROTOCOL");
+  char const* username = "pippijn88@hotmail.com";
+  char const* password = getpass ("Password: ");
+  char const* protocol = "prpl-msn";
 
   printf ("Running libpurple %s (single instance = %d)\n", purple_core_get_version (), purple_core_ensure_single_instance ());
-  auto account = purple_account_new (USERNAME, PROTOCOL);
-  purple_account_set_password (account, PASSWORD);
-  purple_account_set_enabled (account, package (), 1);
+  auto account = purple_account_new (username, protocol);
+  purple_account_set_password (account, password);
+  purple_account_set_enabled (account, package (), true);
   auto status = purple_savedstatus_new (NULL, PURPLE_STATUS_AVAILABLE);
   purple_savedstatus_activate (status);
 
-  g_main_loop_run (g_main_loop_new (NULL, FALSE));
-
-  call<void> ("main", USERNAME, PASSWORD, PROTOCOL);
+  call<void> ("main", account, password);
 }

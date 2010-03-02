@@ -99,21 +99,21 @@ namespace uiops
   conversation::create ()
   {
     return {
-      NULL,//create_conversation,
-      NULL,//destroy_conversation,
-      NULL,//write_chat,
-      NULL,//write_im,
+      create_conversation,
+      destroy_conversation,
+      write_chat,
+      write_im,
       write_conv,
-      NULL,//chat_add_users,
-      NULL,//chat_rename_user,
-      NULL,//chat_remove_users,
-      NULL,//chat_update_user,
-      NULL,//present,
-      NULL,//has_focus,
-      NULL,//custom_smiley_add,
-      NULL,//custom_smiley_write,
-      NULL,//custom_smiley_close,
-      NULL,//send_confirm,
+      chat_add_users,
+      chat_rename_user,
+      chat_remove_users,
+      chat_update_user,
+      present,
+      has_focus,
+      custom_smiley_add,
+      custom_smiley_write,
+      custom_smiley_close,
+      send_confirm,
     };
   }
 }
