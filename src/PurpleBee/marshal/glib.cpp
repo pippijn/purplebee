@@ -91,6 +91,7 @@ perl_interpreter::sv_to (SV* sv)
   UNIMPLEMENTED;
 }
 
+// TODO: this leaks
 template<>
 wrapper<GHashTable*, char const*, char const*>
 perl_interpreter::sv_to (SV* sv)
@@ -103,7 +104,7 @@ perl_interpreter::sv_to (SV* sv)
   char* key;
   I32 retlen;
   while (SV* value = hv_iternextsv (hv, &key, &retlen))
-    g_hash_table_insert (hash_table, key, SvPV_nolen (value));
+    g_hash_table_insert (hash_table, strdup (key), strdup (SvPV_nolen (value)));
 
   return { hash_table };
 }

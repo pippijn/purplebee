@@ -1,219 +1,218 @@
-char const**		T_OBJ
-char const*		T_OBJ
-char**			T_OBJ
-char unsigned const*	T_OBJ
-char unsigned		T_OBJ
-gboolean		T_OBJ
-gchar const*		T_OBJ
-gchar**			T_OBJ
-gchar*			T_OBJ
-gconstpointer		T_OBJ
-gint64			T_OBJ
-gint			T_OBJ
-gpointer		T_OBJ
-gsize*			T_OBJ
-gsize			T_OBJ
-gssize			T_OBJ
-guchar const*		T_OBJ
-guchar**		T_OBJ
-guchar*			T_OBJ
-guint32*		T_OBJ
-guint64			T_OBJ
-guint8 const*		T_OBJ
-guint8*			T_OBJ
-guint			T_OBJ
-long*			T_OBJ
-struct tm*		T_OBJ
-time_t*			T_OBJ
-va_list			T_OBJ
-void const*		T_OBJ
+char const**				T_PTROBJ
+char const*				T_PTROBJ
+char**					T_PTROBJ
+char unsigned const*			T_PTROBJ
+char unsigned				T_PTROBJ
+gboolean				T_PTROBJ
+gchar const*				T_PTROBJ
+gchar**					T_PTROBJ
+gchar*					T_PTROBJ
+gconstpointer				T_PTROBJ
+gint64					T_PTROBJ
+gint					T_PTROBJ
+gpointer				T_PTROBJ
+gsize*					T_PTROBJ
+gsize					T_PTROBJ
+gssize					T_PTROBJ
+guchar const*				T_PTROBJ
+guchar**				T_PTROBJ
+guchar*					T_PTROBJ
+guint32*				T_PTROBJ
+guint64					T_PTROBJ
+guint8 const*				T_PTROBJ
+guint8*					T_PTROBJ
+guint					T_PTROBJ
+int*					T_PTROBJ
+long*					T_PTROBJ
+size_t*					T_PTROBJ
+struct tm*				T_PTROBJ
+time_t*					T_PTROBJ
+va_list					T_PTROBJ
+void const*				T_PTROBJ
 
-GData**			T_OBJ
-GByteArray*		T_OBJ
-GHashTable*		T_OBJ
-GList*			T_OBJ
-GSList*			T_OBJ
-GType			T_OBJ
-GCallback		T_OBJ
-GSourceFunc		T_OBJ
-GString*		T_OBJ
+GData**					T_PTROBJ
+GByteArray*				T_PTROBJ
+GHashTable*				T_PTROBJ
+GList*					T_PTROBJ
+GSList*					T_PTROBJ
+GType					T_PTROBJ
+GCallback				T_PTROBJ
+GSourceFunc				T_PTROBJ
+GString*				T_PTROBJ
 
-perl_callback*		T_OBJ
+perl_callback*				T_PTROBJ
+PurpleBee*				T_PTROBJ
 
-PurpleBee*	T_OBJ
+PurpleAccountOption*			T_PTROBJ
+PurpleAccount*				T_PTROBJ
+PurpleAccountUiOps*			T_PTROBJ
+PurpleAccountUserSplit*			T_PTROBJ
+PurpleBlistNode*			T_PTROBJ
+PurpleBlistUiOps*			T_PTROBJ
+PurpleBuddyIconSpec*			T_PTROBJ
+PurpleBuddyIcon*			T_PTROBJ
+PurpleBuddyList*			T_PTROBJ
+PurpleBuddy*				T_PTROBJ
+PurpleCertificatePool*			T_PTROBJ
+PurpleCertificateScheme*		T_PTROBJ
+PurpleCertificate**			T_PTROBJ
+PurpleCertificate*			T_PTROBJ
+PurpleCertificateVerificationRequest*	T_PTROBJ
+PurpleCertificateVerifier*		T_PTROBJ
+PurpleChat*				T_PTROBJ
+PurpleCipherContext*			T_PTROBJ
+PurpleCipherOps*			T_PTROBJ
+PurpleCipher*				T_PTROBJ
+PurpleConnectionErrorInfo const*	T_PTROBJ
+PurpleConnection*			T_PTROBJ
+PurpleConnectionUiOps*			T_PTROBJ
+PurpleContact*				T_PTROBJ
+PurpleConvChatBuddy*			T_PTROBJ
+PurpleConvChat*				T_PTROBJ
+PurpleConversation*			T_PTROBJ
+PurpleConversationUiOps*		T_PTROBJ
+PurpleConvIm*				T_PTROBJ
+PurpleConvMessage*			T_PTROBJ
+PurpleCore*				T_PTROBJ
+PurpleCoreUiOps*			T_PTROBJ
+PurpleDebugUiOps*			T_PTROBJ
+PurpleDnsQueryData*			T_PTROBJ
+PurpleDnsQueryUiOps*			T_PTROBJ
+PurpleEventLoopUiOps*			T_PTROBJ
+PurpleGroup*				T_PTROBJ
+PurpleIdleUiOps*			T_PTROBJ
+PurpleLogLogger*			T_PTROBJ
+PurpleLogReadFlags*			T_PTROBJ
+PurpleLogSet*				T_PTROBJ
+PurpleLog*				T_PTROBJ
+PurpleMenuAction*			T_PTROBJ
+PurpleMimeDocument*			T_PTROBJ
+PurpleMimePart*				T_PTROBJ
+PurpleNetworkListenData*		T_PTROBJ
+PurpleNotifySearchColumn*		T_PTROBJ
+PurpleNotifySearchResults*		T_PTROBJ
+PurpleNotifyUiOps*			T_PTROBJ
+PurpleNotifyUserInfoEntry*		T_PTROBJ
+PurpleNotifyUserInfo*			T_PTROBJ
+PurplePlugin*				T_PTROBJ
+PurplePounce*				T_PTROBJ
+PurplePresenceContext*			T_PTROBJ
+PurplePresence*				T_PTROBJ
+PurplePrivacyUiOps*			T_PTROBJ
+PurpleProxyConnectData*			T_PTROBJ
+PurpleProxyInfo*			T_PTROBJ
+PurpleRequestFieldGroup*		T_PTROBJ
+PurpleRequestFields*			T_PTROBJ
+PurpleRequestField*			T_PTROBJ
+PurpleRequestUiOps*			T_PTROBJ
+PurpleRoomlistField*			T_PTROBJ
+PurpleRoomlistRoom*			T_PTROBJ
+PurpleRoomlist*				T_PTROBJ
+PurpleRoomlistUiOps*			T_PTROBJ
+PurpleSavedStatusSub*			T_PTROBJ
+PurpleSavedStatus*			T_PTROBJ
+PurpleSmiley*				T_PTROBJ
+PurpleSoundTheme*			T_PTROBJ
+PurpleSoundUiOps*			T_PTROBJ
+PurpleSrvQueryData*			T_PTROBJ
+PurpleSslConnection*			T_PTROBJ
+PurpleSslConnection			T_PTROBJ
+PurpleSslOps*				T_PTROBJ
+PurpleStatusAttr*			T_PTROBJ
+PurpleStatus*				T_PTROBJ
+PurpleStatusType const*			T_PTROBJ
+PurpleStatusType*			T_PTROBJ
+PurpleStoredImage*			T_PTROBJ
+PurpleStringref*			T_PTROBJ
+PurpleStunNatDiscovery*			T_PTROBJ
+PurpleTxtResponse*			T_PTROBJ
+PurpleUtilFetchUrlData*			T_PTROBJ
+PurpleValue*				T_PTROBJ
+PurpleWhiteboardPrplOps*		T_PTROBJ
+PurpleWhiteboard*			T_PTROBJ
+PurpleWhiteboardUiOps*			T_PTROBJ
+PurpleXfer*				T_PTROBJ
+PurpleXferUiOps*			T_PTROBJ
+UPnPMappingAddRemove*			T_PTROBJ
 
-PurpleAccountOption*	T_OBJ
-PurpleAccount*		T_OBJ
-PurpleAccountUiOps*	T_OBJ
-PurpleAccountUserSplit*	T_OBJ
-PurpleBlistNode*	T_OBJ
-PurpleBlistUiOps*	T_OBJ
-PurpleBuddyIconSpec*	T_OBJ
-PurpleBuddyIcon*	T_OBJ
-PurpleBuddyList*	T_OBJ
-PurpleBuddy*		T_OBJ
-PurpleCertificatePool*			T_OBJ
-PurpleCertificateScheme*			T_OBJ
-PurpleCertificate**			T_OBJ
-PurpleCertificate*	T_OBJ
-PurpleCertificateVerificationRequest*	T_OBJ
-PurpleCertificateVerifier*			T_OBJ
-PurpleChat*		T_OBJ
-PurpleCipherContext*	T_OBJ
-PurpleCipherOps*		T_OBJ
-PurpleCipher*		T_OBJ
-PurpleConnectionErrorInfo const*	T_OBJ
-PurpleConnection*			T_OBJ
-PurpleConnectionUiOps*		T_OBJ
-PurpleContact*		T_OBJ
-PurpleConvChatBuddy*		T_OBJ
-PurpleConvChat*			T_OBJ
-PurpleConversation*		T_OBJ
-PurpleConversationUiOps*			T_OBJ
-PurpleConvIm*			T_OBJ
-PurpleConvMessage*			T_OBJ
-PurpleCore*			T_OBJ
-PurpleCoreUiOps*			T_OBJ
-PurpleDebugUiOps*			T_OBJ
-PurpleDnsQueryData*	T_OBJ
-PurpleDnsQueryUiOps*	T_OBJ
-PurpleEventLoopUiOps*			T_OBJ
-PurpleGroup*		T_OBJ
-PurpleIdleUiOps*	T_OBJ
-PurpleLogLogger*			T_OBJ
-PurpleLogReadFlags*		T_OBJ
-PurpleLogSet*			T_OBJ
-PurpleLog*			T_OBJ
-PurpleMenuAction*		T_OBJ
-PurpleMimeDocument*	T_OBJ
-PurpleMimePart*			T_OBJ
-PurpleNetworkListenData*	T_OBJ
-PurpleNotifySearchColumn*	T_OBJ
-PurpleNotifySearchResults*			T_OBJ
-PurpleNotifyUiOps*			T_OBJ
-PurpleNotifyUserInfoEntry*	T_OBJ
-PurpleNotifyUserInfo*		T_OBJ
-PurplePlugin*		T_OBJ
-PurplePounce*			T_OBJ
-PurplePresenceContext*		T_OBJ
-PurplePresence*		T_OBJ
-PurplePrivacyUiOps*			T_OBJ
-PurpleProxyConnectData*			T_OBJ
-PurpleProxyInfo*			T_OBJ
-PurpleRequestFieldGroup*	T_OBJ
-PurpleRequestFields*	T_OBJ
-PurpleRequestField*	T_OBJ
-PurpleRequestUiOps*	T_OBJ
-PurpleRoomlistField*		T_OBJ
-PurpleRoomlistRoom*	T_OBJ
-PurpleRoomlist*	T_OBJ
-PurpleRoomlistUiOps*	T_OBJ
-PurpleSavedStatusSub*		T_OBJ
-PurpleSavedStatus*	T_OBJ
-PurpleSmiley*		T_OBJ
-PurpleSoundTheme*	T_OBJ
-PurpleSoundUiOps*		T_OBJ
-PurpleSrvQueryData*			T_OBJ
-PurpleSslConnection*		T_OBJ
-PurpleSslConnection	T_OBJ
-PurpleSslOps*		T_OBJ
-PurpleStatusAttr*		T_OBJ
-PurpleStatus*		T_OBJ
-PurpleStatusType const*		T_OBJ
-PurpleStatusType*		T_OBJ
-PurpleStoredImage*	T_OBJ
-PurpleStringref*		T_OBJ
-PurpleStunNatDiscovery*		T_OBJ
-PurpleTxtResponse*	T_OBJ
-PurpleUtilFetchUrlData*		T_OBJ
-PurpleValue*		T_OBJ
-PurpleWhiteboardPrplOps*	T_OBJ
-PurpleWhiteboard*	T_OBJ
-PurpleWhiteboardUiOps*	T_OBJ
-PurpleXfer*			T_OBJ
-PurpleXferUiOps*			T_OBJ
-UPnPMappingAddRemove*	T_OBJ
+PurpleAccountRegistrationCb		T_PTROBJ
+PurpleAccountRequestAuthorizationCb	T_PTROBJ
+PurpleAccountUnregistrationCb		T_PTROBJ
+PurpleCallback				T_PTROBJ
+PurpleCertificateVerifiedCallback	T_PTROBJ
+PurpleCmdFunc				T_PTROBJ
+PurpleConversationFunction		T_PTROBJ
+PurpleDnsQueryConnectFunction		T_PTROBJ
+PurpleFilterAccountFunc			T_PTROBJ
+PurpleInfoFieldFormatCallback		T_PTROBJ
+PurpleInputFunction			T_PTROBJ
+PurpleNetworkListenCallback		T_PTROBJ
+PurpleNotifyCloseCallback		T_PTROBJ
+PurpleNotifySearchResultsCallback	T_PTROBJ
+PurplePounceFunction			T_PTROBJ
+PurplePounceCb				T_PTROBJ
+PurplePrefCallback			T_PTROBJ
+PurpleProxyConnectFunction		T_PTROBJ
+PurpleSrvCallback			T_PTROBJ
+PurpleSslErrorFunction			T_PTROBJ
+PurpleSslInputFunction			T_PTROBJ
+PurpleTxtCallback			T_PTROBJ
+PurpleUPnPCallback			T_PTROBJ
+PurpleUtilFetchUrlCallback		T_PTROBJ
+PurpleXferAckFunction			T_PTROBJ
+PurpleXferFunction			T_PTROBJ
+PurpleXferReadFunction			T_PTROBJ
+PurpleXferWriteFunction			T_PTROBJ
+StunCallback				T_PTROBJ
 
-PurpleAccountRegistrationCb	T_OBJ
-PurpleAccountRequestAuthorizationCb	T_OBJ
-PurpleAccountUnregistrationCb	T_OBJ
-PurpleCallback				T_OBJ
-PurpleCertificateVerifiedCallback	T_OBJ
-PurpleCmdFunc	T_OBJ
-PurpleConversationFunction	T_OBJ
-PurpleDnsQueryConnectFunction	T_OBJ
-PurpleFilterAccountFunc	T_OBJ
-PurpleInfoFieldFormatCallback	T_OBJ
-PurpleInputFunction	T_OBJ
-PurpleNetworkListenCallback	T_OBJ
-PurpleNotifyCloseCallback	T_OBJ
-PurpleNotifySearchResultsCallback	T_OBJ
-PurplePounceFunction		T_OBJ
-PurplePounceCb			T_OBJ
-PurplePrefCallback		T_OBJ
-PurpleProxyConnectFunction	T_OBJ
-PurpleSrvCallback	T_OBJ
-PurpleSslErrorFunction	T_OBJ
-PurpleSslInputFunction	T_OBJ
-PurpleTxtCallback	T_OBJ
-PurpleUPnPCallback		T_OBJ
-PurpleUtilFetchUrlCallback	T_OBJ
-PurpleXferAckFunction	T_OBJ
-PurpleXferFunction	T_OBJ
-PurpleXferReadFunction	T_OBJ
-PurpleXferWriteFunction	T_OBJ
-StunCallback		T_OBJ
+PurpleBlistNodeFlags			T_PTROBJ
+PurpleBlistNodeType			T_PTROBJ
+PurpleCertificateVerificationStatus	T_PTROBJ
+PurpleCipherBatchMode			T_PTROBJ
+PurpleCmdFlag				T_PTROBJ
+PurpleCmdId				T_PTROBJ
+PurpleCmdPriority			T_PTROBJ
+PurpleCmdStatus				T_PTROBJ
+PurpleConnectionError			T_PTROBJ
+PurpleConnectionFlags			T_PTROBJ
+PurpleConnectionState			T_PTROBJ
+PurpleConvChatBuddyFlags		T_PTROBJ
+PurpleConversationType			T_PTROBJ
+PurpleConvUpdateType			T_PTROBJ
+PurpleDebugLevel			T_PTROBJ
+PurpleInputCondition			T_PTROBJ
+PurpleLogType				T_PTROBJ
+PurpleMessageFlags			T_PTROBJ
+PurpleNotifyMsgType			T_PTROBJ
+PurpleNotifySearchButtonType		T_PTROBJ
+PurpleNotifyType			T_PTROBJ
+PurpleNotifyUserInfoEntryType		T_PTROBJ
+PurplePounceEvent			T_PTROBJ
+PurplePounceOption			T_PTROBJ
+PurplePrefType				T_PTROBJ
+PurplePresenceContext			T_PTROBJ
+PurpleProxyType				T_PTROBJ
+PurpleRequestFieldType			T_PTROBJ
+PurpleRequestType			T_PTROBJ
+PurpleRoomlistFieldType			T_PTROBJ
+PurpleRoomlistRoomType			T_PTROBJ
+PurpleSoundEventID			T_PTROBJ
+PurpleSslErrorType			T_PTROBJ
+PurpleStatusPrimitive			T_PTROBJ
+PurpleType				T_PTROBJ
+PurpleTypingState			T_PTROBJ
+PurpleXferStatusType			T_PTROBJ
+PurpleXferRequestDeniedFunction		T_PTROBJ
+PurpleXferType				T_PTROBJ
 
-PurpleBlistNodeFlags	T_OBJ
-PurpleBlistNodeType	T_OBJ
-PurpleCertificateVerificationStatus	T_OBJ
-PurpleCipherBatchMode	T_OBJ
-PurpleCmdFlag	T_OBJ
-PurpleCmdId	T_OBJ
-PurpleCmdPriority	T_OBJ
-PurpleCmdStatus	T_OBJ
-PurpleConnectionError	T_OBJ
-PurpleConnectionFlags	T_OBJ
-PurpleConnectionState	T_OBJ
-PurpleConvChatBuddyFlags	T_OBJ
-PurpleConversationType	T_OBJ
-PurpleConvUpdateType	T_OBJ
-PurpleDebugLevel	T_OBJ
-PurpleInputCondition	T_OBJ
-PurpleLogType		T_OBJ
-PurpleMessageFlags	T_OBJ
-PurpleNotifyMsgType	T_OBJ
-PurpleNotifySearchButtonType	T_OBJ
-PurpleNotifyType	T_OBJ
-PurpleNotifyUserInfoEntryType	T_OBJ
-PurplePounceEvent		T_OBJ
-PurplePounceOption		T_OBJ
-PurplePrefType		T_OBJ
-PurplePresenceContext	T_OBJ
-PurpleProxyType		T_OBJ
-PurpleRequestFieldType	T_OBJ
-PurpleRequestType	T_OBJ
-PurpleRoomlistFieldType	T_OBJ
-PurpleRoomlistRoomType	T_OBJ
-PurpleSoundEventID	T_OBJ
-PurpleSslErrorType	T_OBJ
-PurpleStatusPrimitive	T_OBJ
-PurpleType		T_OBJ
-PurpleTypingState	T_OBJ
-PurpleXferStatusType	T_OBJ
-PurpleXferRequestDeniedFunction	T_OBJ
-PurpleXferType		T_OBJ
-
-int*			T_OBJ
-size_t*			T_OBJ
 
 INPUT
 
-T_OBJ
+T_PTROBJ
 	$var = server->sv_to<$type> ($arg);
 
 
 OUTPUT
 
-T_OBJ
+T_PTROBJ
 	$arg = server->to_sv<$type> ($var);

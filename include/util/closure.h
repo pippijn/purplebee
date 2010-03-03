@@ -60,6 +60,7 @@ template<typename T, template<typename, typename...> class O>
 struct closure
 {
   virtual T operator () () = 0;
+  T call () { return (*this) (); }
 
   template<typename R, typename... Args>
   static closure* create (typename O<R, Args...>::user_data_type& user_data,

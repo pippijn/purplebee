@@ -1,3 +1,5 @@
+#include <memory>
+
 #include "PurpleBee.h"
 #include "uiops/core.h"
 #include "uiops/conversation.h"
@@ -24,30 +26,29 @@
 
 #include "perlxsi.c"
 
-static PurpleBee* server_instance;
+static std::auto_ptr<PurpleBee> server_instance;
 
 void
 init_server (int argc, char* argv[], char* env[])
 {
-  xassert (!server_instance);
-  server_instance = new PurpleBee (argc, argv, env);
-  xassert (server_instance);
+  xassert (!server_instance.get ());
+  server_instance.reset (new PurpleBee (argc, argv, env));
+  xassert (server_instance.get ());
   server_instance->init ();
 }
 
 void
 uninit_server ()
 {
-  xassert (server_instance);
-  delete server_instance;
-  server_instance = NULL;
+  xassert (server_instance.get ());
+  server_instance.reset (NULL);
 }
 
 PurpleBee*
 get_server_instance ()
 {
-  xassert (server_instance);
-  return server_instance;
+  xassert (server_instance.get ());
+  return server_instance.get ();
 }
 
 
@@ -116,22 +117,22 @@ PurpleBee::init ()
   purple_debug_set_enabled (true);
   purple_debug_set_enabled (false);
 
-  purple_accounts_set_ui_ops (&account_ops);
-  purple_blist_set_ui_ops (&blist_ops);
-  purple_connections_set_ui_ops (&connection_ops);
+  //purple_accounts_set_ui_ops (&account_ops);
+  //purple_blist_set_ui_ops (&blist_ops);
+  //purple_connections_set_ui_ops (&connection_ops);
   purple_conversations_set_ui_ops (&conversation_ops);
   purple_core_set_ui_ops (&core_ops);
-  purple_debug_set_ui_ops (&debug_ops);
-  purple_dnsquery_set_ui_ops (&dnsquery_ops);
+  //purple_debug_set_ui_ops (&debug_ops);
+  //purple_dnsquery_set_ui_ops (&dnsquery_ops);
   purple_eventloop_set_ui_ops (&eventloop_ops);
-  purple_idle_set_ui_ops (&idle_ops);
-  purple_notify_set_ui_ops (&notify_ops);
-  purple_privacy_set_ui_ops (&privacy_ops);
-  purple_request_set_ui_ops (&request_ops);
-  purple_roomlist_set_ui_ops (&roomlist_ops);
-  purple_sound_set_ui_ops (&sound_ops);
-  purple_whiteboard_set_ui_ops (&whiteboard_ops);
-  purple_xfers_set_ui_ops (&xfer_ops);
+  //purple_idle_set_ui_ops (&idle_ops);
+  //purple_notify_set_ui_ops (&notify_ops);
+  //purple_privacy_set_ui_ops (&privacy_ops);
+  //purple_request_set_ui_ops (&request_ops);
+  //purple_roomlist_set_ui_ops (&roomlist_ops);
+  //purple_sound_set_ui_ops (&sound_ops);
+  //purple_whiteboard_set_ui_ops (&whiteboard_ops);
+  //purple_xfers_set_ui_ops (&xfer_ops);
 
   /* Set path to search for plugins. The core (libpurple) takes care of loading the
    * core-plugins, which includes the protocol-plugins. So it is not essential to add
@@ -186,21 +187,24 @@ PurpleBee::init ()
 void
 PurpleBee::run ()
 {
+  char const* username = getenv ("USERNAME");
+  char const* password = getenv ("PASSWORD");
+  char const* protocol = getenv ("PROTOCOL");
 #define XMPP    0
 #define ICQ     0
 #define MSN     1
 #if XMPP
-  char const* username = "purplebee-test@xinutec.org";
-  char const* password = "purplebee-test";
-  char const* protocol = "prpl-jabber";
+  if (!username) username = "purplebee-test@xinutec.org";
+  if (!password) password = "purplebee-test";
+  if (!protocol) protocol = "prpl-jabber";
 #elif ICQ
-  char const* username = "621180987";
-  char const* password = "B1neMaya";
-  char const* protocol = "prpl-icq";
+  if (!username) username = "621180987";
+  if (!password) password = "B1neMaya";
+  if (!protocol) protocol = "prpl-icq";
 #elif MSN
-  char const* username = "pippijn88@hotmail.com";
-  char const* password = getpass ("Password: ");
-  char const* protocol = "prpl-msn";
+  if (!username) username = "pippijn88@hotmail.com";
+  if (!password) password = getpass ("Password: ");
+  if (!protocol) protocol = "prpl-msn";
 #endif
 
   call<void> ("main", username, password, protocol);
