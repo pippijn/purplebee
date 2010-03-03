@@ -158,23 +158,43 @@ PurpleBee::init ()
   /* Load the pounces. */
   purple_pounces_load();
 
-  std::map<std::string, PurplePluginInfo*> protocols;
   for (auto iter = purple_plugins_get_protocols (); iter; iter = iter->next)
     {
       auto plugin = static_cast<PurplePlugin*> (iter->data);
       PurplePluginInfo* info = plugin->info;
       if (info && info->name)
-        protocols[info->name] = info;
+        printf ("PurplePluginInfo {\n"
+                "  id => %s\n"
+                "  name => %s\n"
+                "  version => %s\n"
+                "  summary => %s\n"
+                "  description => %s\n"
+                "  author => %s\n"
+                "  homepage => %s\n"
+                "}\n"
+                , info->id
+                , info->name
+                , info->version
+                , info->summary
+                , info->description
+                , info->author
+                , info->homepage
+                );
     }
 }
 
 void
 PurpleBee::run ()
 {
-#define ICQ 1
-#define MSN 0
-#if ICQ
-  char const* username = "175138887";
+#define XMPP    0
+#define ICQ     0
+#define MSN     1
+#if XMPP
+  char const* username = "purplebee-test@xinutec.org";
+  char const* password = "purplebee-test";
+  char const* protocol = "prpl-jabber";
+#elif ICQ
+  char const* username = "621180987";
   char const* password = "B1neMaya";
   char const* protocol = "prpl-icq";
 #elif MSN
@@ -182,12 +202,6 @@ PurpleBee::run ()
   char const* password = getpass ("Password: ");
   char const* protocol = "prpl-msn";
 #endif
-
-  //auto account = purple_account_new (username, protocol);
-  //purple_account_set_password (account, password);
-  //purple_account_set_enabled (account, package (), true);
-  //auto status = purple_savedstatus_new (NULL, PURPLE_STATUS_AVAILABLE);
-  //purple_savedstatus_activate (status);
 
   call<void> ("main", username, password, protocol);
 }

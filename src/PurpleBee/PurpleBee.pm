@@ -23,6 +23,7 @@ use PurpleBee::Ops::Xfer;
 
 our $runcv = AnyEvent->condvar;
 
+$|++;
 open my $logfh, '>', 'server.log'
    or die "Could not open log: $!";
 

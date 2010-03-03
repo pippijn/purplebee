@@ -19,7 +19,7 @@ sub write_chat {
 
 sub write_im {
    my ($self, $conv, $who, $message, $flags, $mtime) = @_;
-   $self->print ("PurpleBee::Ops::Conversation::write_im ($conv, $who, \e[33;1m$message\e[0m, $flags, $mtime)\n");
+   $self->print ("PurpleBee::Ops::Conversation::write_im ($conv, $who, $message, $flags, $mtime)\n");
    if ($message =~ /quit/i && $flags & 2) {
       $conv->get_im_data->send_with_flags ("bye bye", 1);
       $PurpleBee::runcv->broadcast;

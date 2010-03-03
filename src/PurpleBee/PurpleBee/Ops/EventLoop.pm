@@ -53,6 +53,7 @@ sub timeout_add {
 
 sub timeout_remove {
    my ($self, $handle) = @_;
+   # TODO: $self can become undef or something unblessed: find out why
    $self->print ("PurpleBee::Ops::EventLoop::timeout_remove ($handle)\n");
 
    if ($timeouts[$handle]) {
@@ -124,7 +125,7 @@ use constant {
 
 sub input_add {
    my ($self, $fd, $cond, $callback) = @_;
-   $self->print ("\e[31;1mPurpleBee::Ops::EventLoop::input_add ($fd, $cond, $callback)\n");
+   $self->print ("PurpleBee::Ops::EventLoop::input_add ($fd, $cond, $callback)\n");
 
    for my $handle (0 .. @inputhandlers) { # find the next free @inputhandlers-index
       if (!$inputhandlers[$handle]) {
@@ -140,7 +141,7 @@ sub input_add {
             cb   => sub { print "input[w] $handle (fd=$fd) = $callback\n"; $callback->call }
          ) if $cond & IO_WRITE;
 
-         print "input_add = $handle\e[0m\n";
+         print "input_add = $handle\n";
 
          return $handle # guint
       }
