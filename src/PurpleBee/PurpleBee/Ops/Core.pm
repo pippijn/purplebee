@@ -4,22 +4,22 @@ use common::sense;
 
 sub ui_prefs_init {
    my ($self) = @_;
-   print "PurpleBee::Ops::Core::ui_prefs_init\n";
+   $self->print ("PurpleBee::Ops::Core::ui_prefs_init\n");
 }
 
 sub debug_ui_init {
    my ($self) = @_;
-   print "PurpleBee::Ops::Core::debug_ui_init\n";
+   $self->print ("PurpleBee::Ops::Core::debug_ui_init\n");
 }
 
 sub ui_init {
    my ($self) = @_;
-   print "PurpleBee::Ops::Core::ui_init\n";
+   $self->print ("PurpleBee::Ops::Core::ui_init\n");
 }
 
 sub quit {
    my ($self) = @_;
-   print "PurpleBee::Ops::Core::quit\n";
+   $self->print ("PurpleBee::Ops::Core::quit\n");
 }
 
 # Returns a hash table containing various information about the UI.  The
@@ -52,7 +52,7 @@ sub quit {
 # @since 2.1.0
 sub get_ui_info {
    my ($self) = @_;
-   print "PurpleBee::Ops::Core::get_ui_info\n";
+   $self->print ("PurpleBee::Ops::Core::get_ui_info\n");
 
    {
       name 	  => PurpleBee::PACKAGE_NAME,

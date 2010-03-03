@@ -25,7 +25,6 @@
 #include "perlxsi.c"
 
 static PurpleBee* server_instance;
-static char const* UI_ID;
 
 void
 init_server (int argc, char* argv[], char* env[])
@@ -117,19 +116,14 @@ PurpleBee::init ()
   purple_debug_set_enabled (true);
   purple_debug_set_enabled (false);
 
-#if 0
   purple_accounts_set_ui_ops (&account_ops);
   purple_blist_set_ui_ops (&blist_ops);
   purple_connections_set_ui_ops (&connection_ops);
-#endif
   purple_conversations_set_ui_ops (&conversation_ops);
   purple_core_set_ui_ops (&core_ops);
-#if 0
   purple_debug_set_ui_ops (&debug_ops);
   purple_dnsquery_set_ui_ops (&dnsquery_ops);
-#endif
   purple_eventloop_set_ui_ops (&eventloop_ops);
-#if 0
   purple_idle_set_ui_ops (&idle_ops);
   purple_notify_set_ui_ops (&notify_ops);
   purple_privacy_set_ui_ops (&privacy_ops);
@@ -138,7 +132,6 @@ PurpleBee::init ()
   purple_sound_set_ui_ops (&sound_ops);
   purple_whiteboard_set_ui_ops (&whiteboard_ops);
   purple_xfers_set_ui_ops (&xfer_ops);
-#endif
 
   /* Set path to search for plugins. The core (libpurple) takes care of loading the
    * core-plugins, which includes the protocol-plugins. So it is not essential to add
@@ -148,8 +141,7 @@ PurpleBee::init ()
   /* Now that all the essential stuff has been set, let's try to init the core. It's
    * necessary to provide a non-NULL name for the current ui to the core. This name
    * is used by stuff that depends on this ui, for example the ui-specific plugins. */
-  UI_ID = package ();
-  if (!purple_core_init (UI_ID))
+  if (!purple_core_init (package ()))
     throw init_error ("libpurple initialisation failed");
 
   /* Create and load the buddylist. */
@@ -166,21 +158,30 @@ PurpleBee::init ()
   /* Load the pounces. */
   purple_pounces_load();
 
+  std::map<std::string, PurplePluginInfo*> protocols;
   for (auto iter = purple_plugins_get_protocols (); iter; iter = iter->next)
     {
-      auto plugin = (PurplePlugin*)iter->data;
+      auto plugin = static_cast<PurplePlugin*> (iter->data);
       PurplePluginInfo* info = plugin->info;
       if (info && info->name)
-        protocols.push_back (info->name);
+        protocols[info->name] = info;
     }
 }
 
 void
 PurpleBee::run ()
 {
+#define ICQ 1
+#define MSN 0
+#if ICQ
+  char const* username = "175138887";
+  char const* password = "B1neMaya";
+  char const* protocol = "prpl-icq";
+#elif MSN
   char const* username = "pippijn88@hotmail.com";
   char const* password = getpass ("Password: ");
   char const* protocol = "prpl-msn";
+#endif
 
   //auto account = purple_account_new (username, protocol);
   //purple_account_set_password (account, password);

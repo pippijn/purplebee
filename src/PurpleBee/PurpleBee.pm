@@ -23,6 +23,14 @@ use PurpleBee::Ops::Xfer;
 
 our $runcv = AnyEvent->condvar;
 
+open my $logfh, '>', 'server.log'
+   or die "Could not open log: $!";
+
+sub print {
+   my ($self, $msg) = @_;
+   print $logfh $msg;
+}
+
 sub main {
    my ($self, $username, $password, $protocol) = @_;
    my $timer = AnyEvent->timer (after => 60, cb => sub { $runcv->broadcast });

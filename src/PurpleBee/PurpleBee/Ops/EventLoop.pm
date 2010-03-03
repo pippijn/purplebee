@@ -26,7 +26,7 @@ my @timeouts;
 
 sub timeout_add {
    my ($self, $interval, $callback) = @_;
-   print "PurpleBee::Ops::EventLoop::timeout_add ($interval, $callback)\n";
+   $self->print ("PurpleBee::Ops::EventLoop::timeout_add ($interval, $callback)\n");
 
    for my $handle (0 .. @timeouts) { # find the next free @timeouts-index
       if (!$timeouts[$handle]) {
@@ -53,7 +53,7 @@ sub timeout_add {
 
 sub timeout_remove {
    my ($self, $handle) = @_;
-   print "PurpleBee::Ops::EventLoop::timeout_remove ($handle)\n";
+   $self->print ("PurpleBee::Ops::EventLoop::timeout_remove ($handle)\n");
 
    if ($timeouts[$handle]) {
       undef $timeouts[$handle];
@@ -81,7 +81,7 @@ sub timeout_remove {
 
 sub timeout_add_seconds {
    my ($self, $interval, $callback) = @_;
-   print "PurpleBee::Ops::EventLoop::timeout_add_seconds ($interval, $callback)\n";
+   $self->print ("PurpleBee::Ops::EventLoop::timeout_add_seconds ($interval, $callback)\n");
 
    for my $handle (0 .. @timeouts) { # find the next free @timeouts-index
       if (!$timeouts[$handle]) {
@@ -124,7 +124,7 @@ use constant {
 
 sub input_add {
    my ($self, $fd, $cond, $callback) = @_;
-   print "\e[31;1mPurpleBee::Ops::EventLoop::input_add ($fd, $cond, $callback)\n";
+   $self->print ("\e[31;1mPurpleBee::Ops::EventLoop::input_add ($fd, $cond, $callback)\n");
 
    for my $handle (0 .. @inputhandlers) { # find the next free @inputhandlers-index
       if (!$inputhandlers[$handle]) {
@@ -156,7 +156,7 @@ sub input_add {
 
 sub input_remove {
    my ($self, $handle) = @_;
-   print "PurpleBee::Ops::EventLoop::input_remove ($handle)\n";
+   $self->print ("PurpleBee::Ops::EventLoop::input_remove ($handle)\n");
 
    if ($inputhandlers[$handle]) {
       undef $inputhandlers[$handle];
@@ -181,7 +181,7 @@ sub input_remove {
 
 sub input_get_error {
    my ($self, $fd, $error) = @_;
-   print "PurpleBee::Ops::EventLoop::input_get_error ($fd, $error)\n";
+   $self->print ("PurpleBee::Ops::EventLoop::input_get_error ($fd, $error)\n");
 
    0 # int
 }

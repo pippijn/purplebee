@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <map>
 #include <string>
 
 #include <purple.h>
@@ -20,7 +20,6 @@ struct PurpleBee
   };
 
   directories dirs;
-  std::vector<std::string> protocols;
 
   PurpleAccountUiOps account_ops;
   PurpleBlistUiOps blist_ops;
