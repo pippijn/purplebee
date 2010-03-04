@@ -1,7 +1,7 @@
 #include <iostream>
 
-#include "perl/interpreter.h"
 #include "perl/eval_error.h"
+#include "perl/interpreter.h"
 #include "util/xassert.h"
 
 PerlInterpreter* perl_interpreter::my_perl;
@@ -97,24 +97,7 @@ perl_interpreter::to_sv (perl_interpreter* obj)
   if (!obj->self)
     obj->self = newHV ();
 
-  HV* stash = this->stash ();
-  if (!SvOBJECT (obj->self))
-    {
-      sv_magicext ((SV *)obj->self, 0, PERL_MAGIC_ext, &perl_object::vtbl, (char *)obj, 0);
-
-      // now bless the object _once_
-      //TODO: create a class registry with c++ type<=>perl name<=>stash and use it here and elsewhere
-      return sv_bless (newRV_inc ((SV *)obj->self), stash);
-    }
-  else
-    {
-      SV *sv = newRV_inc ((SV *)obj->self);
-
-      if (Gv_AMG (stash)) // handle overload correctly, as the perl core does not
-        SvAMAGIC_on (sv);
-
-      return sv;
-    }
+  return newSVobj (obj, obj->stash (), obj->self);
 }
 
 template<>
