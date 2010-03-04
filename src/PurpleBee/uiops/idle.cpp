@@ -2,7 +2,7 @@
 #include "perl/call.h"
 #include "uiops/idle.h"
 
-#define OPS "Ops::Idle::"
+#define OPS "UiOps::Idle::"
 
 namespace uiops
 {

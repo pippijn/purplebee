@@ -2,7 +2,7 @@
 #include "perl/call.h"
 #include "uiops/request.h"
 
-#define OPS "Ops::Request::"
+#define OPS "UiOps::Request::"
 
 namespace uiops
 {

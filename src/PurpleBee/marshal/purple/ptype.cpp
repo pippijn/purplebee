@@ -10,17 +10,16 @@
 
 namespace
 {
+  template<typename T>
   struct sv_map
   {
     static std::map<void*, HV*> map;
 
-    template<typename T>
     static T* fetch (perl_interpreter& perl, SV* sv)
     {
       return static_cast<T*> (perl.SvPTR (sv));
     }
 
-    template<typename T>
     static SV* fetch (perl_interpreter& perl, T* ob)
     {
       PerlInterpreter* my_perl = perl.perl ();
@@ -44,14 +43,14 @@ namespace
       return perl.newSVobj (ob, perl_package<T>::stash, self);
     }
 
-    template<typename T>
     static SV* fetch (perl_interpreter& perl, T const* ob)
     {
       return fetch (perl, const_cast<T*> (ob));
     }
   };
 
-  std::map<void*, HV*> sv_map::map;
+  template<typename T>
+  std::map<void*, HV*> sv_map<T>::map;
 }
 
 
@@ -61,7 +60,7 @@ template<>                                              \
 PASTE (Purple, T)*                                      \
 perl_interpreter::sv_to (SV* v)                         \
 {                                                       \
-  return sv_map::fetch<PASTE (Purple, T)> (*this, v);   \
+  return sv_map<PASTE (Purple, T)>::fetch (*this, v);   \
 }
 
 #include "PurpleBee/types.h"
@@ -73,7 +72,7 @@ template<>                                              \
 PASTE (Purple, T) const*                                \
 perl_interpreter::sv_to (SV* v)                         \
 {                                                       \
-  return sv_map::fetch<PASTE (Purple, T)> (*this, v);   \
+  return sv_map<PASTE (Purple, T)>::fetch (*this, v);   \
 }
 #include "PurpleBee/types.h"
 
@@ -84,7 +83,7 @@ template<>                                              \
 SV*                                                     \
 perl_interpreter::to_sv (PASTE (Purple, T)* ob)         \
 {                                                       \
-  return sv_map::fetch (*this, ob);                     \
+  return sv_map<PASTE (Purple, T)>::fetch (*this, ob);  \
 }
 #include "PurpleBee/types.h"
 
@@ -95,6 +94,6 @@ template<>                                              \
 SV*                                                     \
 perl_interpreter::to_sv (PASTE (Purple, T) const* ob)   \
 {                                                       \
-  return sv_map::fetch (*this, ob);                     \
+  return sv_map<PASTE (Purple, T)>::fetch (*this, ob);  \
 }
 #include "PurpleBee/types.h"

@@ -59,6 +59,8 @@ struct typed_closure;
 template<typename T, template<typename, typename...> class O>
 struct closure
 {
+  virtual ~closure () { }
+
   virtual T operator () () = 0;
   T call () { return (*this) (); }
 

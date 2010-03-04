@@ -2,7 +2,7 @@
 #include "perl/call.h"
 #include "uiops/xfer.h"
 
-#define OPS "Ops::Xfer::"
+#define OPS "UiOps::Xfer::"
 
 namespace uiops
 {

@@ -3,7 +3,7 @@
 #include "uiops/eventloop.h"
 #include "util/make_closure.h"
 
-#define OPS "Ops::EventLoop::"
+#define OPS "UiOps::EventLoop::"
 
 namespace uiops
 {

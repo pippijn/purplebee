@@ -2,6 +2,8 @@
 #include <memory>
 #include <string>
 
+#include <valgrind/memcheck.h>
+
 #include "PurpleBee.h"
 #include "PurpleBee/Closure.h"
 #include "perl/call.h"
@@ -64,22 +66,22 @@ PurpleBee::PurpleBee (int argc, char* argv[], char* env[])
       "/plugins/saved",
       "",
     }
-  , account_ops (uiops::account::create ())
-  , blist_ops (uiops::blist::create ())
-  , connection_ops (uiops::connection::create ())
-  , conversation_ops (uiops::conversation::create ())
-  , core_ops (uiops::core::create ())
-  , debug_ops (uiops::debug::create ())
-  , dnsquery_ops (uiops::dnsquery::create ())
-  , eventloop_ops (uiops::eventloop::create ())
-  , idle_ops (uiops::idle::create ())
-  , notify_ops (uiops::notify::create ())
-  , privacy_ops (uiops::privacy::create ())
-  , request_ops (uiops::request::create ())
-  , roomlist_ops (uiops::roomlist::create ())
-  , sound_ops (uiops::sound::create ())
-  , whiteboard_ops (uiops::whiteboard::create ())
-  , xfer_ops (uiops::xfer::create ())
+  , account_uiops (uiops::account::create ())
+  , blist_uiops (uiops::blist::create ())
+  , connection_uiops (uiops::connection::create ())
+  , conversation_uiops (uiops::conversation::create ())
+  , core_uiops (uiops::core::create ())
+  , debug_uiops (uiops::debug::create ())
+  , dnsquery_uiops (uiops::dnsquery::create ())
+  , eventloop_uiops (uiops::eventloop::create ())
+  , idle_uiops (uiops::idle::create ())
+  , notify_uiops (uiops::notify::create ())
+  , privacy_uiops (uiops::privacy::create ())
+  , request_uiops (uiops::request::create ())
+  , roomlist_uiops (uiops::roomlist::create ())
+  , sound_uiops (uiops::sound::create ())
+  , whiteboard_uiops (uiops::whiteboard::create ())
+  , xfer_uiops (uiops::xfer::create ())
 {
 }
 
@@ -122,22 +124,22 @@ PurpleBee::init ()
   purple_debug_set_enabled (true);
   purple_debug_set_enabled (false);
 
-  //purple_accounts_set_ui_ops (&account_ops);
-  //purple_blist_set_ui_ops (&blist_ops);
-  //purple_connections_set_ui_ops (&connection_ops);
-  purple_conversations_set_ui_ops (&conversation_ops);
-  purple_core_set_ui_ops (&core_ops);
-  //purple_debug_set_ui_ops (&debug_ops);
-  //purple_dnsquery_set_ui_ops (&dnsquery_ops);
-  purple_eventloop_set_ui_ops (&eventloop_ops);
-  //purple_idle_set_ui_ops (&idle_ops);
-  //purple_notify_set_ui_ops (&notify_ops);
-  //purple_privacy_set_ui_ops (&privacy_ops);
-  //purple_request_set_ui_ops (&request_ops);
-  //purple_roomlist_set_ui_ops (&roomlist_ops);
-  //purple_sound_set_ui_ops (&sound_ops);
-  //purple_whiteboard_set_ui_ops (&whiteboard_ops);
-  //purple_xfers_set_ui_ops (&xfer_ops);
+  purple_accounts_set_ui_ops (&account_uiops);
+  purple_blist_set_ui_ops (&blist_uiops);
+  purple_connections_set_ui_ops (&connection_uiops);
+  purple_conversations_set_ui_ops (&conversation_uiops);
+  purple_core_set_ui_ops (&core_uiops);
+  purple_debug_set_ui_ops (&debug_uiops);
+  purple_dnsquery_set_ui_ops (&dnsquery_uiops);
+  purple_eventloop_set_ui_ops (&eventloop_uiops);
+  purple_idle_set_ui_ops (&idle_uiops);
+  purple_notify_set_ui_ops (&notify_uiops);
+  purple_privacy_set_ui_ops (&privacy_uiops);
+  purple_request_set_ui_ops (&request_uiops);
+  purple_roomlist_set_ui_ops (&roomlist_uiops);
+  purple_sound_set_ui_ops (&sound_uiops);
+  purple_whiteboard_set_ui_ops (&whiteboard_uiops);
+  purple_xfers_set_ui_ops (&xfer_uiops);
 
   /* Set path to search for plugins. The core (libpurple) takes care of loading the
    * core-plugins, which includes the protocol-plugins. So it is not essential to add
@@ -250,4 +252,17 @@ PurpleBee::run ()
 #endif
 
   call<void> ("main", username, password, protocol);
+}
+
+void
+PurpleBee::valgrind (bool full)
+{
+  if (full)
+    {
+      VALGRIND_DO_LEAK_CHECK;
+    }
+  else
+    {
+      VALGRIND_DO_QUICK_LEAK_CHECK;
+    }
 }

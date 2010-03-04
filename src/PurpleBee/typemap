@@ -1,218 +1,220 @@
-char const**				T_PTROBJ
-char const*				T_PTROBJ
-char**					T_PTROBJ
-char unsigned const*			T_PTROBJ
-char unsigned				T_PTROBJ
-gboolean				T_PTROBJ
-gchar const*				T_PTROBJ
-gchar**					T_PTROBJ
-gchar*					T_PTROBJ
-gconstpointer				T_PTROBJ
-gint64					T_PTROBJ
-gint					T_PTROBJ
-gpointer				T_PTROBJ
-gsize*					T_PTROBJ
-gsize					T_PTROBJ
-gssize					T_PTROBJ
-guchar const*				T_PTROBJ
-guchar**				T_PTROBJ
-guchar*					T_PTROBJ
-guint32*				T_PTROBJ
-guint64					T_PTROBJ
-guint8 const*				T_PTROBJ
-guint8*					T_PTROBJ
-guint					T_PTROBJ
-int*					T_PTROBJ
-long*					T_PTROBJ
-size_t*					T_PTROBJ
-struct tm*				T_PTROBJ
-time_t*					T_PTROBJ
-va_list					T_PTROBJ
-void const*				T_PTROBJ
+TYPEMAP
 
-GData**					T_PTROBJ
-GByteArray*				T_PTROBJ
-GHashTable*				T_PTROBJ
-GList*					T_PTROBJ
-GSList*					T_PTROBJ
-GType					T_PTROBJ
-GCallback				T_PTROBJ
-GSourceFunc				T_PTROBJ
-GString*				T_PTROBJ
+char const**				T_BEE_OBJ
+char const*				T_BEE_OBJ
+char**					T_BEE_OBJ
+char unsigned const*			T_BEE_OBJ
+char unsigned				T_BEE_OBJ
+gboolean				T_BEE_OBJ
+gchar const*				T_BEE_OBJ
+gchar**					T_BEE_OBJ
+gchar*					T_BEE_OBJ
+gconstpointer				T_BEE_OBJ
+gint64					T_BEE_OBJ
+gint					T_BEE_OBJ
+gpointer				T_BEE_OBJ
+gsize*					T_BEE_OBJ
+gsize					T_BEE_OBJ
+gssize					T_BEE_OBJ
+guchar const*				T_BEE_OBJ
+guchar**				T_BEE_OBJ
+guchar*					T_BEE_OBJ
+guint32*				T_BEE_OBJ
+guint64					T_BEE_OBJ
+guint8 const*				T_BEE_OBJ
+guint8*					T_BEE_OBJ
+guint					T_BEE_OBJ
+int*					T_BEE_OBJ
+long*					T_BEE_OBJ
+size_t*					T_BEE_OBJ
+struct tm*				T_BEE_OBJ
+time_t*					T_BEE_OBJ
+va_list					T_BEE_OBJ
+void const*				T_BEE_OBJ
 
-PurpleBeeClosure*			T_PTROBJ
-PurpleBee*				T_PTROBJ
+GData**					T_BEE_OBJ
+GByteArray*				T_BEE_OBJ
+GHashTable*				T_BEE_OBJ
+GList*					T_BEE_OBJ
+GSList*					T_BEE_OBJ
+GType					T_BEE_OBJ
+GCallback				T_BEE_OBJ
+GSourceFunc				T_BEE_OBJ
+GString*				T_BEE_OBJ
 
-PurpleAccountOption*			T_PTROBJ
-PurpleAccount*				T_PTROBJ
-PurpleAccountUiOps*			T_PTROBJ
-PurpleAccountUserSplit*			T_PTROBJ
-PurpleBlistNode*			T_PTROBJ
-PurpleBlistUiOps*			T_PTROBJ
-PurpleBuddyIconSpec*			T_PTROBJ
-PurpleBuddyIcon*			T_PTROBJ
-PurpleBuddyList*			T_PTROBJ
-PurpleBuddy*				T_PTROBJ
-PurpleCertificatePool*			T_PTROBJ
-PurpleCertificateScheme*		T_PTROBJ
-PurpleCertificate**			T_PTROBJ
-PurpleCertificate*			T_PTROBJ
-PurpleCertificateVerificationRequest*	T_PTROBJ
-PurpleCertificateVerifier*		T_PTROBJ
-PurpleChat*				T_PTROBJ
-PurpleCipherContext*			T_PTROBJ
-PurpleCipherOps*			T_PTROBJ
-PurpleCipher*				T_PTROBJ
-PurpleConnectionErrorInfo const*	T_PTROBJ
-PurpleConnection*			T_PTROBJ
-PurpleConnectionUiOps*			T_PTROBJ
-PurpleContact*				T_PTROBJ
-PurpleConvChatBuddy*			T_PTROBJ
-PurpleConvChat*				T_PTROBJ
-PurpleConversation*			T_PTROBJ
-PurpleConversationUiOps*		T_PTROBJ
-PurpleConvIm*				T_PTROBJ
-PurpleConvMessage*			T_PTROBJ
-PurpleCore*				T_PTROBJ
-PurpleCoreUiOps*			T_PTROBJ
-PurpleDebugUiOps*			T_PTROBJ
-PurpleDnsQueryData*			T_PTROBJ
-PurpleDnsQueryUiOps*			T_PTROBJ
-PurpleEventLoopUiOps*			T_PTROBJ
-PurpleGroup*				T_PTROBJ
-PurpleIdleUiOps*			T_PTROBJ
-PurpleLogLogger*			T_PTROBJ
-PurpleLogReadFlags*			T_PTROBJ
-PurpleLogSet*				T_PTROBJ
-PurpleLog*				T_PTROBJ
-PurpleMenuAction*			T_PTROBJ
-PurpleMimeDocument*			T_PTROBJ
-PurpleMimePart*				T_PTROBJ
-PurpleNetworkListenData*		T_PTROBJ
-PurpleNotifySearchColumn*		T_PTROBJ
-PurpleNotifySearchResults*		T_PTROBJ
-PurpleNotifyUiOps*			T_PTROBJ
-PurpleNotifyUserInfoEntry*		T_PTROBJ
-PurpleNotifyUserInfo*			T_PTROBJ
-PurplePlugin*				T_PTROBJ
-PurplePounce*				T_PTROBJ
-PurplePresenceContext*			T_PTROBJ
-PurplePresence*				T_PTROBJ
-PurplePrivacyUiOps*			T_PTROBJ
-PurpleProxyConnectData*			T_PTROBJ
-PurpleProxyInfo*			T_PTROBJ
-PurpleRequestFieldGroup*		T_PTROBJ
-PurpleRequestFields*			T_PTROBJ
-PurpleRequestField*			T_PTROBJ
-PurpleRequestUiOps*			T_PTROBJ
-PurpleRoomlistField*			T_PTROBJ
-PurpleRoomlistRoom*			T_PTROBJ
-PurpleRoomlist*				T_PTROBJ
-PurpleRoomlistUiOps*			T_PTROBJ
-PurpleSavedStatusSub*			T_PTROBJ
-PurpleSavedStatus*			T_PTROBJ
-PurpleSmiley*				T_PTROBJ
-PurpleSoundTheme*			T_PTROBJ
-PurpleSoundUiOps*			T_PTROBJ
-PurpleSrvQueryData*			T_PTROBJ
-PurpleSslConnection*			T_PTROBJ
-PurpleSslConnection			T_PTROBJ
-PurpleSslOps*				T_PTROBJ
-PurpleStatusAttr*			T_PTROBJ
-PurpleStatus*				T_PTROBJ
-PurpleStatusType const*			T_PTROBJ
-PurpleStatusType*			T_PTROBJ
-PurpleStoredImage*			T_PTROBJ
-PurpleStringref*			T_PTROBJ
-PurpleStunNatDiscovery*			T_PTROBJ
-PurpleTxtResponse*			T_PTROBJ
-PurpleUtilFetchUrlData*			T_PTROBJ
-PurpleValue*				T_PTROBJ
-PurpleWhiteboardPrplOps*		T_PTROBJ
-PurpleWhiteboard*			T_PTROBJ
-PurpleWhiteboardUiOps*			T_PTROBJ
-PurpleXfer*				T_PTROBJ
-PurpleXferUiOps*			T_PTROBJ
-UPnPMappingAddRemove*			T_PTROBJ
+PurpleBeeClosure*			T_BEE_OBJ
+PurpleBee*				T_BEE_OBJ
 
-PurpleAccountRegistrationCb		T_PTROBJ
-PurpleAccountRequestAuthorizationCb	T_PTROBJ
-PurpleAccountUnregistrationCb		T_PTROBJ
-PurpleCallback				T_PTROBJ
-PurpleCertificateVerifiedCallback	T_PTROBJ
-PurpleCmdFunc				T_PTROBJ
-PurpleConversationFunction		T_PTROBJ
-PurpleDnsQueryConnectFunction		T_PTROBJ
-PurpleFilterAccountFunc			T_PTROBJ
-PurpleInfoFieldFormatCallback		T_PTROBJ
-PurpleInputFunction			T_PTROBJ
-PurpleNetworkListenCallback		T_PTROBJ
-PurpleNotifyCloseCallback		T_PTROBJ
-PurpleNotifySearchResultsCallback	T_PTROBJ
-PurplePounceFunction			T_PTROBJ
-PurplePounceCb				T_PTROBJ
-PurplePrefCallback			T_PTROBJ
-PurpleProxyConnectFunction		T_PTROBJ
-PurpleSrvCallback			T_PTROBJ
-PurpleSslErrorFunction			T_PTROBJ
-PurpleSslInputFunction			T_PTROBJ
-PurpleTxtCallback			T_PTROBJ
-PurpleUPnPCallback			T_PTROBJ
-PurpleUtilFetchUrlCallback		T_PTROBJ
-PurpleXferAckFunction			T_PTROBJ
-PurpleXferFunction			T_PTROBJ
-PurpleXferReadFunction			T_PTROBJ
-PurpleXferWriteFunction			T_PTROBJ
-StunCallback				T_PTROBJ
+PurpleAccountOption*			T_BEE_OBJ
+PurpleAccount*				T_BEE_OBJ
+PurpleAccountUiOps*			T_BEE_OBJ
+PurpleAccountUserSplit*			T_BEE_OBJ
+PurpleBlistNode*			T_BEE_OBJ
+PurpleBlistUiOps*			T_BEE_OBJ
+PurpleBuddyIconSpec*			T_BEE_OBJ
+PurpleBuddyIcon*			T_BEE_OBJ
+PurpleBuddyList*			T_BEE_OBJ
+PurpleBuddy*				T_BEE_OBJ
+PurpleCertificatePool*			T_BEE_OBJ
+PurpleCertificateScheme*		T_BEE_OBJ
+PurpleCertificate**			T_BEE_OBJ
+PurpleCertificate*			T_BEE_OBJ
+PurpleCertificateVerificationRequest*	T_BEE_OBJ
+PurpleCertificateVerifier*		T_BEE_OBJ
+PurpleChat*				T_BEE_OBJ
+PurpleCipherContext*			T_BEE_OBJ
+PurpleCipherOps*			T_BEE_OBJ
+PurpleCipher*				T_BEE_OBJ
+PurpleConnectionErrorInfo const*	T_BEE_OBJ
+PurpleConnection*			T_BEE_OBJ
+PurpleConnectionUiOps*			T_BEE_OBJ
+PurpleContact*				T_BEE_OBJ
+PurpleConvChatBuddy*			T_BEE_OBJ
+PurpleConvChat*				T_BEE_OBJ
+PurpleConversation*			T_BEE_OBJ
+PurpleConversationUiOps*		T_BEE_OBJ
+PurpleConvIm*				T_BEE_OBJ
+PurpleConvMessage*			T_BEE_OBJ
+PurpleCore*				T_BEE_OBJ
+PurpleCoreUiOps*			T_BEE_OBJ
+PurpleDebugUiOps*			T_BEE_OBJ
+PurpleDnsQueryData*			T_BEE_OBJ
+PurpleDnsQueryUiOps*			T_BEE_OBJ
+PurpleEventLoopUiOps*			T_BEE_OBJ
+PurpleGroup*				T_BEE_OBJ
+PurpleIdleUiOps*			T_BEE_OBJ
+PurpleLogLogger*			T_BEE_OBJ
+PurpleLogReadFlags*			T_BEE_OBJ
+PurpleLogSet*				T_BEE_OBJ
+PurpleLog*				T_BEE_OBJ
+PurpleMenuAction*			T_BEE_OBJ
+PurpleMimeDocument*			T_BEE_OBJ
+PurpleMimePart*				T_BEE_OBJ
+PurpleNetworkListenData*		T_BEE_OBJ
+PurpleNotifySearchColumn*		T_BEE_OBJ
+PurpleNotifySearchResults*		T_BEE_OBJ
+PurpleNotifyUiOps*			T_BEE_OBJ
+PurpleNotifyUserInfoEntry*		T_BEE_OBJ
+PurpleNotifyUserInfo*			T_BEE_OBJ
+PurplePlugin*				T_BEE_OBJ
+PurplePounce*				T_BEE_OBJ
+PurplePresenceContext*			T_BEE_OBJ
+PurplePresence*				T_BEE_OBJ
+PurplePrivacyUiOps*			T_BEE_OBJ
+PurpleProxyConnectData*			T_BEE_OBJ
+PurpleProxyInfo*			T_BEE_OBJ
+PurpleRequestFieldGroup*		T_BEE_OBJ
+PurpleRequestFields*			T_BEE_OBJ
+PurpleRequestField*			T_BEE_OBJ
+PurpleRequestUiOps*			T_BEE_OBJ
+PurpleRoomlistField*			T_BEE_OBJ
+PurpleRoomlistRoom*			T_BEE_OBJ
+PurpleRoomlist*				T_BEE_OBJ
+PurpleRoomlistUiOps*			T_BEE_OBJ
+PurpleSavedStatusSub*			T_BEE_OBJ
+PurpleSavedStatus*			T_BEE_OBJ
+PurpleSmiley*				T_BEE_OBJ
+PurpleSoundTheme*			T_BEE_OBJ
+PurpleSoundUiOps*			T_BEE_OBJ
+PurpleSrvQueryData*			T_BEE_OBJ
+PurpleSslConnection*			T_BEE_OBJ
+PurpleSslConnection			T_BEE_OBJ
+PurpleSslOps*				T_BEE_OBJ
+PurpleStatusAttr*			T_BEE_OBJ
+PurpleStatus*				T_BEE_OBJ
+PurpleStatusType const*			T_BEE_OBJ
+PurpleStatusType*			T_BEE_OBJ
+PurpleStoredImage*			T_BEE_OBJ
+PurpleStringref*			T_BEE_OBJ
+PurpleStunNatDiscovery*			T_BEE_OBJ
+PurpleTxtResponse*			T_BEE_OBJ
+PurpleUtilFetchUrlData*			T_BEE_OBJ
+PurpleValue*				T_BEE_OBJ
+PurpleWhiteboardPrplOps*		T_BEE_OBJ
+PurpleWhiteboard*			T_BEE_OBJ
+PurpleWhiteboardUiOps*			T_BEE_OBJ
+PurpleXfer*				T_BEE_OBJ
+PurpleXferUiOps*			T_BEE_OBJ
+UPnPMappingAddRemove*			T_BEE_OBJ
 
-PurpleBlistNodeFlags			T_PTROBJ
-PurpleBlistNodeType			T_PTROBJ
-PurpleCertificateVerificationStatus	T_PTROBJ
-PurpleCipherBatchMode			T_PTROBJ
-PurpleCmdFlag				T_PTROBJ
-PurpleCmdId				T_PTROBJ
-PurpleCmdPriority			T_PTROBJ
-PurpleCmdStatus				T_PTROBJ
-PurpleConnectionError			T_PTROBJ
-PurpleConnectionFlags			T_PTROBJ
-PurpleConnectionState			T_PTROBJ
-PurpleConvChatBuddyFlags		T_PTROBJ
-PurpleConversationType			T_PTROBJ
-PurpleConvUpdateType			T_PTROBJ
-PurpleDebugLevel			T_PTROBJ
-PurpleInputCondition			T_PTROBJ
-PurpleLogType				T_PTROBJ
-PurpleMessageFlags			T_PTROBJ
-PurpleNotifyMsgType			T_PTROBJ
-PurpleNotifySearchButtonType		T_PTROBJ
-PurpleNotifyType			T_PTROBJ
-PurpleNotifyUserInfoEntryType		T_PTROBJ
-PurplePounceEvent			T_PTROBJ
-PurplePounceOption			T_PTROBJ
-PurplePrefType				T_PTROBJ
-PurplePresenceContext			T_PTROBJ
-PurpleProxyType				T_PTROBJ
-PurpleRequestFieldType			T_PTROBJ
-PurpleRequestType			T_PTROBJ
-PurpleRoomlistFieldType			T_PTROBJ
-PurpleRoomlistRoomType			T_PTROBJ
-PurpleSoundEventID			T_PTROBJ
-PurpleSslErrorType			T_PTROBJ
-PurpleStatusPrimitive			T_PTROBJ
-PurpleType				T_PTROBJ
-PurpleTypingState			T_PTROBJ
-PurpleXferStatusType			T_PTROBJ
-PurpleXferRequestDeniedFunction		T_PTROBJ
-PurpleXferType				T_PTROBJ
+PurpleAccountRegistrationCb		T_BEE_OBJ
+PurpleAccountRequestAuthorizationCb	T_BEE_OBJ
+PurpleAccountUnregistrationCb		T_BEE_OBJ
+PurpleCallback				T_BEE_OBJ
+PurpleCertificateVerifiedCallback	T_BEE_OBJ
+PurpleCmdFunc				T_BEE_OBJ
+PurpleConversationFunction		T_BEE_OBJ
+PurpleDnsQueryConnectFunction		T_BEE_OBJ
+PurpleFilterAccountFunc			T_BEE_OBJ
+PurpleInfoFieldFormatCallback		T_BEE_OBJ
+PurpleInputFunction			T_BEE_OBJ
+PurpleNetworkListenCallback		T_BEE_OBJ
+PurpleNotifyCloseCallback		T_BEE_OBJ
+PurpleNotifySearchResultsCallback	T_BEE_OBJ
+PurplePounceFunction			T_BEE_OBJ
+PurplePounceCb				T_BEE_OBJ
+PurplePrefCallback			T_BEE_OBJ
+PurpleProxyConnectFunction		T_BEE_OBJ
+PurpleSrvCallback			T_BEE_OBJ
+PurpleSslErrorFunction			T_BEE_OBJ
+PurpleSslInputFunction			T_BEE_OBJ
+PurpleTxtCallback			T_BEE_OBJ
+PurpleUPnPCallback			T_BEE_OBJ
+PurpleUtilFetchUrlCallback		T_BEE_OBJ
+PurpleXferAckFunction			T_BEE_OBJ
+PurpleXferFunction			T_BEE_OBJ
+PurpleXferReadFunction			T_BEE_OBJ
+PurpleXferWriteFunction			T_BEE_OBJ
+StunCallback				T_BEE_OBJ
+
+PurpleBlistNodeFlags			T_BEE_OBJ
+PurpleBlistNodeType			T_BEE_OBJ
+PurpleCertificateVerificationStatus	T_BEE_OBJ
+PurpleCipherBatchMode			T_BEE_OBJ
+PurpleCmdFlag				T_BEE_OBJ
+PurpleCmdId				T_BEE_OBJ
+PurpleCmdPriority			T_BEE_OBJ
+PurpleCmdStatus				T_BEE_OBJ
+PurpleConnectionError			T_BEE_OBJ
+PurpleConnectionFlags			T_BEE_OBJ
+PurpleConnectionState			T_BEE_OBJ
+PurpleConvChatBuddyFlags		T_BEE_OBJ
+PurpleConversationType			T_BEE_OBJ
+PurpleConvUpdateType			T_BEE_OBJ
+PurpleDebugLevel			T_BEE_OBJ
+PurpleInputCondition			T_BEE_OBJ
+PurpleLogType				T_BEE_OBJ
+PurpleMessageFlags			T_BEE_OBJ
+PurpleNotifyMsgType			T_BEE_OBJ
+PurpleNotifySearchButtonType		T_BEE_OBJ
+PurpleNotifyType			T_BEE_OBJ
+PurpleNotifyUserInfoEntryType		T_BEE_OBJ
+PurplePounceEvent			T_BEE_OBJ
+PurplePounceOption			T_BEE_OBJ
+PurplePrefType				T_BEE_OBJ
+PurplePresenceContext			T_BEE_OBJ
+PurpleProxyType				T_BEE_OBJ
+PurpleRequestFieldType			T_BEE_OBJ
+PurpleRequestType			T_BEE_OBJ
+PurpleRoomlistFieldType			T_BEE_OBJ
+PurpleRoomlistRoomType			T_BEE_OBJ
+PurpleSoundEventID			T_BEE_OBJ
+PurpleSslErrorType			T_BEE_OBJ
+PurpleStatusPrimitive			T_BEE_OBJ
+PurpleType				T_BEE_OBJ
+PurpleTypingState			T_BEE_OBJ
+PurpleXferStatusType			T_BEE_OBJ
+PurpleXferRequestDeniedFunction		T_BEE_OBJ
+PurpleXferType				T_BEE_OBJ
 
 
 INPUT
 
-T_PTROBJ
+T_BEE_OBJ
 	$var = server->sv_to<$type> ($arg);
 
 
 OUTPUT
 
-T_PTROBJ
+T_BEE_OBJ
 	$arg = server->to_sv<$type> ($var);

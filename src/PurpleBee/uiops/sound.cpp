@@ -2,7 +2,7 @@
 #include "perl/call.h"
 #include "uiops/sound.h"
 
-#define OPS "Ops::Sound::"
+#define OPS "UiOps::Sound::"
 
 namespace uiops
 {

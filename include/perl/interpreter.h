@@ -34,7 +34,7 @@ struct perl_interpreter
   template<typename T> T   sv_to (SV* sv);
 
 protected:
-  static PerlInterpreter *my_perl;
+  PerlInterpreter *my_perl;
 
   perl_interpreter (int argc, char* argv[], char* env[]);
   ~perl_interpreter ();

@@ -2,7 +2,7 @@
 #include "perl/call.h"
 #include "uiops/blist.h"
 
-#define OPS "Ops::Blist::"
+#define OPS "UiOps::Blist::"
 
 namespace uiops
 {

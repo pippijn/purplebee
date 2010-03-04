@@ -14,10 +14,9 @@ BOOT:
 
 char const*
 PurpleBee::package ()
-    CODE:
-    RETVAL = THIS->package ();
-    OUTPUT:
-    RETVAL
+
+void
+PurpleBee::valgrind (bool full = false)
 
 #INCLUDE: PurpleBee/wip/blist.h
 #INCLUDE: PurpleBee/wip/conversation.h

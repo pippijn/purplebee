@@ -18,22 +18,22 @@ struct PurpleBee
 
   directories dirs;
 
-  PurpleAccountUiOps account_ops;
-  PurpleBlistUiOps blist_ops;
-  PurpleConnectionUiOps connection_ops;
-  PurpleConversationUiOps conversation_ops;
-  PurpleCoreUiOps core_ops;
-  PurpleDebugUiOps debug_ops;
-  PurpleDnsQueryUiOps dnsquery_ops;
-  PurpleEventLoopUiOps eventloop_ops;
-  PurpleIdleUiOps idle_ops;
-  PurpleNotifyUiOps notify_ops;
-  PurplePrivacyUiOps privacy_ops;
-  PurpleRequestUiOps request_ops;
-  PurpleRoomlistUiOps roomlist_ops;
-  PurpleSoundUiOps sound_ops;
-  PurpleWhiteboardUiOps whiteboard_ops;
-  PurpleXferUiOps xfer_ops;
+  PurpleAccountUiOps account_uiops;
+  PurpleBlistUiOps blist_uiops;
+  PurpleConnectionUiOps connection_uiops;
+  PurpleConversationUiOps conversation_uiops;
+  PurpleCoreUiOps core_uiops;
+  PurpleDebugUiOps debug_uiops;
+  PurpleDnsQueryUiOps dnsquery_uiops;
+  PurpleEventLoopUiOps eventloop_uiops;
+  PurpleIdleUiOps idle_uiops;
+  PurpleNotifyUiOps notify_uiops;
+  PurplePrivacyUiOps privacy_uiops;
+  PurpleRequestUiOps request_uiops;
+  PurpleRoomlistUiOps roomlist_uiops;
+  PurpleSoundUiOps sound_uiops;
+  PurpleWhiteboardUiOps whiteboard_uiops;
+  PurpleXferUiOps xfer_uiops;
 
   PurpleBee (int argc, char* argv[], char* env[]);
   ~PurpleBee ();
@@ -43,6 +43,8 @@ struct PurpleBee
   void init ();
   void boot ();
   void run ();
+
+  void valgrind (bool full);
 
   using perl_interpreter::call;
   using perl_interpreter::sv_to;

@@ -3,7 +3,7 @@
 #include "uiops/dnsquery.h"
 #include "util/make_closure.h"
 
-#define OPS "Ops::DnsQuery::"
+#define OPS "UiOps::DnsQuery::"
 
 namespace uiops
 {

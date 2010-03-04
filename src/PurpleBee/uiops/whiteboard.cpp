@@ -2,7 +2,7 @@
 #include "perl/call.h"
 #include "uiops/whiteboard.h"
 
-#define OPS "Ops::Whiteboard::"
+#define OPS "UiOps::Whiteboard::"
 
 namespace uiops
 {

@@ -4,8 +4,6 @@
 #include "perl/interpreter.h"
 #include "util/xassert.h"
 
-PerlInterpreter* perl_interpreter::my_perl;
-
 perl_interpreter::perl_interpreter (int argc, char* argv[], char* env[])
   : perl_object (perl_alloc ())
   , args { argc, argv, env }

@@ -2,7 +2,7 @@
 #include "perl/call.h"
 #include "uiops/notify.h"
 
-#define OPS "Ops::Notify::"
+#define OPS "UiOps::Notify::"
 
 namespace uiops
 {

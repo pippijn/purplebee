@@ -2,7 +2,7 @@
 #include "perl/call.h"
 #include "uiops/privacy.h"
 
-#define OPS "Ops::Privacy::"
+#define OPS "UiOps::Privacy::"
 
 namespace uiops
 {

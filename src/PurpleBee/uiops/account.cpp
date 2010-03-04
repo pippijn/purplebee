@@ -3,7 +3,7 @@
 #include "uiops/account.h"
 #include "util/make_closure.h"
 
-#define OPS "Ops::Account::"
+#define OPS "UiOps::Account::"
 
 namespace uiops
 {

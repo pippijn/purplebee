@@ -3,7 +3,7 @@
 #include "uiops/core.h"
 #include "util/wrapper.h"
 
-#define OPS "Ops::Core::"
+#define OPS "UiOps::Core::"
 
 namespace uiops
 {

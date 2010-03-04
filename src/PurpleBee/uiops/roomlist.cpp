@@ -2,7 +2,7 @@
 #include "perl/call.h"
 #include "uiops/roomlist.h"
 
-#define OPS "Ops::Roomlist::"
+#define OPS "UiOps::Roomlist::"
 
 namespace uiops
 {
