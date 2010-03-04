@@ -1,7 +1,6 @@
 lib_LTLIBRARIES += libperlsup.la
 
 libperlsup_la_SOURCES =			\
-	src/perlsup/call.cpp		\
 	src/perlsup/interpreter.cpp	\
 	src/perlsup/object.cpp
 
