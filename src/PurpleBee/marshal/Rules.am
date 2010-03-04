@@ -1,0 +1,8 @@
+libPurpleBee_la_SOURCES +=					\
+	src/PurpleBee/marshal/c/numeric.cpp			\
+	src/PurpleBee/marshal/purple/callbacks.cpp		\
+	src/PurpleBee/marshal/purple/purple.cpp			\
+	src/PurpleBee/marshal/purple/ptype.cpp			\
+	src/PurpleBee/marshal/c.cpp				\
+	src/PurpleBee/marshal/glib.cpp				\
+	src/PurpleBee/marshal/purplebee.cpp

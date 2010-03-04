@@ -1,11 +1,11 @@
-MODULE = PurpleBee      PACKAGE = PurpleBee::Callback
+MODULE = PurpleBee      PACKAGE = PurpleBee::Closure
 
 
 void
-perl_callback::DESTROY ()
+PurpleBeeClosure::DESTROY ()
 
 SV*
-perl_callback::call ()
+PurpleBeeClosure::call ()
     CODE:
 {
     printf ("calling callback %p\n", THIS);

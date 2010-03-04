@@ -119,7 +119,7 @@ public:
     return method_return<R> (call.RETVAL);
   }
 
-  PerlInterpreter* get_perl () { return my_perl; }
+  PerlInterpreter* perl () { return my_perl; }
 };
 
 template<>

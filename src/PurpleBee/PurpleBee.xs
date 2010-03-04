@@ -5,56 +5,12 @@
 #include <purple.h>
 
 #include "PurpleBee.h"
-#include "PurpleBee/stash.h"
-
-template<typename T>
-static void
-const_val (HV* stash, char const* name, T v)
-{
-  newCONSTSUB (stash, (char*)name, server->to_sv (v));
-}
-
-#include "PurpleBee/Callback.h"
+#include "PurpleBee/Closure.h"
 
 MODULE = PurpleBee      PACKAGE = PurpleBee
 
 BOOT:
-{
-    stash::PurpleBee             = gv_stashpv ("PurpleBee", 1);
-    stash::Callback              = gv_stashpv ("PurpleBee::Callback", 1);
-#define PTYPE(T, P) \
-    stash::PASTE (PurpleBee_, T) = gv_stashpv ("PurpleBee::" P, 1);
-#include "PurpleBee/types.h"
-#define const_val(value) const_val (stash::PurpleBee, #value, value)
-    const_val (PACKAGE);
-    const_val (PACKAGE_BUGREPORT);
-    const_val (PACKAGE_NAME);
-    const_val (PACKAGE_STRING);
-    const_val (PACKAGE_TARNAME);
-    const_val (PACKAGE_URL);
-    const_val (PACKAGE_VERSION);
-
-    const_val (BINDIR);
-    const_val (SBINDIR);
-    const_val (LIBEXECDIR);
-    const_val (DATAROOTDIR);
-    const_val (DATADIR);
-    const_val (SYSCONFDIR);
-    const_val (SHAREDSTATEDIR);
-    const_val (LOCALSTATEDIR);
-    const_val (INCLUDEDIR);
-    const_val (OLDINCLUDEDIR);
-    const_val (DOCDIR);
-    const_val (INFODIR);
-    const_val (HTMLDIR);
-    const_val (DVIDIR);
-    const_val (PDFDIR);
-    const_val (PSDIR);
-    const_val (LIBDIR);
-    const_val (LOCALEDIR);
-    const_val (MANDIR);
-#undef const_val
-}
+    server->boot ();
 
 char const*
 PurpleBee::package ()
@@ -71,7 +27,7 @@ PurpleBee::package ()
 #INCLUDE: PurpleBee/wip/util.h
 #INCLUDE: PurpleBee/wip/version.h
 
-INCLUDE: PurpleBee/Callback.xs
+INCLUDE: PurpleBee/Closure.xs
 
 INCLUDE: PurpleBee/Account/Option.xs
 INCLUDE: PurpleBee/Account/UserSplit.xs

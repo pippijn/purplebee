@@ -1,4 +1,5 @@
 #include "PurpleBee.h"
+#include "perl/call.h"
 #include "uiops/conversation.h"
 
 #define OPS "Ops::Conversation::"

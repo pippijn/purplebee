@@ -7,8 +7,8 @@ purple_request_input (void* handle, char const* title, char const* primary, char
 void*
 purple_request_choice (void* handle, char const* title, char const* primary, char const* secondary, int default_value, char const* ok_text, GCallback ok_cb, char const* cancel_text, GCallback cancel_cb, PurpleAccount* account, char const* who, PurpleConversation* conv, void* user_data, ...);
 
-void*
-purple_request_choice_varg (void* handle, char const* title, char const* primary, char const* secondary, int default_value, char const* ok_text, GCallback ok_cb, char const* cancel_text, GCallback cancel_cb, PurpleAccount* account, char const* who, PurpleConversation* conv, void* user_data, va_list choices);
+#void*
+#purple_request_choice_varg (void* handle, char const* title, char const* primary, char const* secondary, int default_value, char const* ok_text, GCallback ok_cb, char const* cancel_text, GCallback cancel_cb, PurpleAccount* account, char const* who, PurpleConversation* conv, void* user_data, va_list choices);
 
 void*
 purple_request_action (void* handle, char const* title, char const* primary, char const* secondary, int default_action, PurpleAccount* account, char const* who, PurpleConversation* conv, void* user_data, size_t action_count, ...);
@@ -22,8 +22,8 @@ purple_request_ok_cancel (void* handle, char const* title, char const* primary, 
 void*
 purple_request_accept_cancel (void* handle, char const* title, char const* primary, char const* secondary, int default_action, PurpleAccount* account, char const* who, PurpleConversation* conv, void* user_data, GCallback accept_cb, GCallback cancel_cb);
 
-void*
-purple_request_action_varg (void* handle, char const* title, char const* primary, char const* secondary, int default_action, PurpleAccount* account, char const* who, PurpleConversation* conv, void* user_data, size_t action_count, va_list actions);
+#void*
+#purple_request_action_varg (void* handle, char const* title, char const* primary, char const* secondary, int default_action, PurpleAccount* account, char const* who, PurpleConversation* conv, void* user_data, size_t action_count, va_list actions);
 
 void*
 purple_request_fields (void* handle, char const* title, char const* primary, char const* secondary, PurpleRequestFields* fields, char const* ok_text, GCallback ok_cb, char const* cancel_text, GCallback cancel_cb, PurpleAccount* account, char const* who, PurpleConversation* conv, void* user_data);

@@ -26,9 +26,9 @@ struct perl_operation<void (*)(Args...), Args...>
   return_type operator () (user_data_type& perl, closure_type const& closure)
   {
     call_function (closure);
-    PerlInterpreter* my_perl = perl.get_perl ();
+    PerlInterpreter* my_perl = perl.perl ();
     return &PL_sv_undef;
   }
 };
 
-typedef closure<SV*, perl_operation> perl_callback;
+typedef closure<SV*, perl_operation> perl_closure;

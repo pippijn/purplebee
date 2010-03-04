@@ -7,6 +7,13 @@
 
 template<>
 SV*
+perl_interpreter::to_sv (va_list v)
+{
+  UNIMPLEMENTED;
+}
+
+template<>
+SV*
 perl_interpreter::to_sv (void* v)
 {
   UNIMPLEMENTED;
@@ -22,6 +29,13 @@ perl_interpreter::to_sv (unsigned char* v)
 template<>
 SV*
 perl_interpreter::to_sv (void const* v)
+{
+  UNIMPLEMENTED;
+}
+
+template<>
+SV*
+perl_interpreter::to_sv (unsigned long* v)
 {
   UNIMPLEMENTED;
 }
@@ -105,6 +119,13 @@ perl_interpreter::sv_to (SV* v)
 
 template<>
 int*
+perl_interpreter::sv_to (SV* v)
+{
+  UNIMPLEMENTED;
+}
+
+template<>
+unsigned long*
 perl_interpreter::sv_to (SV* v)
 {
   UNIMPLEMENTED;

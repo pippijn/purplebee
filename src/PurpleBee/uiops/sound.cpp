@@ -1,4 +1,5 @@
 #include "PurpleBee.h"
+#include "perl/call.h"
 #include "uiops/sound.h"
 
 #define OPS "Ops::Sound::"

@@ -1,8 +1,8 @@
 #include "PurpleBee.h"
-#include "PurpleBee/stash.h"
+#include "PurpleBee/Closure.h"
+#include "perl/package.h"
 #include "util/unimplemented.h"
 #include "util/wrapper.h"
-#include "perl/callback.h"
 
 
 /*
@@ -41,7 +41,7 @@ template<>
 SV*
 perl_interpreter::to_sv (std::tuple<GSourceFunc, gpointer> closure)
 {
-  return newSVptr (perl_callback::create (*this, closure), newSV (0), stash::Callback);
+  return newSVptr (PurpleBeeClosure::create (*this, closure), newSV (0), perl_package<PurpleBeeClosure>::stash);
 }
 
 

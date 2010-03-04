@@ -70,8 +70,8 @@ purple_status_destroy (PurpleStatus* status);
 void
 purple_status_set_active (PurpleStatus* status, gboolean active);
 
-void
-purple_status_set_active_with_attrs (PurpleStatus* status, gboolean active, va_list args);
+#void
+#purple_status_set_active_with_attrs (PurpleStatus* status, gboolean active, va_list args);
 
 void
 purple_status_set_active_with_attrs_list (PurpleStatus* status, gboolean active, GList* attrs);

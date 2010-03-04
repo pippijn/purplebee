@@ -40,7 +40,7 @@ GCallback				T_PTROBJ
 GSourceFunc				T_PTROBJ
 GString*				T_PTROBJ
 
-perl_callback*				T_PTROBJ
+PurpleBeeClosure*			T_PTROBJ
 PurpleBee*				T_PTROBJ
 
 PurpleAccountOption*			T_PTROBJ

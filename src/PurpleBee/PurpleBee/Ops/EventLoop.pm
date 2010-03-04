@@ -3,6 +3,7 @@ package PurpleBee::Ops::EventLoop;
 use common::sense;
 
 use AnyEvent;
+use Carp;
 
 my @timeouts;
 # TODO add a second array which contains removed indexes
@@ -53,7 +54,6 @@ sub timeout_add {
 
 sub timeout_remove {
    my ($self, $handle) = @_;
-   # TODO: $self can become undef or something unblessed: find out why
    $self->print ("PurpleBee::Ops::EventLoop::timeout_remove ($handle)\n");
 
    if ($timeouts[$handle]) {
@@ -91,7 +91,7 @@ sub timeout_add_seconds {
             interval    => $interval,
             cb          => sub {
                print "timeout_seconds $handle = $callback\n";
-               timeout_remove $handle
+               timeout_remove $self, $handle
                   unless $callback->call
             },
          );

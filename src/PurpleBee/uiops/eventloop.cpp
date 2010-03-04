@@ -1,64 +1,9 @@
 #include "PurpleBee.h"
+#include "perl/call.h"
 #include "uiops/eventloop.h"
 #include "util/make_closure.h"
 
 #define OPS "Ops::EventLoop::"
-
-#define PURPLE_GLIB_READ_COND  (G_IO_IN | G_IO_HUP | G_IO_ERR)
-#define PURPLE_GLIB_WRITE_COND (G_IO_OUT | G_IO_HUP | G_IO_ERR | G_IO_NVAL)
-
-struct PurpleGLibIOClosure
-{
-  PurpleInputFunction function;
-  guint result;
-  gpointer data;
-};
-
-static void
-purple_glib_io_destroy (gpointer data)
-{
-  g_free (data);
-}
-
-static gboolean
-purple_glib_io_invoke (GIOChannel* source, GIOCondition condition, gpointer data)
-{
-  PurpleGLibIOClosure* closure = (PurpleGLibIOClosure*)data;
-  int purple_cond = 0;
-
-  if (condition & PURPLE_GLIB_READ_COND)
-    purple_cond |= PURPLE_INPUT_READ;
-  if (condition & PURPLE_GLIB_WRITE_COND)
-    purple_cond |= PURPLE_INPUT_WRITE;
-
-  closure->function (closure->data, g_io_channel_unix_get_fd (source),
-                     PurpleInputCondition (purple_cond));
-
-  return TRUE;
-}
-
-static guint
-glib_input_add (gint fd, PurpleInputCondition condition, PurpleInputFunction function, gpointer data)
-{
-  PurpleGLibIOClosure* closure = g_new0 (PurpleGLibIOClosure, 1);
-  GIOChannel* channel;
-  int cond = 0;
-
-  closure->function = function;
-  closure->data = data;
-
-  if (condition & PURPLE_INPUT_READ)
-    cond |= PURPLE_GLIB_READ_COND;
-  if (condition & PURPLE_INPUT_WRITE)
-    cond |= PURPLE_GLIB_WRITE_COND;
-
-  channel = g_io_channel_unix_new (fd);
-  closure->result = g_io_add_watch_full (channel, G_PRIORITY_DEFAULT, GIOCondition (cond),
-                                         purple_glib_io_invoke, closure, purple_glib_io_destroy);
-
-  g_io_channel_unref (channel);
-  return closure->result;
-}
 
 namespace uiops
 {
@@ -108,14 +53,6 @@ namespace uiops
       input_remove,
       NULL,//input_get_error,
       timeout_add_seconds,
-    };
-    return {
-      g_timeout_add,
-      g_source_remove,
-      glib_input_add,
-      g_source_remove,
-      NULL,
-      g_timeout_add_seconds,
     };
   }
 }

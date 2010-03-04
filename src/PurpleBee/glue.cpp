@@ -1,6 +1,11 @@
+#include <map>
 #include <memory>
+#include <string>
 
 #include "PurpleBee.h"
+#include "PurpleBee/Closure.h"
+#include "perl/call.h"
+#include "perl/package.h"
 #include "uiops/core.h"
 #include "uiops/conversation.h"
 #include "uiops/eventloop.h"
@@ -182,6 +187,43 @@ PurpleBee::init ()
                 , info->homepage
                 );
     }
+}
+
+void
+PurpleBee::boot ()
+{
+#define PTYPE(T, P) \
+  perl_package<PASTE (Purple, T)>::stash = gv_stashpv (perl_package<PASTE (Purple, T)>::name, 1);
+#include "PurpleBee/types.h"
+#define const_val(value) newCONSTSUB (perl_package<PurpleBee>::stash, #value, to_sv (value))
+  const_val (PACKAGE);
+  const_val (PACKAGE_BUGREPORT);
+  const_val (PACKAGE_NAME);
+  const_val (PACKAGE_STRING);
+  const_val (PACKAGE_TARNAME);
+  const_val (PACKAGE_URL);
+  const_val (PACKAGE_VERSION);
+
+  const_val (BINDIR);
+  const_val (SBINDIR);
+  const_val (LIBEXECDIR);
+  const_val (DATAROOTDIR);
+  const_val (DATADIR);
+  const_val (SYSCONFDIR);
+  const_val (SHAREDSTATEDIR);
+  const_val (LOCALSTATEDIR);
+  const_val (INCLUDEDIR);
+  const_val (OLDINCLUDEDIR);
+  const_val (DOCDIR);
+  const_val (INFODIR);
+  const_val (HTMLDIR);
+  const_val (DVIDIR);
+  const_val (PDFDIR);
+  const_val (PSDIR);
+  const_val (LIBDIR);
+  const_val (LOCALEDIR);
+  const_val (MANDIR);
+#undef const_val
 }
 
 void

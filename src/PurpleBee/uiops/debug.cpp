@@ -1,4 +1,5 @@
 #include "PurpleBee.h"
+#include "perl/call.h"
 #include "uiops/debug.h"
 
 #define OPS "Ops::Debug::"

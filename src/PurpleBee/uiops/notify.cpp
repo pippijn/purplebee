@@ -1,4 +1,5 @@
 #include "PurpleBee.h"
+#include "perl/call.h"
 #include "uiops/notify.h"
 
 #define OPS "Ops::Notify::"
