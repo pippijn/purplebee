@@ -26,13 +26,14 @@ perl_interpreter::~perl_interpreter ()
 }
 
 
+template<>
 SV*
-perl_interpreter::newSVptr (void* ptr, HV* stash, SV* self)
+perl_interpreter::newSVptr<void> (void* ptr, HV* stash, SV* self, MGVTBL* vtbl)
 {
   if (!ptr)
     return &PL_sv_undef;
 
-  sv_magicext (self, 0, PERL_MAGIC_ext, NULL, (char*)ptr, 0);
+  sv_magicext (self, 0, PERL_MAGIC_ext, vtbl, (char*)ptr, 0);
   if (!SvROK (self))
     self = newRV_noinc (self);
   if (stash)
@@ -40,6 +41,31 @@ perl_interpreter::newSVptr (void* ptr, HV* stash, SV* self)
   return self;
 }
 
+template<>
+SV*
+perl_interpreter::newSVobj<void> (void* obj, HV* stash, HV* self, MGVTBL* vtbl)
+{
+  xassert (obj);
+  xassert (self);
+
+  if (!SvOBJECT (self))
+    {
+      sv_magicext ((SV*)self, 0, PERL_MAGIC_ext, vtbl, (char *)obj, 0);
+
+      // now bless the object _once_
+      //TODO: create a class registry with c++ type<=>perl name<=>stash and use it here and elsewhere
+      return sv_bless (newRV_inc ((SV*)self), stash);
+    }
+  else
+    {
+      SV *sv = newRV_inc ((SV*)self);
+
+      if (Gv_AMG (stash)) // handle overload correctly, as the perl core does not
+        SvAMAGIC_on (sv);
+
+      return sv;
+    }
+}
 
 void*
 perl_interpreter::SvPTR (SV* sv)
@@ -62,31 +88,6 @@ perl_interpreter::SvPTR (SV* sv)
   croak ("perl code used object, but C object is already destroyed, caught");
 }
 
-SV*
-perl_interpreter::newSVobj (void* obj, HV* stash, HV* self)
-{
-  xassert (obj);
-  xassert (self);
-
-  if (!SvOBJECT (self))
-    {
-      sv_magicext ((SV*)self, 0, PERL_MAGIC_ext, NULL, (char *)obj, 0);
-
-      // now bless the object _once_
-      //TODO: create a class registry with c++ type<=>perl name<=>stash and use it here and elsewhere
-      return sv_bless (newRV_inc ((SV*)self), stash);
-    }
-  else
-    {
-      SV *sv = newRV_inc ((SV*)self);
-
-      if (Gv_AMG (stash)) // handle overload correctly, as the perl core does not
-        SvAMAGIC_on (sv);
-
-      return sv;
-    }
-}
-
 template<>
 SV*
 perl_interpreter::to_sv (perl_interpreter* obj)
@@ -97,7 +98,7 @@ perl_interpreter::to_sv (perl_interpreter* obj)
   if (!obj->self)
     obj->self = newHV ();
 
-  return newSVobj (obj, obj->stash (), obj->self);
+  return newSVobj<perl_object> (obj, obj->stash (), obj->self);
 }
 
 template<>
@@ -106,3 +107,5 @@ perl_interpreter::sv_to (SV* sv)
 {
   return static_cast<perl_interpreter*> (SvPTR (sv));
 }
+
+// vim:ft=xs

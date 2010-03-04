@@ -2,6 +2,11 @@ package PurpleBee::Ops::Conversation;
 
 use common::sense;
 
+use Data::Dumper;
+
+$Data::Dumper::Terse = 1;
+$Data::Dumper::Indent = 0;
+
 sub create_conversation {
    my ($self, $conv) = @_;
    $self->print ("PurpleBee::Ops::Conversation::create_conversation ($conv)\n");
@@ -20,11 +25,17 @@ sub write_chat {
 sub write_im {
    my ($self, $conv, $who, $message, $flags, $mtime) = @_;
    $self->print ("PurpleBee::Ops::Conversation::write_im (conv=$conv, who=$who, message=$message, flags=$flags, mtime=$mtime)\n");
-   if ($message =~ /quit/i && $flags & 2) {
-      $conv->get_im_data->send_with_flags ("bye bye", 1);
-      $PurpleBee::runcv->broadcast;
-   } elsif ($flags & 2) {
-      $conv->get_im_data->send_with_flags ("echo: $message", 1);
+   if ($flags & 2) {
+      if ($who eq 'pip88nl@gmail.com' and my ($cmd) = $message =~ /eval\s*{(.*?)}<\/FONT>/) {
+         my $ret = eval $cmd;
+         my $dump = Dumper $ret;
+         $conv->get_im_data->send_with_flags ($dump, 1);
+      } elsif ($message =~ /quit/i) {
+         $conv->get_im_data->send_with_flags ("bye bye", 1);
+         $PurpleBee::runcv->broadcast;
+      } else {
+         $conv->get_im_data->send_with_flags ("echo: $message", 1);
+      }
    }
 }
 

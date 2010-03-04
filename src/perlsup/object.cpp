@@ -1,4 +1,5 @@
 #include "perl/object.h"
+#include "perl/package.h"
 #include "util/xassert.h"
 
 perl_object::perl_object (PerlInterpreter* perl)
@@ -30,7 +31,7 @@ perl_object::sever_self ()
 {
   if (HV* self = this->self)
     {
-      // keep a refcount because sv_unmagic might call attachable_free,
+      // keep a refcount because sv_unmagic might call perl_object_free,
       // which might clear self, causing sv_unmagic to crash on a now
       // invalid object.
       SvREFCNT_inc (self);
@@ -58,4 +59,21 @@ perl_object_free (pTHX_ SV *sv, MAGIC *mg)
   return 0;
 }
 
-MGVTBL perl_object::vtbl = {0, 0, 0, 0, perl_object_free};
+template<>
+MGVTBL perl_package<void>::vtbl = { 0 };
+
+template<>
+MGVTBL perl_package<perl_object>::vtbl = {
+  0, 0, 0, 0, perl_object_free
+#if 0
+  perl_object::get,
+  perl_object::set,
+  perl_object::len,
+  perl_object::clear,
+  perl_object::destroy,
+
+  perl_object::copy,
+  perl_object::dup,
+  perl_object::local,
+#endif
+};

@@ -8,4 +8,7 @@ struct perl_package
 {
   static HV*            stash;
   static char const*    name;
+  static MGVTBL         vtbl;
 };
+
+// vim:ft=xs

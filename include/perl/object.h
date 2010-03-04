@@ -19,6 +19,6 @@ protected:
 
   void init_self ();
   void sever_self ();
-
-  static MGVTBL vtbl;
 };
+
+// vim:ft=xs

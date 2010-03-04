@@ -1,6 +1,8 @@
 #pragma once
 
 #include "perl/object.h"
+#include "perl/package.h"
+#include "util/identity.h"
 #include "util/output.h"
 
 struct perl_interpreter
@@ -15,8 +17,16 @@ struct perl_interpreter
 
   arguments args;
 
-  SV* newSVobj (void* obj, HV* stash, HV* self);
-  SV* newSVptr (void* ptr, HV* stash, SV* self);
+  template<typename T = void>
+  SV* newSVptr (typename identity<T>::type* ptr, HV* stash, SV* self, MGVTBL* vtbl = &perl_package<T>::vtbl)
+  {
+    return newSVptr<void> (ptr, stash, self, vtbl);
+  }
+  template<typename T = void>
+  SV* newSVobj (typename identity<T>::type* ptr, HV* stash, HV* self, MGVTBL* vtbl = &perl_package<T>::vtbl)
+  {
+    return newSVobj<void> (ptr, stash, self, vtbl);
+  }
 
   void* SvPTR (SV* sv);
 
@@ -53,3 +63,8 @@ public:
 
   PerlInterpreter* perl () { return my_perl; }
 };
+
+template<> SV* perl_interpreter::newSVptr<void> (void* ptr, HV* stash, SV* self, MGVTBL* vtbl);
+template<> SV* perl_interpreter::newSVobj<void> (void* obj, HV* stash, HV* self, MGVTBL* vtbl);
+
+// vim:ft=xs
