@@ -59,6 +59,12 @@ namespace uiops
       request_file,
       close_request,
       request_folder,
+
+      // reserved
+      NULL,
+      NULL,
+      NULL,
+      NULL,
     };
   }
 }

@@ -1,3 +1,6 @@
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+#pragma GCC diagnostic ignored "-Wunused-variable"
+
 #include <EXTERN.h>
 #include <perl.h>
 #include <XSUB.h>
@@ -6,11 +9,17 @@
 
 #include "PurpleBee.h"
 #include "PurpleBee/Closure.h"
+#include "debug/backtrace.h"
 
 MODULE = PurpleBee      PACKAGE = PurpleBee
 
 BOOT:
     server->boot ();
+
+void
+PurpleBee::print_backtrace ()
+    CODE:
+    print_backtrace ();
 
 char const*
 PurpleBee::package ()
@@ -82,7 +91,9 @@ INCLUDE: PurpleBee/Sound.xs
 INCLUDE: PurpleBee/Sounds.xs
 INCLUDE: PurpleBee/Ssl/Connection.xs
 INCLUDE: PurpleBee/Ssl.xs
+INCLUDE: PurpleBee/Status/Attr.xs
 INCLUDE: PurpleBee/Status/Primitive.xs
+INCLUDE: PurpleBee/Status/Type.xs
 INCLUDE: PurpleBee/Status.xs
 INCLUDE: PurpleBee/StoredImage.xs
 INCLUDE: PurpleBee/Stringref.xs

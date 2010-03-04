@@ -9,6 +9,25 @@ my @timeouts;
 # TODO add a second array which contains removed indexes
 # to optimise searching for free slots in @timeouts
 
+# Removes a timeout handler.
+#
+# @param handle The handle, as returned by purple_timeout_add().
+#
+# @return @c TRUE if the handler was successfully removed.
+#
+
+sub timeout_remove {
+   my ($self, $handle) = @_;
+   $self->print ("PurpleBee::UiOps::EventLoop::timeout_remove ($handle)\n");
+
+   if ($timeouts[$handle]) {
+      undef $timeouts[$handle];
+      return 1
+   }
+
+   0 # gboolean
+}
+
 #
 # Creates a callback timer.
 #
@@ -34,7 +53,11 @@ sub timeout_add {
          $timeouts[$handle] = AnyEvent->timer (
             after       => $interval,
             interval    => $interval,
-            cb          => sub { print "timeout $handle = $callback\n"; $callback->call },
+            cb          => sub {
+               print "timeout $handle = $callback\n";
+               timeout_remove $self, $handle
+                  unless $callback->call
+            },
          );
 
          print "timeout_add = $handle\n";
@@ -42,26 +65,7 @@ sub timeout_add {
       }
    }
 
-   die "didn't find free spot"
-}
-
-# Removes a timeout handler.
-#
-# @param handle The handle, as returned by purple_timeout_add().
-#
-# @return @c TRUE if the handler was successfully removed.
-#
-
-sub timeout_remove {
-   my ($self, $handle) = @_;
-   $self->print ("PurpleBee::UiOps::EventLoop::timeout_remove ($handle)\n");
-
-   if ($timeouts[$handle]) {
-      undef $timeouts[$handle];
-      return 1
-   }
-
-   0 # gboolean
+   die "IMPOSSIBLE: didn't find free spot"
 }
 
 # Creates a callback timer.
@@ -101,7 +105,7 @@ sub timeout_add_seconds {
       }
    }
 
-   die "didn't find free spot"
+   die "IMPOSSIBLE: didn't find free spot"
 }
 
 

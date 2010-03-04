@@ -101,6 +101,9 @@ namespace uiops
       save_node,
       remove_node,
       save_account,
+
+      // reserved
+      NULL,
     };
   }
 }

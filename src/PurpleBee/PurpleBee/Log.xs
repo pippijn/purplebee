@@ -67,8 +67,8 @@ purple_log_common_deleter (PurpleLog* log);
 gboolean
 purple_log_common_is_deletable (PurpleLog* log);
 
-PurpleLogLogger*
-purple_log_logger_new (char const* id, char const* name, int functions, ...);
+#PurpleLogLogger*
+#purple_log_logger_new (char const* id, char const* name, int functions, ...);
 
 void
 purple_log_logger_free (PurpleLogLogger* logger);

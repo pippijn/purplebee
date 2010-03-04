@@ -1,7 +1,7 @@
 #include "PurpleBee.h"
+#include "PurpleBee/marshal.h"
 #include "PurpleBee/Closure.h"
 #include "perl/package.h"
-#include "util/unimplemented.h"
 #include "util/wrapper.h"
 
 
@@ -13,28 +13,28 @@ template<>
 SV*
 perl_interpreter::to_sv (GHashTable* list)
 {
-  UNIMPLEMENTED;
+  NO_CONV (list, "GHashTable*");
 }
 
 template<>
 SV*
 perl_interpreter::to_sv (GByteArray* list)
 {
-  UNIMPLEMENTED;
+  NO_CONV (list, "GByteArray*");
 }
 
 template<>
 SV*
 perl_interpreter::to_sv (GList* list)
 {
-  UNIMPLEMENTED;
+  NO_CONV (list, "GList*");
 }
 
 template<>
 SV*
 perl_interpreter::to_sv (GSList* list)
 {
-  UNIMPLEMENTED;
+  NO_CONV (list, "GSList*");
 }
 
 template<>
@@ -53,42 +53,42 @@ template<>
 GData**
 perl_interpreter::sv_to (SV* v)
 {
-  UNIMPLEMENTED;
+  NO_CONV (v, "GData**");
 }
 
 template<>
 GString*
 perl_interpreter::sv_to (SV* v)
 {
-  UNIMPLEMENTED;
+  NO_CONV (v, "GString*");
 }
 
 template<>
 GHashTable*
 perl_interpreter::sv_to (SV* v)
 {
-  UNIMPLEMENTED;
+  NO_CONV (v, "GHashTable*");
 }
 
 template<>
 GList*
 perl_interpreter::sv_to (SV* v)
 {
-  UNIMPLEMENTED;
+  NO_CONV (v, "GList*");
 }
 
 template<>
 GSList*
 perl_interpreter::sv_to (SV* v)
 {
-  UNIMPLEMENTED;
+  NO_CONV (v, "GSList*");
 }
 
 template<>
 GSourceFunc
-perl_interpreter::sv_to (SV* sv)
+perl_interpreter::sv_to (SV* v)
 {
-  UNIMPLEMENTED;
+  NO_CONV (v, "GSourceFunc");
 }
 
 // TODO: this leaks

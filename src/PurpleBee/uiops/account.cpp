@@ -46,6 +46,12 @@ namespace uiops
       request_add,
       request_authorize,
       close_account_request,
+
+      // reserved
+      NULL,
+      NULL,
+      NULL,
+      NULL,
     };
   }
 }

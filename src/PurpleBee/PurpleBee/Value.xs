@@ -1,11 +1,11 @@
 MODULE = PurpleBee      PACKAGE = PurpleBee::Value              PREFIX = purple_value_
 
 
-PurpleValue*
-purple_value_new (PurpleType type, ...);
+#PurpleValue*
+#purple_value_new (PurpleType type, ...);
 
-PurpleValue*
-purple_value_new_outgoing (PurpleType type, ...);
+#PurpleValue*
+#purple_value_new_outgoing (PurpleType type, ...);
 
 void
 purple_value_destroy (PurpleValue* value);

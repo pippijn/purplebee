@@ -53,6 +53,11 @@ namespace uiops
       input_remove,
       NULL,//input_get_error,
       timeout_add_seconds,
+
+      // reserved
+      NULL,
+      NULL,
+      NULL,
     };
   }
 }

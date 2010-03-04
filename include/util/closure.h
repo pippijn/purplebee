@@ -41,7 +41,9 @@ struct return_type<R (*) (A...)>
 
 template<typename F, typename... A, int... N>
 typename return_type<F>::type
-call_function (F function, std::tuple<F, A...> t, int_pack<N...>)
+call_function ( F function
+              , std::tuple<F, A...> t __attribute__ ((__unused__))
+              , int_pack<N...> ipack  __attribute__ ((__unused__)))
 {
   return function (std::get<N + 1> (t)...);
 }

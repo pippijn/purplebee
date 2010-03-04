@@ -17,6 +17,12 @@ namespace uiops
   {
     return {
       get_time_idle,
+
+      // reserved
+      NULL,
+      NULL,
+      NULL,
+      NULL,
     };
   }
 }

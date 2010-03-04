@@ -11,6 +11,7 @@ struct perl_interpreter
   struct arguments
   {
     int argc;
+    int envc;
     char** argv;
     char** env;
   };
@@ -34,8 +35,6 @@ struct perl_interpreter
   template<typename T> T   sv_to (SV* sv);
 
 protected:
-  PerlInterpreter *my_perl;
-
   perl_interpreter (int argc, char* argv[], char* env[]);
   ~perl_interpreter ();
 
@@ -60,8 +59,6 @@ private:
 public:
   template<typename R, typename... Args>
   R call (char const* method, Args const&... args);
-
-  PerlInterpreter* perl () { return my_perl; }
 };
 
 template<> SV* perl_interpreter::newSVptr<void> (void* ptr, HV* stash, SV* self, MGVTBL* vtbl);

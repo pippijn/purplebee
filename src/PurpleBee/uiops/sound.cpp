@@ -38,6 +38,12 @@ namespace uiops
       uninit,
       play_file,
       play_event,
+
+      // reserved
+      NULL,
+      NULL,
+      NULL,
+      NULL,
     };
   }
 }

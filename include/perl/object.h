@@ -7,6 +7,8 @@ struct perl_object
 {
   HV* self;
 
+  PerlInterpreter* perl () { return my_perl; }
+
 protected:
   PerlInterpreter *my_perl;
 

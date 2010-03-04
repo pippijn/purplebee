@@ -1,5 +1,6 @@
+#include "PurpleBee/marshal.h"
 #include "perl/interpreter.h"
-#include "util/unimplemented.h"
+#include "util/xassert.h"
 
 /*
  * T -> SV*
@@ -10,7 +11,7 @@ template<>
 SV*
 perl_interpreter::to_sv (va_list v)
 {
-  UNIMPLEMENTED;
+  NO_CONV (v, "va_list");
 }
 #endif
 
@@ -18,42 +19,42 @@ template<>
 SV*
 perl_interpreter::to_sv (void* v)
 {
-  UNIMPLEMENTED;
+  NO_CONV (v, "void*");
 }
 
 template<>
 SV*
 perl_interpreter::to_sv (unsigned char* v)
 {
-  UNIMPLEMENTED;
+  NO_CONV (v, "unsigned char*");
 }
 
 template<>
 SV*
 perl_interpreter::to_sv (void const* v)
 {
-  UNIMPLEMENTED;
+  NO_CONV (v, "void const*");
 }
 
 template<>
 SV*
 perl_interpreter::to_sv (unsigned long* v)
 {
-  UNIMPLEMENTED;
+  NO_CONV (v, "unsigned long*");
 }
 
 template<>
 SV*
 perl_interpreter::to_sv (long* v)
 {
-  UNIMPLEMENTED;
+  NO_CONV (v, "long*");
 }
 
 template<>
 SV*
 perl_interpreter::to_sv (int* v)
 {
-  UNIMPLEMENTED;
+  NO_CONV (v, "int*");
 }
 
 template<>
@@ -82,14 +83,14 @@ template<>
 SV*
 perl_interpreter::to_sv (char const** v)
 {
-  UNIMPLEMENTED;
+  NO_CONV (v, "char const**");
 }
 
 template<>
 SV*
 perl_interpreter::to_sv (unsigned char** v)
 {
-  UNIMPLEMENTED;
+  NO_CONV (v, "unsigned char**");
 }
 
 /*
@@ -98,108 +99,109 @@ perl_interpreter::to_sv (unsigned char** v)
 
 template<>
 char const*
-perl_interpreter::sv_to (SV* v)
+perl_interpreter::sv_to (SV* sv)
 {
-  if (v == &PL_sv_undef)
+  if (sv == &PL_sv_undef)
     return NULL;
-  return SvPV_nolen (v);
+  return SvPV_nolen (sv);
 }
 
 template<>
 unsigned char const*
-perl_interpreter::sv_to (SV* v)
+perl_interpreter::sv_to (SV* sv)
 {
-  UNIMPLEMENTED;
+  NO_CONV (sv, "unsigned char const*");
 }
 
 template<>
 unsigned char*
-perl_interpreter::sv_to (SV* v)
+perl_interpreter::sv_to (SV* sv)
 {
-  UNIMPLEMENTED;
+  NO_CONV (sv, "unsigned char*");
 }
 
 template<>
 int*
-perl_interpreter::sv_to (SV* v)
+perl_interpreter::sv_to (SV* sv)
 {
-  UNIMPLEMENTED;
+  NO_CONV (sv, "int*");
 }
 
 template<>
 unsigned long*
-perl_interpreter::sv_to (SV* v)
+perl_interpreter::sv_to (SV* sv)
 {
-  UNIMPLEMENTED;
+  NO_CONV (sv, "unsigned long*");
 }
 
 template<>
 unsigned int*
-perl_interpreter::sv_to (SV* v)
+perl_interpreter::sv_to (SV* sv)
 {
-  UNIMPLEMENTED;
+  NO_CONV (sv, "unsigned int*");
 }
 
 template<>
 void*
-perl_interpreter::sv_to (SV* v)
+perl_interpreter::sv_to (SV* sv)
 {
-  UNIMPLEMENTED;
+  NO_CONV (sv, "void*");
 }
 
 template<>
 void const*
-perl_interpreter::sv_to (SV* v)
+perl_interpreter::sv_to (SV* sv)
 {
-  UNIMPLEMENTED;
+  NO_CONV (sv, "void const*");
 }
 
 template<>
 unsigned char**
-perl_interpreter::sv_to (SV* v)
+perl_interpreter::sv_to (SV* sv)
 {
-  UNIMPLEMENTED;
+  NO_CONV (sv, "unsigned char**");
 }
 
 template<>
 char*
-perl_interpreter::sv_to (SV* v)
+perl_interpreter::sv_to (SV* sv)
 {
-  UNIMPLEMENTED;
+  NO_CONV (sv, "char*");
 }
 
 template<>
 char const**
-perl_interpreter::sv_to (SV* v)
+perl_interpreter::sv_to (SV* sv)
 {
-  UNIMPLEMENTED;
+  NO_CONV (sv, "char const**");
 }
 
 template<>
 char**
-perl_interpreter::sv_to (SV* v)
+perl_interpreter::sv_to (SV* sv)
 {
-  UNIMPLEMENTED;
+  NO_CONV (sv, "char**");
 }
 
 template<>
 long*
-perl_interpreter::sv_to (SV* v)
+perl_interpreter::sv_to (SV* sv)
 {
-  UNIMPLEMENTED;
+  NO_CONV (sv, "long*");
 }
 
 template<>
 struct tm*
-perl_interpreter::sv_to (SV* v)
+perl_interpreter::sv_to (SV* sv)
 {
-  UNIMPLEMENTED;
+  NO_CONV (sv, "struct tm*");
 }
 
 template<>
 void
-perl_interpreter::sv_to (SV* v)
+perl_interpreter::sv_to (SV* sv)
 {
+  xassert (sv == &PL_sv_undef);
 }
 
 // vim:ft=xs

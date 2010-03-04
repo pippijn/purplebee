@@ -52,6 +52,7 @@ perl_object_free (pTHX_ SV *sv, MAGIC *mg)
   //TODO: check if transaction behaviour is really required here
   if (SV *self = (SV *)obj->self)
     {
+      xassert (sv == self);
       obj->self = 0;
       SvREFCNT_dec (self);
     }
@@ -60,11 +61,11 @@ perl_object_free (pTHX_ SV *sv, MAGIC *mg)
 }
 
 template<>
-MGVTBL perl_package<void>::vtbl = { 0 };
+MGVTBL perl_package<void>::vtbl = { 0, 0, 0, 0, 0, 0, 0, 0 };
 
 template<>
 MGVTBL perl_package<perl_object>::vtbl = {
-  0, 0, 0, 0, perl_object_free
+  0, 0, 0, 0, perl_object_free, 0, 0, 0
 #if 0
   perl_object::get,
   perl_object::set,

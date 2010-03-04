@@ -38,6 +38,12 @@ namespace uiops
       permit_removed,
       deny_added,
       deny_removed,
+
+      // reserved
+      NULL,
+      NULL,
+      NULL,
+      NULL,
     };
   }
 }

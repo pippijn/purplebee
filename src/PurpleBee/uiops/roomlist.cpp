@@ -52,6 +52,12 @@ namespace uiops
       add_room,
       in_progress,
       destroy,
+
+      // reserved
+      NULL,
+      NULL,
+      NULL,
+      NULL,
     };
   }
 }

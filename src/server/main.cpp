@@ -1,4 +1,5 @@
 #include "PurpleBee.h"
+#include "debug/signal.h"
 #include "util/xassert.h"
 
 extern char** environ;
@@ -14,11 +15,13 @@ try
     prgname = argv[0];
   g_set_prgname (prgname);
 
+  init_signals ();
   init_server (argc, argv, environ);
   server->run ();
   // XXX: just for the heck of it. it should be freed automatically, but
   // I like controlled global initialisation and destruction
   uninit_server ();
+  uninit_signals ();
   puts ("done");
 
   return 0;

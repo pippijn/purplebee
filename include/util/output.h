@@ -4,6 +4,8 @@
 #include <vector>
 #include <tuple>
 
+#include "debug/backtrace.h"
+
 template<typename T>
 static inline std::ostream&
 output (T const& object, std::ostream& os = std::cout)
@@ -66,9 +68,14 @@ namespace detail
 {
   template<typename R, typename... Args>
   static inline std::ostream&
-  operator << (std::ostream& os, R (*func)(Args...))
+  operator << (std::ostream& os, R func (Args...))
   {
-    return os << "<func>";
+    char* sym = resolve_symbol (func);
+    os << '<' << sym;
+    //os << '@' << reinterpret_cast<void*> (func);
+    os << '>';
+    free (sym);
+    return os;
   }
 
   template<size_t N, size_t Max>

@@ -73,6 +73,9 @@ namespace uiops
       ui_write,
       ui_read,
       data_not_sent,
+
+      // reserved
+      NULL,
     };
   }
 }

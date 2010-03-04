@@ -7,8 +7,8 @@ purple_stringref_new (char const* value);
 PurpleStringref*
 purple_stringref_new_noref (char const* value);
 
-PurpleStringref*
-purple_stringref_printf (char const* format, ...);
+#PurpleStringref*
+#purple_stringref_printf (char const* format, ...);
 
 PurpleStringref*
 purple_stringref_ref (PurpleStringref* stringref);

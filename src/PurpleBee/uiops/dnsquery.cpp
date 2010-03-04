@@ -32,6 +32,12 @@ namespace uiops
     return {
       resolve_host,
       destroy,
+
+      // reserved
+      NULL,
+      NULL,
+      NULL,
+      NULL,
     };
   }
 }

@@ -23,7 +23,7 @@ libPurpleBee_la_SOURCES =				\
 
 include src/PurpleBee/marshal/Rules.am
 
-libPurpleBee_la_LIBADD = libutil.la libperlsup.la $(PERLLIB)
+libPurpleBee_la_LIBADD = libdebug.la libutil.la libperlsup.la $(PERLLIB)
 
 SUFFIXES = .xs
 

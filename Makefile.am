@@ -13,20 +13,22 @@ CLEANFILES		= # empty
 DISTCLEANFILES		= # empty
 MAINTAINERCLEANFILES	= # empty
 
-OPTFLAGS		= -pipe -O0 -ggdb3
+OPTFLAGS		= -pipe -O3 -ggdb3
 WARNINGS		= # empty
-#WARNINGS		+= -Wall -Wextra
-#WARNINGS		+= -Wno-unused-parameter
-#WARNINGS		+= -Wpadded
-#WARNINGS		+= -Wpacked
+WARNINGS		+= -Wall -Wextra
+WARNINGS		+= -Wpadded
+WARNINGS		+= -Wpacked
 #WARNINGS		+= -Wconversion
-#WARNINGS		+= -Wstrict-overflow=5
-#WARNINGS		+= -Wstrict-aliasing=1
-#WARNINGS		+= -Werror
+WARNINGS		+= -Wstrict-overflow=5
+WARNINGS		+= -Wstrict-aliasing=1
+WARNINGS		+= -Werror
+WARNINGS		+= -Wno-error=padded
+WARNINGS		+= -Wno-error=write-strings
 
 AM_CFLAGS		= $(OPTFLAGS) $(WARNINGS)
 AM_CXXFLAGS		= $(OPTFLAGS) $(WARNINGS) -std=c++0x
 AM_CPPFLAGS		= -I$(srcdir)/include -I$(builddir)/include -include autoconf.h
+AM_CPPFLAGS		+= -isystem /usr/lib/perl/5.10/CORE -isystem /usr/include/libpurple
 AM_LDFLAGS		= -Wl,-z,defs,-z,noexecstack,-z,now
 
 AM_CPPFLAGS		+= -DBINDIR='"$(bindir)"'

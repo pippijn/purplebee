@@ -73,6 +73,12 @@ namespace uiops
       notify_userinfo,
       notify_uri,
       close_notify,
+
+      // reserved
+      NULL,
+      NULL,
+      NULL,
+      NULL,
     };
   }
 }

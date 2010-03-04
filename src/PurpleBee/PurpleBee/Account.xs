@@ -82,8 +82,8 @@ purple_account_set_proxy_info (PurpleAccount* account, PurpleProxyInfo* info);
 void
 purple_account_set_status_types (PurpleAccount* account, GList* status_types);
 
-void
-purple_account_set_status (PurpleAccount* account, char const* status_id, gboolean active, ...);
+#void
+#purple_account_set_status (PurpleAccount* account, char const* status_id, gboolean active, ...);
 
 void
 purple_account_set_status_list (PurpleAccount* account, char const* status_id, gboolean active, GList* attrs);

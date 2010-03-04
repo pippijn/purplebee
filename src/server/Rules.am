@@ -3,4 +3,4 @@ bin_PROGRAMS += server
 server_SOURCES =		\
 	src/server/main.cpp
 
-server_LDADD = libperlsup.la libPurpleBee.la
+server_LDADD = libdebug.la libperlsup.la libPurpleBee.la

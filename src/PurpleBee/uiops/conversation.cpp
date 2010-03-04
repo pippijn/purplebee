@@ -115,6 +115,12 @@ namespace uiops
       custom_smiley_write,
       custom_smiley_close,
       send_confirm,
+
+      // reserved
+      NULL,
+      NULL,
+      NULL,
+      NULL,
     };
   }
 }

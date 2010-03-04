@@ -59,6 +59,12 @@ namespace uiops
       draw_point,
       draw_line,
       clear,
+
+      // reserved
+      NULL,
+      NULL,
+      NULL,
+      NULL,
     };
   }
 }

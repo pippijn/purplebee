@@ -3,6 +3,7 @@
 #include <purple.h>
 
 #include "PurpleBee/Closure.h"
+#include "PurpleBee/marshal.h"
 #include "perl/interpreter.h"
 #include "perl/package.h"
 #include "util/make_closure.h"
@@ -56,5 +57,5 @@ template<>
 GCallback
 perl_interpreter::sv_to (SV* sv)
 {
-  UNIMPLEMENTED;
+  NO_CONV (sv, "GCallback");
 }

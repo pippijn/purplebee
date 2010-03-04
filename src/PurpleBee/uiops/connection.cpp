@@ -66,6 +66,11 @@ namespace uiops
       network_connected,
       network_disconnected,
       report_disconnect_reason,
+
+      // reserved
+      NULL,
+      NULL,
+      NULL,
     };
   }
 }

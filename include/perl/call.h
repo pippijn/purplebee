@@ -61,8 +61,6 @@ template<typename R>
 inline R
 perl_interpreter::caller::result ()
 {
-  PerlInterpreter* my_perl = perl.perl ();
-
   R retval = perl.sv_to<R> (RETVAL);
   end ();
 

@@ -4,14 +4,19 @@
 #include "perl/interpreter.h"
 #include "util/xassert.h"
 
+static int
+count_strings (char* strings[])
+{
+  int i = 0;
+  while (*strings++)
+    ++i;
+  return i;
+}
+
 perl_interpreter::perl_interpreter (int argc, char* argv[], char* env[])
   : perl_object (perl_alloc ())
-  , args { argc, argv, env }
+  , args { argc, count_strings (env), argv, env }
 {
-  xassert (!my_perl);
-  my_perl = perl_object::my_perl;
-  xassert (my_perl);
-
   PERL_SYS_INIT3 (&args.argc, &args.argv, &args.env);
   perl_construct (my_perl);
   PL_exit_flags |= PERL_EXIT_DESTRUCT_END;

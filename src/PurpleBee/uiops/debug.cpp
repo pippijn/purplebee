@@ -24,6 +24,12 @@ namespace uiops
     return {
       print,
       is_enabled,
+
+      // reserved
+      NULL,
+      NULL,
+      NULL,
+      NULL,
     };
   }
 }

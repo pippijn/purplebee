@@ -1,3 +1,4 @@
+include src/debug/Rules.am
 include src/util/Rules.am
 include src/perlsup/Rules.am
 include src/PurpleBee/Rules.am

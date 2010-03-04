@@ -46,6 +46,11 @@ namespace uiops
       ui_init,
       quit,
       get_ui_info,
+
+      // reserved
+      NULL,
+      NULL,
+      NULL,
     };
   }
 }

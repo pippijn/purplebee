@@ -1,23 +1,23 @@
 MODULE = PurpleBee      PACKAGE = PurpleBee::Debug                      PREFIX = purple_debug_
 
 
-void
-purple_debug (PurpleDebugLevel level, char const* category, char const* format, ...);
+#void
+#purple_debug (PurpleDebugLevel level, char const* category, char const* format, ...);
 
-void
-purple_debug_misc (char const* category, char const* format, ...);
+#void
+#purple_debug_misc (char const* category, char const* format, ...);
 
-void
-purple_debug_info (char const* category, char const* format, ...);
+#void
+#purple_debug_info (char const* category, char const* format, ...);
 
-void
-purple_debug_warning (char const* category, char const* format, ...);
+#void
+#purple_debug_warning (char const* category, char const* format, ...);
 
-void
-purple_debug_error (char const* category, char const* format, ...);
+#void
+#purple_debug_error (char const* category, char const* format, ...);
 
-void
-purple_debug_fatal (char const* category, char const* format, ...);
+#void
+#purple_debug_fatal (char const* category, char const* format, ...);
 
 void
 purple_debug_set_enabled (gboolean enabled);
