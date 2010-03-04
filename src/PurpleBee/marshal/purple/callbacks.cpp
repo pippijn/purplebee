@@ -16,35 +16,35 @@ template<>
 SV*
 perl_interpreter::to_sv (GCallback closure)
 {
-  return newSVptr (PurpleBeeClosure::create (*this, make_closure (closure)), newSV (0), perl_package<PurpleBeeClosure>::stash);
+  return newSVptr (PurpleBeeClosure::create (*this, make_closure (closure)), perl_package<PurpleBeeClosure>::stash, newSV (0));
 }
 
 template<>
 SV*
 perl_interpreter::to_sv (std::tuple<PurpleInputFunction, gpointer, int, PurpleInputCondition> closure)
 {
-  return newSVptr (PurpleBeeClosure::create (*this, closure), newSV (0), perl_package<PurpleBeeClosure>::stash);
+  return newSVptr (PurpleBeeClosure::create (*this, closure), perl_package<PurpleBeeClosure>::stash, newSV (0));
 }
 
 template<>
 SV*
 perl_interpreter::to_sv (std::tuple<PurpleDnsQueryResolvedCallback, PurpleDnsQueryData*, GSList*> closure)
 {
-  return newSVptr (PurpleBeeClosure::create (*this, closure), newSV (0), perl_package<PurpleBeeClosure>::stash);
+  return newSVptr (PurpleBeeClosure::create (*this, closure), perl_package<PurpleBeeClosure>::stash, newSV (0));
 }
 
 template<>
 SV*
 perl_interpreter::to_sv (std::tuple<PurpleDnsQueryFailedCallback, PurpleDnsQueryData*, char const*> closure)
 {
-  return newSVptr (PurpleBeeClosure::create (*this, closure), newSV (0), perl_package<PurpleBeeClosure>::stash);
+  return newSVptr (PurpleBeeClosure::create (*this, closure), perl_package<PurpleBeeClosure>::stash, newSV (0));
 }
 
 template<>
 SV*
 perl_interpreter::to_sv (std::tuple<PurpleAccountRequestAuthorizationCb, gpointer> closure)
 {
-  return newSVptr (PurpleBeeClosure::create (*this, closure), newSV (0), perl_package<PurpleBeeClosure>::stash);
+  return newSVptr (PurpleBeeClosure::create (*this, closure), perl_package<PurpleBeeClosure>::stash, newSV (0));
 }
 
 

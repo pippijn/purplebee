@@ -12,7 +12,7 @@ namespace
 {
   struct sv_map
   {
-    static std::map<void*, SV*> map;
+    static std::map<void*, HV*> map;
 
     template<typename T>
     static T* fetch (perl_interpreter& perl, SV* sv)
@@ -24,20 +24,24 @@ namespace
     static SV* fetch (perl_interpreter& perl, T* ob)
     {
       PerlInterpreter* my_perl = perl.perl ();
-      return perl.newSVptr (ob, newHV (), perl_package<T>::stash);
+
+      if (!ob)
+        return &PL_sv_undef;
 
       auto found = map.find (ob);
-      SV* sv;
+      HV* self;
       if (found != map.end ())
         {
-          sv = static_cast<SV*> (found->second);
+          self = static_cast<HV*> (found->second);
         }
       else
         {
-          sv = perl.newSVptr (ob, newHV (), perl_package<T>::stash);
-          map.insert (std::make_pair (ob, sv));
+          self = newHV ();
+          map.insert (std::make_pair (ob, self));
         }
-      return sv;
+      xassert (self);
+
+      return perl.newSVobj (ob, perl_package<T>::stash, self);
     }
 
     template<typename T>
@@ -47,7 +51,7 @@ namespace
     }
   };
 
-  std::map<void*, SV*> sv_map::map;
+  std::map<void*, HV*> sv_map::map;
 }
 
 

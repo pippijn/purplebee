@@ -41,7 +41,7 @@ template<>
 SV*
 perl_interpreter::to_sv (std::tuple<GSourceFunc, gpointer> closure)
 {
-  return newSVptr (PurpleBeeClosure::create (*this, closure), newSV (0), perl_package<PurpleBeeClosure>::stash);
+  return newSVptr (PurpleBeeClosure::create (*this, closure), perl_package<PurpleBeeClosure>::stash, newSV (0));
 }
 
 

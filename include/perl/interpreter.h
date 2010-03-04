@@ -15,9 +15,8 @@ struct perl_interpreter
 
   arguments args;
 
-  SV* newSVptr (void const *ptr, SV *sv = newSV (0), HV *stash = 0);
-  SV* newSVptr (void const *ptr, HV *hv,             HV *stash = 0);
-  SV* newSVptr (void const *ptr, AV *av,             HV *stash = 0);
+  SV* newSVobj (void* obj, HV* stash, HV* self);
+  SV* newSVptr (void* ptr, HV* stash, SV* self);
 
   void* SvPTR (SV* sv);
 
