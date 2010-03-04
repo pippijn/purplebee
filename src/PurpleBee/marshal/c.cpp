@@ -5,12 +5,14 @@
  * T -> SV*
  */
 
+#if __x86_64__
 template<>
 SV*
 perl_interpreter::to_sv (va_list v)
 {
   UNIMPLEMENTED;
 }
+#endif
 
 template<>
 SV*
