@@ -13,11 +13,11 @@ struct assertion_failure
   std::string construct (char const* msg, char const* file, int line, char const* func);
 };
 
-#define xassert(cond)                           \
-  do {                                          \
-    if (!(cond))                                \
-      throw assertion_failure (#cond,           \
-                               __FILE__,        \
-                               __LINE__,        \
-                               __func__);       \
+#define xassert(cond)                                   \
+  do {                                                  \
+    if (!(cond))                                        \
+      throw assertion_failure (#cond,                   \
+                               __FILE__,                \
+                               __LINE__,                \
+                               __PRETTY_FUNCTION__);    \
   } while (0)

@@ -1,8 +1,5 @@
 #pragma once
 
-#include <map>
-#include <string>
-
 #include <purple.h>
 
 #include "perl/interpreter.h"
@@ -44,6 +41,7 @@ struct PurpleBee
   char const* package () const;
 
   void init ();
+  void boot ();
   void run ();
 
   using perl_interpreter::call;

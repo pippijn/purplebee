@@ -127,23 +127,3 @@ perl_interpreter::sv_to (SV* sv)
 {
   return static_cast<perl_interpreter*> (SvPTR (sv));
 }
-
-
-void
-perl_interpreter::CALL::check_error ()
-{
-  if (SvTRUE (ERRSV))
-    throw eval_error (SvPVutf8_nolen (ERRSV));
-}
-
-int
-perl_interpreter::CALL::method_call (char const* method, int flags)
-{
-  xassert (method);
-  char const* pkg = object.package ();
-  xassert (pkg);
-  char function[strlen (method) + strlen (pkg) + 2 + 1];
-  sprintf (function, "%s::%s", pkg, method);
-
-  return call_pv (function, flags);
-}

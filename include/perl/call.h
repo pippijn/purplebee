@@ -1,4 +1,3 @@
-#if 0
 #include <iostream>
 #include <type_traits>
 
@@ -26,9 +25,6 @@ perl_interpreter::caller::caller (perl_interpreter& perl, size_t argc)
 inline void
 perl_interpreter::caller::arg ()
 {
-  PerlInterpreter* my_perl = perl.perl ();
-
-  PUTBACK;
 }
 
 template<typename T, typename... Args>
@@ -53,9 +49,12 @@ perl_interpreter::caller::call (char const* method, int flags)
   char function[strlen (method) + strlen (pkg) + 2 + 1];
   sprintf (function, "%s::%s", pkg, method);
 
-  if (call_pv (function, flags | G_EVAL) > 0)
-    RETVAL = POPs;
+  PUTBACK;
+  int count = call_pv (function, flags | G_EVAL);
   SPAGAIN;
+
+  if (count > 0)
+    RETVAL = POPs;
 }
 
 template<typename R>
@@ -91,8 +90,6 @@ perl_interpreter::caller::end ()
   CHECK_ERROR;
   FREETMPS;
   LEAVE;
-
-  usleep (100000);
 }
 
 template<typename R, typename... Args>
@@ -111,4 +108,3 @@ perl_interpreter::call (char const* method, Args const&... args)
 
   return call.result<R> ();
 }
-#endif
