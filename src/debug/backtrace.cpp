@@ -7,25 +7,18 @@
 #include "util/array_size.h"
 
 void
-print_backtrace ()
+print_backtrace (int pid) throw ()
 {
-  printf ("stacktrace:\n");
+  printf ("==%d== stacktrace:\n", pid);
 
   static void* buffer[128];
   size_t size = backtrace (buffer, array_size (buffer));
-  char** strings = backtrace_symbols (buffer, size);
-  for (size_t i = 0; i < size; i++)
-    printf ("  [%2zu] %s\n", size - i, strings[i]);
-  free (strings);
-}
+  frame* frames = backtrace_frames (buffer, size);
 
-#if 0
-static bool
-test ()
-{
-  printf ("%s\n", resolve_symbol (print_backtrace));
-  exit (0);
-}
+  size_t i = 0;
+  printf ("==%d==    at %s (%s:%ld)\n", pid, frames[i].func, frames[i].file, frames[i].line);
+  for (++i; i < size; i++)
+    printf ("==%d==    by %s (%s:%ld)\n", pid, frames[i].func, frames[i].file, frames[i].line);
 
-static bool b = test ();
-#endif
+  delete[] frames;
+}

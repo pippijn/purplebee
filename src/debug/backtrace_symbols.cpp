@@ -1,5 +1,6 @@
 #include <iostream>
 
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -11,9 +12,13 @@
 
 #include <bfd.h>
 #include <cxxabi.h>
+#include <dirent.h>
 #include <dlfcn.h>
 #include <execinfo.h>
 #include <link.h>
+
+#include "debug/backtrace.h"
+#include "util/string.h"
 
 #define fatal(a, b) exit (1)
 #define bfd_fatal(a) exit (1)
@@ -24,15 +29,27 @@ static size_t const intstr_len = log10 (SIZE_MAX) + 1;
 static size_t const ptrstr_len = intstr_len + 2; // for "0x"
 
 template<typename To, typename From>
-static void
-must_assign (To& target, From source)
+static bool
+force_assign (To& target, From source)
 {
-  assert (source);
-  target = reinterpret_cast<To> (source);
+  return (target = reinterpret_cast<To> (source));
 }
 
 struct stacktrace
 {
+  struct frame
+  {
+    std::string func;
+    std::string file;
+    unsigned long line;
+
+    friend std::ostream& operator << (std::ostream& os, stacktrace::frame const& frame)
+    {
+      return os << frame.func << '@' << frame.file << ':' << frame.line;
+    }
+  };
+
+private:
   struct dlbfd
   {
     void* handle;
@@ -44,34 +61,115 @@ struct stacktrace
     decltype (bfd_openr)* openr;
     decltype (bfd_close)* close;
 
+    template<typename To>
+    bool load_symbol (To& target, char const* symname, std::string& error)
+    {
+      force_assign (target, dlsym (handle, symname));
+      if (target)
+        return true;
+
+      error += "\n\tcould not resolve symbol: " + std::string (symname);
+      return false;
+    }
+
+    bool load_bfd_symbols (std::string& errors)
+    {
+      return load_symbol (init,                 "bfd_init", errors)
+          && load_symbol (map_over_sections,    "bfd_map_over_sections", errors)
+          && load_symbol (check_format,         "bfd_check_format", errors)
+          && load_symbol (check_format_matches, "bfd_check_format_matches", errors)
+          && load_symbol (openr,                "bfd_openr", errors)
+          && load_symbol (close,                "bfd_close", errors)
+          ;
+    }
+
+    bool try_load_bfd (char const* path, std::string& errors)
+    {
+      // we might have tried loading the symbols from another object, before
+      if (handle)
+        dlclose (handle);
+      // if we can load the given object
+      if ((handle = dlopen (path, RTLD_NOW)))
+        // try loading the needed bfd symbols from it
+        return load_bfd_symbols (errors);
+
+      errors += "\n\t";
+      errors += dlerror ();
+
+      return false;
+    }
+
+    // try *really* hard to find libbfd.so and load the symbols
+    bool load_bfd (std::string& errors)
+    {
+      // first, just see if it's there
+      if (try_load_bfd ("libbfd.so", errors))
+        return true;
+    
+      // then, look through common library dirs to see if something that
+      // looks like libbfd.so can be found
+      char const* dirs[] = {
+        "/lib",
+        "/usr/lib",
+        "/usr/local/lib",
+        NULL
+      };
+    
+      for (char const** dirit = dirs; *dirit; ++dirit)
+        {
+          char const* const dirname = *dirit;
+          DIR* dirp = opendir (dirname);
+          if (dirp)
+            {
+              while (dirent* ent = readdir (dirp))
+                if (!strncmp (ent->d_name, "libbfd"))
+                  if (try_load_bfd (ent->d_name, errors))
+                    return true;
+            }
+          else
+            {
+              errors += "\n\t";
+              errors += dirname;
+              errors += ": ";
+              errors += strerror (errno);
+            }
+        }
+    
+      return false;
+    }
+
 #define DLBFD 1
     dlbfd ()
+      : handle (0)
     {
 #if DLBFD
-      handle = dlopen ("libbfd.so", RTLD_NOW);
-      must_assign (init,                        dlsym (handle, "bfd_init"));
-      must_assign (map_over_sections,           dlsym (handle, "bfd_map_over_sections"));
-      must_assign (check_format,                dlsym (handle, "bfd_check_format"));
-      must_assign (check_format_matches,        dlsym (handle, "bfd_check_format_matches"));
-      must_assign (openr,                       dlsym (handle, "bfd_openr"));
-      must_assign (close,                       dlsym (handle, "bfd_close"));
-#define bfd_init                        dbfd.init
-#define bfd_map_over_sections           dbfd.map_over_sections
-#define bfd_check_format                dbfd.check_format
-#define bfd_check_format_matches        dbfd.check_format_matches
-#define bfd_openr                       dbfd.openr
-#define bfd_close                       dbfd.close
+      std::string errors;
+
+      if (!load_bfd (errors))
+        {
+          // we tried so hard but failed in the end
+          // that probably means it's not there, so bail out
+          fprintf (stderr, "unable to load BFD library, backtrace will not be available:%s\n",
+                   errors.c_str ());
+          handle = 0;
+        }
+#define bfd_init                  dbfd.init
+#define bfd_map_over_sections     dbfd.map_over_sections
+#define bfd_check_format          dbfd.check_format
+#define bfd_check_format_matches  dbfd.check_format_matches
+#define bfd_openr                 dbfd.openr
+#define bfd_close                 dbfd.close
 #endif
     }
 
     ~dlbfd ()
     {
 #if DLBFD
-      dlclose (handle);
+      if (handle)
+        dlclose (handle);
 #endif
     }
   };
-
 
   asymbol** syms;       // Symbol table
   dlbfd dbfd;
@@ -83,6 +181,15 @@ struct stacktrace
   const char* functionname;
   unsigned int line;
   bool found;
+
+  bool check_inited ()
+  {
+#if DLBFD
+    return dbfd.handle;
+#else
+    return true;
+#endif
+  }
 
   // Read in the symbol table.
   void slurp_symtab (bfd* abfd)
@@ -127,18 +234,6 @@ struct stacktrace
                                          &self->filename, &self->functionname, &self->line);
   }
 
-  struct frame
-  {
-    std::string func;
-    std::string file;
-    unsigned long line;
-
-    friend std::ostream& operator << (std::ostream& os, stacktrace::frame const& frame)
-    {
-      return os << frame.func << '@' << frame.file << ':' << frame.line;
-    }
-  };
-
   frame translate_addresses (bfd* abfd, bfd_vma* addr, int naddr)
   {
     pc = addr[naddr - 1];
@@ -165,12 +260,11 @@ struct stacktrace
             if (realname)
               free (realname);
           }
-        if (filename != NULL)
-          {
-            char const* h = strrchr (filename, '/');
-            if (h != NULL)
-              filename = h + 1;
-          }
+        if (filename == NULL)
+          filename = "???";
+        else
+          if (char const* h = strrchr (filename, '/'))
+            filename = h + 1;
         return { funcname, filename, line };
       }
   }
@@ -236,16 +330,31 @@ struct stacktrace
                 && match->address <  vaddr + phdr->p_memsz)
               {
                 // we found a match
-                must_assign (match->file, info->dlpi_name);
-                must_assign (match->base, info->dlpi_addr);
+                force_assign (match->file, info->dlpi_name);
+                force_assign (match->base, info->dlpi_addr);
               }
           }
       }
     return 0;
   }
 
+public:
+  stacktrace ()
+    : syms (0)
+    , dbfd ()
+    , pc (0)
+    , filename ("<file>")
+    , functionname ("<func>")
+    , line (0)
+    , found (false)
+  {
+  }
+
   frame resolve_frame (char const* base)
   {
+    if (!check_inited ())
+      return { "<file>", "<func>", 0 };
+
     file_match match { 0, base, 0, 0 };
     bfd_vma addr;
     dl_iterate_phdr (find_matching_file, &match);
@@ -259,10 +368,16 @@ struct stacktrace
   std::vector<frame> backtrace_symbols (void* const* buffer, size_t size)
   {
     size_t stack_depth = size;
-
     std::vector<frame> frames;
 
-    dbfd.init ();
+    if (!check_inited ())
+      {
+        for (size_t x = 0; x < stack_depth; ++x)
+          frames.emplace_back (frame { "<file>", "<func>", 0 });
+        return frames;
+      }
+
+    bfd_init ();
     for (size_t x = 0; x < stack_depth; ++x)
       frames.push_back (resolve_frame (static_cast<char const*> (buffer[x])));
 
@@ -273,7 +388,8 @@ struct stacktrace
 static stacktrace stk;
 
 char**
-backtrace_symbols (void* const* buffer, int size)
+backtrace_symbols (void* const* buffer, int size) throw ()
+try
 {
   std::vector<stacktrace::frame> const frames = stk.backtrace_symbols (buffer, size);
 
@@ -303,9 +419,13 @@ backtrace_symbols (void* const* buffer, int size)
             et = frames.end ();
        it != et; ++it)
     {
-      syms[it - frames.begin ()] = strings;
+      ptrdiff_t i = it - frames.begin ();
+      syms[i] = strings;
       char buf[it->file.length () + intstr_len + 2];
-      snprintf (buf, sizeof buf, "%s:%lu", it->file.c_str (), it->line);
+      if (it->line)
+        snprintf (buf, sizeof buf, "%s:%lu", it->file.c_str (), it->line);
+      else
+        snprintf (buf, sizeof buf, "%s:???", it->file.c_str ());
       strings += snprintf (strings, memend - membase,
                            "%-*s%s", width, buf, it->func.c_str ());
       ++strings; // '\0'
@@ -313,9 +433,51 @@ backtrace_symbols (void* const* buffer, int size)
 
   return syms;
 }
+catch (...)
+{
+  puts ("caught unexpected exception while building backtrace");
+  return NULL;
+}
+
+frame*
+backtrace_frames (void* const* buffer, int size) throw ()
+try
+{
+  std::vector<stacktrace::frame> const frames = stk.backtrace_symbols (buffer, size);
+
+  frame* const ret = new frame[frames.size ()];
+
+  for (auto it = frames.begin (),
+            et = frames.end ();
+       it != et; ++it)
+    {
+      ptrdiff_t i = it - frames.begin ();
+
+      std::copy (it->func.begin (), it->func.end (), ret[i].func);
+      ret[i].func[it->func.length ()] = '\0';
+
+      std::copy (it->file.begin (), it->file.end (), ret[i].file);
+      ret[i].file[it->file.length ()] = '\0';
+
+      ret[i].line = it->line;
+    }
+
+  return ret;
+}
+catch (...)
+{
+  puts ("caught unexpected exception while building backtrace");
+  return NULL;
+}
 
 char*
-resolve_symbol (void* sym)
+resolve_symbol (void* sym) throw ()
+try
 {
   return strdup (stk.resolve_frame (static_cast<char const*> (sym)).func.c_str ());
+}
+catch (...)
+{
+  puts ("caught unexpected exception while building backtrace");
+  return NULL;
 }

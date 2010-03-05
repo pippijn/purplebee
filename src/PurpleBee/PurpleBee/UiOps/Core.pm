@@ -10,6 +10,7 @@ sub ui_prefs_init {
 sub debug_ui_init {
    my ($self) = @_;
    $self->print ("PurpleBee::UiOps::Core::debug_ui_init\n");
+   $self->valgrind;
 }
 
 sub ui_init {

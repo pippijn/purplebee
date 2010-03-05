@@ -21,6 +21,11 @@ PurpleBee::print_backtrace ()
     CODE:
     print_backtrace ();
 
+void
+PurpleBee::segfault ()
+    CODE:
+    *(char volatile*)0 = '\0';
+
 char const*
 PurpleBee::package ()
 
