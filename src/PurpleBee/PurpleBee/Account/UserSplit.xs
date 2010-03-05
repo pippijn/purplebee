@@ -1,4 +1,6 @@
 MODULE = PurpleBee      PACKAGE = PurpleBee::Account::UserSplit PREFIX = purple_account_user_split_
+# Copyright © 2010 Pippijn van Steenhoven
+# See COPYING.AGPL for licence information.
 
 
 PurpleAccountUserSplit*

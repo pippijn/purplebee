@@ -1,4 +1,6 @@
 MODULE = PurpleBee      PACKAGE = PurpleBee::EventLoop                  PREFIX = purple_
+# Copyright © 2010 Pippijn van Steenhoven
+# See COPYING.AGPL for licence information.
 
 
 guint

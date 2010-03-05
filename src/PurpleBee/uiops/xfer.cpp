@@ -1,3 +1,6 @@
+/* Copyright © 2010 Pippijn van Steenhoven
+ * See COPYING.AGPL for licence information.
+ */
 #include "PurpleBee.h"
 #include "perl/call.h"
 #include "uiops/xfer.h"
@@ -43,7 +46,7 @@ namespace uiops
   }
 
   gssize
-  xfer::ui_write (PurpleXfer* xfer, const guchar* buffer, gssize size)
+  xfer::ui_write (PurpleXfer* xfer, guchar const* buffer, gssize size)
   {
     return server->call<gssize> (OPS "ui_write", xfer, buffer, size);
   }

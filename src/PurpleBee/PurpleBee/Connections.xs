@@ -1,4 +1,6 @@
 MODULE = PurpleBee      PACKAGE = PurpleBee::Connections        PREFIX = purple_connections_
+# Copyright © 2010 Pippijn van Steenhoven
+# See COPYING.AGPL for licence information.
 
 
 void

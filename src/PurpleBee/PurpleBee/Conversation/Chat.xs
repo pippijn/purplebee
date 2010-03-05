@@ -1,4 +1,6 @@
 MODULE = PurpleBee      PACKAGE = PurpleBee::Conversation::Chat         PREFIX = purple_conv_chat_
+# Copyright © 2010 Pippijn van Steenhoven
+# See COPYING.AGPL for licence information.
 
 
 PurpleConversation*

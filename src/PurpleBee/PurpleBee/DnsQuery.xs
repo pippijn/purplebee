@@ -1,4 +1,6 @@
 MODULE = PurpleBee      PACKAGE = PurpleBee::DnsQuery                   PREFIX = purple_dnsquery_
+# Copyright © 2010 Pippijn van Steenhoven
+# See COPYING.AGPL for licence information.
 
 
 PurpleDnsQueryData*

@@ -1,4 +1,6 @@
 package PurpleBee::UiOps::Xfer;
+# Copyright © 2010 Pippijn van Steenhoven
+# See COPYING.AGPL for licence information.
 
 use common::sense;
 

@@ -1,4 +1,6 @@
 MODULE = PurpleBee      PACKAGE = PurpleBee::Account::Option    PREFIX = purple_account_option_
+# Copyright © 2010 Pippijn van Steenhoven
+# See COPYING.AGPL for licence information.
 
 
 PurpleAccountOption*

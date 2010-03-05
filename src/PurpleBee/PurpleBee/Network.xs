@@ -1,4 +1,6 @@
 MODULE = PurpleBee      PACKAGE = PurpleBee::Network                    PREFIX = purple_network_
+# Copyright © 2010 Pippijn van Steenhoven
+# See COPYING.AGPL for licence information.
 
 
 char unsigned const*

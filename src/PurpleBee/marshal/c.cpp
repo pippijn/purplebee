@@ -1,3 +1,6 @@
+/* Copyright © 2010 Pippijn van Steenhoven
+ * See COPYING.AGPL for licence information.
+ */
 #include "PurpleBee/marshal.h"
 #include "perl/interpreter.h"
 #include "util/xassert.h"
@@ -67,9 +70,9 @@ perl_interpreter::to_sv (unsigned char const* v)
 
 template<>
 SV*
-perl_interpreter::to_sv (char const** v)
+perl_interpreter::to_sv (std::tuple<size_t, char const**> v)
 {
-  NO_CONV (v, "char const**");
+  NO_CONV (v, "char const*[]");
 }
 
 template<>
@@ -128,10 +131,10 @@ perl_interpreter::sv_to (SV* sv)
 }
 
 template<>
-char const**
+std::tuple<size_t, char const**>
 perl_interpreter::sv_to (SV* sv)
 {
-  NO_CONV (sv, "char const**");
+  NO_CONV (sv, "char const*[]");
 }
 
 template<>

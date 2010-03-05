@@ -1,12 +1,13 @@
+/* Copyright © 2010 Pippijn van Steenhoven
+ * See COPYING.AGPL for licence information.
+ */
 #pragma once
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include "util/common.h"
+
+BEGIN_DECLS
 
 void init_signals ();
 void uninit_signals ();
 
-#ifdef __cplusplus
-}
-#endif
+END_DECLS

@@ -1,4 +1,7 @@
 MODULE = PurpleBee      PACKAGE = PurpleBee::Closure
+# Copyright © 2010 Pippijn van Steenhoven
+# See COPYING.AGPL for licence information.
+
 
 # TODO: make this work
 #void

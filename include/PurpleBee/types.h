@@ -1,3 +1,6 @@
+/* Copyright © 2010 Pippijn van Steenhoven
+ * See COPYING.AGPL for licence information.
+ */
 #define PASTE(a, b)     a##b
 #define STRINGIZE(a)    #a
 

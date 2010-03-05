@@ -1,3 +1,6 @@
+/* Copyright © 2010 Pippijn van Steenhoven
+ * See COPYING.AGPL for licence information.
+ */
 #include "PurpleBee.h"
 #include "perl/call.h"
 #include "uiops/notify.h"
@@ -7,31 +10,31 @@
 namespace uiops
 {
   void*
-  notify::notify_message (PurpleNotifyMsgType type, const char* title, const char* primary, const char* secondary)
+  notify::notify_message (PurpleNotifyMsgType type, char const* title, char const* primary, char const* secondary)
   {
     return server->call<void*> (OPS "notify_message", type, title, primary, secondary);
   }
 
   void*
-  notify::notify_email (PurpleConnection* gc, const char* subject, const char* from, const char* to, const char* url)
+  notify::notify_email (PurpleConnection* gc, char const* subject, char const* from, char const* to, char const* url)
   {
     return server->call<void*> (OPS "notify_email", gc, subject, from, to, url);
   }
 
   void*
-  notify::notify_emails (PurpleConnection* gc, size_t count, gboolean detailed, const char** subjects, const char** froms, const char** tos, const char** urls)
+  notify::notify_emails (PurpleConnection* gc, size_t count, gboolean detailed, char const** subjects, char const** froms, char const** tos, char const** urls)
   {
-    return server->call<void*> (OPS "notify_emails", gc, count, detailed, subjects, froms, tos, urls);
+    return server->call<void*> (OPS "notify_emails", gc, count, detailed, std::make_tuple (count, subjects), std::make_tuple (count, froms), std::make_tuple (count, tos), std::make_tuple (count, urls));
   }
 
   void*
-  notify::notify_formatted (const char* title, const char* primary, const char* secondary, const char* text)
+  notify::notify_formatted (char const* title, char const* primary, char const* secondary, char const* text)
   {
     return server->call<void*> (OPS "notify_formatted", title, primary, secondary, text);
   }
 
   void*
-  notify::notify_searchresults (PurpleConnection* gc, const char* title, const char* primary, const char* secondary, PurpleNotifySearchResults* results, gpointer user_data)
+  notify::notify_searchresults (PurpleConnection* gc, char const* title, char const* primary, char const* secondary, PurpleNotifySearchResults* results, gpointer user_data)
   {
     return server->call<void*> (OPS "notify_searchresults", gc, title, primary, secondary, results, user_data);
   }
@@ -43,13 +46,13 @@ namespace uiops
   }
 
   void*
-  notify::notify_userinfo (PurpleConnection* gc, const char* who, PurpleNotifyUserInfo* user_info)
+  notify::notify_userinfo (PurpleConnection* gc, char const* who, PurpleNotifyUserInfo* user_info)
   {
     return server->call<void*> (OPS "notify_userinfo", gc, who, user_info);
   }
 
   void*
-  notify::notify_uri (const char* uri)
+  notify::notify_uri (char const* uri)
   {
     return server->call<void*> (OPS "notify_uri", uri);
   }

@@ -1,4 +1,6 @@
 MODULE = PurpleBee      PACKAGE = PurpleBee::SavedStatuses              PREFIX = purple_savedstatuses_
+# Copyright © 2010 Pippijn van Steenhoven
+# See COPYING.AGPL for licence information.
 
 
 GList*

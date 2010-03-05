@@ -1,4 +1,6 @@
 MODULE = PurpleBee      PACKAGE = PurpleBee::NTLM                       PREFIX = purple_ntlm_
+# Copyright © 2010 Pippijn van Steenhoven
+# See COPYING.AGPL for licence information.
 
 
 gchar*

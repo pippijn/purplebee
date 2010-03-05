@@ -1,4 +1,6 @@
 MODULE = PurpleBee      PACKAGE = PurpleBee::Notify                     PREFIX = purple_notify_
+# Copyright © 2010 Pippijn van Steenhoven
+# See COPYING.AGPL for licence information.
 
 
 void*
@@ -44,7 +46,60 @@ void*
 purple_notify_email (void* handle, char const* subject, char const* from, char const* to, char const* url, PurpleNotifyCloseCallback cb, gpointer user_data);
 
 void*
-purple_notify_emails (void* handle, size_t count, gboolean detailed, char const** subjects, char const** froms, char const** tos, char const** urls, PurpleNotifyCloseCallback cb, gpointer user_data);
+purple_notify_emails (void* handle, gboolean detailed, AV* emails, PurpleNotifyCloseCallback cb, gpointer user_data);
+    CODE:
+{
+    I32 const last = av_len (emails);
+    char const** subjects = NULL;
+    char const** froms = NULL;
+    char const** tos = NULL;
+    char const** urls = NULL;
+
+    if (last != -1)
+      {
+        subjects = new char const*[last + 1];
+        froms = new char const*[last + 1];
+        tos = new char const*[last + 1];
+        urls = new char const*[last + 1];
+
+        for (I32 i = 0; i <= last; i++)
+          {
+            SV** const value = av_fetch (emails, i, 0);
+            xassert (value && *value);
+            xassert (SvROK (*value));
+            HV* hash = (HV*)SvRV (*value);
+            {
+              SV* subject = hv_fetch_nonnull (hash, "subject");
+              xassert (SvPOK (subject));
+              subjects[i] = SvPV_nolen (subject);
+            }
+            {
+              SV* from = hv_fetch_nonnull (hash, "from");
+              xassert (SvPOK (from));
+              froms[i] = SvPV_nolen (from);
+            }
+            {
+              SV* to = hv_fetch_nonnull (hash, "to");
+              xassert (SvPOK (to));
+              tos[i] = SvPV_nolen (to);
+            }
+            {
+              SV* url = hv_fetch_nonnull (hash, "url");
+              xassert (SvPOK (url));
+              urls[i] = SvPV_nolen (url);
+            }
+          }
+      }
+
+    RETVAL = purple_notify_emails (handle, last != -1 ? last : 0, detailed, subjects, froms, tos, urls, cb, user_data);
+
+    delete[] urls;
+    delete[] tos;
+    delete[] froms;
+    delete[] subjects;
+}
+    OUTPUT:
+    RETVAL
 
 void*
 purple_notify_formatted (void* handle, char const* title, char const* primary, char const* secondary, char const* text, PurpleNotifyCloseCallback cb, gpointer user_data);

@@ -1,3 +1,5 @@
+# Copyright © 2010 Pippijn van Steenhoven
+# See COPYING.AGPL for licence information.
 lib_LTLIBRARIES += libdebug.la
 
 libdebug_la_SOURCES =			\

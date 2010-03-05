@@ -1,4 +1,6 @@
 package PurpleBee::UiOps::EventLoop;
+# Copyright © 2010 Pippijn van Steenhoven, Moritz Wilhelmy
+# See COPYING.AGPL for licence information.
 
 use common::sense;
 

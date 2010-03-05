@@ -1,3 +1,6 @@
+/* Copyright © 2010 Pippijn van Steenhoven
+ * See COPYING.AGPL for licence information.
+ */
 #include "perl/object.h"
 #include "perl/package.h"
 #include "util/xassert.h"

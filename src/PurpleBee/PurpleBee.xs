@@ -1,3 +1,6 @@
+/* Copyright © 2010 Pippijn van Steenhoven
+ * See COPYING.AGPL for licence information.
+ */
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 #pragma GCC diagnostic ignored "-Wunused-variable"
 
@@ -10,6 +13,7 @@
 #include "PurpleBee.h"
 #include "PurpleBee/Closure.h"
 #include "debug/backtrace.h"
+#include "perl/util.h"
 
 MODULE = PurpleBee      PACKAGE = PurpleBee
 

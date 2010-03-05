@@ -1,3 +1,5 @@
+# Copyright © 2010 Pippijn van Steenhoven
+# See COPYING.AGPL for licence information.
 AUTOMAKE_OPTIONS	= -Wall
 ACLOCAL_AMFLAGS		= -I m4
 
