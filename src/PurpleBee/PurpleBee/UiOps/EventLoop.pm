@@ -9,12 +9,16 @@ my @timeouts;
 # TODO add a second array which contains removed indexes
 # to optimise searching for free slots in @timeouts
 
-# Removes a timeout handler.
-#
-# @param handle The handle, as returned by purple_timeout_add().
-#
-# @return @c TRUE if the handler was successfully removed.
-#
+=item timeout_remove($handle)
+
+Removes a timeout handler.
+
+$handle is a handle as returned by purple_timeout_add().
+
+If the timer did not exist, this returns false. Otherwise, it returns true,
+signifying that the timer was successfully removed.
+
+=cut
 
 sub timeout_remove {
    my ($self, $handle) = @_;
@@ -28,75 +32,40 @@ sub timeout_remove {
    0 # gboolean
 }
 
-#
-# Creates a callback timer.
-#
-# The timer will repeat until the function returns @c FALSE. The
-# first call will be at the end of the first interval.
-#
-# If the timer is in a multiple of seconds, use purple_timeout_add_seconds()
-# instead as it allows UIs to group timers for power efficiency.
-#
-# @param interval      The time between calls of the function, in
-#                      milliseconds.
-# @param callback      The function closure to call.
-# @return A handle to the timer which can be passed to
-#         purple_timeout_remove() to remove the timer.
-#
+=item timeout_add_seconds($self, $interval, $closure)
 
-sub timeout_add {
-   my ($self, $interval, $callback) = @_;
-   $self->print ("PurpleBee::UiOps::EventLoop::timeout_add ($interval, $callback)\n");
+Creates a callback timer.
 
-   for my $handle (0 .. @timeouts) { # find the next free @timeouts-index
-      if (!$timeouts[$handle]) {
-         $timeouts[$handle] = AnyEvent->timer (
-            after       => $interval,
-            interval    => $interval,
-            cb          => sub {
-               print "timeout $handle = $callback\n";
-               timeout_remove $self, $handle
-                  unless $callback->call
-            },
-         );
+The timer will repeat until the function returns C<FALSE>. The
+first call will be at the end of the first interval.
 
-         print "timeout_add = $handle\n";
-         return $handle
-      }
-   }
+$interval is the time between calls of the function in seconds,
+$closure the function closure to call.
 
-   die "IMPOSSIBLE: didn't find free spot"
-}
+This function returns a handle or event ID which can be passed to
+purple_timeout_remove() to remove the timer.
 
-# Creates a callback timer.
-#
-# The timer will repeat until the function returns @c FALSE. The
-# first call will be at the end of the first interval.
-#
-# This function allows UIs to group timers for better power efficiency.  For
-# this reason, @a interval may be rounded by up to a second.
-#
-# @param interval       The time between calls of the function, in
-#                       seconds.
-# @param callback       The function closure to call.
-# @return A handle to the timer which can be passed to
-#         purple_timeout_remove() to remove the timer.
-#
-# @since 2.1.0
+=cut
 
 sub timeout_add_seconds {
-   my ($self, $interval, $callback) = @_;
-   $self->print ("PurpleBee::UiOps::EventLoop::timeout_add_seconds ($interval, $callback)\n");
+   my ($self, $interval, $closure) = @_;
+   $self->print ("PurpleBee::UiOps::EventLoop::timeout_add_seconds ($interval, $closure)\n");
 
-   for my $handle (0 .. @timeouts) { # find the next free @timeouts-index
+   # Find the next free @timeouts-index.
+   # This loop will loop until @timeouts, which is one index after the last
+   # one.  Thus, if there is no free spot, it will simply push the timer onto
+   # the array.
+   for my $handle (0 .. @timeouts) {
+      # If $handle is currently free,
       if (!$timeouts[$handle]) {
+         # create a new timer and put it into the array
          $timeouts[$handle] = AnyEvent->timer (
             after       => $interval,
             interval    => $interval,
             cb          => sub {
-               print "timeout_seconds $handle = $callback\n";
+               print "timeout_seconds $handle = $closure\n";
                timeout_remove $self, $handle
-                  unless $callback->call
+                  unless $closure->call
             },
          );
 
@@ -107,6 +76,20 @@ sub timeout_add_seconds {
 
    die "IMPOSSIBLE: didn't find free spot"
 }
+
+=item timeout_add($interval, $closure)
+
+The same as timeout_add_seconds except that the interval is in milliseconds.
+
+=cut
+
+sub timeout_add {
+   my ($self, $interval, $closure) = @_;
+   $self->print ("PurpleBee::UiOps::EventLoop::timeout_add ($interval, $closure)\n");
+
+   timeout_add_seconds $self, $interval / 1000, $closure
+}
+
 
 
 #### INPUT HANDLERS
@@ -128,21 +111,21 @@ use constant {
 # @see g_io_add_watch_full
 
 sub input_add {
-   my ($self, $fd, $cond, $callback) = @_;
-   $self->print ("PurpleBee::UiOps::EventLoop::input_add ($fd, $cond, $callback)\n");
+   my ($self, $fd, $cond, $closure) = @_;
+   $self->print ("PurpleBee::UiOps::EventLoop::input_add ($fd, $cond, $closure)\n");
 
    for my $handle (0 .. @inputhandlers) { # find the next free @inputhandlers-index
       if (!$inputhandlers[$handle]) {
          $inputhandlers[$handle]{read} = AnyEvent->io (
             fh   => $fd,
             poll => 'r',
-            cb   => sub { print "input[r] $handle (fd=$fd) = $callback\n"; $callback->call }
+            cb   => sub { print "input[r] $handle (fd=$fd) = $closure\n"; $closure->call }
          ) if $cond & IO_READ;
 
          $inputhandlers[$handle]{write} = AnyEvent->io (
             fh   => $fd,
             poll => 'w',
-            cb   => sub { print "input[w] $handle (fd=$fd) = $callback\n"; $callback->call }
+            cb   => sub { print "input[w] $handle (fd=$fd) = $closure\n"; $closure->call }
          ) if $cond & IO_WRITE;
 
          print "input_add = $handle\n";
