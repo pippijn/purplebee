@@ -17,7 +17,9 @@ gboolean
 purple_input_remove (guint handle);
 
 int
-purple_input_get_error (int fd, int* error);
+purple_input_get_error (int fd, int& error);
+    OUTPUT:
+    error
 
 void
 purple_eventloop_set_ui_ops (PurpleEventLoopUiOps* ops);

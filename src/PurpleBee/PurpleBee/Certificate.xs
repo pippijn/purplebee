@@ -23,7 +23,9 @@ gboolean
 purple_certificate_signed_by (PurpleCertificate* crt, PurpleCertificate* issuer);
 
 gboolean
-purple_certificate_check_signature_chain_with_failing (GList* chain, PurpleCertificate** failing);
+purple_certificate_check_signature_chain_with_failing (GList* chain, PurpleCertificate*& failing);
+    OUTPUT:
+    failing
 
 gboolean
 purple_certificate_check_signature_chain (GList* chain);
@@ -50,7 +52,10 @@ gboolean
 purple_certificate_check_subject_name (PurpleCertificate* crt, gchar const* name);
 
 gboolean
-purple_certificate_get_times (PurpleCertificate* crt, time_t* activation, time_t* expiration);
+purple_certificate_get_times (PurpleCertificate* crt, time_t& activation, time_t& expiration);
+    OUTPUT:
+    activation
+    expiration
 
 gchar*
 purple_certificate_pool_mkpath (PurpleCertificatePool* pool, gchar const* id);

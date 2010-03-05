@@ -8,7 +8,9 @@ guint
 purple_cipher_get_capabilities (PurpleCipher* cipher);
 
 gboolean
-purple_cipher_digest_region (gchar const * name, guchar const * data, size_t data_len, size_t in_len, guchar* digest, size_t * out_len);
+purple_cipher_digest_region (gchar const* name, guchar const* data, size_t data_len, size_t in_len, guchar* digest, size_t& out_len);
+    OUTPUT:
+    out_len
 
 void
 purple_cipher_context_set_option (PurpleCipherContext* context, gchar const* name, gpointer value);
@@ -35,16 +37,24 @@ void
 purple_cipher_context_append (PurpleCipherContext* context, guchar const* data, size_t len);
 
 gboolean
-purple_cipher_context_digest (PurpleCipherContext * context, size_t in_len, guchar* digest, size_t * out_len);
+purple_cipher_context_digest (PurpleCipherContext* context, size_t in_len, guchar* digest, size_t& out_len);
+    OUTPUT:
+    out_len
 
 gboolean
-purple_cipher_context_digest_to_str (PurpleCipherContext * context, size_t in_len, gchar* digest_s, size_t * out_len);
+purple_cipher_context_digest_to_str (PurpleCipherContext* context, size_t in_len, gchar* digest_s, size_t& out_len);
+    OUTPUT:
+    out_len
 
 gint
-purple_cipher_context_encrypt (PurpleCipherContext * context, guchar const* data, size_t len, guchar* output, size_t * outlen);
+purple_cipher_context_encrypt (PurpleCipherContext* context, guchar const* data, size_t len, guchar* output, size_t& outlen);
+    OUTPUT:
+    outlen
 
 gint
-purple_cipher_context_decrypt (PurpleCipherContext * context, guchar const* data, size_t len, guchar* output, size_t * outlen);
+purple_cipher_context_decrypt (PurpleCipherContext* context, guchar const* data, size_t len, guchar* output, size_t& outlen);
+    OUTPUT:
+    outlen
 
 void
 purple_cipher_context_set_salt (PurpleCipherContext* context, guchar* salt);

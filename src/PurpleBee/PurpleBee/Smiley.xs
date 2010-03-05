@@ -29,7 +29,9 @@ PurpleStoredImage*
 purple_smiley_get_stored_image (PurpleSmiley* smiley);
 
 gconstpointer
-purple_smiley_get_data (PurpleSmiley* smiley, size_t* len);
+purple_smiley_get_data (PurpleSmiley* smiley, size_t& len);
+    OUTPUT:
+    len
 
 char const*
 purple_smiley_get_extension (PurpleSmiley* smiley);

@@ -45,6 +45,7 @@ struct PurpleBee
   void run ();
 
   void valgrind (bool full);
+  void fault (int kind);
 
   using perl_interpreter::call;
   using perl_interpreter::sv_to;

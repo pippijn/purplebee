@@ -38,20 +38,6 @@ perl_interpreter::to_sv (void const* v)
 
 template<>
 SV*
-perl_interpreter::to_sv (unsigned long* v)
-{
-  NO_CONV (v, "unsigned long*");
-}
-
-template<>
-SV*
-perl_interpreter::to_sv (long* v)
-{
-  NO_CONV (v, "long*");
-}
-
-template<>
-SV*
 perl_interpreter::to_sv (int* v)
 {
   NO_CONV (v, "int*");
@@ -121,27 +107,6 @@ perl_interpreter::sv_to (SV* sv)
 }
 
 template<>
-int*
-perl_interpreter::sv_to (SV* sv)
-{
-  NO_CONV (sv, "int*");
-}
-
-template<>
-unsigned long*
-perl_interpreter::sv_to (SV* sv)
-{
-  NO_CONV (sv, "unsigned long*");
-}
-
-template<>
-unsigned int*
-perl_interpreter::sv_to (SV* sv)
-{
-  NO_CONV (sv, "unsigned int*");
-}
-
-template<>
 void*
 perl_interpreter::sv_to (SV* sv)
 {
@@ -156,13 +121,6 @@ perl_interpreter::sv_to (SV* sv)
 }
 
 template<>
-unsigned char**
-perl_interpreter::sv_to (SV* sv)
-{
-  NO_CONV (sv, "unsigned char**");
-}
-
-template<>
 char*
 perl_interpreter::sv_to (SV* sv)
 {
@@ -174,20 +132,6 @@ char const**
 perl_interpreter::sv_to (SV* sv)
 {
   NO_CONV (sv, "char const**");
-}
-
-template<>
-char**
-perl_interpreter::sv_to (SV* sv)
-{
-  NO_CONV (sv, "char**");
-}
-
-template<>
-long*
-perl_interpreter::sv_to (SV* sv)
-{
-  NO_CONV (sv, "long*");
 }
 
 template<>

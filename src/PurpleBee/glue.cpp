@@ -32,6 +32,7 @@
 #include "util/xassert.h"
 
 #include "perlxsi.c"
+#include "faults.cpp"
 
 static std::auto_ptr<PurpleBee> server_instance;
 

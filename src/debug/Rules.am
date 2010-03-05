@@ -5,4 +5,4 @@ libdebug_la_SOURCES =			\
 	src/debug/backtrace_symbols.cpp	\
 	src/debug/signal.cpp
 
-libdebug_la_LIBADD = -ldl #-lbfd
+libdebug_la_LIBADD = -ldl -ldisasm #-lbfd

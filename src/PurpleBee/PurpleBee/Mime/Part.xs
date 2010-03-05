@@ -20,7 +20,10 @@ char const*
 purple_mime_part_get_data (PurpleMimePart* part);
 
 void
-purple_mime_part_get_data_decoded (PurpleMimePart* part, guchar** data, gsize* len);
+purple_mime_part_get_data_decoded (PurpleMimePart* part, guchar*& data, gsize& len);
+    OUTPUT:
+    data
+    len
 
 gsize
 purple_mime_part_get_length (PurpleMimePart* part);

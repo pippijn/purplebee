@@ -9,7 +9,7 @@
 void
 print_backtrace (int pid) throw ()
 {
-  printf ("==%d== stacktrace:\n", pid);
+  printf ("==%d== stack trace:\n", pid);
 
   static void* buffer[128];
   size_t size = backtrace (buffer, array_size (buffer));

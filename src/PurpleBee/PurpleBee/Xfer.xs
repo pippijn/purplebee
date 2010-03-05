@@ -119,7 +119,9 @@ void
 purple_xfer_set_cancel_recv_fnc (PurpleXfer * xfer, PurpleXferFunction fnc);
 
 gssize
-purple_xfer_read (PurpleXfer* xfer, guchar** buffer);
+purple_xfer_read (PurpleXfer* xfer, guchar*& buffer);
+    OUTPUT:
+    buffer
 
 gssize
 purple_xfer_write (PurpleXfer* xfer, guchar const* buffer, gsize size);

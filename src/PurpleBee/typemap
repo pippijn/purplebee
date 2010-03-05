@@ -2,37 +2,28 @@ TYPEMAP
 
 char const**				T_BEE_OBJ
 char const*				T_BEE_OBJ
-char**					T_BEE_OBJ
 char unsigned const*			T_BEE_OBJ
 char unsigned				T_BEE_OBJ
 gboolean				T_BEE_OBJ
 gchar const*				T_BEE_OBJ
-gchar**					T_BEE_OBJ
 gchar*					T_BEE_OBJ
 gconstpointer				T_BEE_OBJ
 gint64					T_BEE_OBJ
 gint					T_BEE_OBJ
 gpointer				T_BEE_OBJ
-gsize*					T_BEE_OBJ
 gsize					T_BEE_OBJ
 gssize					T_BEE_OBJ
 guchar const*				T_BEE_OBJ
-guchar**				T_BEE_OBJ
 guchar*					T_BEE_OBJ
-guint32*				T_BEE_OBJ
+guint32					T_BEE_OBJ
 guint64					T_BEE_OBJ
 guint8 const*				T_BEE_OBJ
 guint8*					T_BEE_OBJ
 guint					T_BEE_OBJ
-int*					T_BEE_OBJ
-long*					T_BEE_OBJ
-size_t*					T_BEE_OBJ
 struct tm*				T_BEE_OBJ
-time_t*					T_BEE_OBJ
 va_list					T_BEE_OBJ
 void const*				T_BEE_OBJ
 
-GData**					T_BEE_OBJ
 GByteArray*				T_BEE_OBJ
 GHashTable*				T_BEE_OBJ
 GList*					T_BEE_OBJ
@@ -57,7 +48,6 @@ PurpleBuddyList*			T_BEE_OBJ
 PurpleBuddy*				T_BEE_OBJ
 PurpleCertificatePool*			T_BEE_OBJ
 PurpleCertificateScheme*		T_BEE_OBJ
-PurpleCertificate**			T_BEE_OBJ
 PurpleCertificate*			T_BEE_OBJ
 PurpleCertificateVerificationRequest*	T_BEE_OBJ
 PurpleCertificateVerifier*		T_BEE_OBJ
@@ -116,7 +106,6 @@ PurpleSavedStatus*			T_BEE_OBJ
 PurpleSmiley*				T_BEE_OBJ
 PurpleSoundTheme*			T_BEE_OBJ
 PurpleSoundUiOps*			T_BEE_OBJ
-PurpleSrvQueryData*			T_BEE_OBJ
 PurpleSslConnection*			T_BEE_OBJ
 PurpleSslConnection			T_BEE_OBJ
 PurpleSslOps*				T_BEE_OBJ
@@ -127,7 +116,6 @@ PurpleStatusType*			T_BEE_OBJ
 PurpleStoredImage*			T_BEE_OBJ
 PurpleStringref*			T_BEE_OBJ
 PurpleStunNatDiscovery*			T_BEE_OBJ
-PurpleTxtResponse*			T_BEE_OBJ
 PurpleUtilFetchUrlData*			T_BEE_OBJ
 PurpleValue*				T_BEE_OBJ
 PurpleWhiteboardPrplOps*		T_BEE_OBJ
@@ -155,17 +143,14 @@ PurplePounceFunction			T_BEE_OBJ
 PurplePounceCb				T_BEE_OBJ
 PurplePrefCallback			T_BEE_OBJ
 PurpleProxyConnectFunction		T_BEE_OBJ
-PurpleSrvCallback			T_BEE_OBJ
 PurpleSslErrorFunction			T_BEE_OBJ
 PurpleSslInputFunction			T_BEE_OBJ
-PurpleTxtCallback			T_BEE_OBJ
 PurpleUPnPCallback			T_BEE_OBJ
 PurpleUtilFetchUrlCallback		T_BEE_OBJ
 PurpleXferAckFunction			T_BEE_OBJ
 PurpleXferFunction			T_BEE_OBJ
 PurpleXferReadFunction			T_BEE_OBJ
 PurpleXferWriteFunction			T_BEE_OBJ
-StunCallback				T_BEE_OBJ
 
 PurpleBlistNodeFlags			T_BEE_OBJ
 PurpleBlistNodeType			T_BEE_OBJ

@@ -104,4 +104,6 @@ GList*
 purple_conversation_get_extended_menu (PurpleConversation* conv);
 
 gboolean
-purple_conversation_do_command (PurpleConversation* conv, gchar const* cmdline, gchar const* markup, gchar** error);
+purple_conversation_do_command (PurpleConversation* conv, gchar const* cmdline, gchar const* markup, gchar*& error);
+    OUTPUT:
+    error

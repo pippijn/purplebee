@@ -21,16 +21,14 @@ PurpleBee::print_backtrace ()
     CODE:
     print_backtrace ();
 
-void
-PurpleBee::segfault ()
-    CODE:
-    *(char volatile*)0 = '\0';
-
 char const*
 PurpleBee::package ()
 
 void
 PurpleBee::valgrind (bool full = false)
+
+void
+PurpleBee::fault (int kind = 0)
 
 #INCLUDE: PurpleBee/wip/blist.h
 #INCLUDE: PurpleBee/wip/conversation.h
