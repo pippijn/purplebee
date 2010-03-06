@@ -14,3 +14,9 @@
 # define DEFAULT_ARG(arg)
 # define NOTHROW
 #endif
+
+#ifdef __x86_64__
+# define padded(T) unsigned long
+#else
+# define padded(T) unsigned int
+#endif

@@ -2,11 +2,16 @@
  * See COPYING.AGPL for licence information.
  */
 #include "PurpleBee.h"
-#include "perl/call.h"
+#include "perl/call.tcc"
 #include "uiops/debug.h"
 
 #define OPS "UiOps::Debug::"
 
+// We don't use perl_call here, as these functions are used by it
+// to print out method name, arguments and return value (it would
+// cause a deadlock).
+// Besides, if everything else works, this will work, as well, so
+// no need to debug these two.
 namespace uiops
 {
   void

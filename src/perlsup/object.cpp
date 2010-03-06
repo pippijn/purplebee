@@ -6,7 +6,8 @@
 #include "util/xassert.h"
 
 perl_object::perl_object (PerlInterpreter* perl)
-  : my_perl (perl)
+  : self (NULL)
+  , my_perl (perl)
 {
 }
 
@@ -19,14 +20,6 @@ HV*
 perl_object::stash () const
 {
   return gv_stashpv (package (), 1);
-}
-
-void
-perl_object::init_self ()
-{
-  HV* stash = this->stash ();
-  xassert (stash);
-  self = newHV ();
 }
 
 void

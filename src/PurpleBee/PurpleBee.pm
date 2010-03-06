@@ -36,7 +36,7 @@ sub print {
 
 sub main {
    my ($self, $username, $password, $protocol) = @_;
-   #my $timer = AnyEvent->timer (after => 60, cb => sub { $runcv->broadcast });
+   my $timer = AnyEvent->timer (after => 10, cb => sub { $runcv->broadcast });
    printf "Running libpurple %s (single instance = %d)\n"
    	, PurpleBee::Core::get_version
         , PurpleBee::Core::ensure_single_instance

@@ -18,6 +18,9 @@ AM_INIT_AUTOMAKE([silent-rules gnits])
 AM_SILENT_RULES
 AM_DEFAULT_VERBOSITY=0
 
+# debugging
+AC_CHECK_HEADERS([valgrind/memcheck.h])
+
 # pkg-config
 AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
 

@@ -5,69 +5,19 @@
 
 #include <tuple>
 
-template<int...>
-struct int_pack
-{
-  typedef int_pack type;
-};
-
-template<typename, int>
-struct int_pack_helper;
-
-template<int... X, int N>
-struct
-int_pack_helper<int_pack<X...>, N>
-  : int_pack<X..., N>
-{
-};
-
-template<int N>
-struct make_int_pack
-  : int_pack_helper<typename make_int_pack<N - 1>::type, N - 1>
-{
-};
-
-template<>
-struct make_int_pack<0>
-  : int_pack<>
-{
-};
-
-template<typename Sig>
-struct return_type;
-
-template<typename R, typename... A>
-struct return_type<R (*) (A...)>
-{
-  typedef R type;
-};
-
-template<typename F, typename... A, int... N>
-typename return_type<F>::type
-call_function ( F function
-              , std::tuple<F, A...> t __attribute__ ((__unused__))
-              , int_pack<N...> ipack  __attribute__ ((__unused__)))
-{
-  return function (std::get<N + 1> (t)...);
-}
-
-template<typename F, typename... A>
-typename return_type<F>::type
-call_function (std::tuple<F, A...> closure)
-{
-  return call_function (std::get<0> (closure), closure, make_int_pack<sizeof ... (A)> ());
-}
-
+// Forward declaration.
 template<template<typename, typename...> class O, typename R, typename... Args>
 struct typed_closure;
 
-template<typename T, template<typename, typename...> class O>
+template<template<typename, typename...> class O>
 struct closure
 {
+  typedef typename O<void ()>::return_type return_type;
+
   virtual ~closure () { }
 
-  virtual T operator () () = 0;
-  T call () { return (*this) (); }
+  virtual return_type operator () () = 0;
+  return_type call () { return (*this) (); }
 
   template<typename R, typename... Args>
   static closure* create (typename O<R, Args...>::user_data_type& user_data,
@@ -79,7 +29,7 @@ struct closure
 
 template<template<typename, typename...> class O, typename R, typename... Args>
 struct typed_closure_base
-  : closure<typename O<R, Args...>::return_type, O>
+  : closure<O>
 {
   typedef std::tuple<R, Args...>                        closure_type;
   typedef O<R, Args...>                                 operation_type;

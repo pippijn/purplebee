@@ -5,6 +5,7 @@ lib_LTLIBRARIES += libdebug.la
 libdebug_la_SOURCES =			\
 	src/debug/backtrace.cpp		\
 	src/debug/backtrace_symbols.cpp	\
+	src/debug/dout.cpp		\
 	src/debug/signal.cpp
 
-libdebug_la_LIBADD = -ldl -ldisasm #-lbfd
+libdebug_la_LIBADD = libutil.la -ldl -lpthread #-lbfd

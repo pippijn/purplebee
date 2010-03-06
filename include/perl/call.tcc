@@ -4,10 +4,11 @@
 #include <iostream>
 #include <type_traits>
 
+#include "debug/dout.h"
 #include "perl/eval_error.h"
 
-#define CHECK_ERROR\
-  if (SvTRUE (ERRSV))\
+#define CHECK_ERROR     \
+  if (SvTRUE (ERRSV))   \
     throw eval_error (SvPVutf8_nolen (ERRSV));
 
 inline
@@ -35,9 +36,6 @@ inline void
 perl_interpreter::caller::arg (T const& expr, Args const&... rest)
 {
   PerlInterpreter* my_perl = perl.perl ();
-
-  std::cout << ", ";
-  output (expr);
 
   PUSHs (sv_2mortal (perl.to_sv (expr)));
   arg (rest...);
@@ -67,10 +65,6 @@ perl_interpreter::caller::result ()
   R retval = perl.sv_to<R> (RETVAL);
   end ();
 
-  std::cout << "method_return = ";
-  output (retval);
-  std::cout << '\n';
-
   return retval;
 }
 
@@ -78,7 +72,6 @@ template<>
 inline void
 perl_interpreter::caller::result ()
 {
-  std::cout << "method_return<void>\n";
   end ();
 }
 
@@ -98,14 +91,78 @@ inline R
 perl_interpreter::call (char const* method, Args const&... args)
 {
   caller call (*this, sizeof... (Args) + 1);
-
-  std::cout << "call (";
-  output (method);
   call.arg (this);
   call.arg (args...);
-  std::cout << ")\n";
-
   call.call (method, std::is_same<R, void>::value ? G_VOID : G_SCALAR);
-
   return call.result<R> ();
 }
+
+
+// This class prints the arguments passed.
+struct perl_caller_base
+{
+  static void print ()
+  {
+  }
+
+  template<typename T, typename... Args>
+  static void print (T const& arg, Args const&... rest)
+  {
+    dout << ", ";
+    dout.pretty (arg);
+    print (rest...);
+  }
+};
+
+// Verbose perl call that outputs to the "ffi" debug channel.
+template<typename R, typename... Args>
+struct perl_caller
+  : perl_caller_base
+{
+  static R call (char const* method, Args const&... args)
+  {
+    dout.acquire ();
+
+    dout << "call (";
+    dout.pretty (method);
+    print (args...);
+    dout << ')';
+    R const& retval = server->call<R> (method, args...);
+    dout << " = ";
+    dout.pretty (retval);
+
+    dout.release (purple_debug_info, "ffi");
+    return retval;
+  }
+};
+
+// Specialisation for void-calls.
+template<typename... Args>
+struct perl_caller<void, Args...>
+  : perl_caller_base
+{
+  static void call (char const* method, Args const&... args)
+  {
+    dout.acquire ();
+
+    dout << "call (";
+    dout.pretty (method);
+    print (args...);
+    dout << ')';
+    server->call<void> (method, args...);
+    dout << " = void";
+
+    dout.release (purple_debug_info, "ffi");
+  }
+};
+
+// This function just creates a perl_caller, taking advantage of argument
+// type deduction to simplify client code.
+template<typename R, typename... Args>
+static inline R
+perl_call (char const* method, Args const&... args)
+{
+  return perl_caller<R, Args...>::call (method, args...);
+}
+
+// vim:ft=xs

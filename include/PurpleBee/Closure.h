@@ -3,4 +3,5 @@
  */
 #include "perl/closure.h"
 
+// Good enough.
 typedef perl_closure PurpleBeeClosure;

@@ -13,7 +13,7 @@ sub is_enabled {
    my ($self, $level, $category) = @_;
    $self->print ("PurpleBee::UiOps::Debug::is_enabled ($level, $category)\n");
 
-   0 # gboolean
+   1 # gboolean
 }
 
 

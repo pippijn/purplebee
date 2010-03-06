@@ -69,6 +69,10 @@ output (std::vector<T> const &vector, std::ostream& os = std::cout)
 
 namespace detail
 {
+  /* This functions is *really* expensive but also quite useful for debugging
+   * purposes. Resolving symbols goes through BFD (if available) and has to be
+   * done each time this operator is called.
+   */
   template<typename R, typename... Args>
   static inline std::ostream&
   operator << (std::ostream& os, R func (Args...))

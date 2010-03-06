@@ -5,11 +5,13 @@
 #include <memory>
 #include <string>
 
-#include <valgrind/memcheck.h>
+#if HAVE_VALGRIND_MEMCHECK_H
+# include <valgrind/memcheck.h>
+#endif
 
 #include "PurpleBee.h"
 #include "PurpleBee/Closure.h"
-#include "perl/call.h"
+#include "perl/call.tcc"
 #include "perl/package.h"
 #include "uiops/core.h"
 #include "uiops/conversation.h"
@@ -118,8 +120,6 @@ PurpleBee::init ()
 
   if (SvTRUE (ERRSV))
     throw init_error (SvPV_nolen (ERRSV));
-
-  init_self ();
 
   /* Set a custom user directory (optional) */
   purple_util_set_user_dir (dirs.user);
@@ -261,6 +261,7 @@ PurpleBee::run ()
 void
 PurpleBee::valgrind (bool full)
 {
+#if HAVE_VALGRIND_MEMCHECK_H
   if (full)
     {
       VALGRIND_DO_LEAK_CHECK;
@@ -269,4 +270,5 @@ PurpleBee::valgrind (bool full)
     {
       VALGRIND_DO_QUICK_LEAK_CHECK;
     }
+#endif
 }

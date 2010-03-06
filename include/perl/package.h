@@ -6,6 +6,7 @@
 #include <EXTERN.h>
 #include <perl.h>
 
+// Holds some global information on each perl package.
 template<typename T>
 struct perl_package
 {

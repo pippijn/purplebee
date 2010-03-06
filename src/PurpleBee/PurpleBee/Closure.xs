@@ -19,11 +19,11 @@ SV*
 PurpleBeeClosure::call ()
     CODE:
 {
-    printf ("calling callback %p (%s)\n", THIS, SvPV_nolen (ST (0)));
+    purple_debug_info ("closure", "calling callback %p (%s)\n", THIS, SvPV_nolen (ST (0)));
     alarm (10);
     RETVAL = THIS->call ();
     alarm (0);
-    printf ("callback returned `%s'\n", SvPV_nolen (RETVAL));
+    purple_debug_info ("closure", "callback returned `%s'\n", SvPV_nolen (RETVAL));
 }
     OUTPUT:
     RETVAL

@@ -3,23 +3,35 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Debug                      PREFIX =
 # See COPYING.AGPL for licence information.
 
 
-#void
-#purple_debug (PurpleDebugLevel level, char const* category, char const* format, ...);
+void
+purple_debug_print (PurpleDebugLevel level, char const* category, char const* format)
+    CODE:
+    purple_debug (level, category, "%s", format);
 
-#void
-#purple_debug_misc (char const* category, char const* format, ...);
+void
+purple_debug_misc (char const* category, char const* format)
+    CODE:
+    purple_debug_misc (category, "%s", format);
 
-#void
-#purple_debug_info (char const* category, char const* format, ...);
+void
+purple_debug_info (char const* category, char const* format)
+    CODE:
+    purple_debug_info (category, "%s", format);
 
-#void
-#purple_debug_warning (char const* category, char const* format, ...);
+void
+purple_debug_warning (char const* category, char const* format)
+    CODE:
+    purple_debug_warning (category, "%s", format);
 
-#void
-#purple_debug_error (char const* category, char const* format, ...);
+void
+purple_debug_error (char const* category, char const* format)
+    CODE:
+    purple_debug_error (category, "%s", format);
 
-#void
-#purple_debug_fatal (char const* category, char const* format, ...);
+void
+purple_debug_fatal (char const* category, char const* format)
+    CODE:
+    purple_debug_fatal (category, "%s", format);
 
 void
 purple_debug_set_enabled (gboolean enabled);

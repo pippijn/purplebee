@@ -4,6 +4,16 @@
 #define PASTE(a, b)     a##b
 #define STRINGIZE(a)    #a
 
+// This file contains all types that are passed between C++ and perl with
+// their type and, respectively, their package name.
+//
+// PTYPE is an opaque pointer type.
+// OTYPE is an object type that intrusively contains the perl object that
+//       represents it.
+// ITYPE is an integral type. It is usually an enum.
+// FTYPE is a function pointer type. These should go away, later, and be
+//       wrapped in a closure<>.
+
 #if !defined (PTYPE) && !defined (ITYPE) && !defined (FTYPE)
 # error Need to define at least one of PTYPE, ITYPE, FTYPE
 #endif
@@ -184,5 +194,6 @@ FTYPE (XferWriteFunction,               PKG "XferWriteFunction")
 #undef PKG
 
 #undef PTYPE
+#undef OTYPE
 #undef ITYPE
 #undef FTYPE

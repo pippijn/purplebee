@@ -7,7 +7,6 @@
 #include <string>
 #include <vector>
 
-#include <cassert>
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
@@ -19,9 +18,11 @@
 #include <dlfcn.h>
 #include <execinfo.h>
 #include <link.h>
+#include <pthread.h>
 
 #include "debug/backtrace.h"
 #include "util/string.h"
+#include "util/xassert.h"
 
 #define fatal(a, b) exit (1)
 #define bfd_fatal(a) exit (1)
@@ -174,6 +175,7 @@ private:
     }
   };
 
+  pthread_mutex_t mtx;
   asymbol** syms;       // Symbol table
   dlbfd dbfd;
 
@@ -185,7 +187,7 @@ private:
   unsigned int line;
   bool found;
 
-  bool check_inited ()
+  bool check_bfd ()
   {
 #if DLBFD
     return dbfd.handle;
@@ -294,7 +296,7 @@ private:
         exit (1);
       }
 
-    assert (!syms);
+    xassert (!syms);
     slurp_symtab (abfd);
 
     frame frame = translate_addresses (abfd, addr, naddr);
@@ -341,6 +343,17 @@ private:
     return 0;
   }
 
+  frame resolve_frame_internal (char const* base)
+  {
+    file_match match { 0, base, 0, 0 };
+    dl_iterate_phdr (find_matching_file, &match);
+    bfd_vma addr = base - match.base;
+    if (match.file && strlen (match.file))
+      return process_file (match.file, &addr, 1);
+    else
+      return process_file ("/proc/self/exe", &addr, 1);
+  }
+
 public:
   stacktrace ()
     : syms (0)
@@ -351,21 +364,27 @@ public:
     , line (0)
     , found (false)
   {
+    bfd_init ();
+    xassert (pthread_mutex_init (&mtx, NULL) == 0);
   }
 
-  frame resolve_frame (char const* base)
+  ~stacktrace ()
   {
-    if (!check_inited ())
+    xassert (pthread_mutex_destroy (&mtx) == 0);
+  }
+
+  frame resolve_frame (void const* base)
+  {
+    if (!check_bfd ())
       return { "<file>", "<func>", 0 };
 
-    file_match match { 0, base, 0, 0 };
-    bfd_vma addr;
-    dl_iterate_phdr (find_matching_file, &match);
-    addr = base - match.base;
-    if (match.file && strlen (match.file))
-      return process_file (match.file, &addr, 1);
-    else
-      return process_file ("/proc/self/exe", &addr, 1);
+    xassert (pthread_mutex_lock (&mtx) == 0);
+
+    frame frame = resolve_frame_internal (static_cast<char const*> (base));
+
+    xassert (pthread_mutex_unlock (&mtx) == 0);
+
+    return frame;
   }
 
   std::vector<frame> backtrace_symbols (void* const* buffer, size_t size)
@@ -373,22 +392,26 @@ public:
     size_t stack_depth = size;
     std::vector<frame> frames;
 
-    if (!check_inited ())
+    if (!check_bfd ())
       {
         for (size_t x = 0; x < stack_depth; ++x)
           frames.emplace_back (frame { "<file>", "<func>", 0 });
         return frames;
       }
 
-    bfd_init ();
+    xassert (pthread_mutex_lock (&mtx) == 0);
+
     for (size_t x = 0; x < stack_depth; ++x)
-      frames.push_back (resolve_frame (static_cast<char const*> (buffer[x])));
+      frames.push_back (resolve_frame_internal (static_cast<char const*> (buffer[x])));
+
+    xassert (pthread_mutex_unlock (&mtx) == 0);
 
     return frames;
   }
 };
 
 static stacktrace stk;
+
 
 char**
 backtrace_symbols (void* const* buffer, int size) throw ()
@@ -477,7 +500,7 @@ char*
 resolve_symbol (void* sym) throw ()
 try
 {
-  return strdup (stk.resolve_frame (static_cast<char const*> (sym)).func.c_str ());
+  return strdup (stk.resolve_frame (sym).func.c_str ());
 }
 catch (...)
 {

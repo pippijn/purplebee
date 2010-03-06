@@ -5,7 +5,8 @@
 #include "PurpleBee/marshal.h"
 #include "PurpleBee/Closure.h"
 #include "perl/package.h"
-#include "util/wrapper.h"
+#include "util/type_traits/wrapper.h"
+#include "util/xassert.h"
 
 
 /*
@@ -99,6 +100,10 @@ template<>
 wrapper<GHashTable*, char const*, char const*>
 perl_interpreter::sv_to (SV* sv)
 {
+  xassert (sv);
+  xassert (SvROK (sv));
+  xassert (SvTYPE (SvRV (sv)) == SVt_PVHV);
+
   GHashTable* hash_table = g_hash_table_new (g_str_hash, g_str_equal);
 
   HV* hv = (HV*)SvRV (sv);

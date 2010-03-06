@@ -46,7 +46,7 @@ void*
 purple_notify_email (void* handle, char const* subject, char const* from, char const* to, char const* url, PurpleNotifyCloseCallback cb, gpointer user_data);
 
 void*
-purple_notify_emails (void* handle, gboolean detailed, AV* emails, PurpleNotifyCloseCallback cb, gpointer user_data);
+purple_notify_emails (void* handle, gboolean detailed, AV* emails, PurpleNotifyCloseCallback cb, gpointer user_data)
     CODE:
 {
     I32 const last = av_len (emails);

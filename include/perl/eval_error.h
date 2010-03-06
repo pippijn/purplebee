@@ -5,6 +5,8 @@
 
 #include <stdexcept>
 
+// Thrown when a perl method fails.
+// XXX: this must be replaced with croak, later.
 struct eval_error
   : std::runtime_error
 {

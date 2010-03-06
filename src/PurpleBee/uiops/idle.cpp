@@ -2,7 +2,7 @@
  * See COPYING.AGPL for licence information.
  */
 #include "PurpleBee.h"
-#include "perl/call.h"
+#include "perl/call.tcc"
 #include "uiops/idle.h"
 
 #define OPS "UiOps::Idle::"
@@ -12,7 +12,7 @@ namespace uiops
   time_t
   idle::get_time_idle (void)
   {
-    return server->call<time_t> (OPS "get_time_idle");
+    return perl_call<time_t> (OPS "get_time_idle");
   }
 
   PurpleIdleUiOps

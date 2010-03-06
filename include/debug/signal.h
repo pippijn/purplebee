@@ -7,7 +7,11 @@
 
 BEGIN_DECLS
 
+// Sets up signal handlers for our debugging aid with backtrace
+// and sigaction coolness.
 void init_signals ();
+// Resets the signal handlers to SIG_DFL.
+// XXX: init_signals does not save the old signal handlers. Maybe it should.
 void uninit_signals ();
 
 END_DECLS

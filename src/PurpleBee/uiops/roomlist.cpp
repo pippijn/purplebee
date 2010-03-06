@@ -2,7 +2,7 @@
  * See COPYING.AGPL for licence information.
  */
 #include "PurpleBee.h"
-#include "perl/call.h"
+#include "perl/call.tcc"
 #include "uiops/roomlist.h"
 
 #define OPS "UiOps::Roomlist::"
@@ -12,37 +12,37 @@ namespace uiops
   void
   roomlist::show_with_account (PurpleAccount* account)
   {
-    return server->call<void> (OPS "show_with_account", account);
+    return perl_call<void> (OPS "show_with_account", account);
   }
 
   void
   roomlist::create (PurpleRoomlist* list)
   {
-    return server->call<void> (OPS "create", list);
+    return perl_call<void> (OPS "create", list);
   }
 
   void
   roomlist::set_fields (PurpleRoomlist* list, GList* fields)
   {
-    return server->call<void> (OPS "set_fields", list, fields);
+    return perl_call<void> (OPS "set_fields", list, fields);
   }
 
   void
   roomlist::add_room (PurpleRoomlist* list, PurpleRoomlistRoom* room)
   {
-    return server->call<void> (OPS "add_room", list, room);
+    return perl_call<void> (OPS "add_room", list, room);
   }
 
   void
   roomlist::in_progress (PurpleRoomlist* list, gboolean flag)
   {
-    return server->call<void> (OPS "in_progress", list, flag);
+    return perl_call<void> (OPS "in_progress", list, flag);
   }
 
   void
   roomlist::destroy (PurpleRoomlist* list)
   {
-    return server->call<void> (OPS "destroy", list);
+    return perl_call<void> (OPS "destroy", list);
   }
 
   PurpleRoomlistUiOps

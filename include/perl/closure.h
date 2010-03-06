@@ -3,9 +3,13 @@
  */
 #pragma once
 
+#include "debug/backtrace.h"
 #include "perl/interpreter.h"
 #include "util/closure.h"
+#include "util/funcall.h"
 
+// A policy template for closure<> that calls the stored closure and converts
+// its return value to a perl scalar.
 template<typename R, typename... Args>
 struct perl_operation
 {
@@ -15,23 +19,25 @@ struct perl_operation
 
   return_type operator () (user_data_type& perl, closure_type const& closure)
   {
-    return perl.to_sv (call_function (closure));
+    return perl.to_sv (invoke_closure (closure));
   }
 };
 
+// void-return specialisation returning undef to perl.
 template<typename... Args>
 struct perl_operation<void (*)(Args...), Args...>
 {
-  typedef std::tuple<void (*)(Args...), Args...>        closure_type;
+  typedef void (*function_type)(Args...);
+  typedef std::tuple<function_type, Args...>            closure_type;
   typedef perl_interpreter                              user_data_type;
   typedef SV*                                           return_type;
 
   return_type operator () (user_data_type& perl, closure_type const& closure)
   {
-    call_function (closure);
     PerlInterpreter* my_perl = perl.perl ();
+    invoke_closure (closure);
     return &PL_sv_undef;
   }
 };
 
-typedef closure<SV*, perl_operation> perl_closure;
+typedef closure<perl_operation> perl_closure;

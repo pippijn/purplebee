@@ -21,7 +21,8 @@ libPurpleBee_la_SOURCES =				\
 	src/PurpleBee/uiops/xfer.cpp			\
 	src/PurpleBee/PurpleBee.xs			\
 	src/PurpleBee/glue.cpp				\
-	src/PurpleBee/stash.cpp
+	src/PurpleBee/stash.cpp				\
+	src/PurpleBee/va_listise.cpp
 
 include src/PurpleBee/marshal/Rules.am
 

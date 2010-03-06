@@ -2,7 +2,7 @@
  * See COPYING.AGPL for licence information.
  */
 #include "PurpleBee.h"
-#include "perl/call.h"
+#include "perl/call.tcc"
 #include "uiops/sound.h"
 
 #define OPS "UiOps::Sound::"
@@ -12,25 +12,25 @@ namespace uiops
   void
   sound::init (void)
   {
-    return server->call<void> (OPS "init");
+    return perl_call<void> (OPS "init");
   }
 
   void
   sound::uninit (void)
   {
-    return server->call<void> (OPS "uninit");
+    return perl_call<void> (OPS "uninit");
   }
 
   void
   sound::play_file (const char* filename)
   {
-    return server->call<void> (OPS "play_file", filename);
+    return perl_call<void> (OPS "play_file", filename);
   }
 
   void
   sound::play_event (PurpleSoundEventID event)
   {
-    return server->call<void> (OPS "play_event", event);
+    return perl_call<void> (OPS "play_event", event);
   }
 
   PurpleSoundUiOps

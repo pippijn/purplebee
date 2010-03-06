@@ -7,6 +7,8 @@
 
 #include "perl/interpreter.h"
 
+// The main class that does everything. This class itself is not limited to
+// one instance, but libpurple is, so this class is unfortunately a singleton.
 struct PurpleBee
   : private perl_interpreter
 {
@@ -62,8 +64,8 @@ void init_server (int argc, char* argv[], char* env[]);
 void uninit_server ();
 
 typedef gssize (*PurpleXferReadFunction)(guchar**, PurpleXfer*);
-typedef gssize (*PurpleXferWriteFunction)(const guchar*, size_t, PurpleXfer*);
-typedef void (*PurpleXferAckFunction)(PurpleXfer*, const guchar*, size_t);
+typedef gssize (*PurpleXferWriteFunction)(guchar const*, size_t, PurpleXfer*);
+typedef void (*PurpleXferAckFunction)(PurpleXfer*, guchar const*, size_t);
 typedef void (*PurpleXferFunction)(PurpleXfer*);
 typedef PurpleXferFunction PurpleXferRequestDeniedFunction;
 typedef void (*PurplePounceFunction)(PurplePounce* pounce);

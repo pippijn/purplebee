@@ -5,6 +5,7 @@
 
 #include "util/xassert.h"
 
+// A specialised hv_fetch that requires the key to exist within the hash.
 template<size_t N>
 static SV*
 hv_fetch_nonnull (HV* hv, char const (&key)[N])

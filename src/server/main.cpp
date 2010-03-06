@@ -2,6 +2,7 @@
  * See COPYING.AGPL for licence information.
  */
 #include "PurpleBee.h"
+#include "debug/purple.h"
 #include "debug/signal.h"
 #include "util/xassert.h"
 

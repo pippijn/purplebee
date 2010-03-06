@@ -65,13 +65,13 @@ sub timeout_add_seconds {
             after       => $interval,
             interval    => $interval,
             cb          => sub {
-               print "timeout_seconds $handle = $closure\n";
+               $self->print ("timeout_seconds $handle = $closure\n");
                timeout_remove $self, $handle
                   unless $closure->call
             },
          );
 
-         print "timeout_add_seconds = $handle\n";
+         $self->print ("timeout_add_seconds = $handle\n");
          return $handle
       }
    }
@@ -121,16 +121,16 @@ sub input_add {
          $inputhandlers[$handle]{read} = AnyEvent->io (
             fh   => $fd,
             poll => 'r',
-            cb   => sub { print "input[r] $handle (fd=$fd) = $closure\n"; $closure->call }
+            cb   => sub { $self->print ("input[r] $handle (fd=$fd) = $closure\n"); $closure->call }
          ) if $cond & IO_READ;
 
          $inputhandlers[$handle]{write} = AnyEvent->io (
             fh   => $fd,
             poll => 'w',
-            cb   => sub { print "input[w] $handle (fd=$fd) = $closure\n"; $closure->call }
+            cb   => sub { $self->print ("input[w] $handle (fd=$fd) = $closure\n"); $closure->call }
          ) if $cond & IO_WRITE;
 
-         print "input_add = $handle\n";
+         $self->print ("input_add = $handle\n");
 
          return $handle # guint
       }
