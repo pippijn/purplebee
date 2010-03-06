@@ -25,4 +25,4 @@ EXTRA_DIST +=						\
 	include/common/util/output.h			\
 	include/common/util/string.h			\
 	include/common/util/unimplemented.h		\
-	include/common/util/xassert.h			\
+	include/common/util/xassert.h

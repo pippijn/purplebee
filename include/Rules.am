@@ -1,1 +1,2 @@
 include include/backend/Rules.am
+include include/common/Rules.am

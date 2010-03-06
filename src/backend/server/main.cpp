@@ -14,8 +14,15 @@ int
 main (int argc, char* argv[])
 try
 {
-  if (!parse_arguments (argc, argv))
-    return EXIT_FAILURE;
+  switch (parse_arguments (argc, argv))
+    {
+    case parse_status::success:
+      return EXIT_SUCCESS;
+    case parse_status::failure:
+      return EXIT_FAILURE;
+    case parse_status::resume:
+      break;
+    }
 
   init_signals ();
   init_server (argc, argv, environ);
