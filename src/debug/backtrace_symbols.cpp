@@ -1,8 +1,6 @@
 /* Copyright © 2010 Pippijn van Steenhoven
  * See COPYING.AGPL for licence information.
  */
-#include <iostream>
-
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -12,6 +10,7 @@
 #include <cstdlib>
 #include <cstring>
 
+#if HAVE_BFD_H
 #include <bfd.h>
 #include <cxxabi.h>
 #include <dirent.h>
@@ -19,6 +18,7 @@
 #include <execinfo.h>
 #include <link.h>
 #include <pthread.h>
+#endif
 
 #include "debug/backtrace.h"
 #include "util/string.h"
@@ -46,13 +46,9 @@ struct stacktrace
     std::string func;
     std::string file;
     unsigned long line;
-
-    friend std::ostream& operator << (std::ostream& os, stacktrace::frame const& frame)
-    {
-      return os << frame.func << '@' << frame.file << ':' << frame.line;
-    }
   };
 
+#if HAVE_BFD_H
 private:
   struct dlbfd
   {
@@ -372,12 +368,16 @@ public:
   {
     xassert (pthread_mutex_destroy (&mtx) == 0);
   }
+#else
+#define check_bfd() false
+#endif
 
   frame resolve_frame (void const* base)
   {
     if (!check_bfd ())
       return { "<file>", "<func>", 0 };
 
+#if HAVE_BFD_H
     xassert (pthread_mutex_lock (&mtx) == 0);
 
     frame frame = resolve_frame_internal (static_cast<char const*> (base));
@@ -385,6 +385,9 @@ public:
     xassert (pthread_mutex_unlock (&mtx) == 0);
 
     return frame;
+#else
+    (void)base;
+#endif
   }
 
   std::vector<frame> backtrace_symbols (void* const* buffer, size_t size)
@@ -399,6 +402,7 @@ public:
         return frames;
       }
 
+#if HAVE_BFD_H
     xassert (pthread_mutex_lock (&mtx) == 0);
 
     for (size_t x = 0; x < stack_depth; ++x)
@@ -407,6 +411,9 @@ public:
     xassert (pthread_mutex_unlock (&mtx) == 0);
 
     return frames;
+#else
+    (void)buffer;
+#endif
   }
 };
 

@@ -1,9 +1,7 @@
 /* Copyright © 2010 Pippijn van Steenhoven
  * See COPYING.AGPL for licence information.
  */
-#include <map>
 #include <memory>
-#include <string>
 
 #if HAVE_VALGRIND_MEMCHECK_H
 # include <valgrind/memcheck.h>
