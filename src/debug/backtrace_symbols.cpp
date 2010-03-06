@@ -185,7 +185,7 @@ private:
   const char* filename;
   const char* functionname;
   unsigned int line;
-  bool found;
+  padded (bool) found;
 
   bool check_bfd ()
   {
@@ -249,7 +249,7 @@ private:
     if (!found)
       {
         char addrstr[ptrstr_len + 3];
-        snprintf (addrstr, sizeof addrstr, "0x%lx", addr[naddr - 1]);
+        snprintf (addrstr, sizeof addrstr, "0x%llx", (uint64_t)addr[naddr - 1]);
         return { addrstr, "???", 0 };
       }
     else

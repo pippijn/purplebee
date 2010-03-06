@@ -136,9 +136,9 @@ public:
 
 private:
   // Locks the stream.
-  void lock ();
+  int lock ();
   // Unlocks the stream.
-  void unlock ();
+  int unlock ();
 
   // Returns whether the stream is locked.
   bool is_locked ();

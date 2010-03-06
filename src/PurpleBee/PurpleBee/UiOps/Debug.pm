@@ -6,14 +6,14 @@ use common::sense;
 
 sub print {
    my ($self, $level, $category, $arg_s) = @_;
-   $self->print ("PurpleBee::UiOps::Debug::print ($level, $category, $arg_s)\n");
+   #$self->print ("PurpleBee::UiOps::Debug::print ($level, $category, $arg_s)");
 }
 
 sub is_enabled {
    my ($self, $level, $category) = @_;
-   $self->print ("PurpleBee::UiOps::Debug::is_enabled ($level, $category)\n");
+   #$self->print ("PurpleBee::UiOps::Debug::is_enabled ($level, $category)");
 
-   1 # gboolean
+   0 # gboolean
 }
 
 

@@ -149,6 +149,8 @@ struct perl_caller<void, Args...>
     dout.pretty (method);
     print (args...);
     dout << ')';
+    // XXX: deadlock if the following call ends up here again. maybe remove
+    // the whole locking thing and start stacking stringstreams?
     server->call<void> (method, args...);
     dout << " = void";
 

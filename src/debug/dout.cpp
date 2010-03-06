@@ -32,16 +32,21 @@ debug_stream::acquire ()
   lock ();
 }
 
-void
+int
 debug_stream::lock ()
 {
-  pthread_mutex_lock (&mtx);
+  volatile bool b = false;
+  if (b)
+    print_backtrace ();
+  puts (">>>>>>>>>>>>>>>>>> lock");
+  return pthread_mutex_lock (&mtx);
 }
 
-void
+int
 debug_stream::unlock ()
 {
-  pthread_mutex_unlock (&mtx);
+  puts ("<<<<<<<<<<<<<<<<<< unlock");
+  return pthread_mutex_unlock (&mtx);
 }
 
 bool

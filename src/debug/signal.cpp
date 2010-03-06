@@ -22,10 +22,12 @@ signame (int signum)
   switch (signum)
     {
     case SIGABRT: return "SIGABRT";
-    case SIGQUIT: return "SIGQUIT";
+    case SIGALRM: return "SIGALRM";
     case SIGBUS : return "SIGBUS";
-    case SIGSEGV: return "SIGSEGV";
+    case SIGFPE : return "SIGFPE";
     case SIGILL : return "SIGILL";
+    case SIGQUIT: return "SIGQUIT";
+    case SIGSEGV: return "SIGSEGV";
     default:      return "<unknown>";
     }
 }
@@ -202,20 +204,22 @@ init_signals ()
   sigaltstack (&ss, 0);
 
   signal (SIGABRT, fault_action);
-  signal (SIGQUIT, fault_action);
+  signal (SIGALRM, fault_action);
   signal (SIGBUS,  fault_action);
-  signal (SIGSEGV, fault_action, SA_ONSTACK);
-  signal (SIGILL , fault_action);
   signal (SIGFPE , fault_action);
+  signal (SIGILL , fault_action);
+  signal (SIGQUIT, fault_action);
+  signal (SIGSEGV, fault_action, SA_ONSTACK);
 }
 
 void
 uninit_signals ()
 {
   signal (SIGABRT, SIG_DFL);
-  signal (SIGQUIT, SIG_DFL);
+  signal (SIGALRM, SIG_DFL);
   signal (SIGBUS, SIG_DFL);
-  signal (SIGSEGV, SIG_DFL);
-  signal (SIGILL, SIG_DFL);
   signal (SIGFPE, SIG_DFL);
+  signal (SIGILL, SIG_DFL);
+  signal (SIGQUIT, SIG_DFL);
+  signal (SIGSEGV, SIG_DFL);
 }

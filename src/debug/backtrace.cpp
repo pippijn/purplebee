@@ -25,3 +25,14 @@ print_backtrace (int pid) throw ()
 
   delete[] frames;
 }
+
+#if 0
+static bool
+backtrace_test ()
+{
+  print_backtrace (0);
+  exit (0);
+}
+
+static bool b = backtrace_test ();
+#endif

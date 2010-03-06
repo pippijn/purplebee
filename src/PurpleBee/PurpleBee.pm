@@ -31,12 +31,13 @@ open my $logfh, '>', 'perl.log'
 
 sub print {
    my ($self, $msg) = @_;
-   print $logfh $msg;
+   print "$msg\n";
+   #print $logfh "$msg\n";
 }
 
 sub main {
    my ($self, $username, $password, $protocol) = @_;
-   my $timer = AnyEvent->timer (after => 10, cb => sub { $runcv->broadcast });
+   #my $timer = AnyEvent->timer (after => 10, cb => sub { $runcv->broadcast });
    printf "Running libpurple %s (single instance = %d)\n"
    	, PurpleBee::Core::get_version
         , PurpleBee::Core::ensure_single_instance

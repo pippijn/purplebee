@@ -15,7 +15,7 @@ CLEANFILES		= # empty
 DISTCLEANFILES		= # empty
 MAINTAINERCLEANFILES	= # empty
 
-OPTFLAGS		= -pipe -O3 -ggdb3 -fno-inline
+OPTFLAGS		= -pipe -O0 -ggdb3 -fno-inline
 WARNINGS		= # empty
 WARNINGS		+= -Wall -Wextra
 WARNINGS		+= -Wpadded

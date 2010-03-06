@@ -6,7 +6,7 @@ use common::sense;
 
 sub get_time_idle {
    my ($self) = @_;
-   $self->print ("PurpleBee::UiOps::Idle::get_time_idle ()\n");
+   $self->print ("PurpleBee::UiOps::Idle::get_time_idle ()");
 
    0 # time_t
 }
