@@ -1,5 +1,3 @@
-# Copyright © 2010 Pippijn van Steenhoven
-# See COPYING.AGPL for licence information.
 lib_LTLIBRARIES += libPurpleBee.la
 
 libPurpleBee_la_SOURCES =					\
@@ -38,6 +36,10 @@ EXTRA_DIST +=					\
 SUFFIXES = .xs
 
 src/backend/PurpleBee/PurpleBee.cpp: src/backend/PurpleBee/typemap $(XS_FILES)
+
+CLEANFILES +=					\
+	src/backend/PurpleBee/PurpleBee.cpp	\
+	perlxsi.c
 
 .xs.cpp:
 	$(MKDIR_P) `dirname $@`
