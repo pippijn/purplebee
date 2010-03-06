@@ -1,7 +1,0 @@
-# Copyright © 2010 Pippijn van Steenhoven
-# See COPYING.AGPL for licence information.
-lib_LTLIBRARIES += libutil.la
-
-libutil_la_SOURCES =			\
-	src/util/unimplemented.cpp	\
-	src/util/xassert.cpp

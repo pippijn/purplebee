@@ -1,0 +1,33 @@
+user interface:
+	- User documentation in the form of web and man pages (POD) in
+	  addition to the root dialogue.
+	- Intelligent root dialogue (AI).
+	- File transfers via DCC.
+	- Grouping buddies in channels.
+	  - Allow for buddies to be in multiple groups.
+	- View actual away messages in /whois, not just the away-state.
+	- Allow direct addressing of buddies inside the channel by prefixing
+	  their name.
+	  - Default addressee in the channel is the last buddy addressed.
+	  - <@root> $yournick: You are now chatting with $buddy.
+	- A "lastseen" command that shows when a buddy was last online.
+	- /whois to show all information a protocol offers, like what "info"
+	  does in BitlBee.
+	- Some way to see buddy icons (web interface? DCC?).
+	- Also some way to see custom emoticons.
+	- Command to get source of the currently running server (either via link
+	  or DCC (required for AGPL).
+	- Server side logging.
+	  - A "lastlog" command showing the last $n lines of conversation.
+	- Optional auto-reply on away.
+	- Optional away-spam as in the buddies writing their away message into
+	  the channel (or possibly query if such has been active for the past $t
+	  minutes):
+	  12:34  * pippijn is now away (Working)
+	- Changing away-state via a command in addition to /away.
+	- Initiating multi user chats.
+
+libpurple:
+	- Sending ICQ nick changes back to the server.
+
+# vim:noexpandtab

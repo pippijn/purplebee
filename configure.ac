@@ -1,7 +1,7 @@
 # Copyright © 2010 Pippijn van Steenhoven
 # See COPYING.AGPL for licence information.
 AC_PREREQ(2.65)
-AC_INIT([PurpleBee],[0.1],[purplebee@xinutec.org])
+AC_INIT([PurpleBee],[0.1],[purplebee@xinutec.org], [], [http://purplebee.xinutec.org])
 AC_CONFIG_AUX_DIR(autoconf)
 AC_CONFIG_SRCDIR(autoconf.h.in)
 AC_CONFIG_MACRO_DIR(m4)

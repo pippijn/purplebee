@@ -1,0 +1,54 @@
+# Copyright © 2010 Pippijn van Steenhoven
+# See COPYING.AGPL for licence information.
+lib_LTLIBRARIES += libPurpleBee.la
+
+libPurpleBee_la_SOURCES =					\
+	src/backend/PurpleBee/uiops/account.cpp			\
+	src/backend/PurpleBee/uiops/blist.cpp			\
+	src/backend/PurpleBee/uiops/connection.cpp		\
+	src/backend/PurpleBee/uiops/conversation.cpp		\
+	src/backend/PurpleBee/uiops/core.cpp			\
+	src/backend/PurpleBee/uiops/debug.cpp			\
+	src/backend/PurpleBee/uiops/dnsquery.cpp		\
+	src/backend/PurpleBee/uiops/eventloop.cpp		\
+	src/backend/PurpleBee/uiops/idle.cpp			\
+	src/backend/PurpleBee/uiops/notify.cpp			\
+	src/backend/PurpleBee/uiops/privacy.cpp			\
+	src/backend/PurpleBee/uiops/request.cpp			\
+	src/backend/PurpleBee/uiops/roomlist.cpp		\
+	src/backend/PurpleBee/uiops/sound.cpp			\
+	src/backend/PurpleBee/uiops/whiteboard.cpp		\
+	src/backend/PurpleBee/uiops/xfer.cpp			\
+	src/backend/PurpleBee/PurpleBee.xs			\
+	src/backend/PurpleBee/faults.cpp			\
+	src/backend/PurpleBee/glue.cpp				\
+	src/backend/PurpleBee/stash.cpp				\
+	src/backend/PurpleBee/va_listise.cpp
+
+include src/backend/PurpleBee/marshal/Rules.am
+include src/backend/PurpleBee/PurpleBee/Rules.am
+
+libPurpleBee_la_LIBADD = libdebug.la libutil.la libperlsup.la $(PERLLIB)
+
+EXTRA_DIST +=					\
+	$(XS_FILES)				\
+	src/backend/PurpleBee/PurpleBee.pm	\
+	src/backend/PurpleBee/typemap
+
+SUFFIXES = .xs
+
+src/backend/PurpleBee/PurpleBee.cpp: src/backend/PurpleBee/typemap $(XS_FILES)
+
+.xs.cpp:
+	$(MKDIR_P) `dirname $@`
+	$(PERL) -MExtUtils::Embed -e xsinit -- -std PurpleBee
+	PERL="$(PERL)" srcdir="$(srcdir)/src/backend/PurpleBee"			\
+		$(PERL) $(PERLPRIVLIBEXP)/ExtUtils/xsubpp -C++ -csuffix .cpp	\
+			-typemap $(PERLPRIVLIBEXP)/ExtUtils/typemap		\
+			-typemap typemap					\
+			-prototypes $< > $@					\
+		|| ($(RM) $@ && false)
+
+
+data_DATA +=					\
+	src/backend/PurpleBee/PurpleBee.pm

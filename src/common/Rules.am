@@ -1,0 +1,3 @@
+include src/common/debug/Rules.am
+include src/common/util/Rules.am
+include src/common/perlsup/Rules.am

@@ -1,9 +1,0 @@
-# Copyright © 2010 Pippijn van Steenhoven
-# See COPYING.AGPL for licence information.
-lib_LTLIBRARIES += libperlsup.la
-
-libperlsup_la_SOURCES =			\
-	src/perlsup/interpreter.cpp	\
-	src/perlsup/object.cpp
-
-libperlsup_la_LIBADD = libutil.la $(PERLLIB)

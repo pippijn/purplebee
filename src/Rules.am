@@ -1,7 +1,5 @@
 # Copyright © 2010 Pippijn van Steenhoven
 # See COPYING.AGPL for licence information.
-include src/debug/Rules.am
-include src/util/Rules.am
-include src/perlsup/Rules.am
-include src/PurpleBee/Rules.am
-include src/server/Rules.am
+include src/common/Rules.am
+include src/backend/Rules.am
+include src/frontend/Rules.am

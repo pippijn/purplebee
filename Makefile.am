@@ -55,6 +55,7 @@ AM_CPPFLAGS		+= -DLIBDIR='"$(libdir)"'
 AM_CPPFLAGS		+= -DLOCALEDIR='"$(localedir)"'
 AM_CPPFLAGS		+= -DMANDIR='"$(mandir)"'
 
+include include/Rules.am
 include src/Rules.am
 
 -include prepare

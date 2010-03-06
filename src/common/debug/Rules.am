@@ -1,0 +1,11 @@
+# Copyright © 2010 Pippijn van Steenhoven
+# See COPYING.AGPL for licence information.
+lib_LTLIBRARIES += libdebug.la
+
+libdebug_la_SOURCES =				\
+	src/common/debug/backtrace.cpp		\
+	src/common/debug/backtrace_symbols.cpp	\
+	src/common/debug/dout.cpp		\
+	src/common/debug/signal.cpp
+
+libdebug_la_LIBADD = libutil.la -ldl -lpthread #-lbfd
