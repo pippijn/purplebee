@@ -21,6 +21,9 @@ AM_DEFAULT_VERBOSITY=0
 # debugging
 AC_CHECK_HEADERS([valgrind/memcheck.h bfd.h execinfo.h])
 
+# argument parsing
+AC_CHECK_HEADER([argtable2.h], [], [AC_MSG_ERROR([You need to have libargtable2-dev installed])])
+
 # pkg-config
 AC_PATH_PROG(PKG_CONFIG, pkg-config, no)
 
