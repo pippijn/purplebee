@@ -15,5 +15,6 @@ namespace uiops
     static void deny_removed (PurpleAccount* account, const char* name);
 
     static PurplePrivacyUiOps create ();
+    static void destroy (PurplePrivacyUiOps& ops);
   };
 }

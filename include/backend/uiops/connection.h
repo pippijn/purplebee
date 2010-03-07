@@ -19,5 +19,6 @@ namespace uiops
     static void report_disconnect_reason (PurpleConnection* gc, PurpleConnectionError reason, const char* text);
 
     static PurpleConnectionUiOps create ();
+    static void destroy (PurpleConnectionUiOps& ops);
   };
 }

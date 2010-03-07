@@ -3,7 +3,6 @@
  */
 #pragma once
 
-#include "backend/PurpleBee/operation.h"
-#include "common/util/closure.h"
+#include "common/perl/closure.h"
 
-typedef closure<PurpleBee_operation> PurpleBeeClosure;
+typedef perl_closure PurpleBeeClosure;

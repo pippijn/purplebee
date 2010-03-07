@@ -27,4 +27,10 @@ namespace uiops
       NULL,
     };
   }
+
+  void
+  idle::destroy (PurpleIdleUiOps& ops)
+  {
+    purple_debug_info ("ffi", "destroying idle callbacks");
+  }
 }

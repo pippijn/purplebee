@@ -16,5 +16,6 @@ namespace uiops
     static GHashTable* get_ui_info (void);
 
     static PurpleCoreUiOps create ();
+    static void destroy (PurpleCoreUiOps& ops);
   };
 }

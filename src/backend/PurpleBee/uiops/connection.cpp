@@ -75,4 +75,10 @@ namespace uiops
       NULL,
     };
   }
+
+  void
+  connection::destroy (PurpleConnectionUiOps& ops)
+  {
+    purple_debug_info ("ffi", "destroying connection callbacks");
+  }
 }

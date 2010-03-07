@@ -56,4 +56,10 @@ namespace uiops
       NULL,
     };
   }
+
+  void
+  account::destroy (PurpleAccountUiOps& ops)
+  {
+    purple_debug_info ("ffi", "destroying account callbacks");
+  }
 }

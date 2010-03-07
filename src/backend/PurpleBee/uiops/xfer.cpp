@@ -80,4 +80,10 @@ namespace uiops
       NULL,
     };
   }
+
+  void
+  xfer::destroy (PurpleXferUiOps& ops)
+  {
+    purple_debug_info ("ffi", "destroying xfer callbacks");
+  }
 }

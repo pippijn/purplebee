@@ -83,4 +83,10 @@ namespace uiops
       NULL,
     };
   }
+
+  void
+  notify::destroy (PurpleNotifyUiOps& ops)
+  {
+    purple_debug_info ("ffi", "destroying notify callbacks");
+  }
 }

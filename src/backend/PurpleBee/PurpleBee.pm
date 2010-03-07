@@ -26,16 +26,11 @@ use PurpleBee::UiOps::Xfer;
 
 our $runcv = AnyEvent->condvar;
 
-#open my $logfh, '>', 'perl.log'
-   #or die "Could not open log: $!";
-
-$|++;
-
 $EV::DIED = sub { PurpleBee::Debug::fatal "event", "error in event: $@"; exit };
 
 sub main {
    my ($self, $username, $password, $protocol) = @_;
-   #my $timer = AnyEvent->timer (after => 10, cb => sub { $runcv->broadcast });
+   #my $timer = AnyEvent->timer (after => 4, cb => sub { $runcv->broadcast });
    PurpleBee::Debug::info "perl",
       sprintf ( "Running libpurple %s (single instance = %d)"
               , PurpleBee::Core::get_version

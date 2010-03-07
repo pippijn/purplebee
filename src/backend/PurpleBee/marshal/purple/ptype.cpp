@@ -14,6 +14,8 @@
 
 namespace
 {
+  // XXX: this leaks HV*s
+  // TODO: when a C++ object dies, decrease the refcount on its perl object
   template<typename T>
   struct sv_map
   {
@@ -58,7 +60,6 @@ namespace
 }
 
 
-#define OTYPE(T, P)
 #define PTYPE(T, P)                                     \
 template<>                                              \
 PASTE (Purple, T)*                                      \
@@ -70,7 +71,6 @@ perl_interpreter::sv_to (SV* v)                         \
 #include "backend/PurpleBee/types.h"
 
 
-#define OTYPE(T, P)
 #define PTYPE(T, P)                                     \
 template<>                                              \
 PASTE (Purple, T) const*                                \
@@ -81,7 +81,6 @@ perl_interpreter::sv_to (SV* v)                         \
 #include "backend/PurpleBee/types.h"
 
 
-#define OTYPE(T, P)
 #define PTYPE(T, P)                                     \
 template<>                                              \
 SV*                                                     \
@@ -92,7 +91,6 @@ perl_interpreter::to_sv (PASTE (Purple, T)* ob)         \
 #include "backend/PurpleBee/types.h"
 
 
-#define OTYPE(T, P)
 #define PTYPE(T, P)                                     \
 template<>                                              \
 SV*                                                     \

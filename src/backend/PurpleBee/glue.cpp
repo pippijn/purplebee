@@ -91,6 +91,22 @@ PurpleBee::PurpleBee (int argc, char* argv[], char* env[])
 PurpleBee::~PurpleBee ()
 {
   purple_core_quit ();
+  uiops::xfer::destroy (xfer_uiops);
+  uiops::whiteboard::destroy (whiteboard_uiops);
+  uiops::sound::destroy (sound_uiops);
+  uiops::roomlist::destroy (roomlist_uiops);
+  uiops::request::destroy (request_uiops);
+  uiops::privacy::destroy (privacy_uiops);
+  uiops::notify::destroy (notify_uiops);
+  uiops::idle::destroy (idle_uiops);
+  uiops::eventloop::destroy (eventloop_uiops);
+  uiops::dnsquery::destroy (dnsquery_uiops);
+  uiops::debug::destroy (debug_uiops);
+  uiops::core::destroy (core_uiops);
+  uiops::conversation::destroy (conversation_uiops);
+  uiops::connection::destroy (connection_uiops);
+  uiops::blist::destroy (blist_uiops);
+  uiops::account::destroy (account_uiops);
 }
 
 char const*

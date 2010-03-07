@@ -69,4 +69,10 @@ namespace uiops
       NULL,
     };
   }
+
+  void
+  whiteboard::destroy (PurpleWhiteboardUiOps& ops)
+  {
+    purple_debug_info ("ffi", "destroying whiteboard callbacks");
+  }
 }

@@ -26,5 +26,6 @@ namespace uiops
     static void send_confirm (PurpleConversation* conv, const char* message);
 
     static PurpleConversationUiOps create ();
+    static void destroy (PurpleConversationUiOps& ops);
   };
 }

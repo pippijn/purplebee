@@ -16,5 +16,6 @@ namespace uiops
     static void close_account_request (void* ui_handle);
 
     static PurpleAccountUiOps create ();
+    static void destroy (PurpleAccountUiOps& ops);
   };
 }

@@ -18,5 +18,6 @@ namespace uiops
     static void clear (PurpleWhiteboard* wb);
 
     static PurpleWhiteboardUiOps create ();
+    static void destroy (PurpleWhiteboardUiOps& ops);
   };
 }

@@ -17,5 +17,6 @@ namespace uiops
     static int input_get_error (int fd, int* error);
 
     static PurpleEventLoopUiOps create ();
+    static void destroy (PurpleEventLoopUiOps& ops);
   };
 }

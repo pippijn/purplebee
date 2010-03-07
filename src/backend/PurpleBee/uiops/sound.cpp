@@ -48,4 +48,10 @@ namespace uiops
       NULL,
     };
   }
+
+  void
+  sound::destroy (PurpleSoundUiOps& ops)
+  {
+    purple_debug_info ("ffi", "destroying sound callbacks");
+  }
 }

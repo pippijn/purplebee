@@ -13,5 +13,6 @@ namespace uiops
     static gboolean is_enabled (PurpleDebugLevel level, const char* category);
 
     static PurpleDebugUiOps create ();
+    static void destroy (PurpleDebugUiOps& ops);
   };
 }

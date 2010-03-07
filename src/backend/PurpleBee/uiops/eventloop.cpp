@@ -62,4 +62,10 @@ namespace uiops
       NULL,
     };
   }
+
+  void
+  eventloop::destroy (PurpleEventLoopUiOps& ops)
+  {
+    purple_debug_info ("ffi", "destroying eventloop callbacks");
+  }
 }

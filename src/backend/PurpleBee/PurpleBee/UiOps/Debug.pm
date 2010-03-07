@@ -20,6 +20,7 @@ sub is_enabled {
 
    $category eq "ffi"
       or $category eq "closure"
+      or $category eq "closure-trace"
       or $category eq "event"
       or $category eq "perl"
 }

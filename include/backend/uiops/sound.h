@@ -15,5 +15,6 @@ namespace uiops
     static void play_event (PurpleSoundEventID event);
 
     static PurpleSoundUiOps create ();
+    static void destroy (PurpleSoundUiOps& ops);
   };
 }

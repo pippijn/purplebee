@@ -13,7 +13,6 @@
 
 #include "backend/PurpleBee/Closure.h"
 #include "backend/PurpleBee/marshal.h"
-#include "backend/PurpleBee/operation_invoke.h"
 
 /*
  * T -> SV*

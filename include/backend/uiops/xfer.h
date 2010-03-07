@@ -20,5 +20,6 @@ namespace uiops
     static void data_not_sent (PurpleXfer* xfer, const guchar* buffer, gsize size);
 
     static PurpleXferUiOps create ();
+    static void destroy (PurpleXferUiOps& ops);
   };
 }

@@ -13,5 +13,6 @@ namespace uiops
     static void destroy (PurpleDnsQueryData* query_data);
 
     static PurpleDnsQueryUiOps create ();
+    static void destroy (PurpleDnsQueryUiOps& ops);
   };
 }

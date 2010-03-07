@@ -5,9 +5,10 @@
 
 #include <tuple>
 
-// Forward declaration.
+// Forward declarations.
 template<template<typename, typename...> class O, typename R, typename... Args>
 struct typed_closure;
+struct frame;
 
 template<template<typename, typename...> class O>
 struct closure
@@ -16,8 +17,9 @@ struct closure
 
   virtual ~closure () { }
 
-  virtual return_type invoke () = 0;
-  virtual void const* symbol () = 0;
+  virtual return_type  invoke () = 0;
+  virtual void const*  symbol () = 0;
+  virtual frame const* frames () = 0;
 
   template<typename R, typename... Args>
   static closure* create (typename O<R, Args...>::user_data_type& user_data,
@@ -38,10 +40,12 @@ struct typed_closure_base
 
   user_data_type& user_data;
   closure_type closure;
+  frame const* stacktrace;
 
   typed_closure_base (user_data_type& data, closure_type const& clos)
     : user_data (data)
     , closure (clos)
+    , stacktrace (NULL)
   {
   }
 };
@@ -59,11 +63,26 @@ struct typed_closure
   typed_closure (user_data_type& data, closure_type const& clos)
     : base_type (data, clos)
   {
+#if TRACE_CLOSURE
+    this->stacktrace = operation_type ().frames (this->user_data, this->closure);
+#endif
+  }
+
+  ~typed_closure ()
+  {
+#if TRACE_CLOSURE
+    operation_type ().destroy_frames (this->stacktrace);
+#endif
   }
 
   void const* symbol ()
   {
-    return operation_type ().symbol (this->user_data, this->closure);
+    return reinterpret_cast<void const*> (std::get<0> (this->closure));
+  }
+
+  frame const* frames ()
+  {
+    return this->stacktrace;
   }
 
   return_type invoke ()

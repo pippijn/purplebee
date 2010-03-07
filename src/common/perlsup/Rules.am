@@ -4,6 +4,7 @@ libperlsup_la_SOURCES =				\
 	src/common/perlsup/marshal/numeric.cpp	\
 	src/common/perlsup/marshal/pointers.cpp	\
 	src/common/perlsup/interpreter.cpp	\
-	src/common/perlsup/object.cpp
+	src/common/perlsup/operation.cpp	\
+	src/common/perlsup/vtable.cpp
 
 libperlsup_la_LIBADD = libutil.la $(PERLLIB)

@@ -12,5 +12,6 @@ namespace uiops
     static time_t get_time_idle (void);
 
     static PurpleIdleUiOps create ();
+    static void destroy (PurpleIdleUiOps& ops);
   };
 }

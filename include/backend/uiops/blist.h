@@ -24,5 +24,6 @@ namespace uiops
     static void save_account (PurpleAccount* account);
 
     static PurpleBlistUiOps create ();
+    static void destroy (PurpleBlistUiOps& ops);
   };
 }

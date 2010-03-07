@@ -18,5 +18,6 @@ namespace uiops
     static void* request_folder (const char* title, const char* dirname, GCallback ok_cb, GCallback cancel_cb, PurpleAccount* account, const char* who, PurpleConversation* conv, void* user_data);
 
     static PurpleRequestUiOps create ();
+    static void destroy (PurpleRequestUiOps& ops);
   };
 }

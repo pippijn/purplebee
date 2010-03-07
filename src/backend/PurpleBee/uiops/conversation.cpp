@@ -125,4 +125,10 @@ namespace uiops
       NULL,
     };
   }
+
+  void
+  conversation::destroy (PurpleConversationUiOps& ops)
+  {
+    purple_debug_info ("ffi", "destroying conversation callbacks");
+  }
 }

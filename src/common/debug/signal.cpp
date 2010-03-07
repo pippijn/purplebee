@@ -14,7 +14,8 @@
 #include "common/debug/signal.h"
 #include "common/util/xassert.h"
 
-bool spawn_gdb = true;
+//bool spawn_gdb = true;
+bool spawn_gdb = false;
 
 // large stack, but it's important data we want to save
 static size_t const stacksize = 8 * 1024 * 1024 + SIGSTKSZ;
@@ -184,7 +185,7 @@ fault_action (int signum, siginfo_t* si, void* vctx)
             {
               char pidbuf[5 + 1]; // 5 characters for PID, 1 for '\0'
               snprintf (pidbuf, sizeof pidbuf, "%d", self);
-              execlp ("gdb", "gdb", "-p", pidbuf, NULL);
+              execlp ("gdb", "gdb", "-q", "-p", pidbuf, NULL);
 
               _Exit (EXIT_FAILURE);
             }
@@ -208,7 +209,8 @@ fault_action (int signum, siginfo_t* si, void* vctx)
              );
       printf ("==%d==\n", self);
 
-      print_backtrace (self);
+      printf ("==%d== stack trace:\n", self);
+      print_backtrace ();
 
       signal (signum, SIG_DFL);
       raise (signum);

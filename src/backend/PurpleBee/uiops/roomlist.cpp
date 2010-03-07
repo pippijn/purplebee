@@ -62,4 +62,10 @@ namespace uiops
       NULL,
     };
   }
+
+  void
+  roomlist::destroy (PurpleRoomlistUiOps& ops)
+  {
+    purple_debug_info ("ffi", "destroying roomlist callbacks");
+  }
 }

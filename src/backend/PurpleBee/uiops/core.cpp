@@ -55,4 +55,10 @@ namespace uiops
       NULL,
     };
   }
+
+  void
+  core::destroy (PurpleCoreUiOps& ops)
+  {
+    purple_debug_info ("ffi", "destroying core callbacks");
+  }
 }

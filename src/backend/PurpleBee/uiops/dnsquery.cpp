@@ -42,4 +42,10 @@ namespace uiops
       NULL,
     };
   }
+
+  void
+  dnsquery::destroy (PurpleDnsQueryUiOps& ops)
+  {
+    purple_debug_info ("ffi", "destroying dnsquery callbacks");
+  }
 }

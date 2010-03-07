@@ -3,7 +3,6 @@
  */
 #pragma once
 
-#include "common/perl/object.h"
 #include "common/perl/package.h"
 #include "common/util/output.h"
 #include "common/util/type_traits/identity.h"
@@ -12,7 +11,6 @@
 // perl_object base. The perl_interpreter class takes care of construction
 // and destruction of said PerlInterpreter.
 struct perl_interpreter
-  : perl_object
 {
   // Encapsulates arguments received from _start or similar
   // libc startup function.
@@ -50,6 +48,11 @@ struct perl_interpreter
   template<typename T> SV* to_sv (T v);
   // The other way around.
   template<typename T> T   sv_to (SV* sv);
+
+  PerlInterpreter* perl () { return my_perl; }
+
+protected:
+  PerlInterpreter *my_perl;
 
 protected:
   // Allocates and initialises the PerlInterpreter.

@@ -48,4 +48,10 @@ namespace uiops
       NULL,
     };
   }
+
+  void
+  privacy::destroy (PurplePrivacyUiOps& ops)
+  {
+    purple_debug_info ("ffi", "destroying privacy callbacks");
+  }
 }

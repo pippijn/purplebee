@@ -3,6 +3,8 @@
  */
 #pragma once
 
+#include <stdio.h>
+
 #include "common/util/common.h"
 
 BEGIN_DECLS
@@ -23,10 +25,16 @@ struct frame
   long line;
 };
 
-void print_backtrace (int pid DEFAULT_ARG (0)) NOTHROW;
+typedef void print_fn (char const* fmt);
+
+print_fn std_print;
+
 char** backtrace_symbols (void* const* buffer, int size) NOTHROW;
-frame* backtrace_frames (void* const* buffer, int size) NOTHROW;
 char* resolve_symbol (void const* sym) NOTHROW;
+struct frame* backtrace_frames_current (int skip DEFAULT_ARG (0)) NOTHROW;
+struct frame* backtrace_frames (void* const* buffer, int size) NOTHROW;
+void print_backtrace (print_fn print DEFAULT_ARG (std_print)) NOTHROW;
+void print_frames (struct frame const* frames, print_fn print DEFAULT_ARG (std_print)) NOTHROW;
 
 END_DECLS
 

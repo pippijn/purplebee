@@ -9,7 +9,6 @@
 #include "backend/PurpleBee.h"
 #include "backend/PurpleBee/Closure.h"
 #include "backend/PurpleBee/marshal.h"
-#include "backend/PurpleBee/operation_invoke.h"
 
 
 /*

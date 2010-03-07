@@ -69,4 +69,10 @@ namespace uiops
       NULL,
     };
   }
+
+  void
+  request::destroy (PurpleRequestUiOps& ops)
+  {
+    purple_debug_info ("ffi", "destroying request callbacks");
+  }
 }

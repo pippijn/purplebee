@@ -15,8 +15,8 @@ count_strings (char* strings[])
 }
 
 perl_interpreter::perl_interpreter (int argc, char* argv[], char* env[])
-  : perl_object (perl_alloc ())
-  , args { argc, count_strings (env), argv, env }
+  : args { argc, count_strings (env), argv, env }
+  , my_perl (perl_alloc ())
 {
   PERL_SYS_INIT3 (&args.argc, &args.argv, &args.env);
   perl_construct (my_perl);
@@ -90,26 +90,6 @@ perl_interpreter::SvPTR (SV* sv)
     return mg->mg_ptr;
 
   croak ("perl code used object, but C object is already destroyed, caught");
-}
-
-template<>
-SV*
-perl_interpreter::to_sv (perl_interpreter* obj)
-{
-  if (!obj)
-    return &PL_sv_undef;
-
-  if (!obj->self)
-    obj->self = newHV ();
-
-  return newSVobj<perl_object> (obj, obj->stash (), obj->self);
-}
-
-template<>
-perl_interpreter*
-perl_interpreter::sv_to (SV* sv)
-{
-  return static_cast<perl_interpreter*> (SvPTR (sv));
 }
 
 // vim:ft=xs

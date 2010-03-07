@@ -26,25 +26,10 @@ namespace uiops
     "FATAL",
   };
 
+  static FILE* logfh;
   static timeval begin;
 
 #define LOG_STDERR 1
-
-  static struct auto_file
-  {
-    auto_file ()
-    {
-      fh = fopen ("server.log", "w");
-      setvbuf (fh, NULL, _IONBF, 0); // give me my freaking debug log RIGHT NOW!
-    }
-
-    ~auto_file ()
-    {
-      fclose (fh);
-    }
-
-    FILE* fh;
-  } logfh;
 
   void
   debug::print (PurpleDebugLevel level, const char* category, const char* arg_s)
@@ -55,22 +40,22 @@ namespace uiops
     gettimeofday (&now, NULL);
     timeval diff;
     timersub (&now, &begin, &diff);
-    fprintf (logfh.fh
-            , "[%5ld.%06ld] %s %s: %s\n"
-            , diff.tv_sec
-            , diff.tv_usec
-            , catname[level]
-            , category
-            , arg_s);
-#if LOG_STDERR
-    fprintf (stderr
-            , "[%5ld.%06ld] %s %s: %s\n"
-            , diff.tv_sec
-            , diff.tv_usec
-            , catname[level]
-            , category
-            , arg_s);
-#endif
+    if (logfh)
+      fprintf (logfh
+              , "[%5ld.%06ld] %s %s: %s\n"
+              , diff.tv_sec
+              , diff.tv_usec
+              , catname[level]
+              , category
+              , arg_s);
+    if (LOG_STDERR || !logfh)
+      fprintf (stderr
+              , "[%5ld.%06ld] %s %s: %s\n"
+              , diff.tv_sec
+              , diff.tv_usec
+              , catname[level]
+              , category
+              , arg_s);
     //return server->call<void> (OPS "print", level, category, arg_s);
   }
 
@@ -83,6 +68,9 @@ namespace uiops
   PurpleDebugUiOps
   debug::create ()
   {
+    logfh = fopen ("server.log", "w");
+    setvbuf (logfh, NULL, _IONBF, 0);
+
     return {
       print,
       is_enabled,
@@ -93,5 +81,13 @@ namespace uiops
       NULL,
       NULL,
     };
+  }
+
+  void
+  debug::destroy (PurpleDebugUiOps& ops)
+  {
+    purple_debug_info ("ffi", "destroying debug callbacks");
+    fclose (logfh);
+    logfh = NULL;
   }
 }

@@ -17,5 +17,6 @@ namespace uiops
     static void destroy (PurpleRoomlist* list);
 
     static PurpleRoomlistUiOps create ();
+    static void destroy (PurpleRoomlistUiOps& ops);
   };
 }

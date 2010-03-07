@@ -31,9 +31,9 @@
 # define FTYPE(T, P)
 #endif
 
-#define PKG "PurpleBee::"
+#define PKG PACKAGE_NAME "::"
 
-OTYPE (Bee,                             "PurpleBee")
+PTYPE (Bee,                             "PurpleBee")
 PTYPE (BeeClosure,                      PKG "Closure")
 
 PTYPE (Account,                         PKG "Account")

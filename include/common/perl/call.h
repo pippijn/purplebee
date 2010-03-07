@@ -47,7 +47,7 @@ perl_interpreter::caller::call (char const* method, int flags)
 {
   PerlInterpreter* my_perl = perl.perl ();
 
-  char const* pkg = perl.package ();
+  char const* pkg = PACKAGE_NAME;
   char function[strlen (method) + strlen (pkg) + 2 + 1];
   sprintf (function, "%s::%s", pkg, method);
 

@@ -1,6 +1,7 @@
 /* Copyright © 2010 Pippijn van Steenhoven
  * See COPYING.AGPL for licence information.
  */
+#include <unordered_map>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -21,6 +22,7 @@
 #endif
 
 #include "common/debug/backtrace.h"
+#include "common/util/phoenix.h"
 #include "common/util/string.h"
 #include "common/util/xassert.h"
 
@@ -179,7 +181,7 @@ private:
   // translate_addresses and find_address_in_section.
   bfd_vma pc;
   const char* filename;
-  const char* functionname;
+  const char* funcname;
   unsigned int line;
   padded (bool) found;
 
@@ -232,7 +234,7 @@ private:
       return;
 
     self->found = bfd_find_nearest_line (abfd, section, self->syms, self->pc - vma,
-                                         &self->filename, &self->functionname, &self->line);
+                                         &self->filename, &self->funcname, &self->line);
   }
 
   frame translate_addresses (bfd* abfd, bfd_vma* addr, int naddr)
@@ -250,14 +252,14 @@ private:
       }
     else
       {
-        std::string funcname;
-        if (functionname == NULL || *functionname == '\0')
-          funcname = "???";
+        std::string func;
+        if (funcname == NULL || *funcname == '\0')
+          func = "???";
         else
           {
             int status;
-            char* realname = abi::__cxa_demangle (functionname, 0, 0, &status);
-            funcname = status == 0 ? realname : functionname;
+            char* realname = abi::__cxa_demangle (funcname, 0, 0, &status);
+            func = status == 0 ? realname : funcname;
             if (realname)
               free (realname);
           }
@@ -266,7 +268,7 @@ private:
         else
           if (char const* h = strrchr (filename, '/'))
             filename = h + 1;
-        return { funcname, filename, line };
+        return { func, filename, line };
       }
   }
 
@@ -341,13 +343,18 @@ private:
 
   frame resolve_frame_internal (char const* base)
   {
+    auto& cache = phoenix<std::unordered_map<void const*, frame>>::instance ();
+    auto found = cache.find (base);
+    if (found != cache.end ())
+      return found->second;
+
     file_match match { 0, base, 0, 0 };
     dl_iterate_phdr (find_matching_file, &match);
     bfd_vma addr = base - match.base;
     if (match.file && strlen (match.file))
-      return process_file (match.file, &addr, 1);
+      return cache[base] = process_file (match.file, &addr, 1);
     else
-      return process_file ("/proc/self/exe", &addr, 1);
+      return cache[base] = process_file ("/proc/self/exe", &addr, 1);
   }
 
 public:
@@ -355,8 +362,8 @@ public:
     : syms (0)
     , dbfd ()
     , pc (0)
-    , filename ("<file>")
-    , functionname ("<func>")
+    , filename ("file")
+    , funcname ("func")
     , line (0)
     , found (false)
   {
@@ -376,7 +383,7 @@ public:
   {
     xassert (base);
     if (!check_bfd ())
-      return { "<file>", "<func>", 0 };
+      return { "func", "file", 0 };
 
 #if HAVE_BFD_H
     xassert (pthread_mutex_lock (&mtx) == 0);
@@ -400,7 +407,7 @@ public:
     if (!check_bfd ())
       {
         for (size_t x = 0; x < stack_depth; ++x)
-          frames.emplace_back (frame { "<file>", "<func>", 0 });
+          frames.emplace_back (frame { "func", "file", 0 });
         return frames;
       }
 
@@ -478,7 +485,7 @@ try
 {
   std::vector<stacktrace::frame> const frames = stk.backtrace_symbols (buffer, size);
 
-  frame* const ret = new frame[frames.size ()];
+  frame* const ret = new frame[frames.size () + 1] ();
 
   for (auto it = frames.begin (),
             et = frames.end ();

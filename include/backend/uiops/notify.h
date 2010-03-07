@@ -20,5 +20,6 @@ namespace uiops
     static void close_notify (PurpleNotifyType type, void* ui_handle);
 
     static PurpleNotifyUiOps create ();
+    static void destroy (PurpleNotifyUiOps& ops);
   };
 }

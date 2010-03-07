@@ -108,4 +108,10 @@ namespace uiops
       NULL,
     };
   }
+
+  void
+  blist::destroy (PurpleBlistUiOps& ops)
+  {
+    purple_debug_info ("ffi", "destroying blist callbacks");
+  }
 }
