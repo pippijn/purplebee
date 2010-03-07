@@ -12,6 +12,7 @@
 
 #include "common/debug/backtrace.h"
 #include "common/debug/signal.h"
+#include "common/util/xassert.h"
 
 bool spawn_gdb = true;
 
@@ -173,29 +174,31 @@ fault_action (int signum, siginfo_t* si, void* vctx)
       in_gdb = true;
 
       printf ("==%d== spawning and attaching the GNU debugger\n", self);
-      if (!fork ())
+      int watchdog = fork ();
+      xassert (watchdog != -1);
+      if (!watchdog)
         {
-          if (!fork ())
+          int gdb = fork ();
+          xassert (gdb != -1);
+          if (!gdb)
             {
               char pidbuf[5 + 1]; // 5 characters for PID, 1 for '\0'
               snprintf (pidbuf, sizeof pidbuf, "%d", self);
               execlp ("gdb", "gdb", "-p", pidbuf, NULL);
 
-              exit (EXIT_FAILURE);
+              _Exit (EXIT_FAILURE);
             }
 
           int gdb_status;
-          wait (&gdb_status);
+          waitpid (gdb, &gdb_status, 0);
+          printf ("==%d== waiting 3 second for the parent process to terminate\n", getpid ());
+          sleep (3);
           kill (self, SIGKILL);
-          exit (EXIT_SUCCESS);
+          _Exit (EXIT_SUCCESS);
         }
 
-      volatile bool waiting = true;
-      while (waiting)
-        ;
-
-      int gdb_status;
-      wait (&gdb_status); // wait for gdb
+      int watchdog_status;
+      waitpid (watchdog, &watchdog_status, 0);
       exit (EXIT_FAILURE);
     }
   else
