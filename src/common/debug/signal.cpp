@@ -170,11 +170,19 @@ fault_action (int signum, siginfo_t* si, void* vctx)
       printf ("==%d== spawning and attaching the GNU debugger\n", self);
       if (!fork ())
         {
-          char pidbuf[5 + 1]; // 5 characters for PID, 1 for '\0'
-          snprintf (pidbuf, sizeof pidbuf, "%d", self);
-          execlp ("gdb", "gdb", "-p", pidbuf, NULL);
+          if (!fork ())
+            {
+              char pidbuf[5 + 1]; // 5 characters for PID, 1 for '\0'
+              snprintf (pidbuf, sizeof pidbuf, "%d", self);
+              execlp ("gdb", "gdb", "-p", pidbuf, NULL);
 
-          exit (EXIT_FAILURE);
+              exit (EXIT_FAILURE);
+            }
+
+          int gdb_status;
+          wait (&gdb_status);
+          kill (self, SIGKILL);
+          exit (EXIT_SUCCESS);
         }
 
       volatile bool waiting = true;
