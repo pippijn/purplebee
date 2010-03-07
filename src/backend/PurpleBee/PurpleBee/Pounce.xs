@@ -5,6 +5,23 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Pounce                     PREFIX =
 
 BOOT:
 {
+#define TYPE    POUNCE_
+  const_val (NONE);
+  const_val (SIGNON);
+  const_val (SIGNOFF);
+  const_val (AWAY);
+  const_val (AWAY_RETURN);
+  const_val (IDLE);
+  const_val (IDLE_RETURN);
+  const_val (TYPING);
+  const_val (TYPED);
+  const_val (TYPING_STOPPED);
+  const_val (MESSAGE_RECEIVED);
+#undef TYPE
+#define TYPE    POUNCE_OPTION_
+  const_val (NONE);
+  const_val (AWAY);
+#undef TYPE
 }
 
 PurplePounce*

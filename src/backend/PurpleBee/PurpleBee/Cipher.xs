@@ -5,6 +5,30 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Cipher                     PREFIX =
 
 BOOT:
 {
+#define TYPE    CIPHER_BATCH_MODE_
+  const_val (CBC);
+#undef TYPE
+#define TYPE    CIPHER_CAPS_
+  const_val (SET_OPT);
+  const_val (GET_OPT);
+  const_val (INIT);
+  const_val (RESET);
+  const_val (UNINIT);
+  const_val (SET_IV);
+  const_val (APPEND);
+  const_val (DIGEST);
+  const_val (ENCRYPT);
+  const_val (DECRYPT);
+  const_val (SET_SALT);
+  const_val (GET_SALT_SIZE);
+  const_val (SET_KEY);
+  const_val (GET_KEY_SIZE);
+  const_val (SET_BATCH_MODE);
+  const_val (GET_BATCH_MODE);
+  const_val (GET_BLOCK_SIZE);
+  const_val (SET_KEY_WITH_LEN);
+  const_val (UNKNOWN);
+#undef TYPE
 }
 
 gchar const*

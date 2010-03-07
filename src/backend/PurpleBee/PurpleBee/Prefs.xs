@@ -5,6 +5,15 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Prefs                      PREFIX =
 
 BOOT:
 {
+#define TYPE    PREF_
+  const_val (NONE);
+  const_val (BOOLEAN);
+  const_val (INT);
+  const_val (STRING);
+  const_val (STRING_LIST);
+  const_val (PATH);
+  const_val (PATH_LIST);
+#undef TYPE
 }
 
 void*

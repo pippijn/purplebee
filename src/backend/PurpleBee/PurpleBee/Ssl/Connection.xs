@@ -5,6 +5,11 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Ssl::Connection    PREFIX = purple_
 
 BOOT:
 {
+#define TYPE    SSL_
+  const_val (HANDSHAKE_FAILED);
+  const_val (CONNECT_FAILED);
+  const_val (CERTIFICATE_INVALID);
+#undef TYPE
 }
 
 void

@@ -5,6 +5,34 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Notify                     PREFIX =
 
 BOOT:
 {
+#define TYPE    NOTIFY_
+  const_val (MESSAGE);
+  const_val (EMAIL);
+  const_val (EMAILS);
+  const_val (FORMATTED);
+  const_val (SEARCHRESULTS);
+  const_val (USERINFO);
+  const_val (URI);
+#undef TYPE
+#define TYPE    NOTIFY_MSG_
+  const_val (ERROR);
+  const_val (WARNING);
+  const_val (INFO);
+#undef TYPE
+#define TYPE    NOTIFY_BUTTON_
+  const_val (LABELED);
+  const_val (CONTINUE);
+  const_val (ADD);
+  const_val (INFO);
+  const_val (IM);
+  const_val (JOIN);
+  const_val (INVITE);
+#undef TYPE
+#define TYPE    NOTIFY_USER_INFO_ENTRY_
+  const_val (PAIR);
+  const_val (SECTION_BREAK);
+  const_val (SECTION_HEADER);
+#undef TYPE
 }
 
 void*

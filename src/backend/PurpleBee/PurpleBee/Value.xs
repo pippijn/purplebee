@@ -5,6 +5,48 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Value              PREFIX = purple_
 
 BOOT:
 {
+#define TYPE    TYPE_
+  const_val (UNKNOWN);
+  const_val (SUBTYPE);
+  const_val (CHAR);
+  const_val (UCHAR);
+  const_val (BOOLEAN);
+  const_val (SHORT);
+  const_val (USHORT);
+  const_val (INT);
+  const_val (UINT);
+  const_val (LONG);
+  const_val (ULONG);
+  const_val (INT64);
+  const_val (UINT64);
+  const_val (STRING);
+  const_val (OBJECT);
+  const_val (POINTER);
+  const_val (ENUM);
+  const_val (BOXED);
+#undef TYPE
+#define TYPE    SUBTYPE_
+  const_val (UNKNOWN);
+  const_val (ACCOUNT);
+  const_val (BLIST);
+  const_val (BLIST_BUDDY);
+  const_val (BLIST_GROUP);
+  const_val (BLIST_CHAT);
+  const_val (BUDDY_ICON);
+  const_val (CONNECTION);
+  const_val (CONVERSATION);
+  const_val (PLUGIN);
+  const_val (BLIST_NODE);
+  const_val (CIPHER);
+  const_val (STATUS);
+  const_val (LOG);
+  const_val (XFER);
+  const_val (SAVEDSTATUS);
+  const_val (XMLNODE);
+  const_val (USERINFO);
+  const_val (STORED_IMAGE);
+  const_val (CERTIFICATEPOOL);
+#undef TYPE
 }
 
 #PurpleValue*

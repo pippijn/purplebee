@@ -1,10 +1,19 @@
-MODULE = PurpleBee      PACKAGE = PurpleBee::Buddy::List        PREFIX = purple_blist_
+MODULE = PurpleBee      PACKAGE = PurpleBee::BuddyList          PREFIX = purple_blist_
 # Copyright © 2010 Pippijn van Steenhoven
 # See COPYING.AGPL for licence information.
 
 
 BOOT:
 {
+#define TYPE    BLIST_
+  const_val (GROUP_NODE);
+  const_val (CONTACT_NODE);
+  const_val (BUDDY_NODE);
+  const_val (CHAT_NODE);
+  const_val (OTHER_NODE);
+
+  const_val (NODE_FLAG_NO_SAVE);
+#undef TYPE
 }
 
 PurpleBuddyList*

@@ -5,6 +5,14 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Debug                      PREFIX =
 
 BOOT:
 {
+#define TYPE    DEBUG_
+  const_val (ALL);
+  const_val (MISC);
+  const_val (INFO);
+  const_val (WARNING);
+  const_val (ERROR);
+  const_val (FATAL);
+#undef TYPE
 }
 
 void

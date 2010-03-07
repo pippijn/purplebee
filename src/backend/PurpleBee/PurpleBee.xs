@@ -11,9 +11,22 @@
 
 #include "common/debug/backtrace.h"
 #include "common/perl/util.h"
+#include "common/util/preprocessor.h"
 
 #include "backend/PurpleBee.h"
 #include "backend/PurpleBee/Closure.h"
+
+#define const_val(value)                                                \
+  if (0)                                                                \
+  printf ( "newCONSTSUB (%s, %d)\n"                                     \
+         , STRINGIZE (TYPE) #value                                      \
+         , PASTE3 (PURPLE_, TYPE, value)                                \
+         );                                                             \
+  newCONSTSUB                                                           \
+    ( perl_package<decltype (PASTE3 (PURPLE_, TYPE, value))>::stash     \
+    , STRINGIZE (TYPE) #value                                           \
+    , server->to_sv (PASTE3 (PURPLE_, TYPE, value))                     \
+    )
 
 MODULE = PurpleBee      PACKAGE = PurpleBee
 
@@ -50,8 +63,8 @@ INCLUDE: PurpleBee/Account.xs
 INCLUDE: PurpleBee/Accounts.xs
 INCLUDE: PurpleBee/Buddy/Icon.xs
 INCLUDE: PurpleBee/Buddy/Icons.xs
-INCLUDE: PurpleBee/Buddy/List.xs
 INCLUDE: PurpleBee/Buddy.xs
+INCLUDE: PurpleBee/BuddyList.xs
 INCLUDE: PurpleBee/Certificate.xs
 INCLUDE: PurpleBee/Chat.xs
 INCLUDE: PurpleBee/Cipher.xs

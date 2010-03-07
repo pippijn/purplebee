@@ -5,6 +5,19 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Sound              PREFIX = purple_
 
 BOOT:
 {
+#define TYPE    SOUND_
+  const_val (BUDDY_ARRIVE);
+  const_val (BUDDY_LEAVE);
+  const_val (RECEIVE);
+  const_val (FIRST_RECEIVE);
+  const_val (SEND);
+  const_val (CHAT_JOIN);
+  const_val (CHAT_LEAVE);
+  const_val (CHAT_YOU_SAY);
+  const_val (CHAT_SAY);
+  const_val (POUNCE_DEFAULT);
+  const_val (CHAT_NICK);
+#undef TYPE
 }
 
 void

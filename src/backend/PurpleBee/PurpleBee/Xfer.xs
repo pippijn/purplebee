@@ -5,6 +5,20 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Xfer                       PREFIX =
 
 BOOT:
 {
+#define TYPE    XFER_
+  const_val (UNKNOWN);
+  const_val (SEND);
+  const_val (RECEIVE);
+#undef TYPE
+#define TYPE    XFER_STATUS_
+  const_val (UNKNOWN);
+  const_val (NOT_STARTED);
+  const_val (ACCEPTED);
+  const_val (STARTED);
+  const_val (DONE);
+  const_val (CANCEL_LOCAL);
+  const_val (CANCEL_REMOTE);
+#undef TYPE
 }
 
 PurpleXfer*

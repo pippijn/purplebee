@@ -5,6 +5,25 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Request                    PREFIX =
 
 BOOT:
 {
+#define TYPE    REQUEST_
+  const_val (INPUT);
+  const_val (CHOICE);
+  const_val (ACTION);
+  const_val (FIELDS);
+  const_val (FILE);
+  const_val (FOLDER);
+#undef TYPE
+#define TYPE    REQUEST_FIELD_
+  const_val (NONE);
+  const_val (STRING);
+  const_val (INTEGER);
+  const_val (BOOLEAN);
+  const_val (CHOICE);
+  const_val (LIST);
+  const_val (LABEL);
+  const_val (IMAGE);
+  const_val (ACCOUNT);
+#undef TYPE
 }
 
 void*

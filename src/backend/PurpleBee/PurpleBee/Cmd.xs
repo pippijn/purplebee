@@ -5,6 +5,35 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Cmd                        PREFIX =
 
 BOOT:
 {
+#define TYPE    CMD_STATUS_
+  const_val (OK);
+  const_val (FAILED);
+  const_val (NOT_FOUND);
+  const_val (WRONG_ARGS);
+  const_val (WRONG_PRPL);
+  const_val (WRONG_TYPE);
+#undef TYPE
+#define TYPE    CMD_RET_
+  const_val (OK);
+  const_val (FAILED);
+  const_val (CONTINUE);
+#undef TYPE
+#define TYPE    CMD_P_
+  const_val (VERY_LOW);
+  const_val (LOW);
+  const_val (DEFAULT);
+  const_val (PRPL);
+  const_val (PLUGIN);
+  const_val (ALIAS);
+  const_val (HIGH);
+  const_val (VERY_HIGH);
+#undef TYPE
+#define TYPE    CMD_FLAG_
+  const_val (IM);
+  const_val (CHAT);
+  const_val (PRPL_ONLY);
+  const_val (ALLOW_WRONG_ARGS);
+#undef TYPE
 }
 
 PurpleCmdId

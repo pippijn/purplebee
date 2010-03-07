@@ -5,6 +5,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Roomlist::Room             PREFIX =
 
 BOOT:
 {
+#define TYPE    ROOMLIST_ROOMTYPE_
+  const_val (CATEGORY);
+  const_val (ROOM);
+#undef TYPE
 }
 
 PurpleRoomlistRoom*

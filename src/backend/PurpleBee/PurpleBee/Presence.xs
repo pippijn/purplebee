@@ -5,6 +5,12 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Presence                   PREFIX =
 
 BOOT:
 {
+#define TYPE    PRESENCE_CONTEXT_
+  const_val (UNSET);
+  const_val (ACCOUNT);
+  const_val (CONV);
+  const_val (BUDDY);
+#undef TYPE
 }
 
 PurplePresence*

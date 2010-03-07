@@ -5,6 +5,14 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Proxy                      PREFIX =
 
 BOOT:
 {
+#define TYPE    PROXY_
+  const_val (USE_GLOBAL);
+  const_val (NONE);
+  const_val (HTTP);
+  const_val (SOCKS4);
+  const_val (SOCKS5);
+  const_val (USE_ENVVAR);
+#undef TYPE
 }
 
 PurpleProxyInfo*

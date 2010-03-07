@@ -5,6 +5,11 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Roomlist::Field            PREFIX =
 
 BOOT:
 {
+#define TYPE    ROOMLIST_FIELD_
+  const_val (BOOL);
+  const_val (INT);
+  const_val (STRING);
+#undef TYPE
 }
 
 PurpleRoomlistField*

@@ -5,6 +5,13 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Log                        PREFIX =
 
 BOOT:
 {
+#define TYPE    LOG_
+  const_val (IM);
+  const_val (CHAT);
+  const_val (SYSTEM);
+
+  const_val (READ_NO_NEWLINE);
+#undef TYPE
 }
 
 PurpleLog*
@@ -17,7 +24,9 @@ void
 purple_log_write (PurpleLog* log, PurpleMessageFlags type, char const* from, time_t time, char const* message);
 
 char*
-purple_log_read (PurpleLog* log, PurpleLogReadFlags* flags);
+purple_log_read (PurpleLog* log, PurpleLogReadFlags& flags);
+    OUTPUT:
+    flags
 
 GList*
 purple_log_get_logs (PurpleLogType type, char const* name, PurpleAccount* account);

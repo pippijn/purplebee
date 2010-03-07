@@ -5,6 +5,9 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Account            PREFIX = purple_
 
 BOOT:
 {
+#define TYPE    ACCOUNT_
+  const_val (REQUEST_AUTHORIZATION);
+#undef TYPE
 }
 
 PurpleAccount*

@@ -5,6 +5,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Certificate                PREFIX =
 
 BOOT:
 {
+#define TYPE    CERTIFICATE_
+  const_val (INVALID);
+  const_val (VALID);
+#undef TYPE
 }
 
 void

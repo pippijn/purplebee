@@ -76,7 +76,6 @@ PurpleEventLoopUiOps*			T_BEE_OBJECT
 PurpleGroup*				T_BEE_OBJECT
 PurpleIdleUiOps*			T_BEE_OBJECT
 PurpleLogLogger*			T_BEE_OBJECT
-PurpleLogReadFlags*			T_BEE_OBJECT
 PurpleLogSet*				T_BEE_OBJECT
 PurpleLog*				T_BEE_OBJECT
 PurpleMenuAction*			T_BEE_OBJECT
@@ -138,6 +137,7 @@ PurpleDnsQueryConnectFunction		T_BEE_OBJECT
 PurpleFilterAccountFunc			T_BEE_OBJECT
 PurpleInfoFieldFormatCallback		T_BEE_OBJECT
 PurpleInputFunction			T_BEE_OBJECT
+PurpleLogReadFlags			T_BEE_OBJECT
 PurpleNetworkListenCallback		T_BEE_OBJECT
 PurpleNotifyCloseCallback		T_BEE_OBJECT
 PurpleNotifySearchResultsCallback	T_BEE_OBJECT

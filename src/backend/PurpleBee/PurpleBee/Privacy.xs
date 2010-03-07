@@ -5,6 +5,13 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Privacy                    PREFIX =
 
 BOOT:
 {
+#define TYPE    PRIVACY_
+  const_val (ALLOW_ALL);
+  const_val (DENY_ALL);
+  const_val (ALLOW_USERS);
+  const_val (DENY_USERS);
+  const_val (ALLOW_BUDDYLIST);
+#undef TYPE
 }
 
 gboolean

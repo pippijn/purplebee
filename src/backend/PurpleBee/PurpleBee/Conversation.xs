@@ -5,6 +5,58 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Conversation       PREFIX = purple_
 
 BOOT:
 {
+#define TYPE    CONV_
+  const_val (TYPE_UNKNOWN);
+  const_val (TYPE_IM);
+  const_val (TYPE_CHAT);
+  const_val (TYPE_MISC);
+  const_val (TYPE_ANY);
+
+  const_val (UPDATE_ADD);
+  const_val (UPDATE_REMOVE);
+  const_val (UPDATE_ACCOUNT);
+  const_val (UPDATE_TYPING);
+  const_val (UPDATE_UNSEEN);
+  const_val (UPDATE_LOGGING);
+  const_val (UPDATE_TOPIC);
+  const_val (ACCOUNT_ONLINE);
+  const_val (ACCOUNT_OFFLINE);
+  const_val (UPDATE_AWAY);
+  const_val (UPDATE_ICON);
+  const_val (UPDATE_TITLE);
+  const_val (UPDATE_CHATLEFT);
+  const_val (UPDATE_FEATURES);
+#undef TYPE
+#define TYPE
+  const_val (NOT_TYPING);
+  const_val (TYPING);
+  const_val (TYPED);
+#undef TYPE
+#define TYPE    MESSAGE_
+  const_val (SEND);
+  const_val (RECV);
+  const_val (SYSTEM);
+  const_val (AUTO_RESP);
+  const_val (ACTIVE_ONLY);
+  const_val (NICK);
+  const_val (NO_LOG);
+  const_val (WHISPER);
+  const_val (ERROR);
+  const_val (DELAYED);
+  const_val (RAW);
+  const_val (IMAGES);
+  const_val (NOTIFY);
+  const_val (NO_LINKIFY);
+  const_val (INVISIBLE);
+#undef TYPE
+#define TYPE    CBFLAGS_
+  const_val (NONE);
+  const_val (VOICE);
+  const_val (HALFOP);
+  const_val (OP);
+  const_val (FOUNDER);
+  const_val (TYPING);
+#undef TYPE
 }
 
 PurpleConversation*

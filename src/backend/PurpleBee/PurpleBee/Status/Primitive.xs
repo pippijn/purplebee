@@ -5,6 +5,17 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Status::Primitive          PREFIX =
 
 BOOT:
 {
+#define TYPE    STATUS_
+  const_val (UNSET);
+  const_val (OFFLINE);
+  const_val (AVAILABLE);
+  const_val (UNAVAILABLE);
+  const_val (INVISIBLE);
+  const_val (AWAY);
+  const_val (EXTENDED_AWAY);
+  const_val (MOBILE);
+  const_val (TUNE);
+#undef TYPE
 }
 
 char const*

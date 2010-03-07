@@ -1,12 +1,12 @@
 XS_FILES =							\
-	src/backend/PurpleBee/PurpleBee/Account.xs		\
-	src/backend/PurpleBee/PurpleBee/Accounts.xs		\
 	src/backend/PurpleBee/PurpleBee/Account/Option.xs	\
 	src/backend/PurpleBee/PurpleBee/Account/UserSplit.xs	\
-	src/backend/PurpleBee/PurpleBee/Buddy.xs		\
+	src/backend/PurpleBee/PurpleBee/Account.xs		\
+	src/backend/PurpleBee/PurpleBee/Accounts.xs		\
 	src/backend/PurpleBee/PurpleBee/Buddy/Icon.xs		\
 	src/backend/PurpleBee/PurpleBee/Buddy/Icons.xs		\
-	src/backend/PurpleBee/PurpleBee/Buddy/List.xs		\
+	src/backend/PurpleBee/PurpleBee/Buddy.xs		\
+	src/backend/PurpleBee/PurpleBee/BuddyList.xs		\
 	src/backend/PurpleBee/PurpleBee/Certificate.xs		\
 	src/backend/PurpleBee/PurpleBee/Chat.xs			\
 	src/backend/PurpleBee/PurpleBee/Cipher.xs		\
@@ -17,10 +17,10 @@ XS_FILES =							\
 	src/backend/PurpleBee/PurpleBee/Connection.xs		\
 	src/backend/PurpleBee/PurpleBee/Connections.xs		\
 	src/backend/PurpleBee/PurpleBee/Contact.xs		\
-	src/backend/PurpleBee/PurpleBee/Conversation.xs		\
-	src/backend/PurpleBee/PurpleBee/Conversations.xs	\
 	src/backend/PurpleBee/PurpleBee/Conversation/Chat.xs	\
 	src/backend/PurpleBee/PurpleBee/Conversation/Im.xs	\
+	src/backend/PurpleBee/PurpleBee/Conversation.xs		\
+	src/backend/PurpleBee/PurpleBee/Conversations.xs	\
 	src/backend/PurpleBee/PurpleBee/Core.xs			\
 	src/backend/PurpleBee/PurpleBee/Debug.xs		\
 	src/backend/PurpleBee/PurpleBee/DnsQuery.xs		\
@@ -39,25 +39,25 @@ XS_FILES =							\
 	src/backend/PurpleBee/PurpleBee/Presence.xs		\
 	src/backend/PurpleBee/PurpleBee/Privacy.xs		\
 	src/backend/PurpleBee/PurpleBee/Proxy.xs		\
-	src/backend/PurpleBee/PurpleBee/Request.xs		\
 	src/backend/PurpleBee/PurpleBee/Request/Field.xs	\
 	src/backend/PurpleBee/PurpleBee/Request/Fields.xs	\
-	src/backend/PurpleBee/PurpleBee/Roomlist.xs		\
+	src/backend/PurpleBee/PurpleBee/Request.xs		\
 	src/backend/PurpleBee/PurpleBee/Roomlist/Field.xs	\
 	src/backend/PurpleBee/PurpleBee/Roomlist/Room.xs	\
+	src/backend/PurpleBee/PurpleBee/Roomlist.xs		\
 	src/backend/PurpleBee/PurpleBee/SavedStatus.xs		\
 	src/backend/PurpleBee/PurpleBee/SavedStatuses.xs	\
 	src/backend/PurpleBee/PurpleBee/Smiley.xs		\
 	src/backend/PurpleBee/PurpleBee/Smileys.xs		\
+	src/backend/PurpleBee/PurpleBee/Sound/Theme.xs		\
 	src/backend/PurpleBee/PurpleBee/Sound.xs		\
 	src/backend/PurpleBee/PurpleBee/Sounds.xs		\
-	src/backend/PurpleBee/PurpleBee/Sound/Theme.xs		\
-	src/backend/PurpleBee/PurpleBee/Ssl.xs			\
 	src/backend/PurpleBee/PurpleBee/Ssl/Connection.xs	\
-	src/backend/PurpleBee/PurpleBee/Status.xs		\
+	src/backend/PurpleBee/PurpleBee/Ssl.xs			\
 	src/backend/PurpleBee/PurpleBee/Status/Attr.xs		\
 	src/backend/PurpleBee/PurpleBee/Status/Primitive.xs	\
 	src/backend/PurpleBee/PurpleBee/Status/Type.xs		\
+	src/backend/PurpleBee/PurpleBee/Status.xs		\
 	src/backend/PurpleBee/PurpleBee/StoredImage.xs		\
 	src/backend/PurpleBee/PurpleBee/Stringref.xs		\
 	src/backend/PurpleBee/PurpleBee/Value.xs		\

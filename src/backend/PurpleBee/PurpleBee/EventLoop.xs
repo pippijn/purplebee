@@ -5,6 +5,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::EventLoop                  PREFIX =
 
 BOOT:
 {
+#define TYPE    INPUT_
+  const_val (READ);
+  const_val (WRITE);
+#undef TYPE
 }
 
 guint

@@ -5,6 +5,41 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Connection         PREFIX = purple_
 
 BOOT:
 {
+#define TYPE    CONNECTION_
+  const_val (HTML);
+  const_val (NO_BGCOLOR);
+  const_val (AUTO_RESP);
+  const_val (FORMATTING_WBFO);
+  const_val (NO_NEWLINES);
+  const_val (NO_FONTSIZE);
+  const_val (NO_URLDESC);
+  const_val (NO_IMAGES);
+  const_val (ALLOW_CUSTOM_SMILEY);
+#undef TYPE
+#define TYPE
+  const_val (DISCONNECTED);
+  const_val (CONNECTED);
+  const_val (CONNECTING);
+#undef TYPE
+#define TYPE    CONNECTION_ERROR_
+  const_val (NETWORK_ERROR);
+  const_val (INVALID_USERNAME);
+  const_val (AUTHENTICATION_FAILED);
+  const_val (AUTHENTICATION_IMPOSSIBLE);
+  const_val (NO_SSL_SUPPORT);
+  const_val (ENCRYPTION_ERROR);
+  const_val (NAME_IN_USE);
+  const_val (INVALID_SETTINGS);
+  const_val (CERT_NOT_PROVIDED);
+  const_val (CERT_UNTRUSTED);
+  const_val (CERT_EXPIRED);
+  const_val (CERT_NOT_ACTIVATED);
+  const_val (CERT_HOSTNAME_MISMATCH);
+  const_val (CERT_FINGERPRINT_MISMATCH);
+  const_val (CERT_SELF_SIGNED);
+  const_val (CERT_OTHER_ERROR);
+  const_val (OTHER_ERROR);
+#undef TYPE
 }
 
 void

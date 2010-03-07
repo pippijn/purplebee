@@ -27,7 +27,7 @@ sub timeout_remove {
    PurpleBee::Debug::info "event", "PurpleBee::UiOps::EventLoop::timeout_remove ($handle)";
 
    if ($timeouts[$handle - 1]) {
-      undef $timeouts[$handle - 1]; # XXX: purple weirdness of not allowing 0 as handle
+      undef $timeouts[$handle - 1];
       return 1
    }
 
@@ -71,7 +71,7 @@ sub timeout_add_seconds {
             },
          );
 
-         return $handle + 1 # XXX: purple weirdness of not allowing 0 as handle
+         return $handle + 1
       }
    }
 
@@ -135,7 +135,7 @@ sub input_add {
             },
          ) if $cond & IO_WRITE;
 
-         return $handle + 1 # XXX: libpurple weirdness
+         return $handle + 1
       }
    }
 
@@ -152,7 +152,7 @@ sub input_remove {
    PurpleBee::Debug::info "event", "PurpleBee::UiOps::EventLoop::input_remove ($handle)";
 
    if ($inputhandlers[$handle - 1]) {
-      undef $inputhandlers[$handle - 1]; # XXX: libpurple weirdness
+      undef $inputhandlers[$handle - 1];
       return 1
    }
 
