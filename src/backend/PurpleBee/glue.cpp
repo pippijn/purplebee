@@ -7,8 +7,13 @@
 # include <valgrind/memcheck.h>
 #endif
 
-#include "backend/PurpleBee.h"
+#include "common/perl/package.h"
+#include "common/util/array_size.h"
+#include "common/util/init_error.h"
+#include "common/util/xassert.h"
+
 #include "backend/PurpleBee/Closure.h"
+#include "backend/PurpleBee/perl_call.h"
 #include "backend/uiops/account.h"
 #include "backend/uiops/blist.h"
 #include "backend/uiops/connection.h"
@@ -28,11 +33,6 @@
 #include "backend/uiops/sound.h"
 #include "backend/uiops/whiteboard.h"
 #include "backend/uiops/xfer.h"
-#include "common/perl/call.tcc"
-#include "common/perl/package.h"
-#include "common/util/array_size.h"
-#include "common/util/init_error.h"
-#include "common/util/xassert.h"
 
 #include "perlxsi.c"
 
@@ -135,7 +135,7 @@ PurpleBee::init ()
   purple_eventloop_set_ui_ops (&eventloop_uiops);
   purple_idle_set_ui_ops (&idle_uiops);
   purple_notify_set_ui_ops (&notify_uiops);
-  purple_privacy_set_ui_ops (&privacy_uiops);
+  //purple_privacy_set_ui_ops (&privacy_uiops);
   purple_request_set_ui_ops (&request_uiops);
   purple_roomlist_set_ui_ops (&roomlist_uiops);
   purple_sound_set_ui_ops (&sound_uiops);
@@ -167,6 +167,7 @@ PurpleBee::init ()
   /* Load the pounces. */
   purple_pounces_load();
 
+#if 0
   for (auto iter = purple_plugins_get_protocols (); iter; iter = iter->next)
     {
       auto plugin = static_cast<PurplePlugin*> (iter->data);
@@ -190,6 +191,7 @@ PurpleBee::init ()
                 , info->homepage
                 );
     }
+#endif
 }
 
 void

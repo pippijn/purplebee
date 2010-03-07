@@ -8,7 +8,7 @@
 #include <pthread.h>
 
 #include "common/util/common.h"
-#include "common/util/funcall.h"
+#include "common/util/invoke_closure.h"
 #include "common/util/output.h"
 #include "common/util/type_traits/decay_array.h"
 #include "common/util/xassert.h"

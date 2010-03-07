@@ -70,12 +70,12 @@ parse_arguments (int argc, char** argv)
       return parse_status::success;
     }
 
-  if (error_count > 0 || argc == 1)
+  if (error_count > 0)
     {
       arg_print_errors (stdout, end, g_get_prgname ());
       printf ("Try `%s --help' for more information.\n", g_get_prgname ());
       return parse_status::failure;
     }
 
-  return parse_status::success;
+  return parse_status::resume;
 }

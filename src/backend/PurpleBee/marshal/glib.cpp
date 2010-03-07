@@ -1,12 +1,15 @@
 /* Copyright © 2010 Pippijn van Steenhoven
  * See COPYING.AGPL for licence information.
  */
-#include "backend/PurpleBee.h"
-#include "backend/PurpleBee/marshal.h"
-#include "backend/PurpleBee/Closure.h"
 #include "common/perl/package.h"
+#include "common/perl/operation_invoke.h"
 #include "common/util/type_traits/wrapper.h"
 #include "common/util/xassert.h"
+
+#include "backend/PurpleBee.h"
+#include "backend/PurpleBee/Closure.h"
+#include "backend/PurpleBee/marshal.h"
+#include "backend/PurpleBee/operation_invoke.h"
 
 
 /*

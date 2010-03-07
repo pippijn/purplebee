@@ -19,7 +19,7 @@ AM_SILENT_RULES
 AM_DEFAULT_VERBOSITY=0
 
 # debugging
-AC_CHECK_HEADERS([valgrind/memcheck.h bfd.h execinfo.h])
+AC_CHECK_HEADERS([valgrind/valgrind.h valgrind/memcheck.h bfd.h execinfo.h])
 
 # argument parsing
 AC_CHECK_HEADER([argtable2.h], [], [AC_MSG_ERROR([You need to have libargtable2-dev installed])])
@@ -51,6 +51,7 @@ fi
 
 for module_vers in      \
    "AnyEvent 5.2"       \
+   "EV 3.9"       	\
 ; do
    set -- $module_vers
    module=$1

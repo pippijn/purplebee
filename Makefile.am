@@ -15,7 +15,7 @@ MAINTAINERCLEANFILES	= # empty
 
 OPTFLAGS		= -pipe -O0 -ggdb3 -fno-inline
 WARNINGS		= # empty
-WARNINGS		+= -Wall -Wextra
+WARNINGS		+= -Wall -Wextra -Wno-unused-parameter
 WARNINGS		+= -Wpadded
 WARNINGS		+= -Wpacked
 #WARNINGS		+= -Wconversion

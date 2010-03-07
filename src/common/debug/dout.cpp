@@ -35,17 +35,12 @@ debug_stream::acquire ()
 int
 debug_stream::lock ()
 {
-  volatile bool b = false;
-  if (b)
-    print_backtrace ();
-  puts (">>>>>>>>>>>>>>>>>> lock");
   return pthread_mutex_lock (&mtx);
 }
 
 int
 debug_stream::unlock ()
 {
-  puts ("<<<<<<<<<<<<<<<<<< unlock");
   return pthread_mutex_unlock (&mtx);
 }
 

@@ -4,6 +4,7 @@ package PurpleBee;
 
 use common::sense;
 
+use EV;
 use AnyEvent;
 
 use PurpleBee::UiOps::Account;
@@ -25,23 +26,21 @@ use PurpleBee::UiOps::Xfer;
 
 our $runcv = AnyEvent->condvar;
 
-$|++;
-open my $logfh, '>', 'perl.log'
-   or die "Could not open log: $!";
+#open my $logfh, '>', 'perl.log'
+   #or die "Could not open log: $!";
 
-sub print {
-   my ($self, $msg) = @_;
-   print "$msg\n";
-   #print $logfh "$msg\n";
-}
+$|++;
+
+$EV::DIED = sub { PurpleBee::Debug::fatal "event", "error in event: $@"; exit };
 
 sub main {
    my ($self, $username, $password, $protocol) = @_;
    #my $timer = AnyEvent->timer (after => 10, cb => sub { $runcv->broadcast });
-   printf "Running libpurple %s (single instance = %d)\n"
-   	, PurpleBee::Core::get_version
-        , PurpleBee::Core::ensure_single_instance
-        ;
+   PurpleBee::Debug::info "perl",
+      sprintf ( "Running libpurple %s (single instance = %d)\n"
+              , PurpleBee::Core::get_version
+              , PurpleBee::Core::ensure_single_instance
+              );
    my $account = PurpleBee::Account::new $username, $protocol
       or die;
    $account->set_password ($password);

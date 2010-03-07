@@ -5,12 +5,15 @@
 
 #include <purple.h>
 
-#include "backend/PurpleBee/Closure.h"
-#include "backend/PurpleBee/marshal.h"
 #include "common/perl/interpreter.h"
+#include "common/perl/operation_invoke.h"
 #include "common/perl/package.h"
 #include "common/util/make_closure.h"
 #include "common/util/unimplemented.h"
+
+#include "backend/PurpleBee/Closure.h"
+#include "backend/PurpleBee/marshal.h"
+#include "backend/PurpleBee/operation_invoke.h"
 
 /*
  * T -> SV*

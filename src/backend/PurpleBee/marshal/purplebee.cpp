@@ -3,8 +3,9 @@
  */
 #include <typeinfo>
 
-#include "backend/PurpleBee.h"
 #include "common/util/xassert.h"
+
+#include "backend/PurpleBee.h"
 
 /*
  * T -> SV*

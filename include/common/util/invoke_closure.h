@@ -5,6 +5,8 @@
 
 #include <tuple>
 
+#include <purple.h> // XXX: for G_GNUC_UNUSED
+
 #include "common/util/type_traits/return_type.h"
 #include "common/util/type_traits/int_pack.h"
 

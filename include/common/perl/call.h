@@ -6,6 +6,7 @@
 
 #include "common/debug/dout.h"
 #include "common/perl/eval_error.h"
+#include "common/perl/interpreter.h"
 
 #define CHECK_ERROR     \
   if (SvTRUE (ERRSV))   \
@@ -119,7 +120,8 @@ template<typename R, typename... Args>
 struct perl_caller
   : perl_caller_base
 {
-  static R call (char const* method, Args const&... args)
+  template<typename Interpreter>
+  static R call (Interpreter& perl, char const* method, Args const&... args)
   {
     dout.acquire ();
 
@@ -127,11 +129,10 @@ struct perl_caller
     dout.pretty (method);
     print (args...);
     dout << ')';
-    R const& retval = server->call<R> (method, args...);
-    dout << " = ";
-    dout.pretty (retval);
-
     dout.release (purple_debug_info, "ffi");
+    R const& retval = perl.call<R> (method, args...);
+    dout.atomic (purple_debug_info, "ffi") ("call to ", method, " returned ", retval);
+
     return retval;
   }
 };
@@ -141,7 +142,8 @@ template<typename... Args>
 struct perl_caller<void, Args...>
   : perl_caller_base
 {
-  static void call (char const* method, Args const&... args)
+  template<typename Interpreter>
+  static void call (Interpreter& perl, char const* method, Args const&... args)
   {
     dout.acquire ();
 
@@ -149,22 +151,22 @@ struct perl_caller<void, Args...>
     dout.pretty (method);
     print (args...);
     dout << ')';
+    dout.release (purple_debug_info, "ffi");
+
     // XXX: deadlock if the following call ends up here again. maybe remove
     // the whole locking thing and start stacking stringstreams?
-    server->call<void> (method, args...);
-    dout << " = void";
-
-    dout.release (purple_debug_info, "ffi");
+    perl.call<void> (method, args...);
+    dout.atomic (purple_debug_info, "ffi") ("call returned void");
   }
 };
 
 // This function just creates a perl_caller, taking advantage of argument
 // type deduction to simplify client code.
-template<typename R, typename... Args>
+template<typename Interpreter, typename R, typename... Args>
 static inline R
-perl_call (char const* method, Args const&... args)
+perl_call (Interpreter& perl, char const* method, Args const&... args)
 {
-  return perl_caller<R, Args...>::call (method, args...);
+  return perl_caller<R, Args...>::call (perl, method, args...);
 }
 
 // vim:ft=xs

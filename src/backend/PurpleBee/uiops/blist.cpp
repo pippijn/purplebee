@@ -1,9 +1,8 @@
 /* Copyright © 2010 Pippijn van Steenhoven
  * See COPYING.AGPL for licence information.
  */
-#include "backend/PurpleBee.h"
+#include "backend/PurpleBee/perl_call.h"
 #include "backend/uiops/blist.h"
-#include "common/perl/call.tcc"
 
 #define OPS "UiOps::Blist::"
 

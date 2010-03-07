@@ -24,7 +24,7 @@ signifying that the timer was successfully removed.
 
 sub timeout_remove {
    my ($self, $handle) = @_;
-   $self->print ("PurpleBee::UiOps::EventLoop::timeout_remove ($handle)");
+   PurpleBee::Debug::info "event", "PurpleBee::UiOps::EventLoop::timeout_remove ($handle)";
 
    if ($timeouts[$handle]) {
       undef $timeouts[$handle];
@@ -51,7 +51,7 @@ purple_timeout_remove() to remove the timer.
 
 sub timeout_add_seconds {
    my ($self, $interval, $closure) = @_;
-   $self->print ("PurpleBee::UiOps::EventLoop::timeout_add_seconds ($interval, $closure)");
+   PurpleBee::Debug::info "event", "PurpleBee::UiOps::EventLoop::timeout_add_seconds ($interval, $closure)";
 
    # Find the next free @timeouts-index.
    # This loop will loop until @timeouts, which is one index after the last
@@ -65,13 +65,12 @@ sub timeout_add_seconds {
             after       => $interval,
             interval    => $interval,
             cb          => sub {
-               $self->print ("timeout_seconds $handle = $closure");
+               PurpleBee::Debug::info "event", "timer of $interval seconds timed out";
                timeout_remove $self, $handle
                   unless $closure->call
             },
          );
 
-         $self->print ("timeout_add_seconds = $handle");
          return $handle
       }
    }
@@ -87,7 +86,7 @@ The same as timeout_add_seconds except that the interval is in milliseconds.
 
 sub timeout_add {
    my ($self, $interval, $closure) = @_;
-   $self->print ("PurpleBee::UiOps::EventLoop::timeout_add ($interval, $closure)");
+   PurpleBee::Debug::info "event", "PurpleBee::UiOps::EventLoop::timeout_add ($interval, $closure)";
 
    timeout_add_seconds $self, $interval / 1000, $closure
 }
@@ -114,23 +113,27 @@ use constant {
 
 sub input_add {
    my ($self, $fd, $cond, $closure) = @_;
-   $self->print ("PurpleBee::UiOps::EventLoop::input_add ($fd, $cond, $closure)");
+   PurpleBee::Debug::info "event", "PurpleBee::UiOps::EventLoop::input_add ($fd, $cond, $closure)";
 
    for my $handle (0 .. @inputhandlers) { # find the next free @inputhandlers-index
       if (!$inputhandlers[$handle]) {
          $inputhandlers[$handle]{read} = AnyEvent->io (
             fh   => $fd,
             poll => 'r',
-            cb   => sub { $self->print ("input[r] $handle (fd=$fd) = $closure"); $closure->call }
+            cb   => sub {
+               PurpleBee::Debug::info "event", "read I/O on fd $fd ready";
+               $closure->call
+            },
          ) if $cond & IO_READ;
 
          $inputhandlers[$handle]{write} = AnyEvent->io (
             fh   => $fd,
             poll => 'w',
-            cb   => sub { $self->print ("input[w] $handle (fd=$fd) = $closure"); $closure->call }
+            cb   => sub {
+               PurpleBee::Debug::info "event", "write I/O on fd $fd ready";
+               $closure->call
+            },
          ) if $cond & IO_WRITE;
-
-         $self->print ("input_add = $handle");
 
          return $handle # guint
       }
@@ -146,7 +149,7 @@ sub input_add {
 
 sub input_remove {
    my ($self, $handle) = @_;
-   $self->print ("PurpleBee::UiOps::EventLoop::input_remove ($handle)");
+   PurpleBee::Debug::info "event", "PurpleBee::UiOps::EventLoop::input_remove ($handle)";
 
    if ($inputhandlers[$handle]) {
       undef $inputhandlers[$handle];
@@ -171,7 +174,7 @@ sub input_remove {
 
 sub input_get_error {
    my ($self, $fd, $error) = @_;
-   $self->print ("PurpleBee::UiOps::EventLoop::input_get_error ($fd, $error)");
+   PurpleBee::Debug::info "event", "PurpleBee::UiOps::EventLoop::input_get_error ($fd, $error)";
 
    0 # int
 }

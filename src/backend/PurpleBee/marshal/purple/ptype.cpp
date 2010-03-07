@@ -5,11 +5,12 @@
 
 #include <purple.h>
 
-#include "backend/PurpleBee.h"
-#include "backend/PurpleBee/Closure.h"
 #include "common/perl/interpreter.h"
 #include "common/perl/package.h"
 #include "common/util/xassert.h"
+
+#include "backend/PurpleBee.h"
+#include "backend/PurpleBee/Closure.h"
 
 namespace
 {

@@ -6,23 +6,23 @@ use common::sense;
 
 sub ui_prefs_init {
    my ($self) = @_;
-   $self->print ("PurpleBee::UiOps::Core::ui_prefs_init");
+   PurpleBee::Debug::info "perl", "PurpleBee::UiOps::Core::ui_prefs_init";
 }
 
 sub debug_ui_init {
    my ($self) = @_;
-   $self->print ("PurpleBee::UiOps::Core::debug_ui_init");
+   PurpleBee::Debug::info "perl", "PurpleBee::UiOps::Core::debug_ui_init";
    $self->valgrind;
 }
 
 sub ui_init {
    my ($self) = @_;
-   $self->print ("PurpleBee::UiOps::Core::ui_init");
+   PurpleBee::Debug::info "perl", "PurpleBee::UiOps::Core::ui_init";
 }
 
 sub quit {
    my ($self) = @_;
-   $self->print ("PurpleBee::UiOps::Core::quit");
+   PurpleBee::Debug::info "perl", "PurpleBee::UiOps::Core::quit";
 }
 
 # Returns a hash table containing various information about the UI.  The
@@ -55,7 +55,7 @@ sub quit {
 # @since 2.1.0
 sub get_ui_info {
    my ($self) = @_;
-   $self->print ("PurpleBee::UiOps::Core::get_ui_info");
+   PurpleBee::Debug::info "perl", "PurpleBee::UiOps::Core::get_ui_info";
 
    {
       name 	  => PurpleBee::PACKAGE_NAME,

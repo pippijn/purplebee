@@ -5,19 +5,30 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Closure
 
 void
 PurpleBeeClosure::DESTROY ()
-    CODE:
-    printf ("destroying callback %p (%s)\n", THIS, SvPV_nolen (ST (0)));
-    delete THIS;
 
 SV*
 PurpleBeeClosure::call ()
     CODE:
 {
-    purple_debug_info ("closure", "calling callback %p (%s)\n", THIS, SvPV_nolen (ST (0)));
+    static int const max_count = 200;
+    static int same_count = 1;
+    static auto last = THIS;
+    if (THIS == last)
+      same_count++;
+    else
+      {
+        last = THIS;
+        same_count = 1;
+      }
+    if (same_count > max_count)
+      {
+        purple_debug_fatal ("closure", "freak invocation loop: invoked closure %p over %d times in a row", THIS, max_count);
+        croak ("fatal error");
+      }
+
     alarm (10);
-    RETVAL = THIS->call ();
+    RETVAL = THIS->invoke ();
     alarm (0);
-    purple_debug_info ("closure", "callback returned `%s'\n", SvPV_nolen (RETVAL));
 }
     OUTPUT:
     RETVAL

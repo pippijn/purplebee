@@ -1,7 +1,6 @@
 /* Copyright © 2010 Pippijn van Steenhoven
  * See COPYING.AGPL for licence information.
  */
-#pragma GCC diagnostic ignored "-Wunused-parameter"
 #pragma GCC diagnostic ignored "-Wunused-variable"
 
 #include <EXTERN.h>
@@ -10,10 +9,11 @@
 
 #include <purple.h>
 
-#include "backend/PurpleBee.h"
-#include "backend/PurpleBee/Closure.h"
 #include "common/debug/backtrace.h"
 #include "common/perl/util.h"
+
+#include "backend/PurpleBee.h"
+#include "backend/PurpleBee/Closure.h"
 
 MODULE = PurpleBee      PACKAGE = PurpleBee
 

@@ -1,7 +1,9 @@
 /* Copyright © 2010 Pippijn van Steenhoven
  * See COPYING.AGPL for licence information.
  */
-#include "common/perl/closure.h"
+#pragma once
 
-// Good enough.
-typedef perl_closure PurpleBeeClosure;
+#include "backend/PurpleBee/operation.h"
+#include "common/util/closure.h"
+
+typedef closure<PurpleBee_operation> PurpleBeeClosure;

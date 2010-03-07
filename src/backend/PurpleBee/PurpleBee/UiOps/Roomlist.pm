@@ -6,32 +6,32 @@ use common::sense;
 
 sub show_with_account {
    my ($self, $account) = @_;
-   $self->print ("PurpleBee::UiOps::Roomlist::show_with_account ($account)");
+   PurpleBee::Debug::info "perl", "PurpleBee::UiOps::Roomlist::show_with_account ($account)";
 }
 
 sub create {
    my ($self, $list) = @_;
-   $self->print ("PurpleBee::UiOps::Roomlist::create ($list)");
+   PurpleBee::Debug::info "perl", "PurpleBee::UiOps::Roomlist::create ($list)";
 }
 
 sub set_fields {
    my ($self, $list, $fields) = @_;
-   $self->print ("PurpleBee::UiOps::Roomlist::set_fields ($list, $fields)");
+   PurpleBee::Debug::info "perl", "PurpleBee::UiOps::Roomlist::set_fields ($list, $fields)";
 }
 
 sub add_room {
    my ($self, $list, $room) = @_;
-   $self->print ("PurpleBee::UiOps::Roomlist::add_room ($list, $room)");
+   PurpleBee::Debug::info "perl", "PurpleBee::UiOps::Roomlist::add_room ($list, $room)";
 }
 
 sub in_progress {
    my ($self, $list, $flag) = @_;
-   $self->print ("PurpleBee::UiOps::Roomlist::in_progress ($list, $flag)");
+   PurpleBee::Debug::info "perl", "PurpleBee::UiOps::Roomlist::in_progress ($list, $flag)";
 }
 
 sub destroy {
    my ($self, $list) = @_;
-   $self->print ("PurpleBee::UiOps::Roomlist::destroy ($list)");
+   PurpleBee::Debug::info "perl", "PurpleBee::UiOps::Roomlist::destroy ($list)";
 }
 
 

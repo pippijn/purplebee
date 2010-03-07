@@ -29,8 +29,8 @@
 #define bfd_nonfatal(a) exit (1)
 #define list_matching_formats(a) exit (1)
 
-static size_t const intstr_len = log10 (SIZE_MAX) + 1;
-static size_t const ptrstr_len = intstr_len + 2; // for "0x"
+static size_t const intstr_len = log (SIZE_MAX) / log (10) + 1;
+static size_t const ptrstr_len = log (SIZE_MAX) / log (16) + 1 + 2; // for "0x"
 
 template<typename To, typename From>
 static bool
@@ -374,6 +374,7 @@ public:
 
   frame resolve_frame (void const* base)
   {
+    xassert (base);
     if (!check_bfd ())
       return { "<file>", "<func>", 0 };
 
@@ -385,13 +386,14 @@ public:
     xassert (pthread_mutex_unlock (&mtx) == 0);
 
     return frame;
-#else
-    (void)base;
 #endif
   }
 
   std::vector<frame> backtrace_symbols (void* const* buffer, size_t size)
   {
+    xassert (buffer);
+    xassert (size > 0);
+
     size_t stack_depth = size;
     std::vector<frame> frames;
 
@@ -411,8 +413,6 @@ public:
     xassert (pthread_mutex_unlock (&mtx) == 0);
 
     return frames;
-#else
-    (void)buffer;
 #endif
   }
 };

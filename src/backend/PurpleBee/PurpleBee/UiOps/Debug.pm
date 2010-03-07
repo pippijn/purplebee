@@ -4,16 +4,24 @@ package PurpleBee::UiOps::Debug;
 
 use common::sense;
 
+use Time::HiRes 'time';
+
+my @names = qw(ALL MISC INFO WARNING ERROR FATAL);
+
+my $start = time;
+
 sub print {
    my ($self, $level, $category, $arg_s) = @_;
-   #$self->print ("PurpleBee::UiOps::Debug::print ($level, $category, $arg_s)");
+   printf "%.4f %s [%s]: %s", time - $start, $names[$level], $category, $arg_s;
 }
 
 sub is_enabled {
    my ($self, $level, $category) = @_;
-   #$self->print ("PurpleBee::UiOps::Debug::is_enabled ($level, $category)");
 
-   0 # gboolean
+   $category eq "ffi"
+      or $category eq "closure"
+      or $category eq "event"
+      or $category eq "perl"
 }
 
 

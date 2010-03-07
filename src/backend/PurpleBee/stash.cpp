@@ -3,9 +3,10 @@
  */
 #include <purple.h>
 
+#include "common/perl/package.h"
+
 #include "backend/PurpleBee.h"
 #include "backend/PurpleBee/Closure.h"
-#include "common/perl/package.h"
 
 #define PTYPE(T, P) template<> HV* perl_package<PASTE (Purple, T)>::stash = 0;
 #include "backend/PurpleBee/types.h"

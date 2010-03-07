@@ -26,6 +26,7 @@ user interface:
 	  12:34  * pippijn is now away (Working)
 	- Changing away-state via a command in addition to /away.
 	- Initiating multi user chats.
+	- ICQ "Invisible" and "Invisible for all" statuses.
 
 libpurple:
 	- Sending ICQ nick changes back to the server.
