@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Account            PREFIX = purple_
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleAccount*
 purple_account_new (char const* username, char const* protocol_id);
 

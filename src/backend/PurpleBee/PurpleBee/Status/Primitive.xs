@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Status::Primitive          PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 char const*
 purple_primitive_get_id_from_type (PurpleStatusPrimitive type);
 

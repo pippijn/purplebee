@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Mime::Document             PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleMimeDocument*
 purple_mime_document_new ();
 

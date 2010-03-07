@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Debug                      PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 void
 purple_debug_print (PurpleDebugLevel level, char const* category, char const* format)
     CODE:

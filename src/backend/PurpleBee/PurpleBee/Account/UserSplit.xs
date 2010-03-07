@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Account::UserSplit PREFIX = purple_
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleAccountUserSplit*
 purple_account_user_split_new (char const* text, char const* default_value, char sep);
 

@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Xfers                      PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 GList*
 purple_xfers_get_all ();
 

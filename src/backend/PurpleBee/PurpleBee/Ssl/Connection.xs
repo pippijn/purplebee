@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Ssl::Connection    PREFIX = purple_
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 void
 purple_ssl_input_add (PurpleSslConnection* gsc, PurpleSslInputFunction func, void* data);
 

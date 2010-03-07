@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Pounce                     PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurplePounce*
 purple_pounce_new (char const* ui_type, PurpleAccount* pouncer, char const* pouncee, PurplePounceEvent event, PurplePounceOption option);
 

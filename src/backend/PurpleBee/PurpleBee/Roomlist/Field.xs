@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Roomlist::Field            PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleRoomlistField*
 purple_roomlist_field_new (PurpleRoomlistFieldType type, gchar const* label, gchar const* name, gboolean hidden);
 

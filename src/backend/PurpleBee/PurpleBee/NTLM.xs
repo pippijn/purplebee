@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::NTLM                       PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 gchar*
 purple_ntlm_gen_type1 (gchar const* hostname, gchar const* domain);
 

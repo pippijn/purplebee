@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Idle                       PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 void
 purple_idle_touch ();
 

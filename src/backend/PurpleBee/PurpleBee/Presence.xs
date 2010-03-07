@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Presence                   PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurplePresence*
 purple_presence_new (PurplePresenceContext context);
 

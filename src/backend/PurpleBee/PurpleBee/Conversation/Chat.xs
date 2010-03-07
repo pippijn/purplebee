@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Conversation::Chat         PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleConversation*
 purple_conv_chat_get_conversation (PurpleConvChat* chat);
 

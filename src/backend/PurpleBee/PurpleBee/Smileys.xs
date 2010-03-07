@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Smileys            PREFIX = purple_
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 GList*
 purple_smileys_get_all ();
 

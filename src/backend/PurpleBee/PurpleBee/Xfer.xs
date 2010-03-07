@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Xfer                       PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleXfer*
 purple_xfer_new (PurpleAccount* account, PurpleXferType type, char const* who);
 

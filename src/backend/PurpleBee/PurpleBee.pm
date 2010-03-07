@@ -11,6 +11,20 @@ BEGIN {
    }
 }
 
+#sub boot_all {
+   #my ($pkg) = @_;
+   #$pkg =~ /::/ and $pkg->bootstrap;
+   #print "booting $pkg\n";
+   #my $symtab = \%{$pkg . '::'};
+   #for my $sym (grep { /::$/ } keys %$symtab) {
+      #my ($subpkg) = $sym =~ /(.*)::$/;
+      #boot_all ("${pkg}::$subpkg");
+   #}
+#}
+
+#boot_all "PurpleBee";
+#kill 'TERM', $$;
+
 use AnyEvent;
 
 use PurpleBee::UiOps::Account;

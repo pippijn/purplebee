@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::SavedStatus                PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleSavedStatus*
 purple_savedstatus_new (char const* title, PurpleStatusPrimitive type);
 

@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Account::Option    PREFIX = purple_
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleAccountOption*
 purple_account_option_new (PurplePrefType type, char const* text, char const* pref_name);
 

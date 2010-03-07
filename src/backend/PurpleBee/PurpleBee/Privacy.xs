@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Privacy                    PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 gboolean
 purple_privacy_permit_add (PurpleAccount* account, char const* name, gboolean local_only);
 

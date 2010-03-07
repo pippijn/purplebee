@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Cmds                       PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 gpointer
 purple_cmds_get_handle ();
 

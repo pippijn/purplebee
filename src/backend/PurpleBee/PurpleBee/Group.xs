@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Group                      PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleGroup*
 purple_group_new (char const* name);
 

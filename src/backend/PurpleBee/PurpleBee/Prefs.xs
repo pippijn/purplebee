@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Prefs                      PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 void*
 purple_prefs_get_handle ();
 

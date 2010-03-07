@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Status::Attr               PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleStatusAttr*
 purple_status_attr_new (char const* id, char const* name, PurpleValue* value_type);
 

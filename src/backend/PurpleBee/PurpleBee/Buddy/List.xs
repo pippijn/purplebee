@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Buddy::List        PREFIX = purple_
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleBuddyList*
 purple_blist_new ();
 

@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Chat                       PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleChat*
 purple_chat_new (PurpleAccount* account, char const* alias, GHashTable* components);
 

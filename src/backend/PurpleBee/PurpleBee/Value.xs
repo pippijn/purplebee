@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Value              PREFIX = purple_
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 #PurpleValue*
 #purple_value_new (PurpleType type, ...);
 

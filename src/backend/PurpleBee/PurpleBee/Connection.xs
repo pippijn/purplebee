@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Connection         PREFIX = purple_
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 void
 purple_connection_set_state (PurpleConnection* gc, PurpleConnectionState state);
 

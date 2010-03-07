@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::SavedStatuses              PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 GList*
 purple_savedstatuses_get_all ();
 

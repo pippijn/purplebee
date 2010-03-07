@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Closure
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 void
 PurpleBeeClosure::DESTROY ()
     CODE:

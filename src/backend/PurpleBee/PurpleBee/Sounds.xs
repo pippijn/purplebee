@@ -3,5 +3,9 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Sounds             PREFIX = purple_
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 void*
 purple_sounds_get_handle ();

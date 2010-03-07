@@ -29,6 +29,7 @@ user interface:
 	- ICQ "Invisible" and "Invisible for all" statuses.
 	- Support account creation from within the UI.
 	- Automatic rejection of spambots (for example by regex match).
+	- Add/remove users from invisible list.
 
 libpurple:
 	- Sending ICQ nick changes back to the server.

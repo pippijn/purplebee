@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Whiteboard                 PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 void
 purple_whiteboard_set_ui_ops (PurpleWhiteboardUiOps* ops);
 

@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Stringref          PREFIX = purple_
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleStringref*
 purple_stringref_new (char const* value);
 

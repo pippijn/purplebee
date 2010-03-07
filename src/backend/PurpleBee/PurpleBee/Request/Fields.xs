@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Request::Fields            PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleRequestFields*
 purple_request_fields_new ();
 

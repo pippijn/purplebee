@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::EventLoop                  PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 guint
 purple_timeout_add (guint interval, GSourceFunc function, gpointer data);
 

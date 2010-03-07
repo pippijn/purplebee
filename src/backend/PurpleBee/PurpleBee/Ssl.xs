@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Ssl                PREFIX = purple_
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 gboolean
 purple_ssl_is_supported ();
 

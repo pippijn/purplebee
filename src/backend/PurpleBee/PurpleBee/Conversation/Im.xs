@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Conversation::Im           PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleConversation*
 purple_conv_im_get_conversation (PurpleConvIm* im);
 

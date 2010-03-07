@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Certificate                PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 void
 purple_certificate_verify (PurpleCertificateVerifier* verifier, gchar const* subject_name, GList* cert_chain, PurpleCertificateVerifiedCallback cb, gpointer cb_data);
 

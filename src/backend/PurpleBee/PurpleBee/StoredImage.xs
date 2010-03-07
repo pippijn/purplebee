@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::StoredImage        PREFIX = purple_
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleStoredImage*
 purple_imgstore_add (gpointer data, size_t size, char const* filename);
 

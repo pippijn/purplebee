@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Cmd                        PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleCmdId
 purple_cmd_register (gchar const* cmd, gchar const* args, PurpleCmdPriority p, PurpleCmdFlag f, gchar const* prpl_id, PurpleCmdFunc func, gchar const* helpstr, void* data);
 

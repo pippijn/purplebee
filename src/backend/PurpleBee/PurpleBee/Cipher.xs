@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Cipher                     PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 gchar const*
 purple_cipher_get_name (PurpleCipher* cipher);
 

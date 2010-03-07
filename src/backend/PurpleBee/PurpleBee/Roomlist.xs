@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Roomlist                   PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 void
 purple_roomlist_show_with_account (PurpleAccount* account);
 

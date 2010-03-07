@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Request                    PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 void*
 purple_request_input (void* handle, char const* title, char const* primary, char const* secondary, char const* default_value, gboolean multiline, gboolean masked, gchar* hint, char const* ok_text, GCallback ok_cb, char const* cancel_text, GCallback cancel_cb, PurpleAccount* account, char const* who, PurpleConversation* conv, void* user_data);
 

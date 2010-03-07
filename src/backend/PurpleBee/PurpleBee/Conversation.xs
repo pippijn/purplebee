@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Conversation       PREFIX = purple_
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleConversation*
 purple_conversation_new (PurpleConversationType type, PurpleAccount* account, char const* name);
 

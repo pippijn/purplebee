@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Buddy              PREFIX = purple_
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleBuddy*
 purple_buddy_new (PurpleAccount* account, char const* name, char const* alias);
 

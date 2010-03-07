@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Sound::Theme               PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 GType
 purple_sound_theme_get_type ();
 

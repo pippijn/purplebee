@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Notify                     PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 void*
 purple_notify_searchresults (PurpleConnection* gc, char const* title, char const* primary, char const* secondary, PurpleNotifySearchResults* results, PurpleNotifyCloseCallback cb, gpointer user_data);
 

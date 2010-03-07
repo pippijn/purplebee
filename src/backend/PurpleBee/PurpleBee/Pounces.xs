@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Pounces                    PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 gboolean
 purple_pounces_load ();
 

@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Network                    PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 char unsigned const*
 purple_network_ip_atoi (char const* ip);
 

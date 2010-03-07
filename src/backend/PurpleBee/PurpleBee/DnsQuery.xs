@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::DnsQuery                   PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleDnsQueryData*
 purple_dnsquery_a (char const* hostname, int port, PurpleDnsQueryConnectFunction callback, gpointer data);
 

@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Buddy::Icon        PREFIX = purple_
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleBuddyIcon*
 purple_buddy_icon_new (PurpleAccount* account, char const* username, void* icon_data, size_t icon_len, char const* checksum);
 

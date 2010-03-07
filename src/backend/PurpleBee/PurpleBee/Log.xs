@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Log                        PREFIX =
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 PurpleLog*
 purple_log_new (PurpleLogType type, char const* name, PurpleAccount* account, PurpleConversation* conv, time_t time, struct tm* tm);
 

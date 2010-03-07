@@ -3,6 +3,10 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Core               PREFIX = purple_
 # See COPYING.AGPL for licence information.
 
 
+BOOT:
+{
+}
+
 gboolean
 purple_core_init (char const* ui);
 
