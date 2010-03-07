@@ -36,7 +36,13 @@ BOOT:
 void
 PurpleBee::print_backtrace ()
     CODE:
+{
+#if HAVE_LAMBDA
+    print_backtrace ([](char const* msg) { purple_debug_info ("backtrace", "%s", msg); });
+#else
     print_backtrace ();
+#endif
+}
 
 char const*
 PurpleBee::package ()

@@ -26,6 +26,12 @@ sub timeout_remove {
    my ($self, $handle) = @_;
    PurpleBee::Debug::info "event", "PurpleBee::UiOps::EventLoop::timeout_remove ($handle)";
 
+   if ($handle == 0) {
+      PurpleBee::Debug::warning "event", "handle passed was 0";
+      $self->print_backtrace;
+      return 0
+   }
+
    if ($timeouts[$handle - 1]) {
       undef $timeouts[$handle - 1];
       return 1
@@ -57,11 +63,13 @@ sub timeout_add_seconds {
    # This loop will loop until @timeouts, which is one index after the last
    # one.  Thus, if there is no free spot, it will simply push the timer onto
    # the array.
-   for my $handle (0 .. @timeouts) {
+   # Also worth noting is the +1 and -1 everywhere in this code. It's there so
+   # we don't waste index 0 but never return 0 to the callee.
+   for my $handle (1 .. @timeouts + 1) {
       # If $handle is currently free,
-      if (!$timeouts[$handle]) {
+      if (!$timeouts[$handle - 1]) {
          # create a new timer and put it into the array
-         $timeouts[$handle] = AnyEvent->timer (
+         $timeouts[$handle - 1] = AnyEvent->timer (
             after       => $interval,
             interval    => $interval,
             cb          => sub {
@@ -71,7 +79,7 @@ sub timeout_add_seconds {
             },
          );
 
-         return $handle + 1
+         return $handle
       }
    }
 
@@ -115,9 +123,9 @@ sub input_add {
    my ($self, $fd, $cond, $closure) = @_;
    PurpleBee::Debug::info "event", "PurpleBee::UiOps::EventLoop::input_add ($fd, $cond, $closure)";
 
-   for my $handle (0 .. @inputhandlers) { # find the next free @inputhandlers-index
-      if (!$inputhandlers[$handle]) {
-         $inputhandlers[$handle]{read} = AnyEvent->io (
+   for my $handle (1 .. @inputhandlers + 1) { # find the next free @inputhandlers-index
+      if (!$inputhandlers[$handle - 1]) {
+         $inputhandlers[$handle - 1]{read} = AnyEvent->io (
             fh   => $fd,
             poll => 'r',
             cb   => sub {
@@ -126,7 +134,7 @@ sub input_add {
             },
          ) if $cond & IO_READ;
 
-         $inputhandlers[$handle]{write} = AnyEvent->io (
+         $inputhandlers[$handle - 1]{write} = AnyEvent->io (
             fh   => $fd,
             poll => 'w',
             cb   => sub {
@@ -135,7 +143,7 @@ sub input_add {
             },
          ) if $cond & IO_WRITE;
 
-         return $handle + 1
+         return $handle
       }
    }
 
