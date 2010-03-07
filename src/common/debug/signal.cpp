@@ -8,9 +8,12 @@
 
 #include <ucontext.h>
 #include <unistd.h>
+#include <sys/wait.h>
 
 #include "common/debug/backtrace.h"
 #include "common/debug/signal.h"
+
+bool spawn_gdb = true;
 
 // large stack, but it's important data we want to save
 static size_t const stacksize = 8 * 1024 * 1024 + SIGSTKSZ;
@@ -162,17 +165,40 @@ fault_action (int signum, siginfo_t* si, void* vctx)
 
   printf (" caused by %s\n", strsicode (si->si_signo, si->si_code));
 
-  printf ("==%d== stack at %p, %zu KiB\n"
-          , self
-          , ctx->uc_stack.ss_sp
-          , ctx->uc_stack.ss_size / 1024
-          );
-  printf ("==%d==\n", self);
+  if (spawn_gdb)
+    {
+      printf ("==%d== spawning and attaching the GNU debugger\n", self);
+      if (!fork ())
+        {
+          char pidbuf[5 + 1]; // 5 characters for PID, 1 for '\0'
+          snprintf (pidbuf, sizeof pidbuf, "%d", self);
+          execlp ("gdb", "gdb", "-p", pidbuf, NULL);
 
-  print_backtrace (self);
+          exit (EXIT_FAILURE);
+        }
 
-  signal (signum, SIG_DFL);
-  raise (signum);
+      volatile bool waiting = true;
+      while (waiting)
+        ;
+
+      int gdb_status;
+      wait (&gdb_status); // wait for gdb
+      exit (EXIT_FAILURE);
+    }
+  else
+    {
+      printf ("==%d== stack at %p, %zu KiB\n"
+              , self
+              , ctx->uc_stack.ss_sp
+              , ctx->uc_stack.ss_size / 1024
+             );
+      printf ("==%d==\n", self);
+
+      print_backtrace (self);
+
+      signal (signum, SIG_DFL);
+      raise (signum);
+    }
 }
 
 static struct sigaction

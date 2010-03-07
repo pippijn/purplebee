@@ -21,7 +21,7 @@ print_backtrace (int pid) throw ()
   size_t size = backtrace (buffer, array_size (buffer));
   frame* frames = backtrace_frames (buffer, size);
 
-  size_t i = 0;
+  size_t i = 2;
   printf ("==%d==    at %s (%s:%ld)\n", pid, frames[i].func, frames[i].file, frames[i].line);
   for (++i; i < size; i++)
     printf ("==%d==    by %s (%s:%ld)\n", pid, frames[i].func, frames[i].file, frames[i].line);

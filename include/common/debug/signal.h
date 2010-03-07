@@ -14,4 +14,7 @@ void init_signals ();
 // XXX: init_signals does not save the old signal handlers. Maybe it should.
 void uninit_signals ();
 
+// Controls whether a caught signal should spawn gdb and attach it to our PID.
+extern bool spawn_gdb;
+
 END_DECLS
