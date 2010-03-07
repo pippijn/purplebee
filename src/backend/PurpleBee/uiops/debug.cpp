@@ -66,7 +66,7 @@ namespace uiops
     fprintf (stderr
             , "[%5ld.%06ld] %s %s: %s\n"
             , diff.tv_sec
-            , diff.tv_usec / 1000
+            , diff.tv_usec
             , catname[level]
             , category
             , arg_s);
