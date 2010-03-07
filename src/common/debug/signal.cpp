@@ -167,6 +167,11 @@ fault_action (int signum, siginfo_t* si, void* vctx)
 
   if (spawn_gdb)
     {
+      static bool in_gdb = false;
+      if (in_gdb)
+        exit (EXIT_FAILURE);
+      in_gdb = true;
+
       printf ("==%d== spawning and attaching the GNU debugger\n", self);
       if (!fork ())
         {
