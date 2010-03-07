@@ -131,7 +131,7 @@ struct perl_caller
     dout << ')';
     dout.release (purple_debug_info, "ffi");
     R const& retval = perl.call<R> (method, args...);
-    dout.atomic (purple_debug_info, "ffi") ("call to ", method, " returned ", retval);
+    dout.atomic (purple_debug_info, "ffi") ("call to ", method, " returned `", retval, "'");
 
     return retval;
   }

@@ -193,6 +193,8 @@ fault_action (int signum, siginfo_t* si, void* vctx)
           int gdb_status;
           waitpid (gdb, &gdb_status, 0);
           kill (self, SIGTERM);
+          sleep (5);
+          kill (self, SIGKILL);
           _Exit (EXIT_SUCCESS);
         }
 

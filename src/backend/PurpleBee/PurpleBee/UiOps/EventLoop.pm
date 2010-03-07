@@ -65,7 +65,7 @@ sub timeout_add_seconds {
             after       => $interval,
             interval    => $interval,
             cb          => sub {
-               PurpleBee::Debug::info "event", "timer $handle of $interval seconds timed out";
+               PurpleBee::Debug::info "event", "timer $handle ($interval seconds) timed out";
                timeout_remove $self, $handle
                   unless $closure->call
             },
