@@ -191,8 +191,6 @@ fault_action (int signum, siginfo_t* si, void* vctx)
 
           int gdb_status;
           waitpid (gdb, &gdb_status, 0);
-          printf ("==%d== waiting 3 second for the parent process to terminate\n", getpid ());
-          sleep (3);
           kill (self, SIGKILL);
           _Exit (EXIT_SUCCESS);
         }
