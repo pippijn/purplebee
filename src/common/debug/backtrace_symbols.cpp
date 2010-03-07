@@ -245,7 +245,7 @@ private:
     if (!found)
       {
         char addrstr[ptrstr_len + 3];
-        snprintf (addrstr, sizeof addrstr, "0x%llx", (uint64_t)addr[naddr - 1]);
+        snprintf (addrstr, sizeof addrstr, "0x%llx", (unsigned long long)addr[naddr - 1]);
         return { addrstr, "???", 0 };
       }
     else

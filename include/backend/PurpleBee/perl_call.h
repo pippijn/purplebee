@@ -1,3 +1,6 @@
+/* Copyright © 2010 Pippijn van Steenhoven
+ * See COPYING.AGPL for licence information.
+ */
 #include "backend/PurpleBee.h"
 #include "common/perl/call.h"
 
