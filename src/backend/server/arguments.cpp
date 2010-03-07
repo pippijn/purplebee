@@ -67,6 +67,7 @@ parse_arguments (int argc, char** argv)
       puts ("Individual source files are AGPLv3+: <http://gnu.org/licenses/agpl.html>");
       puts ("");
       puts ("Written by Pippijn van Steenhoven and Moritz Wilhelmy");
+      arg_freetable (argtable, table.size ());
       return parse_status::success;
     }
 
@@ -74,8 +75,10 @@ parse_arguments (int argc, char** argv)
     {
       arg_print_errors (stdout, end, g_get_prgname ());
       printf ("Try `%s --help' for more information.\n", g_get_prgname ());
+      arg_freetable (argtable, table.size ());
       return parse_status::failure;
     }
 
+  arg_freetable (argtable, table.size ());
   return parse_status::resume;
 }

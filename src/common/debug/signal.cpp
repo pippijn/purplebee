@@ -14,8 +14,8 @@
 #include "common/debug/signal.h"
 #include "common/util/xassert.h"
 
-//bool spawn_gdb = true;
-bool spawn_gdb = false;
+bool spawn_gdb = true;
+//bool spawn_gdb = false;
 
 // large stack, but it's important data we want to save
 static size_t const stacksize = 8 * 1024 * 1024 + SIGSTKSZ;

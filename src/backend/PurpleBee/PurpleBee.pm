@@ -4,7 +4,13 @@ package PurpleBee;
 
 use common::sense;
 
-use EV;
+BEGIN {
+   eval {
+      require EV;
+      $EV::DIED = sub { PurpleBee::Debug::fatal "event", "error in event: $@"; exit };
+   }
+}
+
 use AnyEvent;
 
 use PurpleBee::UiOps::Account;
@@ -25,8 +31,6 @@ use PurpleBee::UiOps::Whiteboard;
 use PurpleBee::UiOps::Xfer;
 
 our $runcv = AnyEvent->condvar;
-
-$EV::DIED = sub { PurpleBee::Debug::fatal "event", "error in event: $@"; exit };
 
 sub main {
    my ($self, $username, $password, $protocol) = @_;

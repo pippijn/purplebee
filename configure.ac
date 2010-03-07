@@ -51,7 +51,6 @@ fi
 
 for module_vers in      \
    "AnyEvent 5.2"       \
-   "EV 3.9"       	\
 ; do
    set -- $module_vers
    module=$1
