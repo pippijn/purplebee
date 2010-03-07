@@ -26,8 +26,8 @@ sub timeout_remove {
    my ($self, $handle) = @_;
    PurpleBee::Debug::info "event", "PurpleBee::UiOps::EventLoop::timeout_remove ($handle)";
 
-   if ($timeouts[$handle]) {
-      undef $timeouts[$handle];
+   if ($timeouts[$handle - 1]) {
+      undef $timeouts[$handle - 1];
       return 1
    }
 
@@ -71,7 +71,7 @@ sub timeout_add_seconds {
             },
          );
 
-         return $handle
+         return $handle + 1
       }
    }
 

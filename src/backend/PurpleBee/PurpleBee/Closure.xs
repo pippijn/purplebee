@@ -38,7 +38,7 @@ PurpleBeeClosure::call ()
 
     if (frame const* frames = THIS->frames ())
       {
-#if TRACE_CLOSURE
+#if HAVE_LAMBDA
         auto print = [](char const* text)
         {
           if (text[0] == 'a' && text[1] == 't')

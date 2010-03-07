@@ -56,5 +56,9 @@ AM_CPPFLAGS		+= -DMANDIR='"$(mandir)"'
 include include/Rules.am
 include src/Rules.am
 
+EXTRA_DIST +=		\
+	COPYING.AGPL	\
+	suppressions
+
 -include prepare
 prepare:	

@@ -18,6 +18,35 @@ AM_INIT_AUTOMAKE([silent-rules gnits])
 AM_SILENT_RULES
 AM_DEFAULT_VERBOSITY=0
 
+# C++ feature requirements
+CPPFLAGS="$CPPFLAGS -std=c++0x"
+AC_MSG_CHECKING([for variadic template support])
+AC_COMPILE_IFELSE(
+   [AC_LANG_PROGRAM([[
+      template<typename... Args>
+      struct variadic;
+   ]])],
+   [AC_MSG_RESULT([yes])],
+   [AC_MSG_ERROR([your compiler does not support C++ variadic templates])]
+)
+
+AC_MSG_CHECKING([for lambda expression support])
+AC_COMPILE_IFELSE(
+   [AC_LANG_PROGRAM([[
+      auto lambda = [](char const* msg) { };
+      void test () {
+         lambda ("Hello");
+      }
+   ]])],
+   [AC_MSG_RESULT([yes])
+    AC_DEFINE([HAVE_LAMBDA], 1, [Define if your compiler supports C++ lambda expressions])
+   ],
+   [AC_MSG_RESULT([no])]
+)
+
+# C++ library requirements
+AC_CHECK_HEADERS([tuple unordered_map type_traits boost/bimap.hpp])
+
 # debugging
 AC_CHECK_HEADERS([valgrind/valgrind.h valgrind/memcheck.h bfd.h execinfo.h])
 
@@ -49,8 +78,9 @@ if test -z "$PERL"; then
    fi
 fi
 
-for module_vers in      \
-   "AnyEvent 5.2"       \
+for module_vers in		\
+   "AnyEvent 5.2"		\
+   "common::sense 3.0"		\
 ; do
    set -- $module_vers
    module=$1
