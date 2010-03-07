@@ -26,7 +26,7 @@ struct frame
 void print_backtrace (int pid DEFAULT_ARG (0)) NOTHROW;
 char** backtrace_symbols (void* const* buffer, int size) NOTHROW;
 frame* backtrace_frames (void* const* buffer, int size) NOTHROW;
-char* resolve_symbol (void* sym) NOTHROW;
+char* resolve_symbol (void const* sym) NOTHROW;
 
 END_DECLS
 
@@ -36,7 +36,7 @@ END_DECLS
 template<typename R, typename... Args>
 char* resolve_symbol (R sym (Args...))
 {
-  return resolve_symbol (reinterpret_cast<void*> (sym));
+  return resolve_symbol (reinterpret_cast<void const*> (sym));
 }
 
 #endif

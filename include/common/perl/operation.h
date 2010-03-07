@@ -18,7 +18,8 @@ struct perl_operation
   virtual void pre_call  (user_data_type& perl, closure_type const& function) { }
   virtual void post_call (user_data_type& perl, closure_type const& function, return_type const& RETVAL) { }
 
-  return_type operator () (user_data_type& perl, closure_type const& closure);
+  void const* symbol (user_data_type& perl, closure_type const& closure);
+  return_type invoke (user_data_type& perl, closure_type const& closure);
 };
 
 // void-return specialisation returning undef to perl.
@@ -33,5 +34,6 @@ struct perl_operation<void (*)(Args...), Args...>
   virtual void pre_call  (user_data_type& perl, closure_type const& function) { }
   virtual void post_call (user_data_type& perl, closure_type const& function, return_type const& RETVAL) { }
 
-  return_type operator () (user_data_type& perl, closure_type const& closure);
+  void const* symbol (user_data_type& perl, closure_type const& closure);
+  return_type invoke (user_data_type& perl, closure_type const& closure);
 };

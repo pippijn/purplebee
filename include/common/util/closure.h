@@ -17,6 +17,7 @@ struct closure
   virtual ~closure () { }
 
   virtual return_type invoke () = 0;
+  virtual void const* symbol () = 0;
 
   template<typename R, typename... Args>
   static closure* create (typename O<R, Args...>::user_data_type& user_data,
@@ -60,8 +61,13 @@ struct typed_closure
   {
   }
 
+  void const* symbol ()
+  {
+    return operation_type ().symbol (this->user_data, this->closure);
+  }
+
   return_type invoke ()
   {
-    return operation_type () (this->user_data, this->closure);
+    return operation_type ().invoke (this->user_data, this->closure);
   }
 };

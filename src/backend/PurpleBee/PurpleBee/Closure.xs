@@ -5,6 +5,12 @@ MODULE = PurpleBee      PACKAGE = PurpleBee::Closure
 
 void
 PurpleBeeClosure::DESTROY ()
+    CODE:
+    void const* symbol = THIS->symbol ();
+    char* symname = resolve_symbol (symbol);
+    purple_debug_info ("closure", "deleting closure <%s>", symname);
+    free (symname);
+    delete THIS;
 
 SV*
 PurpleBeeClosure::call ()

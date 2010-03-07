@@ -504,7 +504,7 @@ catch (...)
 }
 
 char*
-resolve_symbol (void* sym) throw ()
+resolve_symbol (void const* sym) throw ()
 try
 {
   return strdup (stk.resolve_frame (sym).func.c_str ());
