@@ -34,6 +34,8 @@ try
 
   if (RUNNING_ON_VALGRIND)
     fprintf (stderr, "%s: running on valgrind, not catching signals\n", g_get_prgname ());
+  else if (fork_trace ())
+    fprintf (stderr, "%s: running in traced mode, signals are caught by watchdog\n", g_get_prgname ());
   else
     init_signals ();
   init_server (argc, argv, environ);
