@@ -1,0 +1,10 @@
+EXTRA_DIST +=					\
+	include/common/perl/call.h		\
+	include/common/perl/closure.h		\
+	include/common/perl/eval_error.h	\
+	include/common/perl/interpreter.h	\
+	include/common/perl/marshal.h		\
+	include/common/perl/operation.h		\
+	include/common/perl/operation_invoke.h	\
+	include/common/perl/package.h		\
+	include/common/perl/util.h

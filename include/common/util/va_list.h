@@ -1,3 +1,6 @@
+/* Copyright © 2010 Pippijn van Steenhoven
+ * See COPYING.AGPL for licence information.
+ */
 #pragma once
 
 #include <cstdarg>
@@ -5,8 +8,6 @@
 #include <ostream>
 #include <tuple>
 #include <vector>
-
-#include "common/util/type_traits/nth_type.h"
 
 template<typename... Info>
 struct va_list0

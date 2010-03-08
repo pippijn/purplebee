@@ -1,0 +1,20 @@
+include include/common/util/type_traits/Rules.am
+
+EXTRA_DIST +=					\
+	include/common/util/array_size.h	\
+	include/common/util/closure.h		\
+	include/common/util/common.h		\
+	include/common/util/init_error.h	\
+	include/common/util/invoke_closure.h	\
+	include/common/util/make_closure.h	\
+	include/common/util/make_closure_each.h	\
+	include/common/util/output.h		\
+	include/common/util/phoenix.h		\
+	include/common/util/placeholder.h	\
+	include/common/util/preprocessor.h	\
+	include/common/util/string.h		\
+	include/common/util/unimplemented.h	\
+	include/common/util/va_list.h		\
+	include/common/util/va_list_unpack.h	\
+	include/common/util/wrapper.h		\
+	include/common/util/xassert.h

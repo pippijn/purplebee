@@ -1,6 +1,6 @@
 EXTRA_DIST +=						\
 	include/backend/PurpleBee/Closure.h		\
-	include/backend/PurpleBee/marshal.h		\
+	include/backend/PurpleBee/callbacks.h		\
 	include/backend/PurpleBee/perl_call.h		\
 	include/backend/PurpleBee/types.h		\
 	include/backend/PurpleBee.h			\
