@@ -56,8 +56,10 @@ sub main {
               );
    my $account = PurpleBee::Account::new $username, $protocol
       or die;
+   $account->set_bool ("use_clientlogin", 0);
    $account->set_password ($password);
    $account->set_enabled ($self->package, 1);
+   PurpleBee::Accounts::add $account;
    my $status = PurpleBee::SavedStatus::new undef, 2
       or die;
    $status->activate;

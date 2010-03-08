@@ -1,6 +1,11 @@
 /* Copyright © 2010 Pippijn van Steenhoven
  * See COPYING.AGPL for licence information.
  */
+#include "common/util/make_closure.h"
+#include "common/util/make_closure_each.h"
+#include "common/util/va_list.h"
+
+#include "backend/PurpleBee/callbacks.h"
 #include "backend/PurpleBee/perl_call.h"
 #include "backend/uiops/request.h"
 
@@ -9,33 +14,156 @@
 namespace uiops
 {
   void*
-  request::request_input (const char* title, const char* primary, const char* secondary, const char* default_value, gboolean multiline, gboolean masked, gchar* hint, const char* ok_text, GCallback ok_cb, const char* cancel_text, GCallback cancel_cb, PurpleAccount* account, const char* who, PurpleConversation* conv, void* user_data)
+  request::request_input ( const char* title
+                         , const char* primary
+                         , const char* secondary
+                         , const char* default_value
+                         , gboolean multiline
+                         , gboolean masked
+                         , gchar* hint
+                         , const char* ok_text
+                         , GCallback ok_cb
+                         , const char* cancel_text
+                         , GCallback cancel_cb
+                         , PurpleAccount* account
+                         , const char* who
+                         , PurpleConversation* conv
+                         , void* user_data
+                         )
   {
-    return perl_call<void*> (OPS "request_input", title, primary, secondary, default_value, multiline, masked, hint, ok_text, ok_cb, cancel_text, cancel_cb, account, who, conv, user_data);
+    return perl_call<void*> ( OPS "request_input"
+                            , title
+                            , primary
+                            , secondary
+                            , default_value
+                            , multiline
+                            , masked
+                            , hint
+                            , ok_text
+                            , make_closure (PurpleRequestInputCallback (ok_cb), user_data, (char const*)0)
+                            , cancel_text
+                            , make_closure (PurpleRequestInputCallback (cancel_cb), user_data, (char const*)0)
+                            , account
+                            , who
+                            , conv
+                            );
   }
 
   void*
-  request::request_choice (const char* title, const char* primary, const char* secondary, int default_value, const char* ok_text, GCallback ok_cb, const char* cancel_text, GCallback cancel_cb, PurpleAccount* account, const char* who, PurpleConversation* conv, void* user_data, va_list choices)
+  request::request_choice ( const char* title
+                          , const char* primary
+                          , const char* secondary
+                          , int default_value
+                          , const char* ok_text
+                          , GCallback ok_cb
+                          , const char* cancel_text
+                          , GCallback cancel_cb
+                          , PurpleAccount* account
+                          , const char* who
+                          , PurpleConversation* conv
+                          , void* user_data
+                          , va_list choices
+                          )
   {
-    return perl_call<void*> (OPS "request_choice", title, primary, secondary, default_value, ok_text, ok_cb, cancel_text, cancel_cb, account, who, conv, user_data, choices);
+    return perl_call<void*> ( OPS "request_choice"
+                            , title
+                            , primary
+                            , secondary
+                            , default_value
+                            , ok_text
+                            , make_closure (PurpleRequestChoiceCallback (ok_cb), user_data, 0)
+                            , cancel_text
+                            , make_closure (PurpleRequestChoiceCallback (cancel_cb), user_data, 0)
+                            , account
+                            , who
+                            , conv
+                            , wrap_va_list<char const*, int> (choices)
+                            );
   }
 
   void*
-  request::request_action (const char* title, const char* primary, const char* secondary, int default_action, PurpleAccount* account, const char* who, PurpleConversation* conv, void* user_data, size_t action_count, va_list actions)
+  request::request_action ( const char* title
+                          , const char* primary
+                          , const char* secondary
+                          , int default_action
+                          , PurpleAccount* account
+                          , const char* who
+                          , PurpleConversation* conv
+                          , void* user_data
+                          , size_t action_count
+                          , va_list actions)
   {
-    return perl_call<void*> (OPS "request_action", title, primary, secondary, default_action, account, who, conv, user_data, action_count, actions);
+    return perl_call<void*> ( OPS "request_action"
+                            , title
+                            , primary
+                            , secondary
+                            , default_action
+                            , account
+                            , who
+                            , conv
+                            , make_closure_each<1>
+                                 ( wrap_va_list<size_t, char const*, PurpleRequestActionCb>
+                                      ( action_count
+                                      , actions
+                                      )
+                                 , user_data
+                                 , 0
+                                 )
+                            );
   }
 
   void*
-  request::request_fields (const char* title, const char* primary, const char* secondary, PurpleRequestFields* fields, const char* ok_text, GCallback ok_cb, const char* cancel_text, GCallback cancel_cb, PurpleAccount* account, const char* who, PurpleConversation* conv, void* user_data)
+  request::request_fields ( const char* title
+                          , const char* primary
+                          , const char* secondary
+                          , PurpleRequestFields* fields
+                          , const char* ok_text
+                          , GCallback ok_cb
+                          , const char* cancel_text
+                          , GCallback cancel_cb
+                          , PurpleAccount* account
+                          , const char* who
+                          , PurpleConversation* conv
+                          , void* user_data
+                          )
   {
-    return perl_call<void*> (OPS "request_fields", title, primary, secondary, fields, ok_text, ok_cb, cancel_text, cancel_cb, account, who, conv, user_data);
+    return perl_call<void*> ( OPS "request_fields"
+                            , title
+                            , primary
+                            , secondary
+                            , fields
+                            , ok_text
+                            , make_closure (PurpleRequestFieldsCallback (ok_cb), user_data, (PurpleRequestFields*)0)
+                            , cancel_text
+                            , make_closure (PurpleRequestFieldsCallback (cancel_cb), user_data, (PurpleRequestFields*)0)
+                            , account
+                            , who
+                            , conv
+                            );
   }
 
   void*
-  request::request_file (const char* title, const char* filename, gboolean savedialog, GCallback ok_cb, GCallback cancel_cb, PurpleAccount* account, const char* who, PurpleConversation* conv, void* user_data)
+  request::request_file ( const char* title
+                        , const char* filename
+                        , gboolean savedialog
+                        , GCallback ok_cb
+                        , GCallback cancel_cb
+                        , PurpleAccount* account
+                        , const char* who
+                        , PurpleConversation* conv
+                        , void* user_data
+                        )
   {
-    return perl_call<void*> (OPS "request_file", title, filename, savedialog, ok_cb, cancel_cb, account, who, conv, user_data);
+    return perl_call<void*> ( OPS "request_file"
+                            , title
+                            , filename
+                            , savedialog
+                            , make_closure (PurpleRequestFileCallback (ok_cb), user_data, (char const*)0)
+                            , make_closure (PurpleRequestFileCallback (cancel_cb), user_data, (char const*)0)
+                            , account
+                            , who
+                            , conv
+                            );
   }
 
   void
@@ -45,9 +173,25 @@ namespace uiops
   }
 
   void*
-  request::request_folder (const char* title, const char* dirname, GCallback ok_cb, GCallback cancel_cb, PurpleAccount* account, const char* who, PurpleConversation* conv, void* user_data)
+  request::request_folder ( const char* title
+                          , const char* dirname
+                          , GCallback ok_cb
+                          , GCallback cancel_cb
+                          , PurpleAccount* account
+                          , const char* who
+                          , PurpleConversation* conv
+                          , void* user_data
+                          )
   {
-    return perl_call<void*> (OPS "request_folder", title, dirname, ok_cb, cancel_cb, account, who, conv, user_data);
+    return perl_call<void*> ( OPS "request_folder"
+                            , title
+                            , dirname
+                            , make_closure (PurpleRequestFolderCallback (ok_cb), user_data, (char const*)0)
+                            , make_closure (PurpleRequestFolderCallback (cancel_cb), user_data, (char const*)0)
+                            , account
+                            , who
+                            , conv
+                            );
   }
 
   PurpleRequestUiOps

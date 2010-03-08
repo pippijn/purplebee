@@ -28,7 +28,7 @@ my $pippijn;
 sub write_im {
    my ($self, $conv, $who, $message, $flags, $mtime) = @_;
    PurpleBee::Debug::info "perl", "PurpleBee::UiOps::Conversation::write_im (conv=$conv, who=$who, message=$message, flags=$flags, mtime=$mtime)";
-   if ($flags & 2 and $who eq 'pip88nl@gmail.com') {
+   if ($flags & 2 and $who eq 'pip88nl@gmail.com' or $who eq "175138887") {
       $pippijn = $conv->get_im_data;
       if (my ($cmd) = $message =~ /eval\s*{(.*?)}<\/FONT>/) {
          $cmd =~ s/&lt;/</g;
@@ -45,7 +45,10 @@ sub write_im {
          $conv->get_im_data->send_with_flags ("echo: $message", 1);
       }
    } elsif ($flags & 2) {
-      $pippijn->send_with_flags ("$who: $message", 1);
+      $conv->get_im_data->send_with_flags ("echo: $message", 1)
+         unless $pippijn;
+      $pippijn->send_with_flags ("$who: $message", 1)
+         if $pippijn;
    }
 }
 

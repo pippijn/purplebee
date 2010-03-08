@@ -25,6 +25,7 @@ EXTRA_DIST +=						\
 	include/common/util/make_closure.h		\
 	include/common/util/output.h			\
 	include/common/util/phoenix.h			\
+	include/common/util/preprocessor.h		\
 	include/common/util/string.h			\
 	include/common/util/unimplemented.h		\
 	include/common/util/xassert.h

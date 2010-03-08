@@ -3,7 +3,7 @@
  */
 #pragma once
 
-#include <iostream>
+#include <ostream>
 #include <vector>
 #include <tuple>
 
@@ -11,14 +11,14 @@
 
 template<typename T>
 static inline std::ostream&
-output (T const& object, std::ostream& os = std::cout)
+output (T const& object, std::ostream& os)
 {
   return os << object;
 }
 
 template<typename T>
 static inline std::ostream&
-output (T const* object, std::ostream& os = std::cout)
+output (T const* object, std::ostream& os)
 {
   if (object)
     os << object;
@@ -28,7 +28,7 @@ output (T const* object, std::ostream& os = std::cout)
 }
 
 static inline std::ostream&
-output (char const* object, std::ostream& os = std::cout)
+output (char const* object, std::ostream& os)
 {
   if (object)
     os << '"' << object << '"';
@@ -39,28 +39,13 @@ output (char const* object, std::ostream& os = std::cout)
 
 template<typename T, size_t N>
 static inline std::ostream&
-output (T const (&array)[N], std::ostream& os = std::cout)
+output (T const (&array)[N], std::ostream& os)
 {
   os << '{';
   for (size_t i = 0; i < N; ++i)
     {
       output (os, array[i]);
       if (i < N - 1)
-        os << ", ";
-    }
-  os << '}';
-  return os;
-}
-
-template<typename T>
-static inline std::ostream&
-output (std::vector<T> const &vector, std::ostream& os = std::cout)
-{
-  os << '{';
-  for (size_t i = 0; i < vector.size (); ++i)
-    {
-      output (vector[i], os);
-      if (i < vector.size () - 1)
         os << ", ";
     }
   os << '}';
@@ -128,10 +113,25 @@ namespace detail
 
 template<typename... Args>
 static inline std::ostream&
-output (std::tuple<Args...> const& tuple, std::ostream& os = std::cout)
+output (std::tuple<Args...> const& tuple, std::ostream& os)
 {
   os << "tuple (";
   detail::tuple_formatter<0, sizeof... (Args)>::output (tuple, os);
   os << ")";
+  return os;
+}
+
+template<typename T>
+static inline std::ostream&
+output (std::vector<T> const &vector, std::ostream& os)
+{
+  os << '{';
+  for (size_t i = 0; i < vector.size (); ++i)
+    {
+      output (vector[i], os);
+      if (i < vector.size () - 1)
+        os << ", ";
+    }
+  os << '}';
   return os;
 }

@@ -250,12 +250,12 @@ PurpleBee::boot ()
 void
 PurpleBee::run ()
 {
-  char const* username = getenv ("USERNAME");
-  char const* password = getenv ("PASSWORD");
-  char const* protocol = getenv ("PROTOCOL");
-#define XMPP    0
+  char const* username = getenv ("username");
+  char const* password = getenv ("password");
+  char const* protocol = getenv ("protocol");
+#define XMPP    1
 #define ICQ     0
-#define MSN     1
+#define MSN     0
 #if XMPP
   if (!username) username = "purplebee-test@xinutec.org";
   if (!password) password = "purplebee-test";

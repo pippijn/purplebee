@@ -13,7 +13,7 @@ CLEANFILES		= # empty
 DISTCLEANFILES		= # empty
 MAINTAINERCLEANFILES	= # empty
 
-OPTFLAGS		= -pipe -O3 -ggdb3 -fno-inline
+OPTFLAGS		= -pipe -O0 -ggdb3 -fno-inline
 WARNINGS		= # empty
 WARNINGS		+= -Wall -Wextra -Wno-unused-parameter
 WARNINGS		+= -Wpadded
@@ -26,7 +26,7 @@ WARNINGS		+= -Wno-error=padded
 WARNINGS		+= -Wno-error=write-strings
 
 AM_CFLAGS		= $(OPTFLAGS) $(WARNINGS)
-AM_CXXFLAGS		= $(OPTFLAGS) $(WARNINGS) -std=c++0x
+AM_CXXFLAGS		= $(OPTFLAGS) $(WARNINGS)
 AM_CPPFLAGS		= -I$(srcdir)/include -I$(builddir)/include -include autoconf.h
 AM_CPPFLAGS		+= -isystem /usr/lib/perl/5.10/CORE
 AM_CPPFLAGS		+= -isystem /usr/lib/perl5/core_perl/CORE

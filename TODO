@@ -1,4 +1,8 @@
-user interface:
+web interface:
+	- If a conversation is held on the web, echo everything to IRC and vice
+	  versa.
+
+irc interface:
 	- User documentation in the form of web and man pages (POD) in
 	  addition to the root dialogue.
 	- Intelligent root dialogue (AI).
@@ -33,5 +37,6 @@ user interface:
 
 libpurple:
 	- Sending ICQ nick changes back to the server.
+	- Auto-reconnect.
 
-# vim:noexpandtab
+# vim:noexpandtab tw=80

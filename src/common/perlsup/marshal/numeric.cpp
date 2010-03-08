@@ -2,7 +2,6 @@
  * See COPYING.AGPL for licence information.
  */
 #include "common/perl/interpreter.h"
-#include "common/util/unimplemented.h"
 
 #if IVSIZE >= 8
 typedef IV val64;

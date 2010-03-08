@@ -1,6 +1,7 @@
 /* Copyright © 2010 Pippijn van Steenhoven
  * See COPYING.AGPL for licence information.
  */
+#include "common/perl/marshal.h"
 #include "common/perl/package.h"
 #include "common/util/make_closure.h"
 #include "common/util/unimplemented.h"
@@ -8,7 +9,7 @@
 
 #include "backend/PurpleBee.h"
 #include "backend/PurpleBee/Closure.h"
-#include "backend/PurpleBee/marshal.h"
+#include "backend/PurpleBee/callbacks.h"
 
 /*
  * T -> SV*

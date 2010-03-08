@@ -3,7 +3,7 @@
  */
 #include "backend/PurpleBee/perl_call.h"
 #include "backend/uiops/core.h"
-#include "common/util/type_traits/wrapper.h"
+#include "common/util/wrapper.h"
 
 #define OPS "UiOps::Core::"
 
