@@ -215,7 +215,7 @@ namespace uiops
   }
 
   void
-  request::destroy (PurpleRequestUiOps& ops)
+  request::destroy (G_GNUC_UNUSED PurpleRequestUiOps& ops)
   {
     purple_debug_info ("ffi", "destroying request callbacks");
   }

@@ -127,7 +127,7 @@ namespace uiops
   }
 
   void
-  conversation::destroy (PurpleConversationUiOps& ops)
+  conversation::destroy (G_GNUC_UNUSED PurpleConversationUiOps& ops)
   {
     purple_debug_info ("ffi", "destroying conversation callbacks");
   }

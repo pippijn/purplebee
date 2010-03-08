@@ -57,7 +57,7 @@ namespace uiops
   }
 
   void
-  core::destroy (PurpleCoreUiOps& ops)
+  core::destroy (G_GNUC_UNUSED PurpleCoreUiOps& ops)
   {
     purple_debug_info ("ffi", "destroying core callbacks");
   }

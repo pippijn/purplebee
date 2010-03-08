@@ -58,7 +58,7 @@ namespace uiops
   }
 
   void
-  account::destroy (PurpleAccountUiOps& ops)
+  account::destroy (G_GNUC_UNUSED PurpleAccountUiOps& ops)
   {
     purple_debug_info ("ffi", "destroying account callbacks");
   }

@@ -2,6 +2,7 @@
  * See COPYING.AGPL for licence information.
  */
 #pragma GCC diagnostic ignored "-Wunused-variable"
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 
 #include <EXTERN.h>
 #include <perl.h>

@@ -84,7 +84,7 @@ namespace uiops
   }
 
   void
-  debug::destroy (PurpleDebugUiOps& ops)
+  debug::destroy (G_GNUC_UNUSED PurpleDebugUiOps& ops)
   {
     purple_debug_info ("ffi", "destroying debug callbacks");
     fclose (logfh);

@@ -50,7 +50,7 @@ namespace uiops
   }
 
   void
-  sound::destroy (PurpleSoundUiOps& ops)
+  sound::destroy (G_GNUC_UNUSED PurpleSoundUiOps& ops)
   {
     purple_debug_info ("ffi", "destroying sound callbacks");
   }

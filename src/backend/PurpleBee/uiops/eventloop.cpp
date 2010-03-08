@@ -64,7 +64,7 @@ namespace uiops
   }
 
   void
-  eventloop::destroy (PurpleEventLoopUiOps& ops)
+  eventloop::destroy (G_GNUC_UNUSED PurpleEventLoopUiOps& ops)
   {
     purple_debug_info ("ffi", "destroying eventloop callbacks");
   }

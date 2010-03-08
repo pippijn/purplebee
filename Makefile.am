@@ -15,7 +15,7 @@ MAINTAINERCLEANFILES	= # empty
 
 OPTFLAGS		= -pipe -O0 -ggdb3 -fno-inline
 WARNINGS		= # empty
-WARNINGS		+= -Wall -Wextra -Wno-unused-parameter
+WARNINGS		+= -Wall -Wextra
 WARNINGS		+= -Wpadded
 WARNINGS		+= -Wpacked
 #WARNINGS		+= -Wconversion
@@ -23,6 +23,7 @@ WARNINGS		+= -Wstrict-overflow=5
 WARNINGS		+= -Wstrict-aliasing=1
 WARNINGS		+= -Werror
 WARNINGS		+= -Wno-error=padded
+WARNINGS		+= -Wno-error=unused-parameter
 WARNINGS		+= -Wno-error=write-strings
 
 AM_CFLAGS		= $(OPTFLAGS) $(WARNINGS)

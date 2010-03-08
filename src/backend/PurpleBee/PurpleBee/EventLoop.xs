@@ -27,7 +27,7 @@ gboolean
 purple_input_remove (guint handle);
 
 int
-purple_input_get_error (int fd, int& error);
+purple_input_get_error (int fd, int& error = NO_INIT);
     OUTPUT:
     error
 

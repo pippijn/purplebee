@@ -62,7 +62,7 @@ void
 purple_network_remove_port_mapping (gint fd);
 
 int
-purple_network_convert_idn_to_ascii (gchar const* in, gchar*& out);
+purple_network_convert_idn_to_ascii (gchar const* in, gchar*& out = NO_INIT);
     OUTPUT:
     out
 

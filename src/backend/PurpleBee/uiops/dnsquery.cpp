@@ -44,7 +44,7 @@ namespace uiops
   }
 
   void
-  dnsquery::destroy (PurpleDnsQueryUiOps& ops)
+  dnsquery::destroy (G_GNUC_UNUSED PurpleDnsQueryUiOps& ops)
   {
     purple_debug_info ("ffi", "destroying dnsquery callbacks");
   }

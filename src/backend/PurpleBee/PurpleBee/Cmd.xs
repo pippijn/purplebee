@@ -43,7 +43,7 @@ void
 purple_cmd_unregister (PurpleCmdId id);
 
 PurpleCmdStatus
-purple_cmd_do_command (PurpleConversation* conv, gchar const* cmdline, gchar const* markup, gchar*& errormsg);
+purple_cmd_do_command (PurpleConversation* conv, gchar const* cmdline, gchar const* markup, gchar*& errormsg = NO_INIT);
     OUTPUT:
     errormsg
 

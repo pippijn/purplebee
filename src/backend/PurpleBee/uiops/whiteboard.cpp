@@ -71,7 +71,7 @@ namespace uiops
   }
 
   void
-  whiteboard::destroy (PurpleWhiteboardUiOps& ops)
+  whiteboard::destroy (G_GNUC_UNUSED PurpleWhiteboardUiOps& ops)
   {
     purple_debug_info ("ffi", "destroying whiteboard callbacks");
   }

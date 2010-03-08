@@ -24,7 +24,7 @@ void
 purple_log_write (PurpleLog* log, PurpleMessageFlags type, char const* from, time_t time, char const* message);
 
 char*
-purple_log_read (PurpleLog* log, PurpleLogReadFlags& flags);
+purple_log_read (PurpleLog* log, PurpleLogReadFlags& flags = NO_INIT);
     OUTPUT:
     flags
 

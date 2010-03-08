@@ -64,7 +64,7 @@ namespace uiops
   }
 
   void
-  roomlist::destroy (PurpleRoomlistUiOps& ops)
+  roomlist::destroy (G_GNUC_UNUSED PurpleRoomlistUiOps& ops)
   {
     purple_debug_info ("ffi", "destroying roomlist callbacks");
   }

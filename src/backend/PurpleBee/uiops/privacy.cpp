@@ -50,7 +50,7 @@ namespace uiops
   }
 
   void
-  privacy::destroy (PurplePrivacyUiOps& ops)
+  privacy::destroy (G_GNUC_UNUSED PurplePrivacyUiOps& ops)
   {
     purple_debug_info ("ffi", "destroying privacy callbacks");
   }

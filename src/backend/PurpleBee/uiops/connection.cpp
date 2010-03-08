@@ -77,7 +77,7 @@ namespace uiops
   }
 
   void
-  connection::destroy (PurpleConnectionUiOps& ops)
+  connection::destroy (G_GNUC_UNUSED PurpleConnectionUiOps& ops)
   {
     purple_debug_info ("ffi", "destroying connection callbacks");
   }

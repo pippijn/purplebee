@@ -85,7 +85,7 @@ namespace uiops
   }
 
   void
-  notify::destroy (PurpleNotifyUiOps& ops)
+  notify::destroy (G_GNUC_UNUSED PurpleNotifyUiOps& ops)
   {
     purple_debug_info ("ffi", "destroying notify callbacks");
   }

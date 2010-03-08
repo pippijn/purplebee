@@ -26,7 +26,7 @@ char const*
 purple_mime_part_get_data (PurpleMimePart* part);
 
 void
-purple_mime_part_get_data_decoded (PurpleMimePart* part, guchar*& data, gsize& len);
+purple_mime_part_get_data_decoded (PurpleMimePart* part, guchar*& data = NO_INIT, gsize& len = NO_INIT);
     OUTPUT:
     data
     len

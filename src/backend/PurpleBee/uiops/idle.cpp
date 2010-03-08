@@ -29,7 +29,7 @@ namespace uiops
   }
 
   void
-  idle::destroy (PurpleIdleUiOps& ops)
+  idle::destroy (G_GNUC_UNUSED PurpleIdleUiOps& ops)
   {
     purple_debug_info ("ffi", "destroying idle callbacks");
   }

@@ -29,7 +29,7 @@ void
 purple_whiteboard_draw_list_destroy (GList* draw_list);
 
 gboolean
-purple_whiteboard_get_dimensions (PurpleWhiteboard* wb, int& width, int& height);
+purple_whiteboard_get_dimensions (PurpleWhiteboard* wb, int& width = NO_INIT, int& height = NO_INIT);
     OUTPUT:
     width
     height
@@ -56,7 +56,7 @@ void
 purple_whiteboard_send_brush (PurpleWhiteboard* wb, int size, int color);
 
 gboolean
-purple_whiteboard_get_brush (PurpleWhiteboard* wb, int& size, int& color);
+purple_whiteboard_get_brush (PurpleWhiteboard* wb, int& size = NO_INIT, int& color = NO_INIT);
     OUTPUT:
     size
     color

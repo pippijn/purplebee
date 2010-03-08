@@ -110,7 +110,7 @@ namespace uiops
   }
 
   void
-  blist::destroy (PurpleBlistUiOps& ops)
+  blist::destroy (G_GNUC_UNUSED PurpleBlistUiOps& ops)
   {
     purple_debug_info ("ffi", "destroying blist callbacks");
   }

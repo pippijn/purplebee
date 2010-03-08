@@ -11,7 +11,7 @@ gchar*
 purple_ntlm_gen_type1 (gchar const* hostname, gchar const* domain);
 
 guint8*
-purple_ntlm_parse_type2 (gchar const* type2, guint32& flags);
+purple_ntlm_parse_type2 (gchar const* type2, guint32& flags = NO_INIT);
     OUTPUT:
     flags
 

@@ -82,7 +82,7 @@ namespace uiops
   }
 
   void
-  xfer::destroy (PurpleXferUiOps& ops)
+  xfer::destroy (G_GNUC_UNUSED PurpleXferUiOps& ops)
   {
     purple_debug_info ("ffi", "destroying xfer callbacks");
   }
