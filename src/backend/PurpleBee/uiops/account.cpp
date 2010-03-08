@@ -16,9 +16,14 @@ namespace uiops
   }
 
   void
-  account::status_changed (PurpleAccount* account, PurpleStatus* status)
+  account::status_changed ( PurpleAccount* account
+                          , PurpleStatus* status
+                          )
   {
-    return perl_call<void> (OPS "status_changed", account, status);
+    return perl_call<void> ( OPS "status_changed"
+                           , account
+                           , status
+                           );
   }
 
   void
