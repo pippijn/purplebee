@@ -63,8 +63,7 @@ parse_arguments (int argc, char** argv)
     {
       printf ("%s version %s\n", PACKAGE_NAME, PACKAGE_VERSION);
       printf ("Copyright © 2010 The %s development team\n", PACKAGE_NAME);
-      puts ("This program is GPLv3+: <http://gnu.org/licenses/gpl.html>");
-      puts ("Individual source files are AGPLv3+: <http://gnu.org/licenses/agpl.html>");
+      puts ("This program is AGPLv3+: <http://gnu.org/licenses/agpl.html>");
       puts ("");
       puts ("Written by Pippijn van Steenhoven and Moritz Wilhelmy");
       arg_freetable (argtable, table.size ());
