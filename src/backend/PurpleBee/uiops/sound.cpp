@@ -21,7 +21,7 @@ namespace uiops
   }
 
   void
-  sound::play_file (const char* filename)
+  sound::play_file (char const* filename)
   {
     return perl_call<void> (OPS "play_file", filename);
   }

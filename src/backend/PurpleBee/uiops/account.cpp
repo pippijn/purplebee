@@ -11,10 +11,10 @@ namespace uiops
 {
   void
   account::notify_added ( PurpleAccount* account
-                        , const char* remote_user
-                        , const char* id
-                        , const char* alias
-                        , const char* message
+                        , char const* remote_user
+                        , char const* id
+                        , char const* alias
+                        , char const* message
                         )
   {
     return perl_call<void> (OPS "notify_added", account, remote_user, id, alias, message);
@@ -33,10 +33,10 @@ namespace uiops
 
   void
   account::request_add ( PurpleAccount* account
-                       , const char* remote_user
-                       , const char* id
-                       , const char* alias
-                       , const char* message
+                       , char const* remote_user
+                       , char const* id
+                       , char const* alias
+                       , char const* message
                        )
   {
     return perl_call<void> (OPS "request_add", account, remote_user, id, alias, message);
@@ -44,10 +44,10 @@ namespace uiops
 
   void*
   account::request_authorize ( PurpleAccount* account
-                             , const char* remote_user
-                             , const char* id
-                             , const char* alias
-                             , const char* message
+                             , char const* remote_user
+                             , char const* id
+                             , char const* alias
+                             , char const* message
                              , gboolean on_list
                              , PurpleAccountRequestAuthorizationCb authorize_cb
                              , PurpleAccountRequestAuthorizationCb deny_cb

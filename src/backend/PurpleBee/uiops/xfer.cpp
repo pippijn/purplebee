@@ -57,7 +57,7 @@ namespace uiops
   }
 
   void
-  xfer::data_not_sent (PurpleXfer* xfer, const guchar* buffer, gsize size)
+  xfer::data_not_sent (PurpleXfer* xfer, guchar const* buffer, gsize size)
   {
     return perl_call<void> (OPS "data_not_sent", xfer, buffer, size);
   }

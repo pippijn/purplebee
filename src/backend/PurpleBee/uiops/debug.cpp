@@ -32,7 +32,7 @@ namespace uiops
 #define LOG_STDERR 1
 
   void
-  debug::print (PurpleDebugLevel level, const char* category, const char* arg_s)
+  debug::print (PurpleDebugLevel level, char const* category, char const* arg_s)
   {
     if (begin.tv_sec == 0)
       gettimeofday (&begin, NULL);
@@ -60,7 +60,7 @@ namespace uiops
   }
 
   gboolean
-  debug::is_enabled (PurpleDebugLevel level, const char* category)
+  debug::is_enabled (PurpleDebugLevel level, char const* category)
   {
     return server->call<gboolean> (OPS "is_enabled", level, category);
   }

@@ -9,7 +9,7 @@
 namespace uiops
 {
   void
-  connection::connect_progress (PurpleConnection* gc, const char* text, size_t step, size_t step_count)
+  connection::connect_progress (PurpleConnection* gc, char const* text, size_t step, size_t step_count)
   {
     return perl_call<void> (OPS "connect_progress", gc, text, step, step_count);
   }
@@ -27,13 +27,13 @@ namespace uiops
   }
 
   void
-  connection::notice (PurpleConnection* gc, const char* text)
+  connection::notice (PurpleConnection* gc, char const* text)
   {
     return perl_call<void> (OPS "notice", gc, text);
   }
 
   void
-  connection::report_disconnect (PurpleConnection* gc, const char* text)
+  connection::report_disconnect (PurpleConnection* gc, char const* text)
   {
     return perl_call<void> (OPS "report_disconnect", gc, text);
   }
@@ -51,7 +51,7 @@ namespace uiops
   }
 
   void
-  connection::report_disconnect_reason (PurpleConnection* gc, PurpleConnectionError reason, const char* text)
+  connection::report_disconnect_reason (PurpleConnection* gc, PurpleConnectionError reason, char const* text)
   {
     return perl_call<void> (OPS "report_disconnect_reason", gc, reason, text);
   }

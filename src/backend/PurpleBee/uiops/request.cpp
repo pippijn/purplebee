@@ -15,19 +15,19 @@
 namespace uiops
 {
   void*
-  request::request_input ( const char* title
-                         , const char* primary
-                         , const char* secondary
-                         , const char* default_value
+  request::request_input ( char const* title
+                         , char const* primary
+                         , char const* secondary
+                         , char const* default_value
                          , gboolean multiline
                          , gboolean masked
                          , gchar* hint
-                         , const char* ok_text
+                         , char const* ok_text
                          , GCallback ok_cb
-                         , const char* cancel_text
+                         , char const* cancel_text
                          , GCallback cancel_cb
                          , PurpleAccount* account
-                         , const char* who
+                         , char const* who
                          , PurpleConversation* conv
                          , void* user_data
                          )
@@ -51,16 +51,16 @@ namespace uiops
   }
 
   void*
-  request::request_choice ( const char* title
-                          , const char* primary
-                          , const char* secondary
+  request::request_choice ( char const* title
+                          , char const* primary
+                          , char const* secondary
                           , int default_value
-                          , const char* ok_text
+                          , char const* ok_text
                           , GCallback ok_cb
-                          , const char* cancel_text
+                          , char const* cancel_text
                           , GCallback cancel_cb
                           , PurpleAccount* account
-                          , const char* who
+                          , char const* who
                           , PurpleConversation* conv
                           , void* user_data
                           , va_list choices
@@ -83,12 +83,12 @@ namespace uiops
   }
 
   void*
-  request::request_action ( const char* title
-                          , const char* primary
-                          , const char* secondary
+  request::request_action ( char const* title
+                          , char const* primary
+                          , char const* secondary
                           , int default_action
                           , PurpleAccount* account
-                          , const char* who
+                          , char const* who
                           , PurpleConversation* conv
                           , void* user_data
                           , size_t action_count
@@ -119,16 +119,16 @@ namespace uiops
   }
 
   void*
-  request::request_fields ( const char* title
-                          , const char* primary
-                          , const char* secondary
+  request::request_fields ( char const* title
+                          , char const* primary
+                          , char const* secondary
                           , PurpleRequestFields* fields
-                          , const char* ok_text
+                          , char const* ok_text
                           , GCallback ok_cb
-                          , const char* cancel_text
+                          , char const* cancel_text
                           , GCallback cancel_cb
                           , PurpleAccount* account
-                          , const char* who
+                          , char const* who
                           , PurpleConversation* conv
                           , void* user_data
                           )
@@ -149,13 +149,13 @@ namespace uiops
   }
 
   void*
-  request::request_file ( const char* title
-                        , const char* filename
+  request::request_file ( char const* title
+                        , char const* filename
                         , gboolean savedialog
                         , GCallback ok_cb
                         , GCallback cancel_cb
                         , PurpleAccount* account
-                        , const char* who
+                        , char const* who
                         , PurpleConversation* conv
                         , void* user_data
                         )
@@ -179,12 +179,12 @@ namespace uiops
   }
 
   void*
-  request::request_folder ( const char* title
-                          , const char* dirname
+  request::request_folder ( char const* title
+                          , char const* dirname
                           , GCallback ok_cb
                           , GCallback cancel_cb
                           , PurpleAccount* account
-                          , const char* who
+                          , char const* who
                           , PurpleConversation* conv
                           , void* user_data
                           )

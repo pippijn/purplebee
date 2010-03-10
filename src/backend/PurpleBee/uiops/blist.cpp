@@ -51,13 +51,13 @@ namespace uiops
   }
 
   void
-  blist::request_add_buddy (PurpleAccount* account, const char* username, const char* group, const char* alias)
+  blist::request_add_buddy (PurpleAccount* account, char const* username, char const* group, char const* alias)
   {
     return perl_call<void> (OPS "request_add_buddy", account, username, group, alias);
   }
 
   void
-  blist::request_add_chat (PurpleAccount* account, PurpleGroup* group, const char* alias, const char* name)
+  blist::request_add_chat (PurpleAccount* account, PurpleGroup* group, char const* alias, char const* name)
   {
     return perl_call<void> (OPS "request_add_chat", account, group, alias, name);
   }
