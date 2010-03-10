@@ -2,6 +2,7 @@
  * See COPYING.AGPL for licence information.
  */
 #include "common/debug/signal.h"
+#include "common/debug/trace.h"
 #include "common/util/xassert.h"
 
 #include "backend/PurpleBee.h"
@@ -22,6 +23,8 @@ int
 main (int argc, char* argv[])
 try
 {
+  init_debug ();
+
   switch (parse_arguments (argc, argv))
     {
     case parse_status::success:
@@ -39,7 +42,7 @@ try
   else
     init_signals ();
   init_server (argc, argv, environ);
-  server->run ();
+  server->main ();
   // XXX: just for the heck of it. it should be freed automatically, but
   // I like controlled global initialisation and destruction
   uninit_server ();

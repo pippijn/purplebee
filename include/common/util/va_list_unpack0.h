@@ -9,28 +9,28 @@ template<typename T>
 T
 va_rest (va_list ap)
 {
-  return va_arg1<T> (ap);
+  return va_arg (ap, T);
 }
 
 template<typename... Info>
 std::vector<typename va_list0<Info...>::info_type>
 va_list0<Info...>::unpack ()
 {
-  va_list list = ap;
+  va_list list;
+  va_copy (list, ap);
   std::vector<info_type> vector;
-  while (va_rest<typename std::tuple_element<0, info_type>::type> (ap))
+  while (va_rest<typename std::tuple_element<0, info_type>::type> (list))
     vector.push_back (va_argN<info_type> (list));
   return vector;
 }
 
-#if 0
-template<typename IntT, typename... Info>
+template<typename... Info>
 template<int Index>
-std::vector<typename std::tuple_element<Index, typename va_list0<IntT, Info...>::info_type>::type>
-va_list0<IntT, Info...>::unpack ()
+std::vector<typename std::tuple_element<Index, typename va_list0<Info...>::info_type>::type>
+va_list0<Info...>::unpack ()
 {
   auto all = unpack ();
-  std::vector<typename std::tuple_element<Index, typename va_list0<IntT, Info...>::info_type>::type> vector;
+  std::vector<typename std::tuple_element<Index, typename va_list0<Info...>::info_type>::type> vector;
   BOOST_FOREACH (auto const& tuple, all)
     {
       vector.push_back (std::get<Index> (tuple));
@@ -38,4 +38,3 @@ va_list0<IntT, Info...>::unpack ()
 
   return vector;
 }
-#endif

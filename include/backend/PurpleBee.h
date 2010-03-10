@@ -47,7 +47,7 @@ struct PurpleBee
 
   void init ();
   void boot ();
-  void run ();
+  void main ();
 
   void valgrind (bool full);
   void fault (int kind);

@@ -248,29 +248,9 @@ PurpleBee::boot ()
 }
 
 void
-PurpleBee::run ()
+PurpleBee::main ()
 {
-  char const* username = getenv ("username");
-  char const* password = getenv ("password");
-  char const* protocol = getenv ("protocol");
-#define XMPP    1
-#define ICQ     0
-#define MSN     0
-#if XMPP
-  if (!username) username = "purplebee-test@xinutec.org";
-  if (!password) password = "purplebee-test";
-  if (!protocol) protocol = "prpl-jabber";
-#elif ICQ
-  if (!username) username = "621180987";
-  if (!password) password = "B1neMaya";
-  if (!protocol) protocol = "prpl-icq";
-#elif MSN
-  if (!username) username = "pippijn88@hotmail.com";
-  if (!password) password = getpass ("Password: ");
-  if (!protocol) protocol = "prpl-msn";
-#endif
-
-  call<void> ("main", username, password, protocol);
+  return call<void> ("main");
 }
 
 void

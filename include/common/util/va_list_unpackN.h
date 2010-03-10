@@ -9,7 +9,8 @@ template<typename IntT, typename... Info>
 std::vector<typename va_listN<IntT, Info...>::info_type>
 va_listN<IntT, Info...>::unpack ()
 {
-  va_list list = ap;
+  va_list list;
+  va_copy (list, ap);
   std::vector<info_type> vector;
   for (IntT i = 0; i != size; ++i)
     vector.push_back (va_argN<info_type> (list));

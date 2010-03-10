@@ -5,6 +5,8 @@
 
 #include "common/util/common.h"
 
+#include <csignal>
+
 BEGIN_DECLS
 
 // Sets up signal handlers for our debugging aid with backtrace
@@ -14,7 +16,7 @@ void init_signals ();
 // XXX: init_signals does not save the old signal handlers. Maybe it should.
 void uninit_signals ();
 
-bool fork_trace ();
+void print_siginfo (siginfo_t* si, int pid);
 
 // Controls whether a caught signal should spawn gdb and attach it to our PID.
 extern bool spawn_gdb;

@@ -183,7 +183,7 @@ private:
   const char* filename;
   const char* funcname;
   unsigned int line;
-  padded (bool) found;
+  unsigned int found;
 
   bool check_bfd ()
   {
@@ -473,6 +473,11 @@ try
 
   return syms;
 }
+catch (std::exception const& e)
+{
+  printf ("caught unexpected exception while building backtrace: %s\n", e.what ());
+  return NULL;
+}
 catch (...)
 {
   puts ("caught unexpected exception while building backtrace");
@@ -504,6 +509,11 @@ try
 
   return ret;
 }
+catch (std::exception const& e)
+{
+  printf ("caught unexpected exception while building backtrace: %s\n", e.what ());
+  return NULL;
+}
 catch (...)
 {
   puts ("caught unexpected exception while building backtrace");
@@ -515,6 +525,11 @@ resolve_symbol (void const* sym) throw ()
 try
 {
   return strdup (stk.resolve_frame (sym).func.c_str ());
+}
+catch (std::exception const& e)
+{
+  printf ("caught unexpected exception while resolving symbol: %s\n", e.what ());
+  return NULL;
 }
 catch (...)
 {

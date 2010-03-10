@@ -26,22 +26,45 @@ signame (int signum)
 {
   switch (signum)
     {
+    case SIGHUP : return "SIGHUP";
+    case SIGINT : return "SIGINT";
+    case SIGQUIT: return "SIGQUIT";
+    case SIGILL : return "SIGILL";
+    case SIGTRAP: return "SIGTRAP";
     case SIGABRT: return "SIGABRT";
-    case SIGALRM: return "SIGALRM";
     case SIGBUS : return "SIGBUS";
     case SIGFPE : return "SIGFPE";
-    case SIGILL : return "SIGILL";
-    case SIGQUIT: return "SIGQUIT";
+    case SIGKILL: return "SIGKILL";
+    case SIGUSR1: return "SIGUSR1";
     case SIGSEGV: return "SIGSEGV";
+    case SIGUSR2: return "SIGUSR2";
+    case SIGPIPE: return "SIGPIPE";
+    case SIGALRM: return "SIGALRM";
+    case SIGTERM: return "SIGTERM";
+#if 0
+    case SIGSTKFLT: return "SIGSTKFLT";
+#endif
+    case SIGCHLD: return "SIGCHLD";
+    case SIGCONT: return "SIGCONT";
+    case SIGSTOP: return "SIGSTOP";
+    case SIGTSTP: return "SIGTSTP";
+    case SIGTTIN: return "SIGTTIN";
+    case SIGTTOU: return "SIGTTOU";
+    case SIGURG : return "SIGURG";
+    case SIGXCPU: return "SIGXCPU";
+    case SIGXFSZ: return "SIGXFSZ";
+#if 0
+    case SIGVTALRM: return "SIGVTALRM";
+#endif
+    case SIGPROF: return "SIGPROF";
+#if 0
+    case SIGWINCH: return "SIGWINCH";
+#endif
+    case SIGIO  : return "SIGIO";
+    case SIGPWR : return "SIGPWR";
+    case SIGSYS : return "SIGSYS";
     default:      return "<unknown>";
     }
-}
-
-template<size_t N>
-static ssize_t
-write (int fd, char const (&str)[N])
-{
-  return write (fd, str, N - 1);
 }
 
 static void
@@ -142,15 +165,11 @@ strsicode (int signal, int code)
   return "<unknown>";
 }
 
-static void
-fault_action (int signum, siginfo_t* si, void* vctx)
+void
+print_siginfo (siginfo_t* si, int pid)
 {
-  ucontext_t* ctx = static_cast<ucontext_t*> (vctx);
-  pid_t self = getpid ();
-
-  signal (signum, double_fault_action);
   printf ("==%d== caught signal %d (%s)"
-          , self
+          , pid
           , si->si_signo
           , signame (si->si_signo)
           );
@@ -166,6 +185,16 @@ fault_action (int signum, siginfo_t* si, void* vctx)
     }
 
   printf (" caused by %s\n", strsicode (si->si_signo, si->si_code));
+}
+
+static void
+fault_action (int signum, siginfo_t* si, void* vctx)
+{
+  signal (signum, double_fault_action);
+
+  ucontext_t* ctx = static_cast<ucontext_t*> (vctx);
+  pid_t self = getpid ();
+  print_siginfo (si, self);
 
   if (spawn_gdb)
     {
@@ -220,7 +249,7 @@ fault_action (int signum, siginfo_t* si, void* vctx)
 }
 
 static struct sigaction
-signal (int signum, void action (int, siginfo_t*, void*), int flags = 0)
+signal (int signum, void action (int signum, siginfo_t* info, void* vctx), int flags = 0)
 {
   struct sigaction sa;
   struct sigaction old;

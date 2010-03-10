@@ -17,10 +17,13 @@ struct va_list0
   typedef std::tuple<Info...> info_type;
 
   std::vector<info_type> unpack ();
+  template<int Index>
+  std::vector<typename std::tuple_element<Index, info_type>::type>
+  unpack ();
 
   va_list0 (va_list ap)
-    : ap (ap)
   {
+    va_copy (this->ap, ap);
   }
 };
 
@@ -46,8 +49,8 @@ struct va_listN
 
   va_listN (IntT size, va_list ap)
     : size (size)
-    , ap (ap)
   {
+    va_copy (this->ap, ap);
   }
 };
 

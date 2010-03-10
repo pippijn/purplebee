@@ -10,19 +10,13 @@
 #include "common/util/va_list.h"
 #include "common/util/output.h"
 
-template<typename T>
-T
-va_arg1 (va_list& ap)
-{
-  return va_arg (ap, T);
-}
-
 template<int N, int Size, typename TupleT>
 struct va_arg_unpack1
 {
   static void unpack (TupleT& tuple, va_list& ap)
   {
-    std::get<N> (tuple) = va_arg1<typename std::tuple_element<N, TupleT>::type> (ap);
+    typedef typename std::tuple_element<N, TupleT>::type arg_type;
+    std::get<N> (tuple) = va_arg (ap, arg_type);
     va_arg_unpack1<N + 1, Size, TupleT>::unpack (tuple, ap);
   }
 };
