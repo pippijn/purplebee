@@ -1,9 +1,6 @@
 /* Copyright © 2010 Pippijn van Steenhoven
  * See COPYING.AGPL for licence information.
  */
-#include <tuple>
-#include <vector>
-
 #include "common/perl/interpreter.h"
 #include "common/perl/marshal.h"
 
@@ -13,20 +10,27 @@
 
 template<>
 SV*
-perl_interpreter::to_sv (std::vector<std::tuple<char const*, int>> v)
+perl_interpreter::to_sv (AV* v)
 {
-  NO_CONV (v, "va_list");
+  return newRV_noinc ((SV*)v);
+}
+
+template<>
+SV*
+perl_interpreter::to_sv (SV* v)
+{
+  return newSVsv (v);
 }
 
 /*
  * SV* -> T
  */
 
-#if 0
 template<>
-bool
+SV*
 perl_interpreter::sv_to (SV* v)
 {
-  return SvUV (v);
+  return v;
 }
-#endif
+
+// vim:ft=xs

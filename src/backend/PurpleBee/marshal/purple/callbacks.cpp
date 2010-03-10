@@ -3,6 +3,8 @@
  */
 #include <tuple>
 
+#include <boost/foreach.hpp>
+
 #include <purple.h>
 
 #include "common/perl/interpreter.h"
@@ -56,21 +58,33 @@ perl_interpreter::to_sv (std::tuple<PurpleAccountRequestAuthorizationCb, gpointe
 
 template<>
 SV*
-perl_interpreter::to_sv (std::tuple<PurpleRequestInputCallback, gpointer, char const*> closure)
+perl_interpreter::to_sv (std::tuple<PurpleRequestInputCb, gpointer, char const*> closure)
 {
   return newSVptr (PurpleBeeClosure::create (*this, closure), perl_package<PurpleBeeClosure>::stash, newSV (0));
 }
 
 template<>
 SV*
-perl_interpreter::to_sv (std::tuple<PurpleRequestChoiceCallback, gpointer, int> closure)
+perl_interpreter::to_sv (std::tuple<PurpleRequestChoiceCb, gpointer, int> closure)
 {
   return newSVptr (PurpleBeeClosure::create (*this, closure), perl_package<PurpleBeeClosure>::stash, newSV (0));
 }
 
 template<>
 SV*
-perl_interpreter::to_sv (std::tuple<PurpleRequestFieldsCallback, gpointer, PurpleRequestFields*> closure)
+perl_interpreter::to_sv (std::vector<std::tuple<PurpleRequestActionCb, gpointer, int>> closures)
+{
+  AV* av = newAV ();
+  BOOST_FOREACH (auto const& clos, closures)
+    {
+      av_push (av, to_sv (clos));
+    }
+  return to_sv (av);
+}
+
+template<>
+SV*
+perl_interpreter::to_sv (std::tuple<PurpleRequestFieldsCb, gpointer, PurpleRequestFields*> closure)
 {
   return newSVptr (PurpleBeeClosure::create (*this, closure), perl_package<PurpleBeeClosure>::stash, newSV (0));
 }

@@ -1,8 +1,9 @@
 /* Copyright © 2010 Pippijn van Steenhoven
  * See COPYING.AGPL for licence information.
  */
-#include <tuple>
 #include <vector>
+
+#include <boost/foreach.hpp>
 
 #include "common/perl/interpreter.h"
 #include "common/perl/marshal.h"
@@ -13,9 +14,14 @@
 
 template<>
 SV*
-perl_interpreter::to_sv (std::vector<std::tuple<char const*, int>> v)
+perl_interpreter::to_sv (std::vector<char const*> v)
 {
-  NO_CONV (v, "va_list");
+  AV* av = newAV ();
+  BOOST_FOREACH (char const* s, v)
+    {
+      av_push (av, to_sv (s));
+    }
+  return to_sv (av);
 }
 
 /*
@@ -30,3 +36,5 @@ perl_interpreter::sv_to (SV* v)
   return SvUV (v);
 }
 #endif
+
+// vim:ft=xs

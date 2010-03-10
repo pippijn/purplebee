@@ -1,3 +1,7 @@
+all interfaces:
+	- Support different code pages: translation to/from. Codepages here and
+	  there.
+
 web interface:
 	- If a conversation is held on the web, echo everything to IRC and vice
 	  versa.

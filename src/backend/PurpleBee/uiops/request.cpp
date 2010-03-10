@@ -3,7 +3,8 @@
  */
 #include "common/util/make_closure.h"
 #include "common/util/make_closure_each.h"
-#include "common/util/va_list.h"
+#include "common/util/va_list_unpack0.h"
+#include "common/util/va_list_unpackN.h"
 
 #include "backend/PurpleBee/callbacks.h"
 #include "backend/PurpleBee/perl_call.h"
@@ -31,22 +32,22 @@ namespace uiops
                          , void* user_data
                          )
   {
-    return perl_call<void*> ( OPS "request_input"
-                            , title
-                            , primary
-                            , secondary
-                            , default_value
-                            , multiline
-                            , masked
-                            , hint
-                            , ok_text
-                            , make_closure (PurpleRequestInputCallback (ok_cb), user_data, (char const*)0)
-                            , cancel_text
-                            , make_closure (PurpleRequestInputCallback (cancel_cb), user_data, (char const*)0)
-                            , account
-                            , who
-                            , conv
-                            );
+    return perl_call<SV*> ( OPS "request_input"
+                          , title
+                          , primary
+                          , secondary
+                          , default_value
+                          , multiline
+                          , masked
+                          , hint
+                          , ok_text
+                          , make_closure (PurpleRequestInputCb (ok_cb), user_data, (char const*)0)
+                          , cancel_text
+                          , make_closure (PurpleRequestInputCb (cancel_cb), user_data, (char const*)0)
+                          , account
+                          , who
+                          , conv
+                          );
   }
 
   void*
@@ -65,20 +66,20 @@ namespace uiops
                           , va_list choices
                           )
   {
-    return perl_call<void*> ( OPS "request_choice"
-                            , title
-                            , primary
-                            , secondary
-                            , default_value
-                            , ok_text
-                            , make_closure (PurpleRequestChoiceCallback (ok_cb), user_data, 0)
-                            , cancel_text
-                            , make_closure (PurpleRequestChoiceCallback (cancel_cb), user_data, 0)
-                            , account
-                            , who
-                            , conv
-                            , wrap_va_list<char const*, int> (choices)
-                            );
+    return perl_call<SV*> ( OPS "request_choice"
+                          , title
+                          , primary
+                          , secondary
+                          , default_value
+                          , ok_text
+                          , make_closure (PurpleRequestChoiceCb (ok_cb), user_data, 0)
+                          , cancel_text
+                          , make_closure (PurpleRequestChoiceCb (cancel_cb), user_data, 0)
+                          , account
+                          , who
+                          , conv
+                          , wrap_va_list<char const*, int> (choices).unpack ()
+                          );
   }
 
   void*
@@ -91,25 +92,30 @@ namespace uiops
                           , PurpleConversation* conv
                           , void* user_data
                           , size_t action_count
-                          , va_list actions)
+                          , va_list actions
+                          )
   {
-    return perl_call<void*> ( OPS "request_action"
-                            , title
-                            , primary
-                            , secondary
-                            , default_action
-                            , account
-                            , who
-                            , conv
-                            , make_closure_each<1>
-                                 ( wrap_va_list<size_t, char const*, PurpleRequestActionCb>
-                                      ( action_count
-                                      , actions
-                                      )
-                                 , user_data
-                                 , 0
-                                 )
-                            );
+    return perl_call<SV*> ( OPS "request_action"
+                          , title
+                          , primary
+                          , secondary
+                          , default_action
+                          , account
+                          , who
+                          , conv
+                          , wrap_va_list<size_t, char const*, PurpleRequestActionCb>
+                               ( action_count
+                               , actions
+                               ).unpack<0> ()
+                          , make_closure_each
+                               ( wrap_va_list<size_t, char const*, PurpleRequestActionCb>
+                                    ( action_count
+                                    , actions
+                                    ).unpack<1> ()
+                               , user_data
+                               , 0
+                               )
+                          );
   }
 
   void*
@@ -127,19 +133,19 @@ namespace uiops
                           , void* user_data
                           )
   {
-    return perl_call<void*> ( OPS "request_fields"
-                            , title
-                            , primary
-                            , secondary
-                            , fields
-                            , ok_text
-                            , make_closure (PurpleRequestFieldsCallback (ok_cb), user_data, (PurpleRequestFields*)0)
-                            , cancel_text
-                            , make_closure (PurpleRequestFieldsCallback (cancel_cb), user_data, (PurpleRequestFields*)0)
-                            , account
-                            , who
-                            , conv
-                            );
+    return perl_call<SV*> ( OPS "request_fields"
+                          , title
+                          , primary
+                          , secondary
+                          , fields
+                          , ok_text
+                          , make_closure (PurpleRequestFieldsCb (ok_cb), user_data, (PurpleRequestFields*)0)
+                          , cancel_text
+                          , make_closure (PurpleRequestFieldsCb (cancel_cb), user_data, (PurpleRequestFields*)0)
+                          , account
+                          , who
+                          , conv
+                          );
   }
 
   void*
@@ -154,22 +160,22 @@ namespace uiops
                         , void* user_data
                         )
   {
-    return perl_call<void*> ( OPS "request_file"
-                            , title
-                            , filename
-                            , savedialog
-                            , make_closure (PurpleRequestFileCallback (ok_cb), user_data, (char const*)0)
-                            , make_closure (PurpleRequestFileCallback (cancel_cb), user_data, (char const*)0)
-                            , account
-                            , who
-                            , conv
-                            );
+    return perl_call<SV*> ( OPS "request_file"
+                          , title
+                          , filename
+                          , savedialog
+                          , make_closure (PurpleRequestFileCb (ok_cb), user_data, (char const*)0)
+                          , make_closure (PurpleRequestFileCb (cancel_cb), user_data, (char const*)0)
+                          , account
+                          , who
+                          , conv
+                          );
   }
 
   void
   request::close_request (PurpleRequestType type, void* ui_handle)
   {
-    return perl_call<void> (OPS "close_request", type, ui_handle);
+    return perl_call<void> (OPS "close_request", type, (SV*)ui_handle);
   }
 
   void*
@@ -183,15 +189,15 @@ namespace uiops
                           , void* user_data
                           )
   {
-    return perl_call<void*> ( OPS "request_folder"
-                            , title
-                            , dirname
-                            , make_closure (PurpleRequestFolderCallback (ok_cb), user_data, (char const*)0)
-                            , make_closure (PurpleRequestFolderCallback (cancel_cb), user_data, (char const*)0)
-                            , account
-                            , who
-                            , conv
-                            );
+    return perl_call<SV*> ( OPS "request_folder"
+                          , title
+                          , dirname
+                          , make_closure (PurpleRequestFolderCb (ok_cb), user_data, (char const*)0)
+                          , make_closure (PurpleRequestFolderCb (cancel_cb), user_data, (char const*)0)
+                          , account
+                          , who
+                          , conv
+                          );
   }
 
   PurpleRequestUiOps

@@ -13,9 +13,4 @@ typedef PurpleXferFunction PurpleXferRequestDeniedFunction;
 typedef void (*PurplePounceFunction)(PurplePounce* pounce);
 typedef void (*PurpleConversationFunction)(PurpleConversation* conv);
 
-typedef void (*PurpleRequestInputCallback)(void* user_data, char const* input);
-typedef void (*PurpleRequestChoiceCallback)(void* user_data, int choice);
-typedef void (*PurpleRequestActionCallback)(void* user_data, int option);
-typedef void (*PurpleRequestFieldsCallback)(void* user_data, PurpleRequestFields* fields);
-typedef void (*PurpleRequestFileCallback)(void* user_data, char const* filename);
-typedef void (*PurpleRequestFolderCallback)(void* user_data, char const* foldername);
+typedef PurpleRequestFileCb PurpleRequestFolderCb;

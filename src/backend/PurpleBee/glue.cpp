@@ -276,14 +276,16 @@ PurpleBee::run ()
 void
 PurpleBee::valgrind (bool full)
 {
-#if HAVE_VALGRIND_MEMCHECK_H
   if (full)
     {
+#ifdef VALGRIND_DO_LEAK_CHECK
       VALGRIND_DO_LEAK_CHECK;
+#endif
     }
   else
     {
+#ifdef VALGRIND_DO_QUICK_LEAK_CHECK
       VALGRIND_DO_QUICK_LEAK_CHECK;
-    }
 #endif
+    }
 }

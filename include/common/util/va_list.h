@@ -25,13 +25,6 @@ struct va_list0
 };
 
 template<typename... Info>
-std::ostream&
-output (va_list0<Info...> const& wrap, std::ostream& os)
-{
-  return os << "<va_list>";
-}
-
-template<typename... Info>
 va_list0<Info...>
 wrap_va_list (va_list ap)
 {
@@ -47,6 +40,9 @@ struct va_listN
   typedef std::tuple<Info...> info_type;
 
   std::vector<info_type> unpack ();
+  template<int Index>
+  std::vector<typename std::tuple_element<Index, info_type>::type>
+  unpack ();
 
   va_listN (IntT size, va_list ap)
     : size (size)
@@ -54,13 +50,6 @@ struct va_listN
   {
   }
 };
-
-template<typename IntT, typename... Info>
-std::ostream&
-output (va_listN<IntT, Info...> const& wrap, std::ostream& os)
-{
-  return os << "<va_list>";
-}
 
 template<typename IntT, typename... Info>
 va_listN<IntT, Info...>

@@ -44,7 +44,7 @@ output (T const (&array)[N], std::ostream& os)
   os << '{';
   for (size_t i = 0; i < N; ++i)
     {
-      output (os, array[i]);
+      output (array[i], os);
       if (i < N - 1)
         os << ", ";
     }
@@ -117,7 +117,19 @@ output (std::tuple<Args...> const& tuple, std::ostream& os)
 {
   os << "tuple (";
   detail::tuple_formatter<0, sizeof... (Args)>::output (tuple, os);
-  os << ")";
+  os << ')';
+  return os;
+}
+
+template<typename T1, typename T2>
+static inline std::ostream&
+output (std::pair<T1, T2> const& pair, std::ostream& os)
+{
+  os << "pair (";
+  output (pair.first, os);
+  os << ", ";
+  output (pair.second, os);
+  os << ')';
   return os;
 }
 
