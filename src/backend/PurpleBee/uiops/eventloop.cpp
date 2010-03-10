@@ -18,7 +18,6 @@ namespace uiops
   gboolean
   eventloop::timeout_remove (guint handle)
   {
-    *((char*)0) = 0;
     return perl_call<gboolean> (OPS "timeout_remove", handle);
   }
 

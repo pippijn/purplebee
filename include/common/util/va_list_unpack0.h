@@ -21,6 +21,7 @@ va_list0<Info...>::unpack ()
   std::vector<info_type> vector;
   while (va_rest<typename std::tuple_element<0, info_type>::type> (list))
     vector.push_back (va_argN<info_type> (list));
+  va_end (list);
   return vector;
 }
 

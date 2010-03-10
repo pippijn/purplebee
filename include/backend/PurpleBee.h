@@ -53,6 +53,7 @@ struct PurpleBee
   void fault (int kind);
 
   using perl_interpreter::call;
+  using perl_interpreter::perl;
   using perl_interpreter::sv_to;
   using perl_interpreter::to_sv;
 };

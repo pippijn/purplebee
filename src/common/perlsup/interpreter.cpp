@@ -25,8 +25,11 @@ perl_interpreter::perl_interpreter (int argc, char* argv[], char* env[])
 
 perl_interpreter::~perl_interpreter ()
 {
+  xassert (my_perl);
+  fprintf (stderr, "******************************** bye perl\n");
   perl_destruct (my_perl);
   perl_free (my_perl);
+  my_perl = NULL;
 }
 
 

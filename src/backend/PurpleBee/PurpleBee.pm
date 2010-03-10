@@ -47,8 +47,9 @@ use PurpleBee::UiOps::Xfer;
 our $runcv = AnyEvent->condvar;
 
 sub main {
-   my ($self, $username, $password, $protocol) = @_;
-   #my $timer = AnyEvent->timer (after => 4, cb => sub { $runcv->broadcast });
+   my ($self) = @_;
+   my ($username, $password, $protocol) = ('purplebee-test@xinutec.org', 'purplebee-test', 'prpl-jabber');
+   #my $timer = AnyEvent->timer (after => 60, cb => sub { $runcv->broadcast });
    PurpleBee::Debug::info "perl",
       sprintf ( "Running libpurple %s (single instance = %d)"
               , PurpleBee::Core::get_version

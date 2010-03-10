@@ -27,7 +27,8 @@ sub request_action {
       , $account, $who, $conv, $texts, $actions) = @_;
    PurpleBee::Debug::info "perl", "PurpleBee::UiOps::Request::request_action ($title, $primary, $secondary, $default_action, $account, $who, $conv, $texts, $actions)";
 
-   undef # void*
+   # TODO: hardcoded default taking choice 1, not modifying arguments
+   AnyEvent->timer (after => 2, cb => sub { $actions->[0]->invoke });
 }
 
 sub request_fields {

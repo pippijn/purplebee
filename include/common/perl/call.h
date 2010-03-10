@@ -7,6 +7,7 @@
 #include "common/debug/dout.h"
 #include "common/perl/eval_error.h"
 #include "common/perl/interpreter.h"
+#include "common/perl/output.h"
 
 #define CHECK_ERROR     \
   if (SvTRUE (ERRSV))   \

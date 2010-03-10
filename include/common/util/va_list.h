@@ -25,6 +25,11 @@ struct va_list0
   {
     va_copy (this->ap, ap);
   }
+
+  ~va_list0 ()
+  {
+    va_end (ap);
+  }
 };
 
 template<typename... Info>
@@ -51,6 +56,11 @@ struct va_listN
     : size (size)
   {
     va_copy (this->ap, ap);
+  }
+
+  ~va_listN ()
+  {
+    va_end (ap);
   }
 };
 

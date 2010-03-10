@@ -1,0 +1,18 @@
+#include "common/perl/output.h"
+#include "common/util/xassert.h"
+
+PerlInterpreter* our_perl;
+
+std::ostream&
+operator << (std::ostream& os, SV* sv)
+{
+  xassert (our_perl);
+  PerlInterpreter* my_perl = our_perl;
+  if (!sv)
+    os << "NULL";
+  else if (sv == &PL_sv_undef)
+    os << "undef";
+  else
+    os << SvPV_nolen (sv);
+  return os;
+}

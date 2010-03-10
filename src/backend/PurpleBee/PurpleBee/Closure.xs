@@ -17,7 +17,7 @@ PurpleBeeClosure::DESTROY ()
     delete THIS;
 
 SV*
-PurpleBeeClosure::call ()
+PurpleBeeClosure::invoke ()
     CODE:
 {
     static int const max_count = 400;

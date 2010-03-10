@@ -195,7 +195,7 @@ private:
   }
 
   // Read in the symbol table.
-  void slurp_symtab (bfd* abfd)
+  void read_symtab (bfd* abfd)
   {
     if ((bfd_get_file_flags (abfd) & HAS_SYMS) == 0)
       return;
@@ -295,7 +295,7 @@ private:
       }
 
     xassert (!syms);
-    slurp_symtab (abfd);
+    read_symtab (abfd);
 
     frame frame = translate_addresses (abfd, addr, naddr);
 

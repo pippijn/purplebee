@@ -14,6 +14,7 @@ va_listN<IntT, Info...>::unpack ()
   std::vector<info_type> vector;
   for (IntT i = 0; i != size; ++i)
     vector.push_back (va_argN<info_type> (list));
+  va_end (list);
   return vector;
 }
 

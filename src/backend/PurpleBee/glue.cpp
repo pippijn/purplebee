@@ -45,6 +45,8 @@ init_server (int argc, char* argv[], char* env[])
   server_instance.reset (new PurpleBee (argc, argv, env));
   xassert (server_instance.get ());
   server_instance->init ();
+
+  our_perl = server_instance->perl ();
 }
 
 void
@@ -52,6 +54,8 @@ uninit_server ()
 {
   xassert (server_instance.get ());
   server_instance.reset (NULL);
+
+  our_perl = NULL;
 }
 
 PurpleBee*

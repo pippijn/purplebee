@@ -75,7 +75,7 @@ sub timeout_add_seconds {
             cb          => sub {
                PurpleBee::Debug::info "event", "timer $handle ($interval seconds) timed out";
                timeout_remove $self, $handle
-                  unless $closure->call
+                  unless $closure->invoke
             },
          );
 
@@ -130,7 +130,7 @@ sub input_add {
             poll => 'r',
             cb   => sub {
                PurpleBee::Debug::info "event", "read I/O on fd $fd ready";
-               $closure->call
+               $closure->invoke
             },
          ) if $cond & IO_READ;
 
@@ -139,7 +139,7 @@ sub input_add {
             poll => 'w',
             cb   => sub {
                PurpleBee::Debug::info "event", "write I/O on fd $fd ready";
-               $closure->call
+               $closure->invoke
             },
          ) if $cond & IO_WRITE;
 

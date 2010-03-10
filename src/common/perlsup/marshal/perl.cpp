@@ -30,7 +30,7 @@ template<>
 SV*
 perl_interpreter::sv_to (SV* v)
 {
-  return v;
+  return newSVsv (v);
 }
 
 // vim:ft=xs
