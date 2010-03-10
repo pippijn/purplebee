@@ -1,9 +1,6 @@
 #include <cstring>
 #include <vector>
 
-#ifdef __x86_64__
-int parse_arguments (int, char**) { return 2; }
-#else
 #include <argtable2.h>
 #include <purple.h>
 
@@ -85,4 +82,3 @@ parse_arguments (int argc, char** argv)
   arg_freetable (argtable, table.size ());
   return parse_status::resume;
 }
-#endif
