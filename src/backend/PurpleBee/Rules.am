@@ -28,6 +28,10 @@ include src/backend/PurpleBee/PurpleBee/Rules.am
 
 libPurpleBee_la_LIBADD = libdebug.la libutil.la libperlsup.la $(PERLLIB)
 
+
+data_DATA +=					\
+	src/backend/PurpleBee/PurpleBee.pm
+
 EXTRA_DIST +=					\
 	$(XS_FILES)				\
 	src/backend/PurpleBee/PurpleBee.pm	\
@@ -50,7 +54,3 @@ CLEANFILES +=					\
 			-typemap typemap					\
 			-prototypes $< > $@					\
 		|| ($(RM) $@ && false)
-
-
-data_DATA +=					\
-	src/backend/PurpleBee/PurpleBee.pm

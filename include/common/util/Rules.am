@@ -16,5 +16,7 @@ EXTRA_DIST +=					\
 	include/common/util/unimplemented.h	\
 	include/common/util/va_list.h		\
 	include/common/util/va_list_unpack.h	\
+	include/common/util/va_list_unpack0.h	\
+	include/common/util/va_list_unpackN.h	\
 	include/common/util/wrapper.h		\
 	include/common/util/xassert.h

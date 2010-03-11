@@ -1,3 +1,6 @@
+data_PurpleBeedir	= $(datadir)/PurpleBee
+data_PurpleBee_UiOpsdir	= $(data_PurpleBeedir)/UiOps
+
 AUTOMAKE_OPTIONS	= -Wall
 ACLOCAL_AMFLAGS		= -I m4
 
