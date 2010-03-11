@@ -54,19 +54,24 @@ $SIG{INT} = sub { $runcv->broadcast };
 sub main {
    my ($self) = @_;
 
-   my ($username, $password, $protocol) = ('purplebee-test@xinutec.org', 'purplebee-test', 'prpl-jabber');
    #my $timer = AnyEvent->timer (after => 60, cb => sub { $runcv->broadcast });
    PurpleBee::Debug::info "perl",
-      sprintf ( "Running libpurple %s (single instance = %d)"
-              , PurpleBee::Core::get_version
-              , PurpleBee::Core::ensure_single_instance
-              );
-   my $account = PurpleBee::Account::new $username, $protocol
-      or die;
-   $account->set_bool ("use_clientlogin", 0);
-   $account->set_password ($password);
-   $account->set_enabled ($self->package, 1);
-   PurpleBee::Accounts::add $account;
+   sprintf ( "Running libpurple %s (single instance = %d)"
+      , PurpleBee::Core::get_version
+      , PurpleBee::Core::ensure_single_instance
+   );
+   for (
+      ['purplebee-test@xinutec.org', 'purplebee-test', 'prpl-jabber'],
+      ['621180987', 'B1neMaya', 'prpl-icq'],
+   ) {
+      my ($username, $password, $protocol) = @$_;
+      my $account = PurpleBee::Account::new $username, $protocol
+         or die;
+      $account->set_bool ("use_clientlogin", 0);
+      $account->set_password ($password);
+      $account->set_enabled ($self->package, 1);
+      PurpleBee::Accounts::add $account;
+   }
    my $status = PurpleBee::SavedStatus::new undef, 2
       or die;
    $status->activate;
