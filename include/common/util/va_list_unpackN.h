@@ -3,6 +3,8 @@
  */
 #pragma once
 
+#include <boost/foreach.hpp>
+
 #include "common/util/va_list_unpack.h"
 
 template<typename IntT, typename... Info>

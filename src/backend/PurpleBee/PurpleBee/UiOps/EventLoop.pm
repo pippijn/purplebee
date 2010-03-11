@@ -104,11 +104,6 @@ sub timeout_add {
 #### INPUT HANDLERS
 my @inputhandlers;
 
-use constant {
-   IO_READ  => 1 << 0,
-   IO_WRITE => 1 << 1,
-};
-
 # Adds an input handler.
 #
 # @param fd        The input file descriptor.
@@ -132,7 +127,7 @@ sub input_add {
                PurpleBee::Debug::info "event", "read I/O on fd $fd ready";
                $closure->invoke
             },
-         ) if $cond & IO_READ;
+         ) if $cond & PurpleBee::InputCondition::READ;
 
          $inputhandlers[$handle - 1]{write} = AnyEvent->io (
             fh   => $fd,
@@ -141,7 +136,7 @@ sub input_add {
                PurpleBee::Debug::info "event", "write I/O on fd $fd ready";
                $closure->invoke
             },
-         ) if $cond & IO_WRITE;
+         ) if $cond & PurpleBee::InputCondition::WRITE;
 
          return $handle
       }

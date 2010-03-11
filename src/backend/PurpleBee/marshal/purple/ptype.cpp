@@ -10,7 +10,6 @@
 #include "common/util/xassert.h"
 
 #include "backend/PurpleBee.h"
-#include "backend/PurpleBee/Closure.h"
 
 namespace
 {
@@ -60,6 +59,7 @@ namespace
 }
 
 
+#define OTYPE(T, P)
 #define PTYPE(T, P)                                     \
 template<>                                              \
 PASTE (Purple, T)*                                      \
@@ -71,6 +71,7 @@ perl_interpreter::sv_to (SV* v)                         \
 #include "backend/PurpleBee/types.h"
 
 
+#define OTYPE(T, P)
 #define PTYPE(T, P)                                     \
 template<>                                              \
 PASTE (Purple, T) const*                                \
@@ -81,6 +82,7 @@ perl_interpreter::sv_to (SV* v)                         \
 #include "backend/PurpleBee/types.h"
 
 
+#define OTYPE(T, P)
 #define PTYPE(T, P)                                     \
 template<>                                              \
 SV*                                                     \
@@ -91,6 +93,7 @@ perl_interpreter::to_sv (PASTE (Purple, T)* ob)         \
 #include "backend/PurpleBee/types.h"
 
 
+#define OTYPE(T, P)
 #define PTYPE(T, P)                                     \
 template<>                                              \
 SV*                                                     \

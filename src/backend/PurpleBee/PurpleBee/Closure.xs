@@ -17,7 +17,7 @@ PurpleBeeClosure::DESTROY ()
     delete THIS;
 
 SV*
-PurpleBeeClosure::invoke ()
+PurpleBeeClosure::invoke (...)
     CODE:
 {
     static int const max_count = 400;
@@ -54,7 +54,19 @@ PurpleBeeClosure::invoke ()
       }
 
     alarm (10);
-    RETVAL = THIS->invoke ();
+    if (THIS->curried ())
+      {
+        AV* args = newAV ();
+        for (int i = 1; i <= items; i++)
+          av_store (args, i - 1, ST (i));
+        if (av_len (args) != THIS->curried ())
+          croak ("invalid number of arguments: %d (expected %d)", av_len (args), THIS->curried ());
+        RETVAL = THIS->invoke (args);
+      }
+    else
+      {
+        RETVAL = THIS->invoke ();
+      }
     alarm (0);
 
     purple_debug_info ( "closure", "closure <%s> returned %s%s%s"

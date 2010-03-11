@@ -4,6 +4,33 @@ package PurpleBee::UiOps::Request;
 
 use common::sense;
 
+my %requests;
+
+sub close_request {
+   my ($self, $type, $ui_handle) = @_;
+   PurpleBee::Debug::info "perl", "PurpleBee::UiOps::Request::close_request ($type, $ui_handle)";
+
+   undef $requests{$type}[$ui_handle]
+}
+
+sub add_request {
+   my ($self, $type, $request) = @_;
+   PurpleBee::Debug::info "perl", "PurpleBee::UiOps::Request::add_request ($type, $request)";
+
+   for my $ui_handle (0 .. @{ $requests{$type} }) {
+      # If $ui_handle is currently free,
+      if (!$requests{$type}[$ui_handle]) {
+         # put the request into the array
+         $requests{$type}[$ui_handle] = $request;
+         PurpleBee::Debug::info "perl", "added request at $ui_handle";
+
+         return $ui_handle
+      }
+   }
+
+   die "impossible"
+}
+
 sub request_input {
    my ( $self, $title, $primary, $secondary, $default_value
       , $multiline, $masked, $hint, $ok_text, $ok_cb
@@ -27,8 +54,18 @@ sub request_action {
       , $account, $who, $conv, $texts, $actions) = @_;
    PurpleBee::Debug::info "perl", "PurpleBee::UiOps::Request::request_action ($title, $primary, $secondary, $default_action, $account, $who, $conv, $texts, $actions)";
 
-   # TODO: hardcoded default taking choice 1, not modifying arguments
-   AnyEvent->timer (after => 2, cb => sub { $actions->[0]->invoke });
+   # TODO: hardcoded default taking choice 0, not modifying arguments
+   my $ui_handle;
+   $ui_handle = add_request $self, PurpleBee::RequestType::ACTION, AnyEvent->timer (
+      after => 2,
+      cb => sub {
+         PurpleBee::Debug::info "perl", "executing action $ui_handle";
+         $actions->[0]->invoke (0);
+         close_request $self, PurpleBee::RequestType::ACTION, $ui_handle
+      },
+   );
+
+   $ui_handle
 }
 
 sub request_fields {
@@ -45,11 +82,6 @@ sub request_file {
    PurpleBee::Debug::info "perl", "PurpleBee::UiOps::Request::request_file ($title, $filename, $savedialog, $ok_cb, $cancel_cb, $account, $who, $conv)";
 
    undef # void*
-}
-
-sub close_request {
-   my ($self, $type, $ui_handle) = @_;
-   PurpleBee::Debug::info "perl", "PurpleBee::UiOps::Request::close_request ($type, $ui_handle)";
 }
 
 sub request_folder {

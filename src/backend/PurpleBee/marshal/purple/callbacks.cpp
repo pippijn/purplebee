@@ -23,63 +23,21 @@
 
 template<>
 SV*
-perl_interpreter::to_sv (std::tuple<PurpleInputFunction, gpointer, int, PurpleInputCondition> closure)
+perl_interpreter::to_sv (PurpleBeeClosure* closure)
 {
-  return newSVptr (PurpleBeeClosure::create (*this, closure), perl_package<PurpleBeeClosure>::stash, newSV (0));
+  return newSVptr (closure, perl_package<PurpleBeeClosure>::stash, newSV (0));
 }
 
 template<>
 SV*
-perl_interpreter::to_sv (std::tuple<PurpleDnsQueryResolvedCallback, PurpleDnsQueryData*, GSList*> closure)
-{
-  return newSVptr (PurpleBeeClosure::create (*this, closure), perl_package<PurpleBeeClosure>::stash, newSV (0));
-}
-
-template<>
-SV*
-perl_interpreter::to_sv (std::tuple<PurpleDnsQueryFailedCallback, PurpleDnsQueryData*, char const*> closure)
-{
-  return newSVptr (PurpleBeeClosure::create (*this, closure), perl_package<PurpleBeeClosure>::stash, newSV (0));
-}
-
-template<>
-SV*
-perl_interpreter::to_sv (std::tuple<PurpleAccountRequestAuthorizationCb, gpointer> closure)
-{
-  return newSVptr (PurpleBeeClosure::create (*this, closure), perl_package<PurpleBeeClosure>::stash, newSV (0));
-}
-
-template<>
-SV*
-perl_interpreter::to_sv (std::tuple<PurpleRequestInputCb, gpointer, char const*> closure)
-{
-  return newSVptr (PurpleBeeClosure::create (*this, closure), perl_package<PurpleBeeClosure>::stash, newSV (0));
-}
-
-template<>
-SV*
-perl_interpreter::to_sv (std::tuple<PurpleRequestChoiceCb, gpointer, int> closure)
-{
-  return newSVptr (PurpleBeeClosure::create (*this, closure), perl_package<PurpleBeeClosure>::stash, newSV (0));
-}
-
-template<>
-SV*
-perl_interpreter::to_sv (std::vector<std::tuple<PurpleRequestActionCb, gpointer, int>> closures)
+perl_interpreter::to_sv (std::vector<PurpleBeeClosure*> closures)
 {
   AV* av = newAV ();
-  BOOST_FOREACH (auto const& clos, closures)
+  BOOST_FOREACH (PurpleBeeClosure* clos, closures)
     {
       av_push (av, to_sv (clos));
     }
   return to_sv (av);
-}
-
-template<>
-SV*
-perl_interpreter::to_sv (std::tuple<PurpleRequestFieldsCb, gpointer, PurpleRequestFields*> closure)
-{
-  return newSVptr (PurpleBeeClosure::create (*this, closure), perl_package<PurpleBeeClosure>::stash, newSV (0));
 }
 
 
@@ -92,4 +50,11 @@ GCallback
 perl_interpreter::sv_to (SV* sv)
 {
   NO_CONV (sv, "GCallback");
+}
+
+template<>
+PurpleBeeClosure*
+perl_interpreter::sv_to (SV* sv)
+{
+  return static_cast<PurpleBeeClosure*> (SvPTR (sv));
 }

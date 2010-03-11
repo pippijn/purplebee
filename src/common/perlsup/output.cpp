@@ -1,6 +1,7 @@
 /* Copyright © 2010 Pippijn van Steenhoven
  * See COPYING.AGPL for licence information.
  */
+#include "common/perl/marshal.h"
 #include "common/perl/output.h"
 #include "common/util/xassert.h"
 
@@ -18,4 +19,10 @@ operator << (std::ostream& os, SV* sv)
   else
     os << SvPV_nolen (sv);
   return os;
+}
+
+std::ostream&
+operator << (std::ostream& os, handle hnd)
+{
+  return os << hnd.ptr;
 }

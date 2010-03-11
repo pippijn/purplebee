@@ -26,7 +26,7 @@
          );                                                             \
   newCONSTSUB                                                           \
     ( perl_package<decltype (PASTE3 (PURPLE_, TYPE, value))>::stash     \
-    , STRINGIZE (TYPE) #value                                           \
+    , #value                                                            \
     , server->to_sv (PASTE3 (PURPLE_, TYPE, value))                     \
     )
 

@@ -5,13 +5,12 @@
 #include <type_traits>
 
 #include "common/debug/dout.h"
-#include "common/perl/eval_error.h"
 #include "common/perl/interpreter.h"
 #include "common/perl/output.h"
 
 #define CHECK_ERROR     \
   if (SvTRUE (ERRSV))   \
-    throw eval_error (SvPVutf8_nolen (ERRSV));
+    purple_debug_error ("error during perl call: %s", SvPVutf8_nolen (ERRSV));
 
 inline
 perl_interpreter::caller::caller (perl_interpreter& perl, size_t argc)

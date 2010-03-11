@@ -26,6 +26,7 @@ BEGIN {
 #kill 'TERM', $$;
 
 use AnyEvent;
+#use AnyEvent::MP;
 
 use PurpleBee::UiOps::Account;
 use PurpleBee::UiOps::Blist;
@@ -48,6 +49,7 @@ our $runcv = AnyEvent->condvar;
 
 sub main {
    my ($self) = @_;
+
    my ($username, $password, $protocol) = ('purplebee-test@xinutec.org', 'purplebee-test', 'prpl-jabber');
    #my $timer = AnyEvent->timer (after => 60, cb => sub { $runcv->broadcast });
    PurpleBee::Debug::info "perl",

@@ -3,6 +3,7 @@
  */
 #pragma once
 
+#include "common/perl/closure.h"
 #include "common/perl/package.h"
 #include "common/util/output.h"
 #include "common/util/type_traits/identity.h"
@@ -93,6 +94,11 @@ public:
   // converted to scalars for the rest.
   template<typename R, typename... Args>
   R call (char const* method, Args const&... args);
+
+  perl_interpreter& base ()
+  {
+    return *this;
+  }
 };
 
 template<> SV* perl_interpreter::newSVptr<void> (void* ptr, HV* stash, SV* self, MGVTBL* vtbl);

@@ -219,6 +219,7 @@ PurpleBee::boot ()
 {
 #define PTYPE(T, P) \
   perl_package<PASTE (Purple, T)>::stash = gv_stashpv (perl_package<PASTE (Purple, T)>::name, 1);
+#define ITYPE(T, P) PTYPE(T, P)
 #include "backend/PurpleBee/types.h"
 #define const_val(value) newCONSTSUB (perl_package<PurpleBee>::stash, #value, to_sv (value))
   const_val (PACKAGE);

@@ -1,9 +1,9 @@
 /* Copyright © 2010 Pippijn van Steenhoven
  * See COPYING.AGPL for licence information.
  */
+#include "backend/PurpleBee/make_closure.h"
 #include "backend/PurpleBee/perl_call.h"
 #include "backend/uiops/dnsquery.h"
-#include "common/util/make_closure.h"
 
 #define OPS "UiOps::DnsQuery::"
 
@@ -17,8 +17,8 @@ namespace uiops
   {
     return perl_call<gboolean> ( OPS "resolve_host"
                                   , query_data
-                                  , make_closure (resolved_cb, query_data, (GSList*)0)
-                                  , std::make_tuple (failed_cb, query_data, (char const*)0)
+                                  , make_closure<1> (resolved_cb, query_data, (GSList*)0)
+                                  , make_closure<1> (failed_cb, query_data, (char const*)0)
                                   );
   }
 

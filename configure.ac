@@ -80,6 +80,7 @@ fi
 
 for module_vers in		\
    "AnyEvent 5.2"		\
+   "AnyEvent::MP 1.26"		\
    "common::sense 3.0"		\
 ; do
    set -- $module_vers

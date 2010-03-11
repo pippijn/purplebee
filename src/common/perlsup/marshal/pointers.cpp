@@ -9,14 +9,12 @@
  * T -> SV*
  */
 
-#if __x86_64__
 template<>
 SV*
-perl_interpreter::to_sv (va_list v)
+perl_interpreter::to_sv (handle v)
 {
-  NO_CONV (v, "va_list");
+  return to_sv (v.ptr);
 }
-#endif
 
 template<>
 SV*
@@ -107,6 +105,13 @@ unsigned char*
 perl_interpreter::sv_to (SV* sv)
 {
   NO_CONV (sv, "unsigned char*");
+}
+
+template<>
+handle
+perl_interpreter::sv_to (SV* sv)
+{
+  return handle (sv_to<uintptr_t> (sv));
 }
 
 template<>

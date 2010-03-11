@@ -28,32 +28,39 @@ my $pippijn;
 sub write_im {
    my ($self, $conv, $who, $message, $flags, $mtime) = @_;
    PurpleBee::Debug::info "perl", "PurpleBee::UiOps::Conversation::write_im (conv=$conv, who=$who, message=$message, flags=$flags, mtime=$mtime)";
-   if ($flags & 2 and (0
-                       or $who eq 'pip88nl@gmail.com'
-                       or $who eq "175138887"
-                       or $who eq 'pippijn@xinutec.org/BitlBee'
-                      )
-                 ) {
-      $pippijn = $conv->get_im_data;
+   if ($flags & 2) {
+      my $is_pippijn =  $who eq 'pip88nl@gmail.com'
+                     || $who eq "175138887"
+                     || $who eq 'pippijn@xinutec.org/BitlBee'
+                     ;
+      $pippijn = $conv->get_im_data
+         if $is_pippijn;
       if (my ($cmd) = $message =~ /eval\s*{(.*?)}(?:<\/FONT>|<\/body>|$)/) {
-         $cmd =~ s/&lt;/</g;
-         $cmd =~ s/&gt;/>/g;
-         $cmd =~ s/&amp;/&/g;
-         $cmd =~ s/&quot;/"/g;
-         PurpleBee::Debug::info "perl", "************ evalling $cmd";
-         my $dump = (Dumper eval $cmd) || $@;
-         $conv->get_im_data->send_with_flags ($dump, 1);
+         if ($is_pippijn) {
+            $cmd =~ s/&lt;/</g;
+            $cmd =~ s/&gt;/>/g;
+            $cmd =~ s/&amp;/&/g;
+            $cmd =~ s/&quot;/"/g;
+            PurpleBee::Debug::info "perl", "************ evalling $cmd";
+            my $dump = (Dumper eval $cmd) || $@;
+            $conv->get_im_data->send_with_flags ("result: $dump", 1);
+         } else {
+            $conv->get_im_data->send_with_flags ("eval is not allowed", 1);
+         }
       } elsif ($message =~ /quit/i) {
          $conv->get_im_data->send_with_flags ("bye bye", 1);
-         $PurpleBee::runcv->broadcast;
+         $PurpleBee::runcv->broadcast
+            if $is_pippijn;
+      } elsif ($message =~ /stats/i) {
+         use Devel::Gladiator 'walk_arena';
+         $conv->get_im_data->send_with_flags ("current SV* count: " . @{ walk_arena() }, 1);
+      } elsif ($message =~ /commands/i) {
+         $conv->get_im_data->send_with_flags ("eval, quit, stats, commands", 1);
       } else {
          $conv->get_im_data->send_with_flags ("echo: $message", 1);
       }
-   } elsif ($flags & 2) {
-      $conv->get_im_data->send_with_flags ("echo: $message", 1)
-         unless $pippijn;
       $pippijn->send_with_flags ("$who: $message", 1)
-         if $pippijn;
+         if $pippijn && !$is_pippijn;
    }
 }
 

@@ -3,10 +3,11 @@
  */
 #pragma once
 
-template<int...>
+template<int... Pack>
 struct int_pack
 {
   typedef int_pack type;
+  static int const size = sizeof... (Pack);
 };
 
 template<typename, int>

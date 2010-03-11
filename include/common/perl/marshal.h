@@ -14,5 +14,28 @@
     output (value, std::cerr);          \
     std::cerr << "' to " << package;    \
     std::cerr << '\n';                  \
-    UNIMPLEMENTED;                      \
+    croak ("unimplemented operation"    \
+           " `%s' at %s:%d"             \
+           , __func__                   \
+           , __FILE__                   \
+           , __LINE__);                 \
   } while (0)
+
+struct handle
+{
+  handle (void* ptr)
+    : ptr (uintptr_t (ptr))
+  {
+  }
+
+  handle (uintptr_t ptr)
+    : ptr (ptr)
+  {
+  }
+
+  operator void* () { return (void*)ptr; }
+
+  uintptr_t ptr;
+};
+
+std::ostream& operator << (std::ostream& os, handle hnd);

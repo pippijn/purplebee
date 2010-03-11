@@ -21,7 +21,7 @@
 # define PTYPE(T, P)
 #endif
 #ifndef OTYPE
-# define OTYPE(T, P) PTYPE (T, P)
+# define OTYPE(T, P) PTYPE(T, P)
 #endif
 #ifndef ITYPE
 # define ITYPE(T, P)
@@ -33,7 +33,7 @@
 #define PKG PACKAGE_NAME "::"
 
 PTYPE (Bee,                             "PurpleBee")
-PTYPE (BeeClosure,                      PKG "Closure")
+OTYPE (BeeClosure,                      PKG "Closure")
 
 PTYPE (Account,                         PKG "Account")
 PTYPE (AccountOption,                   PKG "Account::Option")

@@ -56,6 +56,7 @@ struct PurpleBee
   using perl_interpreter::perl;
   using perl_interpreter::sv_to;
   using perl_interpreter::to_sv;
+  using perl_interpreter::base;
 };
 
 #define server get_server_instance ()

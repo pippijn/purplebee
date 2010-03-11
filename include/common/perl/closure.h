@@ -3,7 +3,7 @@
  */
 #pragma once
 
-#include "common/perl/operation.h"
+#include "common/perl/closure_fwd.h"
 #include "common/util/closure.h"
 
 typedef closure<perl_operation> perl_closure;
