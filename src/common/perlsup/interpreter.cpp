@@ -1,7 +1,6 @@
 /* Copyright © 2010 Pippijn van Steenhoven
  * See COPYING.AGPL for licence information.
  */
-#include "common/perl/eval_error.h"
 #include "common/perl/interpreter.h"
 #include "common/util/xassert.h"
 

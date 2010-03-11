@@ -43,13 +43,6 @@ perl_interpreter::to_sv (GSList* list)
   NO_CONV (list, "GSList*");
 }
 
-template<>
-SV*
-perl_interpreter::to_sv (std::tuple<GSourceFunc, gpointer> closure)
-{
-  return newSVptr (PurpleBeeClosure::create (*this, closure), perl_package<PurpleBeeClosure>::stash, newSV (0));
-}
-
 
 /*
  * SV* -> T

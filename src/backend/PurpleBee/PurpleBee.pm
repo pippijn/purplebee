@@ -45,7 +45,11 @@ use PurpleBee::UiOps::Sound;
 use PurpleBee::UiOps::Whiteboard;
 use PurpleBee::UiOps::Xfer;
 
+#configure;
+
 our $runcv = AnyEvent->condvar;
+
+$SIG{INT} = sub { $runcv->broadcast };
 
 sub main {
    my ($self) = @_;

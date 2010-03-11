@@ -95,9 +95,9 @@ INCLUDE: PurpleBee/Idle.xs
 INCLUDE: PurpleBee/Log.xs
 INCLUDE: PurpleBee/Mime/Document.xs
 INCLUDE: PurpleBee/Mime/Part.xs
+INCLUDE: PurpleBee/NTLM.xs
 INCLUDE: PurpleBee/Network.xs
 INCLUDE: PurpleBee/Notify.xs
-INCLUDE: PurpleBee/NTLM.xs
 INCLUDE: PurpleBee/Pounce.xs
 INCLUDE: PurpleBee/Pounces.xs
 INCLUDE: PurpleBee/Prefs.xs

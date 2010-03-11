@@ -54,14 +54,14 @@ sub request_action {
       , $account, $who, $conv, $texts, $actions) = @_;
    PurpleBee::Debug::info "perl", "PurpleBee::UiOps::Request::request_action ($title, $primary, $secondary, $default_action, $account, $who, $conv, $texts, $actions)";
 
-   # TODO: hardcoded default taking choice 0, not modifying arguments
+   # TODO: hardcoded default taking choice 0
    my $ui_handle;
-   $ui_handle = add_request $self, PurpleBee::RequestType::ACTION, AnyEvent->timer (
+   $ui_handle = add_request $self, PurpleBee::Request::Type::ACTION, AnyEvent->timer (
       after => 2,
       cb => sub {
          PurpleBee::Debug::info "perl", "executing action $ui_handle";
          $actions->[0]->invoke (0);
-         close_request $self, PurpleBee::RequestType::ACTION, $ui_handle
+         close_request $self, PurpleBee::Request::Type::ACTION, $ui_handle
       },
    );
 

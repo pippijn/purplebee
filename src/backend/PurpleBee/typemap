@@ -23,7 +23,6 @@ guint8 const*				T_BEE_OBJECT
 guint8*					T_BEE_OBJECT
 guint					T_BEE_OBJECT
 struct tm*				T_BEE_OBJECT
-va_list					T_BEE_OBJECT
 void const*				T_BEE_OBJECT
 
 GByteArray*				T_BEE_OBJECT
