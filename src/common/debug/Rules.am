@@ -2,9 +2,11 @@ lib_LTLIBRARIES += libdebug.la
 
 libdebug_la_SOURCES =				\
 	src/common/debug/backtrace.cpp		\
-	src/common/debug/backtrace_symbols.cpp	\
+	src/common/debug/backtrace_frontend.cpp	\
 	src/common/debug/dout.cpp		\
 	src/common/debug/fork_trace.cpp		\
 	src/common/debug/signal.cpp
+
+include src/common/debug/stacktrace/Rules.am
 
 libdebug_la_LIBADD = libutil.la -ldl -lpthread #-lbfd

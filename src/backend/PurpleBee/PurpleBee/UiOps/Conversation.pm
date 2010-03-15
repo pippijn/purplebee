@@ -47,6 +47,12 @@ sub write_im {
          } else {
             $conv->get_im_data->send_with_flags ("eval is not allowed", 1);
          }
+      } elsif ($message =~ /valgrind full/i) {
+         $self->valgrind (1);
+         $conv->get_im_data->send_with_flags ("valgrind full leakcheck done", 1);
+      } elsif ($message =~ /valgrind quick/i) {
+         $self->valgrind;
+         $conv->get_im_data->send_with_flags ("valgrind quick leakcheck done", 1);
       } elsif ($message =~ /quit/i) {
          $conv->get_im_data->send_with_flags ("bye bye", 1);
          $PurpleBee::runcv->broadcast
@@ -55,7 +61,15 @@ sub write_im {
          use Devel::Gladiator 'walk_arena';
          $conv->get_im_data->send_with_flags ("current SV* count: " . @{ walk_arena() }, 1);
       } elsif ($message =~ /commands/i) {
-         $conv->get_im_data->send_with_flags ("eval, quit, stats, commands", 1);
+         my $cmds = join ", ", (
+            "commands",
+            "eval",
+            "quit",
+            "stats",
+            "valgrind full",
+            "valgrind quick",
+         );
+         $conv->get_im_data->send_with_flags ($cmds, 1);
       } else {
          $conv->get_im_data->send_with_flags ("echo: $message", 1);
       }

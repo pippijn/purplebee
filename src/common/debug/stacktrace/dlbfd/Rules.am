@@ -1,0 +1,4 @@
+libdebug_la_SOURCES +=						\
+	src/common/debug/stacktrace/dlbfd/dlbfd_ctor.cpp	\
+	src/common/debug/stacktrace/dlbfd/dlbfd_dtor.cpp	\
+	src/common/debug/stacktrace/dlbfd/load_bfd.cpp

@@ -2,8 +2,10 @@ include include/common/util/type_traits/Rules.am
 
 EXTRA_DIST +=					\
 	include/common/util/array_size.h	\
+	include/common/util/auto_free.h		\
 	include/common/util/closure.h		\
 	include/common/util/common.h		\
+	include/common/util/force_assign.h	\
 	include/common/util/init_error.h	\
 	include/common/util/invoke_closure.h	\
 	include/common/util/make_closure.h	\

@@ -48,7 +48,12 @@ AC_COMPILE_IFELSE(
 AC_CHECK_HEADERS([tuple unordered_map type_traits boost/bimap.hpp])
 
 # debugging
-AC_CHECK_HEADERS([valgrind/valgrind.h valgrind/memcheck.h bfd.h execinfo.h])
+AC_CHECK_HEADERS([dnl
+   valgrind/valgrind.h dnl
+   valgrind/memcheck.h dnl
+   execinfo.h dnl
+   bfd.h dnl
+])
 
 # argument parsing
 AC_CHECK_HEADER([argtable2.h], [], [AC_MSG_ERROR([You need to have libargtable2-dev installed])])

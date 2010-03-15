@@ -40,10 +40,10 @@ irc interface:
 	- Support account creation from within the UI.
 	- Automatic rejection of spambots (for example by regex match).
 	- Add/remove users from invisible list.
-	- use /sanick in addition to bitlbee-alike “rename”, for better IRC
+	- use /sanick in addition to bitlbee-alike "rename", for better IRC
 	  look and feel 
 	  - same thing to remove a buddy from the buddy list: /kill in addition 
-	    to “delete”
+	    to "delete"
 	  - /kick to kick a buddy from a buddy group, /invite to add a buddy to
 	    a buddy group (same thing for MUCs, but they are different channels 
 	    anyway)

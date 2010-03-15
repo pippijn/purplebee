@@ -1,0 +1,201 @@
+=head1 Architecture
+
+Some thoughts on the general architecture. Note that these are very much in
+flux and can and probably will change in major aspects. It might even be
+completely thrown away and rethought.
+
+=head2 Entities
+
+We have the following entity types:
+
+=over
+
+=item node
+
+In this document, a I<node> is one hardware or virtualised hardware node on
+which multiple processes can run. This is in contrast to the C<AnyEvent::MP>
+nodes, which I<are> processes. To be absolutely clear: one node as used in
+this document can contain multiple C<AnyEvent::MP> nodes. In case the latter
+kind of node is discussed, it will be explicitly called C<AnyEvent::MP node>
+or C<aemp node>
+
+=item user
+
+A (physical) person who owns zero or more I<accounts>. They log in to an
+I<application> with their I<username> and I<password>.
+
+=item account
+
+A single account owned by a I<user>. It has a I<protocol> and an account
+I<name>, which is the login name for that specific protocol, such as the UIN
+for ICQ or the MSN screenname for Windows Live. The account name is unique per
+protocol, but not necessarily per user.
+
+=item protocol
+
+An instant messaging protocol such as ICQ (prpl-icq), MSN (prpl-msn) and
+Jabber (prpl-jabber).
+
+=back
+
+
+=head2 Processes
+
+The following types of processes shall form our network:
+
+=over
+
+=item backend
+
+One per I<user>, a backend process manages the I<accounts> of that user. These
+processes are managed by a I<supervisor>. After initialising themselves,
+backend processes register themselves with the I<manager> and await further
+instructions (such as adding/removing accounts, signing in/out, etc.). In
+order to properly initialise, it requires the supervisor to give it the
+username of the user it is managing accounts for. Backend processes must
+reside on the same I<node> as their respective supervisors.
+
+If the manager connection dies, the backend shall autonomously set all
+accounts to an away state and cache information such as incoming messages and
+requests. Running file transfers shall continue and transmission shall be
+restarted as soon as the manager connection returns.
+
+MAYBE: Keep track of file transmission to manager so it can be continued.
+
+
+=item supervisor
+
+One per I<node>, supervisors handle requests from the I<manager> to spawn new
+I<backends> or kill old ones. The manager does not use the supervisor for
+anything else. In particular, the supervisor is not responsible for the
+communication between manager and backends. If a backend dies, the supervisor
+shall respawn it. Therefore, supervisors must monitor the backends.
+C<AnyEvent::MP> already does this, so supervisors are merely responsible for
+taking the required action when a backend dies. The manager can send a
+supervisor one of the following messages:
+
+=over
+
+=item spawn ($username)
+
+Spawns a new backend process for the given username. Returns a backend
+identifier (possibly, but not necessarily the PID of the spawned process).
+This operation may return an error if creating a new process fails. Failure
+can be but is not limited to being caused by: out of system memory, reaching
+the configured maximum number of backends for the managed node.
+
+=item kill ($bid)
+
+Kills a backend process identified by $bid. This may happen because the
+relevant process has frozen and stopped responding to the manager or because
+the user has logged out and did not have persistent login turned on. This
+operation always succeeds.
+
+=item check ($bid)
+
+In this check routine, the supervisor will make sure that the relevant backend
+process is alive and responding. A failed check will most likely result in the
+supervisor killing the process and spawning a new one.
+
+=back
+
+The supervisor needs to keep track of all processes it spawned, so it can
+execute I<kill>-requests.
+
+If a manager requests an existing backend, that means, a backend that is
+already running for a given username, the supervisor shall not spawn another
+backend process but rather return the backend identifier for the existing one.
+This is useful if a manager dies but the backend is still running. That way,
+the new manager can reestablish the connection to the backend and serve the
+user with possibly missed information.
+
+
+=item manager
+
+The network can contain multiple managers, though not more than one per
+I<node>. A manager can exist on the same node as a I<supervisor>. Managers
+keep track of I<users>. It knows the I<username> and hashed I<password> for
+these users. For each user, a manager knows the node on which that user's
+account data resides, so it can set up a backend on that node using the node's
+supervisor. On receiving login information (username/password), the manager
+checks this information. If the password was correct for the passed username,
+it contacts the relevant supervisor to create a new connection to the backend
+for that user. A manager provides a large amount of functionality, implemented
+in terms of proxying to the backends. As such, the manager is a kind of a
+demultiplexer for the multitude of backends.
+
+After a short period after a backend connection dies, the manager shall
+contact the supervisor and instruct it to check() on the backend. If the
+supervisor noticed that the backend is dead before the manager contacts it,
+the respawned backend will have registered with that manager, so the latter
+will not contact the supervisor.
+
+Manager information is stored in a database, which is shared by all managers.
+Multiple managers are not allowed to manage the same I<backend> at the same
+time.
+
+
+=item application
+
+An application forms the user front end such as graphical or text user
+interface, irc gateway, xmpp transport or web application. It handles all user
+interaction and communicates only with the managers. When a user enters their
+account data, the application asks the manager to log in using that data. The
+manager can return success or failure, success meaning the user is logged in
+and the communication channel is established, failure meaning that either the
+user does not exist or their password is incorrect. The manager shall return
+appropriate error codes and/or messages, which the application is free to use
+or ignore.
+
+
+=item adaptor/proxy
+
+Almost all components described above shall be implemented in Perl using
+C<AnyEvent::MP> as the underlying communication protocol. However, it may be
+that the application (user interaction front end) will be written in a
+different language such as PHP or Java for a web front end. In such a setup,
+there may be a need for adapting proxies that translate between
+C<AnyEvent::MP> and a protocol the application understands (such as XML-RPC).
+
+
+=item configurator
+
+We want to support semi-automatic discovery and configuration of the
+communication network. Before any of the above is launched or initialised, one
+configurator is started for each node that should participate in the network.
+These configurators are simple Perl scripts that configure their own
+I<aemp node>. As soon as an application is registered, autoconfiguration
+starts from there. A possible scenario could be:
+
+  - Launch configurators on all nodes:
+    - A: the node where the web application will run
+    - N1..N3: three extra nodes that are autoconfigured later
+  - Launch a web application (this does not look for anything, yet)
+  - Launch an XML-RPC adaptor for the web application
+    => Autoconfiguration begins and decides the following layout:
+    - A: 1 manager + 1 supervisor
+    - N1..N3: 1 supervisor each
+      - The supervisors on A and N1..N3 register with the manager running on A
+
+After that, users can log in:
+
+  - User "pippijn" logs in to the web application
+  - The web application tells the manager on A about this
+  - Manager A decides to ask supervisor A first, because it is empty and near
+  - Supervisor A spawns a backend process
+  - Backend process "pippijn" registers with manager A
+  - Manager A tells the web application: connection established
+  - From now on, when "pippijn" issues commands via the web interface, they go
+    to the manager, which then proxies them to the backend
+  - Happy IMing :-)
+
+After all nodes have been configured, the configurators are gone (they exec()
+their configured tasks). TODO: Reconfiguring in case of a netsplit?
+
+TODO: Think of an entirely different way of organising it (P2P?).
+
+=back
+
+=cut
+
+vim:tw=78
