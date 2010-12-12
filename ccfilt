@@ -1,0 +1,57 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings FATAL => 'all';
+use utf8;
+
+use Capture::Tiny 'capture_merged';
+use Term::ANSIColor ':constants';
+
+#my @output = split /\n/, capture_merged { system grep { !/nostdlib/ } @ARGV };
+my @output = split /\n/, capture_merged { system @ARGV };
+my $exit = $? >> 8;
+
+my $C = CYAN;
+my $G = GREEN;
+my $R = RED;
+my $Y = YELLOW;
+
+my $B = BOLD;
+my $U = UNDERSCORE;
+
+my $N = RESET;
+
+sub colourise {
+   my ($c, $t) = @_;
+   for ($t) {
+      s/^(.*?)(\w+)\(/$1$c$B$2$N$c (/;
+      s/\b(void|bool|wchar_t|char|short|int|long|unsigned|signed|const|volatile|float|double)\b/$G$1$c/g;
+      s/\b(if|else|do|while|switch|case)\b/$Y$1$c/g;
+      s/\b(throw|try|catch)\b/$Y$1$c/g;
+      s/\b(new|delete|this|friend|using|static_assert)\b/$Y$1$c/g;
+      s/\b(public|protected|private)\b/$Y$1$c/g;
+      s/\b(operator|typeid|decltype)\b/$Y$1$c/g;
+      s/\b(static|extern|inline|virtual|explicit|export|mutable)\b/$Y$1$c/g;
+      s/\b(class|typename|template|namespace)\b/$Y$1$c/g;
+      s/\b(true|false)\b/$Y$1$c/g;
+   }
+
+   \$t
+}
+
+for (@output) {
+   utf8::decode $_;
+   s/^([^ ]*?:\d+:\d+):/$U$1$N:/;
+   s/(error):/$R$1$N:/;
+   s/(warning):/$Y$1$N:/;
+   s/std:://g;
+   s/boost:://g;
+   s/basic_ostream<char>/ostream/g;
+   s/, ostream = ostream//g;
+   s/‘(.*?)’/‘$C${colourise $C, $1}$N’/g;
+   utf8::encode $_;
+}
+print join "\n", @output;
+print "\n" if @output;
+
+exit $exit

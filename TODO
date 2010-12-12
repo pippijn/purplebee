@@ -7,6 +7,7 @@ web interface:
 	  versa.
 
 irc interface:
+	- Configurable addressing modes: "root: foo", "root, foo", etc.
 	- User documentation in the form of web and man pages (POD) in
 	  addition to the root dialogue.
 	- Intelligent root dialogue (AI).
