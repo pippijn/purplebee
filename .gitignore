@@ -1,15 +1,21 @@
-/COPYING
-/INSTALL
-# autotools files
-/Makefile.in
+# $builddir
 /_build
+/_inst
+
+# Autotools files
 /aclocal.m4
+/autoconf
 /autoconf.h.in
 /autoconf.h.in~
-/autoconf
 /autom4te.cache
 /configure
-/m4/libtool
+/COPYING
+/INSTALL
+/m4
+Makefile.in
+
+# Work in progress, not for git
+/wip
 
 # qmake object directory
 /qbuild/obj
