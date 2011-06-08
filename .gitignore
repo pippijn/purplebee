@@ -18,3 +18,8 @@ Makefile.in
 
 # Work in progress, not for git
 /wip
+
+# Other version control systems
+.cvsignore
+.svn
+CVS

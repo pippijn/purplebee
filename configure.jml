@@ -6,8 +6,8 @@ project {
 	lang: "C++"
 
 	shell { 'CPPFLAGS="$CPPFLAGS -std=c++0x"' }
-	ap_c_variadic_templates { }
-	ap_c_lambda { }
+	ap_c_variadic_templates;
+	ap_c_lambda;
 
 	check_header {
 		"argtable2.h"
@@ -24,12 +24,12 @@ project {
 	pkgconfig { package: "glib-2.0" version: "2.28.6" }
 	pkgconfig { package: "purple" version: "2.7.11" }
 
-	ap_lib_perl { }
+	ap_lib_perl;
 	ap_perl_mods {
 		li { "AnyEvent 5.2" }
 		//li { "AnyEvent::MP 1.26" }
 		li { "common::sense 3.0" }
 	}
 
-	output { }
+	output;
 }
