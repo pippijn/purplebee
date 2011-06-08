@@ -31,7 +31,5 @@ project {
 		li { "common::sense 3.0" }
 	}
 
-	output {
-		li { "Makefile" }
-	}
+	output { }
 }
