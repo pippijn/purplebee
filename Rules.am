@@ -1,20 +1,7 @@
+include automake/init.am
+
 data_PurpleBeedir	= $(datadir)/PurpleBee
 data_PurpleBee_UiOpsdir	= $(data_PurpleBeedir)/UiOps
-
-AUTOMAKE_OPTIONS	= -Wall
-ACLOCAL_AMFLAGS		= -I m4
-
-lib_LTLIBRARIES		= # empty
-bin_PROGRAMS		= # empty
-data_DATA		= # empty
-
-BUILT_SOURCES		= # empty
-
-EXTRA_DIST		= # empty
-
-CLEANFILES		= # empty
-DISTCLEANFILES		= # empty
-MAINTAINERCLEANFILES	= # empty
 
 OPTFLAGS		= -pipe -O0 -ggdb3 -fno-inline
 WARNINGS		= # empty
@@ -29,13 +16,19 @@ WARNINGS		+= -Wno-error=padded
 WARNINGS		+= -Wno-error=unused-parameter
 WARNINGS		+= -Wno-error=write-strings
 
-AM_CFLAGS		= $(OPTFLAGS) $(WARNINGS)
-AM_CXXFLAGS		= $(OPTFLAGS) $(WARNINGS)
-AM_CPPFLAGS		= -I$(srcdir)/include -I$(builddir)/include -include autoconf.h
-AM_CPPFLAGS		+= -isystem /usr/lib/perl/5.10/CORE
+AM_CFLAGS		+= $(OPTFLAGS) $(WARNINGS)
+AM_CXXFLAGS		+= $(OPTFLAGS) $(WARNINGS)
+AM_CPPFLAGS		+= -include config.h
+AM_CPPFLAGS		+= -isystem /usr/lib/perl/5.12/CORE
 AM_CPPFLAGS		+= -isystem /usr/lib/perl5/core_perl/CORE
 AM_CPPFLAGS		+= -isystem /usr/include/libpurple
-AM_LDFLAGS		= -Wl,-z,defs,-z,noexecstack,-z,now
+AM_LDFLAGS		+= -Wl,-z,defs,-z,noexecstack,-z,now
+
+AM_CPPFLAGS		+= $(GLIB_CFLAGS)
+AM_LDFLAGS		+= $(GLIB_LIBS)
+
+AM_CPPFLAGS		+= $(PURPLE_CFLAGS)
+AM_LDFLAGS		+= $(PURPLE_LIBS)
 
 AM_CPPFLAGS		+= -DBINDIR='"$(bindir)"'
 AM_CPPFLAGS		+= -DSBINDIR='"$(sbindir)"'

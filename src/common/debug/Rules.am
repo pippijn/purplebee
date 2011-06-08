@@ -9,4 +9,4 @@ libdebug_la_SOURCES =				\
 
 include src/common/debug/stacktrace/Rules.am
 
-libdebug_la_LIBADD = libutil.la -ldl -lpthread #-lbfd
+libdebug_la_LIBADD = libpbutil.la -ldl -lpthread #-lbfd

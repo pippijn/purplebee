@@ -5,49 +5,16 @@
 # Autotools files
 /aclocal.m4
 /autoconf
-/autoconf.h.in
-/autoconf.h.in~
 /autom4te.cache
+/config.h.in
+/config.h.in~
+/config.log
 /configure
-/COPYING
 /INSTALL
 /m4
+/configure.ac
+Makefile.am
 Makefile.in
 
 # Work in progress, not for git
 /wip
-
-# qmake object directory
-/qbuild/obj
-
-# qtcreator user profile
-/qbuild/groovy.pro.user
-
-# thumbnails created by windows
-Thumbs.db
-# files build by Visual Studio
-*.obj
-*.exe
-*.pdb
-*.user
-*.aps
-*.pch
-*.vspscc
-*_i.c
-*_p.c
-*.ncb
-*.suo
-*.tlb
-*.tlh
-*.bak
-*.cache
-*.ilk
-*.log
-[Bb]in
-[Dd]ebug*/
-*.lib
-*.sbr
-obj/
-[Rr]elease*/
-_ReSharper*/
-[Tt]est[Rr]esult*

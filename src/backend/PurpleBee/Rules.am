@@ -26,7 +26,7 @@ libPurpleBee_la_SOURCES =					\
 include src/backend/PurpleBee/marshal/Rules.am
 include src/backend/PurpleBee/PurpleBee/Rules.am
 
-libPurpleBee_la_LIBADD = libdebug.la libutil.la libperlsup.la $(PERLLIB)
+libPurpleBee_la_LIBADD = libdebug.la libpbutil.la libperlsup.la $(PERLLIB)
 
 
 data_DATA +=					\
@@ -37,20 +37,12 @@ EXTRA_DIST +=					\
 	src/backend/PurpleBee/PurpleBee.pm	\
 	src/backend/PurpleBee/typemap
 
-SUFFIXES = .xs
-
 src/backend/PurpleBee/PurpleBee.cpp: src/backend/PurpleBee/typemap $(XS_FILES)
 
 CLEANFILES +=					\
 	src/backend/PurpleBee/PurpleBee.cpp	\
 	perlxsi.c
 
-.xs.cpp:
-	$(MKDIR_P) `dirname $@`
-	$(PERL) -MExtUtils::Embed -e xsinit -- -std PurpleBee
-	PERL="$(PERL)" srcdir="$(srcdir)/src/backend/PurpleBee"			\
-		$(PERL) $(PERLPRIVLIBEXP)/ExtUtils/xsubpp -C++ -csuffix .cpp	\
-			-typemap $(PERLPRIVLIBEXP)/ExtUtils/typemap		\
-			-typemap typemap					\
-			-prototypes $< > $@					\
-		|| ($(RM) $@ && false)
+PERLXSMOD = PurpleBee
+
+include automake/perlxs.am
