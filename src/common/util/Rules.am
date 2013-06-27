@@ -1,0 +1,5 @@
+lib_LTLIBRARIES += libpbutil.la
+
+libpbutil_la_SOURCES =				\
+	src/common/util/unimplemented.cpp	\
+	src/common/util/xassert.cpp

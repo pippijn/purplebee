@@ -1,0 +1,3 @@
+=head1 Distributed IM Client
+
+L<Git repository|http://xinutec.org/git/net/purplebee.git/>

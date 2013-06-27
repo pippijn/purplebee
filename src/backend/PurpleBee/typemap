@@ -1,0 +1,206 @@
+# Copyright © 2010 Pippijn van Steenhoven
+# See COPYING.AGPL for licence information.
+TYPEMAP
+
+char const**				T_BEE_OBJECT
+char const*				T_BEE_OBJECT
+char unsigned const*			T_BEE_OBJECT
+char unsigned				T_BEE_OBJECT
+gboolean				T_BEE_OBJECT
+gchar const*				T_BEE_OBJECT
+gchar*					T_BEE_OBJECT
+gconstpointer				T_BEE_OBJECT
+gint64					T_BEE_OBJECT
+gint					T_BEE_OBJECT
+gpointer				T_BEE_OBJECT
+gsize					T_BEE_OBJECT
+gssize					T_BEE_OBJECT
+guchar const*				T_BEE_OBJECT
+guchar*					T_BEE_OBJECT
+guint32					T_BEE_OBJECT
+guint64					T_BEE_OBJECT
+guint8 const*				T_BEE_OBJECT
+guint8*					T_BEE_OBJECT
+guint					T_BEE_OBJECT
+struct tm*				T_BEE_OBJECT
+void const*				T_BEE_OBJECT
+
+GByteArray*				T_BEE_OBJECT
+GHashTable*				T_BEE_OBJECT
+GList*					T_BEE_OBJECT
+GSList*					T_BEE_OBJECT
+GType					T_BEE_OBJECT
+GCallback				T_BEE_OBJECT
+GSourceFunc				T_BEE_OBJECT
+GString*				T_BEE_OBJECT
+
+PurpleBeeClosure*			T_BEE_OBJECT
+PurpleBee*				T_BEE_OBJECT
+
+PurpleAccountOption*			T_BEE_OBJECT
+PurpleAccount*				T_BEE_OBJECT
+PurpleAccountUiOps*			T_BEE_OBJECT
+PurpleAccountUserSplit*			T_BEE_OBJECT
+PurpleBlistNode*			T_BEE_OBJECT
+PurpleBlistUiOps*			T_BEE_OBJECT
+PurpleBuddyIconSpec*			T_BEE_OBJECT
+PurpleBuddyIcon*			T_BEE_OBJECT
+PurpleBuddyList*			T_BEE_OBJECT
+PurpleBuddy*				T_BEE_OBJECT
+PurpleCertificatePool*			T_BEE_OBJECT
+PurpleCertificateScheme*		T_BEE_OBJECT
+PurpleCertificate*			T_BEE_OBJECT
+PurpleCertificateVerificationRequest*	T_BEE_OBJECT
+PurpleCertificateVerifier*		T_BEE_OBJECT
+PurpleChat*				T_BEE_OBJECT
+PurpleCipherContext*			T_BEE_OBJECT
+PurpleCipherOps*			T_BEE_OBJECT
+PurpleCipher*				T_BEE_OBJECT
+PurpleConnectionErrorInfo const*	T_BEE_OBJECT
+PurpleConnection*			T_BEE_OBJECT
+PurpleConnectionUiOps*			T_BEE_OBJECT
+PurpleContact*				T_BEE_OBJECT
+PurpleConvChatBuddy*			T_BEE_OBJECT
+PurpleConvChat*				T_BEE_OBJECT
+PurpleConversation*			T_BEE_OBJECT
+PurpleConversationUiOps*		T_BEE_OBJECT
+PurpleConvIm*				T_BEE_OBJECT
+PurpleConvMessage*			T_BEE_OBJECT
+PurpleCore*				T_BEE_OBJECT
+PurpleCoreUiOps*			T_BEE_OBJECT
+PurpleDebugUiOps*			T_BEE_OBJECT
+PurpleDnsQueryData*			T_BEE_OBJECT
+PurpleDnsQueryUiOps*			T_BEE_OBJECT
+PurpleEventLoopUiOps*			T_BEE_OBJECT
+PurpleGroup*				T_BEE_OBJECT
+PurpleIdleUiOps*			T_BEE_OBJECT
+PurpleLogLogger*			T_BEE_OBJECT
+PurpleLogSet*				T_BEE_OBJECT
+PurpleLog*				T_BEE_OBJECT
+PurpleMenuAction*			T_BEE_OBJECT
+PurpleMimeDocument*			T_BEE_OBJECT
+PurpleMimePart*				T_BEE_OBJECT
+PurpleNetworkListenData*		T_BEE_OBJECT
+PurpleNotifySearchColumn*		T_BEE_OBJECT
+PurpleNotifySearchResults*		T_BEE_OBJECT
+PurpleNotifyUiOps*			T_BEE_OBJECT
+PurpleNotifyUserInfoEntry*		T_BEE_OBJECT
+PurpleNotifyUserInfo*			T_BEE_OBJECT
+PurplePlugin*				T_BEE_OBJECT
+PurplePounce*				T_BEE_OBJECT
+PurplePresenceContext*			T_BEE_OBJECT
+PurplePresence*				T_BEE_OBJECT
+PurplePrivacyUiOps*			T_BEE_OBJECT
+PurpleProxyConnectData*			T_BEE_OBJECT
+PurpleProxyInfo*			T_BEE_OBJECT
+PurpleRequestFieldGroup*		T_BEE_OBJECT
+PurpleRequestFields*			T_BEE_OBJECT
+PurpleRequestField*			T_BEE_OBJECT
+PurpleRequestUiOps*			T_BEE_OBJECT
+PurpleRoomlistField*			T_BEE_OBJECT
+PurpleRoomlistRoom*			T_BEE_OBJECT
+PurpleRoomlist*				T_BEE_OBJECT
+PurpleRoomlistUiOps*			T_BEE_OBJECT
+PurpleSavedStatusSub*			T_BEE_OBJECT
+PurpleSavedStatus*			T_BEE_OBJECT
+PurpleSmiley*				T_BEE_OBJECT
+PurpleSoundTheme*			T_BEE_OBJECT
+PurpleSoundUiOps*			T_BEE_OBJECT
+PurpleSslConnection*			T_BEE_OBJECT
+PurpleSslConnection			T_BEE_OBJECT
+PurpleSslOps*				T_BEE_OBJECT
+PurpleStatusAttr*			T_BEE_OBJECT
+PurpleStatus*				T_BEE_OBJECT
+PurpleStatusType const*			T_BEE_OBJECT
+PurpleStatusType*			T_BEE_OBJECT
+PurpleStoredImage*			T_BEE_OBJECT
+PurpleStringref*			T_BEE_OBJECT
+PurpleStunNatDiscovery*			T_BEE_OBJECT
+PurpleUtilFetchUrlData*			T_BEE_OBJECT
+PurpleValue*				T_BEE_OBJECT
+PurpleWhiteboardPrplOps*		T_BEE_OBJECT
+PurpleWhiteboard*			T_BEE_OBJECT
+PurpleWhiteboardUiOps*			T_BEE_OBJECT
+PurpleXfer*				T_BEE_OBJECT
+PurpleXferUiOps*			T_BEE_OBJECT
+UPnPMappingAddRemove*			T_BEE_OBJECT
+
+PurpleAccountRegistrationCb		T_BEE_OBJECT
+PurpleAccountRequestAuthorizationCb	T_BEE_OBJECT
+PurpleAccountUnregistrationCb		T_BEE_OBJECT
+PurpleCallback				T_BEE_OBJECT
+PurpleCertificateVerifiedCallback	T_BEE_OBJECT
+PurpleCmdFunc				T_BEE_OBJECT
+PurpleConversationFunction		T_BEE_OBJECT
+PurpleDnsQueryConnectFunction		T_BEE_OBJECT
+PurpleFilterAccountFunc			T_BEE_OBJECT
+PurpleInfoFieldFormatCallback		T_BEE_OBJECT
+PurpleInputFunction			T_BEE_OBJECT
+PurpleLogReadFlags			T_BEE_OBJECT
+PurpleNetworkListenCallback		T_BEE_OBJECT
+PurpleNotifyCloseCallback		T_BEE_OBJECT
+PurpleNotifySearchResultsCallback	T_BEE_OBJECT
+PurplePounceFunction			T_BEE_OBJECT
+PurplePounceCb				T_BEE_OBJECT
+PurplePrefCallback			T_BEE_OBJECT
+PurpleProxyConnectFunction		T_BEE_OBJECT
+PurpleSslErrorFunction			T_BEE_OBJECT
+PurpleSslInputFunction			T_BEE_OBJECT
+PurpleUPnPCallback			T_BEE_OBJECT
+PurpleUtilFetchUrlCallback		T_BEE_OBJECT
+PurpleXferAckFunction			T_BEE_OBJECT
+PurpleXferFunction			T_BEE_OBJECT
+PurpleXferReadFunction			T_BEE_OBJECT
+PurpleXferWriteFunction			T_BEE_OBJECT
+
+PurpleBlistNodeFlags			T_BEE_OBJECT
+PurpleBlistNodeType			T_BEE_OBJECT
+PurpleCertificateVerificationStatus	T_BEE_OBJECT
+PurpleCipherBatchMode			T_BEE_OBJECT
+PurpleCmdFlag				T_BEE_OBJECT
+PurpleCmdId				T_BEE_OBJECT
+PurpleCmdPriority			T_BEE_OBJECT
+PurpleCmdStatus				T_BEE_OBJECT
+PurpleConnectionError			T_BEE_OBJECT
+PurpleConnectionFlags			T_BEE_OBJECT
+PurpleConnectionState			T_BEE_OBJECT
+PurpleConvChatBuddyFlags		T_BEE_OBJECT
+PurpleConversationType			T_BEE_OBJECT
+PurpleConvUpdateType			T_BEE_OBJECT
+PurpleDebugLevel			T_BEE_OBJECT
+PurpleInputCondition			T_BEE_OBJECT
+PurpleLogType				T_BEE_OBJECT
+PurpleMessageFlags			T_BEE_OBJECT
+PurpleNotifyMsgType			T_BEE_OBJECT
+PurpleNotifySearchButtonType		T_BEE_OBJECT
+PurpleNotifyType			T_BEE_OBJECT
+PurpleNotifyUserInfoEntryType		T_BEE_OBJECT
+PurplePounceEvent			T_BEE_OBJECT
+PurplePounceOption			T_BEE_OBJECT
+PurplePrefType				T_BEE_OBJECT
+PurplePresenceContext			T_BEE_OBJECT
+PurpleProxyType				T_BEE_OBJECT
+PurpleRequestFieldType			T_BEE_OBJECT
+PurpleRequestType			T_BEE_OBJECT
+PurpleRoomlistFieldType			T_BEE_OBJECT
+PurpleRoomlistRoomType			T_BEE_OBJECT
+PurpleSoundEventID			T_BEE_OBJECT
+PurpleSslErrorType			T_BEE_OBJECT
+PurpleStatusPrimitive			T_BEE_OBJECT
+PurpleType				T_BEE_OBJECT
+PurpleTypingState			T_BEE_OBJECT
+PurpleXferStatusType			T_BEE_OBJECT
+PurpleXferRequestDeniedFunction		T_BEE_OBJECT
+PurpleXferType				T_BEE_OBJECT
+
+
+INPUT
+
+T_BEE_OBJECT
+	$var = server->sv_to<$type> ($arg);
+
+
+OUTPUT
+
+T_BEE_OBJECT
+	$arg = server->to_sv<$type> ($var);

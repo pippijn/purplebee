@@ -1,0 +1,20 @@
+libdebug_la_SOURCES +=						\
+	src/common/debug/stacktrace/backtrace_symbols.cpp	\
+	src/common/debug/stacktrace/check_bfd.cpp		\
+	src/common/debug/stacktrace/find_address_in_section.cpp	\
+	src/common/debug/stacktrace/find_matching_file.cpp	\
+	src/common/debug/stacktrace/process_file.cpp		\
+	src/common/debug/stacktrace/read_symtab.cpp		\
+	src/common/debug/stacktrace/resolve_frame.cpp		\
+	src/common/debug/stacktrace/resolve_frame_internal.cpp	\
+	src/common/debug/stacktrace/stacktrace_ctor.cpp		\
+	src/common/debug/stacktrace/stacktrace_dtor.cpp		\
+	src/common/debug/stacktrace/translate_addresses.cpp
+
+include src/common/debug/stacktrace/dlbfd/Rules.am
+
+EXTRA_DIST +=							\
+	src/common/debug/stacktrace/dlbfd.h			\
+	src/common/debug/stacktrace/file_match.h		\
+	src/common/debug/stacktrace/frame.h			\
+	src/common/debug/stacktrace/stacktrace.h

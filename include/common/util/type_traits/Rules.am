@@ -1,0 +1,6 @@
+EXTRA_DIST +=						\
+	include/common/util/type_traits/decay_array.h	\
+	include/common/util/type_traits/identity.h	\
+	include/common/util/type_traits/int_pack.h	\
+	include/common/util/type_traits/nth_type.h	\
+	include/common/util/type_traits/return_type.h

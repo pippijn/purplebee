@@ -1,0 +1,6 @@
+EXTRA_DIST +=					\
+	include/common/debug/backtrace.h	\
+	include/common/debug/dout.h		\
+	include/common/debug/purple.h		\
+	include/common/debug/signal.h		\
+	include/common/debug/trace.h

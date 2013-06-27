@@ -1,0 +1,24 @@
+EXTRA_DIST +=						\
+	include/backend/PurpleBee/Closure.h		\
+	include/backend/PurpleBee/callbacks.h		\
+	include/backend/PurpleBee/make_closure.h	\
+	include/backend/PurpleBee/make_closure_each.h	\
+	include/backend/PurpleBee/perl_call.h		\
+	include/backend/PurpleBee/types.h		\
+	include/backend/PurpleBee.h			\
+	include/backend/uiops/account.h			\
+	include/backend/uiops/blist.h			\
+	include/backend/uiops/connection.h		\
+	include/backend/uiops/conversation.h		\
+	include/backend/uiops/core.h			\
+	include/backend/uiops/debug.h			\
+	include/backend/uiops/dnsquery.h		\
+	include/backend/uiops/eventloop.h		\
+	include/backend/uiops/idle.h			\
+	include/backend/uiops/notify.h			\
+	include/backend/uiops/privacy.h			\
+	include/backend/uiops/request.h			\
+	include/backend/uiops/roomlist.h		\
+	include/backend/uiops/sound.h			\
+	include/backend/uiops/whiteboard.h		\
+	include/backend/uiops/xfer.h

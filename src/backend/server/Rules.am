@@ -1,0 +1,10 @@
+bin_PROGRAMS += server
+
+server_SOURCES =				\
+	src/backend/server/arguments.cpp	\
+	src/backend/server/main.cpp
+
+server_LDADD = libdebug.la libperlsup.la libPurpleBee.la -largtable2
+
+EXTRA_DIST +=					\
+	src/backend/server/arguments.h

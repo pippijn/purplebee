@@ -1,0 +1,74 @@
+{
+   Perl regex compiler (i386)
+   Memcheck:Cond
+   fun:Perl_re_compile
+   fun:Perl_pregcomp
+   fun:Perl_pmruntime
+   fun:Perl_yyparse
+   obj:/usr/lib/libperl.so.5.10.1
+   fun:Perl_pp_require
+   fun:Perl_runops_standard
+   fun:Perl_call_sv
+   fun:Perl_call_list
+   obj:/usr/lib/libperl.so.5.10.1
+   fun:Perl_newATTRSUB
+   fun:Perl_utilize
+}
+{
+   Perl regex compiler (i386)
+   Memcheck:Cond
+   fun:Perl_re_compile
+   fun:Perl_pregcomp
+   fun:Perl_pp_regcomp
+   fun:Perl_runops_standard
+   fun:Perl_call_sv
+   fun:Perl_call_list
+   obj:/usr/lib/libperl.so.5.10.1
+   fun:Perl_newATTRSUB
+   fun:Perl_utilize
+   fun:Perl_yyparse
+   obj:/usr/lib/libperl.so.5.10.1
+   fun:Perl_pp_require
+}
+
+{
+   Perl regex compiler (amd64)
+   Memcheck:Cond
+   fun:Perl_re_compile
+   fun:Perl_pmruntime
+   fun:Perl_yyparse
+   obj:/usr/lib/libperl.so.5.10.1
+   fun:Perl_pp_require
+   fun:Perl_runops_standard
+   fun:Perl_call_sv
+   fun:Perl_call_list
+   obj:/usr/lib/libperl.so.5.10.1
+   fun:Perl_newATTRSUB
+   fun:Perl_utilize
+   fun:Perl_yyparse
+}
+{
+   Perl regex compiler (amd64)
+   Memcheck:Cond
+   fun:Perl_re_compile
+   fun:Perl_pp_regcomp
+   fun:Perl_runops_standard
+   fun:Perl_call_sv
+   fun:Perl_call_list
+   obj:/usr/lib/libperl.so.5.10.1
+   fun:Perl_newATTRSUB
+   fun:Perl_utilize
+   fun:Perl_yyparse
+   obj:/usr/lib/libperl.so.5.10.1
+   fun:Perl_pp_require
+   fun:Perl_runops_standard
+}
+
+{
+   http://sourceware.org/bugzilla/show_bug.cgi?id=10610
+   Memcheck:Free
+   fun:free
+   obj:/lib/libc-2.10.2.so
+   obj:/lib/libc-2.10.2.so
+   fun:_vgnU_freeres
+}

@@ -1,0 +1,19 @@
+data_PurpleBee_UiOps_DATA =					\
+	src/backend/PurpleBee/PurpleBee/UiOps/Account.pm	\
+	src/backend/PurpleBee/PurpleBee/UiOps/Blist.pm		\
+	src/backend/PurpleBee/PurpleBee/UiOps/Connection.pm	\
+	src/backend/PurpleBee/PurpleBee/UiOps/Conversation.pm	\
+	src/backend/PurpleBee/PurpleBee/UiOps/Core.pm		\
+	src/backend/PurpleBee/PurpleBee/UiOps/Debug.pm		\
+	src/backend/PurpleBee/PurpleBee/UiOps/DnsQuery.pm	\
+	src/backend/PurpleBee/PurpleBee/UiOps/EventLoop.pm	\
+	src/backend/PurpleBee/PurpleBee/UiOps/Idle.pm		\
+	src/backend/PurpleBee/PurpleBee/UiOps/Notify.pm		\
+	src/backend/PurpleBee/PurpleBee/UiOps/Privacy.pm	\
+	src/backend/PurpleBee/PurpleBee/UiOps/Request.pm	\
+	src/backend/PurpleBee/PurpleBee/UiOps/Roomlist.pm	\
+	src/backend/PurpleBee/PurpleBee/UiOps/Sound.pm		\
+	src/backend/PurpleBee/PurpleBee/UiOps/Whiteboard.pm	\
+	src/backend/PurpleBee/PurpleBee/UiOps/Xfer.pm
+
+EXTRA_DIST += $(data_PurpleBee_UiOps_DATA)

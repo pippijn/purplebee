@@ -1,0 +1,48 @@
+lib_LTLIBRARIES += libPurpleBee.la
+
+libPurpleBee_la_SOURCES =					\
+	src/backend/PurpleBee/uiops/account.cpp			\
+	src/backend/PurpleBee/uiops/blist.cpp			\
+	src/backend/PurpleBee/uiops/connection.cpp		\
+	src/backend/PurpleBee/uiops/conversation.cpp		\
+	src/backend/PurpleBee/uiops/core.cpp			\
+	src/backend/PurpleBee/uiops/debug.cpp			\
+	src/backend/PurpleBee/uiops/dnsquery.cpp		\
+	src/backend/PurpleBee/uiops/eventloop.cpp		\
+	src/backend/PurpleBee/uiops/idle.cpp			\
+	src/backend/PurpleBee/uiops/notify.cpp			\
+	src/backend/PurpleBee/uiops/privacy.cpp			\
+	src/backend/PurpleBee/uiops/request.cpp			\
+	src/backend/PurpleBee/uiops/roomlist.cpp		\
+	src/backend/PurpleBee/uiops/sound.cpp			\
+	src/backend/PurpleBee/uiops/whiteboard.cpp		\
+	src/backend/PurpleBee/uiops/xfer.cpp			\
+	src/backend/PurpleBee/PurpleBee.xs			\
+	src/backend/PurpleBee/faults.cpp			\
+	src/backend/PurpleBee/glue.cpp				\
+	src/backend/PurpleBee/stash.cpp				\
+	src/backend/PurpleBee/va_listise.cpp
+
+include src/backend/PurpleBee/marshal/Rules.am
+include src/backend/PurpleBee/PurpleBee/Rules.am
+
+libPurpleBee_la_LIBADD = libdebug.la libpbutil.la libperlsup.la $(PERLLIB)
+
+
+data_DATA +=					\
+	src/backend/PurpleBee/PurpleBee.pm
+
+EXTRA_DIST +=					\
+	$(XS_FILES)				\
+	src/backend/PurpleBee/PurpleBee.pm	\
+	src/backend/PurpleBee/typemap
+
+src/backend/PurpleBee/PurpleBee.cpp: src/backend/PurpleBee/typemap $(XS_FILES)
+
+CLEANFILES +=					\
+	src/backend/PurpleBee/PurpleBee.cpp	\
+	perlxsi.c
+
+PERLXSMOD = PurpleBee
+
+include automake/perlxs.am

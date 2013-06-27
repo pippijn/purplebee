@@ -1,0 +1,25 @@
+# $builddir
+/_build
+/_inst
+
+# Autotools files
+/aclocal.m4
+/autoconf
+/autom4te.cache
+/config.h.in
+/config.h.in~
+/config.log
+/configure
+/INSTALL
+/m4
+/configure.ac
+Makefile.am
+Makefile.in
+
+# Work in progress, not for git
+/wip
+
+# Other version control systems
+.cvsignore
+.svn
+CVS

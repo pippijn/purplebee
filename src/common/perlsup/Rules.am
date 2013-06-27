@@ -1,0 +1,14 @@
+lib_LTLIBRARIES += libperlsup.la
+
+libperlsup_la_SOURCES =				\
+	src/common/perlsup/marshal/numeric.cpp	\
+	src/common/perlsup/marshal/perl.cpp	\
+	src/common/perlsup/marshal/pointers.cpp	\
+	src/common/perlsup/marshal/va_list.cpp	\
+	src/common/perlsup/marshal/vector.cpp	\
+	src/common/perlsup/interpreter.cpp	\
+	src/common/perlsup/operation.cpp	\
+	src/common/perlsup/output.cpp		\
+	src/common/perlsup/vtable.cpp
+
+libperlsup_la_LIBADD = libpbutil.la $(PERLLIB)

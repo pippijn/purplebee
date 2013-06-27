@@ -1,0 +1,10 @@
+purple_get_conversations () -> GList*;
+purple_get_ims () -> GList*;
+purple_get_chats () -> GList*;
+purple_find_conversation_with_account (PurpleConversationType type, char const* name, PurpleAccount* account) -> PurpleConversation*;
+purple_conv_present_error (char const* who, PurpleAccount* account, char const* what) -> gboolean;
+purple_conv_send_confirm (PurpleConversation* conv, char const* message) -> void;
+purple_conv_custom_smiley_add (PurpleConversation* conv, char const* smile, char const* cksum_type, char const* chksum, gboolean remote) -> gboolean;
+purple_conv_custom_smiley_write (PurpleConversation* conv, char const* smile, guchar const* data, gsize size) -> void;
+purple_conv_custom_smiley_close (PurpleConversation* conv, char const* smile) -> void;
+purple_find_chat (PurpleConnection* gc, int id) -> PurpleConversation*;

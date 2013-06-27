@@ -1,0 +1,2 @@
+include src/backend/PurpleBee/Rules.am
+include src/backend/server/Rules.am

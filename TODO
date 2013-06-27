@@ -1,0 +1,60 @@
+all interfaces:
+	- Support different code pages: translation to/from. Codepages here and
+	  there.
+
+web interface:
+	- If a conversation is held on the web, echo everything to IRC and vice
+	  versa.
+
+irc interface:
+	- Configurable addressing modes: "root: foo", "root, foo", etc.
+	- User documentation in the form of web and man pages (POD) in
+	  addition to the root dialogue.
+	- Intelligent root dialogue (AI).
+	- File transfers via DCC.
+	- Grouping buddies in channels.
+	  - Allow for buddies to be in multiple groups.
+	- View actual away messages in /whois, not just the away-state.
+	- Allow direct addressing of buddies inside the channel by prefixing
+	  their name.
+	  - Default addressee in the channel is the last buddy addressed.
+	  - <@root> $yournick: You are now chatting with $buddy.
+	- A "lastseen" command that shows when a buddy was last online.
+	- /whois to show all information a protocol offers, like what "info"
+	  does in BitlBee.
+	- Some way to see buddy icons (web interface? DCC?).
+	- Also some way to see custom emoticons.
+	- Command to get source of the currently running server (either via link
+	  or DCC (required for AGPL).
+	- Server side logging.
+	  - A "lastlog" command showing the last $n lines of conversation.
+	- Optional auto-reply on away.
+	- Optional away-spam as in the buddies writing their away message into
+	  the channel (or possibly query if such has been active for the past $t
+	  minutes):
+	  12:34  * pippijn is now away (Working)
+	- Changing away-state via a command in addition to /away.
+	  - maybe provide an option to have bitlbee-like awaymessages aswell
+	    (/away Food - Hunting etc)
+	- Initiating multi user chats.
+	- ICQ "Invisible" and "Invisible for all" statuses.
+	- Support account creation from within the UI.
+	- Automatic rejection of spambots (for example by regex match).
+	- Add/remove users from invisible list.
+	- use /sanick in addition to bitlbee-alike "rename", for better IRC
+	  look and feel 
+	  - same thing to remove a buddy from the buddy list: /kill in addition 
+	    to "delete"
+	  - /kick to kick a buddy from a buddy group, /invite to add a buddy to
+	    a buddy group (same thing for MUCs, but they are different channels 
+	    anyway)
+	  - if buddy is not in any group anymore after /kick, move buddy to the
+	    root channel, if kicked from there, remove buddy completely from
+	    the buddy list
+	- #channels for MUCs, &channels for buddy grouping
+
+libpurple:
+	- Sending ICQ nick changes back to the server.
+	- Auto-reconnect.
+
+# vim:noexpandtab tw=80
